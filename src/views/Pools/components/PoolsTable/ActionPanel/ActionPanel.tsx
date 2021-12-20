@@ -57,7 +57,6 @@ const StyledActionPanel = styled.div<{ expanded: boolean }>`
           ${collapseAnimation} 300ms linear forwards
         `};
   overflow: hidden;
-  background: ${({ theme }) => theme.colors.dropdown};
   display: flex;
   flex-direction: column-reverse;
   justify-content: center;

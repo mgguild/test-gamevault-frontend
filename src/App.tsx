@@ -1,6 +1,6 @@
 import React, { lazy } from 'react'
 import { HashRouter, Redirect, Route, Switch } from 'react-router-dom'
-import { ResetCSS,  } from '@sparkpointio/sparkswap-uikit'
+import { ResetCSS,  } from '@metagg/mgg-uikit'
 import BigNumber from 'bignumber.js'
 import useEagerConnect from 'hooks/useEagerConnect'
 import { useFetchProfile, usePollBlockNumber, usePollCoreFarmData } from 'state/hooks'
@@ -46,15 +46,16 @@ const App: React.FC = () => {
       <Menu>
         <SuspenseWithChunkError fallback={<PageLoader />}>
           <Switch>
-            <Route path='/liquidity' exact>
+            {/* <Route path='/' exact>
+              <Pools />
+            </Route> */}
+            <Route path='/liquidity'>
               <Pools />
             </Route>
             {/* <Route path='/farms'>
               <Farms />
             </Route>
-            <Route path='/pools'>
-              <Pools />
-            </Route>
+            
             <Route path='/lottery'>
               <Lottery />
             </Route>
@@ -74,7 +75,7 @@ const App: React.FC = () => {
               <Profile />
             </Route> */}
             {/* Redirect */}
-            <Route path='/'>
+            <Route path='/staking'>
               <Redirect to='/liquidity' />
             </Route>
             <Route path='/' component={RedirectToPools} />

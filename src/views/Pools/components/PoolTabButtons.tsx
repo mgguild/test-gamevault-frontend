@@ -7,7 +7,7 @@ import {
   Text,
   Flex,
   useMatchBreakpoints,
-} from '@sparkpointio/sparkswap-uikit'
+} from '@metagg/mgg-uikit'
 import {   NotificationDot, } from '@pancakeswap/uikit'
 import { useTranslation } from 'contexts/Localization'
 import ToggleView, { ViewMode } from './ToggleView/ToggleView'
@@ -22,13 +22,13 @@ const PoolTabButtons = ({ stakedOnly, setStakedOnly, hasStakeInFinishedPools, vi
 
   let activeIndex
   switch (location.pathname) {
-    case '/pools':
+    case '/liquidity':
       activeIndex = 0
       break
-    case '/pools/history':
+    case '/liquidity/history':
       activeIndex = 1
       break
-    case '/pools/upcoming':
+    case '/liquidity/upcoming':
       activeIndex = 2
       break
     default:

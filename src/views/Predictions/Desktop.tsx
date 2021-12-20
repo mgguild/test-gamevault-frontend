@@ -81,7 +81,7 @@ const PositionPane = styled.div`
 `
 
 const Gutter = styled.div`
-  background: ${({ theme }) => theme.colors.dropdown};
+  background: ${({ theme }) => theme.colors.MGG_container};
   cursor: row-resize;
   height: 12px;
   position: relative;

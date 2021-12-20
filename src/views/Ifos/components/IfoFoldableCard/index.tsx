@@ -70,7 +70,7 @@ const Header = styled(CardHeader)<{ ifoId: string }>`
 
 const FoldableContent = styled.div<{ isVisible: boolean; isActive: boolean }>`
   display: ${({ isVisible }) => (isVisible ? 'block' : 'none')};
-  background: ${({ isActive, theme }) => (isActive ? theme.colors.gradients.bubblegum : theme.colors.dropdown)};
+  background: ${({ isActive, theme }) => (isActive ? theme.colors.gradients.bubblegum : theme.colors.MGG_container)};
 `
 
 const CardsWrapper = styled.div<{ singleCard: boolean }>`
@@ -94,7 +94,7 @@ const StyledCardBody = styled(CardBody)`
 const StyledCardFooter = styled(CardFooter)`
   text-align: center;
   padding: 8px;
-  background: ${({ theme }) => theme.colors.backgroundAlt};
+  background: ${({ theme }) => theme.colors.backgroundDisabled};
 `
 
 const IfoFoldableCard: React.FC<IfoFoldableCardProps> = ({ ifo, publicIfoData, walletIfoData, isInitiallyVisible }) => {

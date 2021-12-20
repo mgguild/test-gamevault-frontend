@@ -27,7 +27,6 @@ const StyledCard = styled(Card)`
 `
 
 const StyledCardFooter = styled(CardFooter)`
-  background: ${({ theme }) => theme.card.cardHeaderBackground.default};
   display: flex;
   align-items: center;
   justify-content: center;

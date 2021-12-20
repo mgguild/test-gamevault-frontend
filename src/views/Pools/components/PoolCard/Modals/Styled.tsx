@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Flex, Button } from '@sparkpointio/sparkswap-uikit' 
+import { Flex, Button } from '@metagg/mgg-uikit' 
 
 // const Container = styled.div`
 //     margin-top: -30px;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Text, Flex, useModal, Dropdown} from '@sparkpointio/sparkswap-uikit';
+import { Button, Text, Flex, useModal, Dropdown} from '@metagg/mgg-uikit';
 import { ChevronDown, ChevronUp } from 'react-feather';
 import BigNumber from 'bignumber.js'
 import { Token } from 'config/constants/types'

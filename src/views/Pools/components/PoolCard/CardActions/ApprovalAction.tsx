@@ -1,6 +1,6 @@
 import React from 'react'
 import { AutoRenewIcon, Skeleton, Flex } from '@pancakeswap/uikit'
-import { Button, Text, Dropdown } from '@sparkpointio/sparkswap-uikit'
+import { Button, Text, Dropdown } from '@metagg/mgg-uikit'
 import { ChevronDown, ChevronUp } from 'react-feather'
 import { useSousApprove } from 'hooks/useApprove'
 import { useTranslation } from 'contexts/Localization'

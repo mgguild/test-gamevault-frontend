@@ -22,7 +22,7 @@ const StyledChildrenFlex = styled(Flex)<{ isExpanded?: boolean }>`
   overflow: hidden;
   height: ${({ isExpanded }) => (isExpanded ? '100%' : '0px')};
   padding-bottom: ${({ isExpanded }) => (isExpanded ? '16px' : '0px')};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.inputSecondary};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.input};
 `
 
 const FoldableText: React.FC<FoldableTextProps> = ({ title, children, ...props }) => {

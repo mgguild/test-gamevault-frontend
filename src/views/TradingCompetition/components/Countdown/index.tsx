@@ -80,7 +80,7 @@ const Countdown: React.FC<{ currentPhase: CompetitionPhaseProps; hasCompetitionE
   const renderTimer = () => {
     if (hasCompetitionEnded) {
       return (
-        <StyledHeading background={theme.colors.gradients.gold} $fill>
+        <StyledHeading>
           {t('Finished')}!
         </StyledHeading>
       )
@@ -92,7 +92,7 @@ const Countdown: React.FC<{ currentPhase: CompetitionPhaseProps; hasCompetitionE
         hours={hours}
         days={days}
         HeadingTextComponent={({ children }) => (
-          <StyledHeading background={theme.colors.gradients.gold} $fill>
+          <StyledHeading>
             {children}
           </StyledHeading>
         )}
