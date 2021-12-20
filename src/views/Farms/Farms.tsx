@@ -392,10 +392,10 @@ const Farms: React.FC = () => {
               padding='24px'>
           <Flex flexDirection='column' mr={['8px', 0]}>
             <Text color='text' fontSize='60px' bold marginBottom='10px'>
-              <span style={{ borderBottom: `2px solid ${theme.colors.primary}` }}>Farms</span>
+              <span style={{ borderBottom: `2px solid ${theme.colors.primary}` }}>Liquidity Farm</span>
             </Text>
             <Text color='text' style={isMobile ? { fontSize: '17px' } : { fontSize: '27px' }}>
-              Earn SRK, SFUEL and other tokens by staking LP tokens!
+              Stake MGG and earn LP tokens!
             </Text>
           </Flex>
           <Flex style={isMobile ? {

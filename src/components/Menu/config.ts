@@ -3,8 +3,8 @@ import { MenuEntry } from '@sparkpointio/sparkswap-uikit'
 const config: MenuEntry[] = [
   {
     label: "Liquidity",
-    icon: "PoolIcon",
-    href: "/liquidity"
+    icon: "",
+    href: "/farms"
   }
 /*
   {

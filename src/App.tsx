@@ -4,7 +4,7 @@ import { ResetCSS,  } from '@metagg/mgg-uikit'
 import BigNumber from 'bignumber.js'
 import useEagerConnect from 'hooks/useEagerConnect'
 import { useFetchProfile, usePollBlockNumber, usePollCoreFarmData } from 'state/hooks'
-import { RedirectToPools } from 'views/Farms/Redirects'
+import { RedirectToFarms, RedirectToPools } from 'views/Farms/Redirects'
 import GlobalStyle from './style/Global'
 import Menu from './components/Menu'
 import SuspenseWithChunkError from './components/SuspenseWithChunkError'
@@ -46,15 +46,16 @@ const App: React.FC = () => {
       <Menu>
         <SuspenseWithChunkError fallback={<PageLoader />}>
           <Switch>
+            <Route path='/farms'>
+              <Farms />
+            </Route>
             {/* <Route path='/' exact>
               <Pools />
             </Route> */}
-            <Route path='/liquidity'>
+            {/* <Route path='/liquidity'>
               <Pools />
-            </Route>
-            {/* <Route path='/farms'>
-              <Farms />
-            </Route>
+            </Route> */}
+            {/* 
             
             <Route path='/lottery'>
               <Lottery />
@@ -76,9 +77,9 @@ const App: React.FC = () => {
             </Route> */}
             {/* Redirect */}
             <Route path='/staking'>
-              <Redirect to='/liquidity' />
+              <Redirect to='/farms' />
             </Route>
-            <Route path='/' component={RedirectToPools} />
+            <Route path='/' component={RedirectToFarms} />
             {/* 404 */}
             <Route component={NotFound} />
           </Switch>
