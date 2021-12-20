@@ -2094,10 +2094,10 @@
     prop-types "^15.7.2"
     react-is "^16.8.0 || ^17.0.0"
 
-"@metagg/mgg-uikit@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@metagg/mgg-uikit/-/mgg-uikit-1.0.3.tgz#c7732d076dc145aa0131c3437b57674d9b783e7b"
-  integrity sha512-CeByVIPxO2xyzy25nl43k0RX06dosIdVYg5sZY2ypw7vuzPKiGR+94QjMWVz0900ypQaLygkozbq5CFxcJ8BmQ==
+"@metagg/mgg-uikit@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@metagg/mgg-uikit/-/mgg-uikit-1.0.4.tgz#e478ecfe43f11c271fba71c7fc7e96ffb49df046"
+  integrity sha512-b66S4xU99lfTcipaDuAt7J/6llCtorIQj+jSmS5DAQk6x0KJSxjTa0PynGmn0ZoigHj00woY1DPbwwrJu37siw==
   dependencies:
     "@types/lodash" "^4.14.162"
     "@types/styled-system" "^5.1.10"
