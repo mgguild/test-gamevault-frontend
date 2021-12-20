@@ -46,10 +46,10 @@ const App: React.FC = () => {
       <Menu>
         <SuspenseWithChunkError fallback={<PageLoader />}>
           <Switch>
-            <Route path='/' exact>
+            <Route path='/liquidity' exact>
               <Pools />
             </Route>
-            <Route path='/farms'>
+            {/* <Route path='/farms'>
               <Farms />
             </Route>
             <Route path='/pools'>
@@ -72,22 +72,10 @@ const App: React.FC = () => {
             </Route>
             <Route path='/profile'>
               <Profile />
-            </Route>
-            <Route path='/competition'>
-              <TradingCompetition />
-            </Route>
-            <Route path='/prediction'>
-              <Predictions />
-            </Route>
+            </Route> */}
             {/* Redirect */}
-            <Route path='/staking'>
-              <Redirect to='/pools' />
-            </Route>
-            <Route path='/syrup'>
-              <Redirect to='/pools' />
-            </Route>
-            <Route path='/nft'>
-              <Redirect to='/collectibles' />
+            <Route path='/'>
+              <Redirect to='/liquidity' />
             </Route>
             <Route path='/' component={RedirectToPools} />
             {/* 404 */}
