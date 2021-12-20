@@ -229,7 +229,7 @@ const Pools: React.FC = () => {
               <span style={{borderBottom: `2px solid ${theme.colors.primary}`}}>Pools</span>
             </Text>
             <Text color="text" style={isMobile? { fontSize: "17px" } : { fontSize: "27px" }}>
-                Earn SRK, SFUEL and other tokens by just staking!
+                Stake MGG and earn LP tokens!
             </Text>
           </Flex>
           <Flex style={isMobile? {fontSize: '150px', margin: 'auto', marginTop: '20px', marginBottom: '20px' } : {fontSize: '240px', marginRight: '-137px', position: 'relative'}}>
