@@ -11,7 +11,7 @@ const Wrapper = styled(Flex)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid ${({ theme }) => theme.colors.inputSecondary};
+  border: 1px solid ${({ theme }) => theme.colors.input};
   border-radius: ${({ theme }) => theme.radii.default};
   padding: 8px;
 

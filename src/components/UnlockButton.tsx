@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, useWalletModal } from '@sparkpointio/sparkswap-uikit'
+import { Button, useWalletModal } from '@metagg/mgg-uikit'
 import useAuth from 'hooks/useAuth'
 import { useTranslation } from 'contexts/Localization'
 

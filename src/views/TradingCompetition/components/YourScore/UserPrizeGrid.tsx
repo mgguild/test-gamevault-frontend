@@ -16,7 +16,7 @@ import { useCompetitionCakeRewards, getRewardGroupAchievements } from '../../hel
 import { BoldTd, Td, StyledPrizeTable } from '../StyledPrizeTable'
 
 const StyledThead = styled.thead`
-  border-bottom: 2px solid ${({ theme }) => theme.colors.cardBorder};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.primary};
 `
 
 const UserPrizeGrid: React.FC<{ userTradingInformation?: UserTradingInformationProps }> = ({

@@ -128,8 +128,11 @@ const Farms: React.FC = () => {
   useEffect(() => {
     setStakedOnly(!isActive)
   }, [isActive])
-  const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid))
-  const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
+  // const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid))
+  // const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
+  // const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
+  const activeFarms = farmsLP.filter((farm) => farm.pid === 257 && !farm.hasEnded && !isArchivedPid(farm.pid))
+  const inactiveFarms = farmsLP.filter((farm) => farm.pid === 257 && farm.hasEnded && !isArchivedPid(farm.pid))
   const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
 
   const stakedOnlyFarms = activeFarms.filter(
@@ -392,10 +395,10 @@ const Farms: React.FC = () => {
               padding='24px'>
           <Flex flexDirection='column' mr={['8px', 0]}>
             <Text color='text' fontSize='60px' bold marginBottom='10px'>
-              <span style={{ borderBottom: `2px solid ${theme.colors.primary}` }}>Farms</span>
+              <span style={{ borderBottom: `2px solid ${theme.colors.primary}` }}>Liquidity Farm</span>
             </Text>
             <Text color='text' style={isMobile ? { fontSize: '17px' } : { fontSize: '27px' }}>
-              Earn SRK, SFUEL and other tokens by staking LP tokens!
+              Stake MGG and earn LP tokens!
             </Text>
           </Flex>
           <Flex style={isMobile ? {
@@ -419,7 +422,7 @@ const Farms: React.FC = () => {
             </ToggleWrapper>
             <FarmTabButtons hasStakeInFinishedFarms={stakedInactiveFarms.length > 0} />
           </ViewControls>
-          <FilterContainer>
+          {/* <FilterContainer>
             <LabelWrapper>
               <Text textTransform='uppercase'>{t('Sort by')}</Text>
               <Select
@@ -460,7 +463,7 @@ const Farms: React.FC = () => {
               <Text textTransform='uppercase'>{t('Search')}</Text>
               <SearchInput onChange={handleChangeQuery} placeholder='Search Farms' />
             </LabelWrapper>
-          </FilterContainer>
+          </FilterContainer> */}
         </ControlContainer>
 
         {renderContent()}

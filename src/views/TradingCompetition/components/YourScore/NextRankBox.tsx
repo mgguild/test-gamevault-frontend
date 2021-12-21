@@ -11,7 +11,6 @@ interface NextRankProps extends FlexProps {
 }
 
 const Wrapper = styled(Flex)`
-  background: ${({ theme }) => theme.card.cardHeaderBackground.default};
   justify-content: center;
   align-items: center;
   border-radius: ${({ theme }) => theme.radii.default};

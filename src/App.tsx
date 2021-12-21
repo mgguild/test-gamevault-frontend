@@ -1,10 +1,10 @@
 import React, { lazy } from 'react'
 import { HashRouter, Redirect, Route, Switch } from 'react-router-dom'
-import { ResetCSS,  } from '@sparkpointio/sparkswap-uikit'
+import { ResetCSS,  } from '@metagg/mgg-uikit'
 import BigNumber from 'bignumber.js'
 import useEagerConnect from 'hooks/useEagerConnect'
 import { useFetchProfile, usePollBlockNumber, usePollCoreFarmData } from 'state/hooks'
-import { RedirectToPools } from 'views/Farms/Redirects'
+import { RedirectToFarms, RedirectToPools } from 'views/Farms/Redirects'
 import GlobalStyle from './style/Global'
 import Menu from './components/Menu'
 import SuspenseWithChunkError from './components/SuspenseWithChunkError'
@@ -46,15 +46,17 @@ const App: React.FC = () => {
       <Menu>
         <SuspenseWithChunkError fallback={<PageLoader />}>
           <Switch>
-            <Route path='/' exact>
-              <Pools />
-            </Route>
             <Route path='/farms'>
               <Farms />
             </Route>
-            <Route path='/pools'>
+            {/* <Route path='/' exact>
               <Pools />
-            </Route>
+            </Route> */}
+            {/* <Route path='/liquidity'>
+              <Pools />
+            </Route> */}
+            {/* 
+            
             <Route path='/lottery'>
               <Lottery />
             </Route>
@@ -72,24 +74,12 @@ const App: React.FC = () => {
             </Route>
             <Route path='/profile'>
               <Profile />
-            </Route>
-            <Route path='/competition'>
-              <TradingCompetition />
-            </Route>
-            <Route path='/prediction'>
-              <Predictions />
-            </Route>
+            </Route> */}
             {/* Redirect */}
             <Route path='/staking'>
-              <Redirect to='/pools' />
+              <Redirect to='/farms' />
             </Route>
-            <Route path='/syrup'>
-              <Redirect to='/pools' />
-            </Route>
-            <Route path='/nft'>
-              <Redirect to='/collectibles' />
-            </Route>
-            <Route path='/' component={RedirectToPools} />
+            <Route path='/' component={RedirectToFarms} />
             {/* 404 */}
             <Route component={NotFound} />
           </Switch>

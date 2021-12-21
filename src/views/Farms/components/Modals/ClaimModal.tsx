@@ -1,6 +1,6 @@
 import React from 'react'
 import BigNumber from 'bignumber.js'
-import { Button, Modal, Text, Flex } from '@sparkpointio/sparkswap-uikit'
+import { Button, Modal, Text, Flex } from '@metagg/mgg-uikit'
 
 interface ClaimModalProps {
   onDismiss?: () => void

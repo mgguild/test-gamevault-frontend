@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Button, Dropdown, Flex, Link, Modal, Text, useModal } from '@sparkpointio/sparkswap-uikit'
+import { Button, Dropdown, Flex, Link, Modal, Text, useModal } from '@metagg/mgg-uikit'
 import { useTranslation } from 'contexts/Localization'
 import { useSousUnstake } from 'hooks/useUnstake'
 import { ChevronDown, ChevronUp } from 'react-feather'

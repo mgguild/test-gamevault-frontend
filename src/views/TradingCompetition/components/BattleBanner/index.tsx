@@ -50,7 +50,7 @@ const BattleBanner = () => {
         {t('April')} 07—14, 2021
       </StyledText>
       <StyledHeading1Text>{t('Easter Battle')}</StyledHeading1Text>
-      <StyledHeading2Text background={theme.colors.gradients.gold} $fill>
+      <StyledHeading2Text>
         {t('$200,000 in Prizes!')}
       </StyledHeading2Text>
       <StyledHeading scale="md" color={theme.isDark ? 'textSubtle' : 'inputSecondary'} mt="16px">

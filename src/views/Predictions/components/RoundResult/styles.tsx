@@ -111,7 +111,7 @@ const getBackgroundColor = ({
     return theme.colors.failure
   }
 
-  return theme.colors.cardBorder
+  return theme.colors.borderColor
 }
 
 const Background = styled(Box)<RoundResultBoxProps>`

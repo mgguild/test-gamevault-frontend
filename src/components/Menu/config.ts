@@ -2,6 +2,12 @@ import { MenuEntry } from '@sparkpointio/sparkswap-uikit'
 
 const config: MenuEntry[] = [
   {
+    label: "Liquidity",
+    icon: "",
+    href: "/farms"
+  }
+/*
+  {
     label: "Swap",
     icon: "TradeIcon",
     href: "https://sparkswap.finance/#/swap",
@@ -24,16 +30,17 @@ const config: MenuEntry[] = [
       },
     ],
   },
-  // {
-  //   label: "Farm",
-  //   icon: "FarmIcon",
-  //   href: "https://app.srk.finance/#/stake",
-  // },
-  // {
-  //   label: "Pool",
-  //   icon: "PoolIcon",
-  //   href: "/pools",
-  // },
+  {
+    label: "Farm",
+    icon: "FarmIcon",
+    href: "https://app.srk.finance/#/stake",
+  },
+  {
+    label: "Pool",
+    icon: "PoolIcon",
+    href: "/pools",
+  },
+  
   {
     label: "Bridge",
     icon: "BridgeIcon",
@@ -64,22 +71,22 @@ const config: MenuEntry[] = [
     icon: "MoreIcon",
     href: "https://medium.com/theecosystem/a-beginners-guide-to-sparkswap-79f92a2f7074"
   }
-  // {
-  //   label: 'Trade',
-  //   icon: 'TradeIcon',
-  //   initialOpenState: true,
-  //   items: [
-  //     {
-  //       label: 'Exchange',
-  //       href: '/swap'
-  //     },
-  //     {
-  //       label: 'Liquidity',
-  //       href: '/pool'
-  //     }
-  //   ]
-  // },
-  /*
+  {
+    label: 'Trade',
+    icon: 'TradeIcon',
+    initialOpenState: true,
+    items: [
+      {
+        label: 'Exchange',
+        href: '/swap'
+      },
+      {
+        label: 'Liquidity',
+        href: '/pool'
+      }
+    ]
+  },
+ 
   {
     label: "Info",
     icon: "InfoIcon",

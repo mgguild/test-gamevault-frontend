@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import styled from 'styled-components'
 import { Slider, BalanceInput, AutoRenewIcon, Link } from '@pancakeswap/uikit'
-import { Modal, Text, Flex, Image, Button} from '@sparkpointio/sparkswap-uikit'
+import { Modal, Text, Flex, Image, Button} from '@metagg/mgg-uikit'
 import { useTranslation } from 'contexts/Localization'
 import { BASE_EXCHANGE_URL } from 'config'
 import { useSousStake } from 'hooks/useStake'

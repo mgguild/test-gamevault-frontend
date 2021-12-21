@@ -15,8 +15,8 @@ interface BetDetailsProps {
 }
 
 const StyledBetDetails = styled.div`
-  background-color: ${({ theme }) => theme.colors.dropdown};
-  border-bottom: 2px solid ${({ theme }) => theme.colors.cardBorder};
+  background-color: ${({ theme }) => theme.colors.MGG_container};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.borderColor};
   padding: 24px;
 `
 

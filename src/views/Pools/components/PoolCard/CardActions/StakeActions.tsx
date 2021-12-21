@@ -1,6 +1,6 @@
 import React from 'react'
 import { IconButton, AddIcon, MinusIcon, Skeleton, useTooltip } from '@pancakeswap/uikit'
-import { Button, Text, Flex, useModal } from '@sparkpointio/sparkswap-uikit'
+import { Button, Text, Flex, useModal } from '@metagg/mgg-uikit'
 import BigNumber from 'bignumber.js'
 import { useTranslation } from 'contexts/Localization'
 import { getBalanceNumber } from 'utils/formatBalance'
