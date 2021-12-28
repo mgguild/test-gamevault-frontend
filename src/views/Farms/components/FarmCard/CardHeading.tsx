@@ -19,6 +19,8 @@ export interface ExpandableSectionProps {
 }
 
 const Wrapper = styled(Flex)`
+border-bottom: 5px solid ${(({theme}) => theme.colors.MGG_active)};
+padding: 24px;
   svg {
     margin-right: 4px;
   }

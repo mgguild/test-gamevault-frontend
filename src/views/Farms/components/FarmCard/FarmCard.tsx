@@ -50,13 +50,13 @@ const StyledCardAccent = styled.div`
 const FCard = styled.div<{ isPromotedFarm: boolean }>`
   align-self: baseline;
   background: ${(props) => props.theme.card.background};
-  border: 5px solid ${(props) => props.theme.colors.primary};
+  border: 5px solid ${(props) => props.theme.colors.MGG_active};
     // border-radius: ${({ theme, isPromotedFarm }) => (isPromotedFarm ? '31px' : theme.radii.card)};
   box-shadow: 0px 1px 4px rgba(25, 19, 38, 0.15);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding: 24px;
+  // padding: 24px;
   position: relative;
   text-align: center;
 `
@@ -124,7 +124,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ userDataReady, farm, removed, cakeP
         quoteToken={farm.quoteToken}
         pairToken={farm.pairToken}
       />
-      <hr style={{ width: '100%', border: 'none', backgroundColor: theme.colors.primary, height: '2px' }} />
+      {/* <hr style={{ width: '100%', border: 'none', backgroundColor: theme.colors.primary, height: '2px' }} /> */}
       {/* {!removed && (
         <Flex justifyContent="space-between" alignItems="center">
           <Text>{t('APR')}:</Text>
@@ -142,19 +142,20 @@ const FarmCard: React.FC<FarmCardProps> = ({ userDataReady, farm, removed, cakeP
       )} */}
 
 
-      <Flex justifyContent='space-between' style={{ textAlign: 'left' }}>
+      {/* <Flex justifyContent='space-between' style={{ textAlign: 'left' }}>
         <Text>{t('Total Deposits')}</Text>
         <Text color='textSubtle'>{farm.totalDeposits ? formatTotalDeposits : <Skeleton width={60} display='inline-block' />}</Text>
-      </Flex>
+      </Flex> */}
+      <div style={{margin: '24px'}}>
       <Flex>
         <HarvestAction stakingContract={getAddress(farm.stakingAddresses)}
                        tokenRewardSymbol={earnLabel} userDataReady={userDataReady} userData={farm.userData}
                        pid={farm.pid} />
       </Flex>
-      <Flex justifyContent='space-between'>
+      {/* <Flex justifyContent='space-between'>
         <Text>{t('APR')}</Text>
         <Text color='textSubtle'>{(apr === 0 || apr === null ? "-- " : apr.toFixed(2))}%</Text>
-      </Flex>
+      </Flex> */}
       <Flex justifyContent='space-between'>
         <Text>{t('Rate')}</Text>
         <Text color='textSubtle'>
@@ -193,6 +194,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ userDataReady, farm, removed, cakeP
          {Object.prototype.hasOwnProperty.call(farm.lpAddresses, '56') && (<Text color="textSubtle" fontSize="14px">{t('This will only work on Binance Smart Chain')}</Text>)}
          {Object.prototype.hasOwnProperty.call(farm.lpAddresses, '1') && (<Text color="textSubtle" fontSize="14px">{t('This will only work on Ethereum Blockchain')}</Text>)}
       </Flex> */}
+      </div>
     </FCard>
   )
 }

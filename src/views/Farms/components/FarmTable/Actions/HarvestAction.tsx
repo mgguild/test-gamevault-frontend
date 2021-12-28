@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import { Button, Skeleton, Text } from '@pancakeswap/uikit'
+import React, { useContext, useState } from 'react'
+import { Button, Skeleton, Text } from '@metagg/mgg-uikit'
+import { ThemeContext } from 'styled-components'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import Balance from 'components/Balance'
@@ -13,6 +14,7 @@ import { useTranslation } from 'contexts/Localization'
 
 import { ActionContainer, ActionContent, ActionTitles, Earned } from './styles'
 import useToast from '../../../../../hooks/useToast'
+
 
 interface HarvestActionProps {
   pid: number
@@ -43,7 +45,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = (
     earningsBusd = earnings.multipliedBy(cakePrice).toNumber()
     displayBalance = earnings.toFixed(3, BigNumber.ROUND_DOWN)
   }
-
+  const theme = useContext(ThemeContext);
   const [pendingTx, setPendingTx] = useState(false)
   const { onReward } = useClaim(stakingContract)
   const { t } = useTranslation()
@@ -54,7 +56,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = (
   return (
     <ActionContainer style={{ margin: '10px 0' }}>
       <ActionTitles>
-        <Text bold textTransform='uppercase' color='secondary' fontSize='12px' pr='4px'>
+        <Text bold textTransform='uppercase' color={theme.colors.MGG_accent2} fontSize='12px' pr='4px'>
           {tokenRewardSymbol}
         </Text>
         <Text bold textTransform='uppercase' color='textSubtle' fontSize='12px'>
@@ -69,6 +71,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = (
           )}
         </div>
         <Button
+          style={{borderRadius: '3px', height: '40px'}}
           disabled={earnings.eq(0) || pendingTx || !userDataReady}
           onClick={async () => {
             setPendingTx(true)
