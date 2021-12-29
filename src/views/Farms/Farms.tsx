@@ -13,7 +13,7 @@ import { useFarms, usePollFarmsData, usePriceCakeBusd } from 'state/hooks'
 import usePersistState from 'hooks/usePersistState'
 import { Farm } from 'state/types'
 import { useTranslation } from 'contexts/Localization'
-import { getBalanceNumber } from 'utils/formatBalance'
+import { getBalanceNumber, getBalanceAmount } from 'utils/formatBalance'
 import { getFarmApr } from 'utils/apr'
 import { orderBy } from 'lodash'
 import isArchivedPid from 'utils/farmHelpers'
@@ -131,8 +131,8 @@ const Farms: React.FC = () => {
   // const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid))
   // const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
   // const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
-  const activeFarms = farmsLP.filter((farm) => farm.pid === 257 && !farm.hasEnded && !isArchivedPid(farm.pid))
-  const inactiveFarms = farmsLP.filter((farm) => farm.pid === 257 && farm.hasEnded && !isArchivedPid(farm.pid))
+  const activeFarms = farmsLP.filter((farm) => farm.pid === 260 && !farm.hasEnded && !isArchivedPid(farm.pid))
+  const inactiveFarms = farmsLP.filter((farm) => farm.pid === 260 && farm.hasEnded && !isArchivedPid(farm.pid))
   const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
 
   const stakedOnlyFarms = activeFarms.filter(
@@ -387,6 +387,11 @@ const Farms: React.FC = () => {
     )
   }
 
+  const mggFarm = farmsStakedMemoized[0];
+  const apr = mggFarm.apr && mggFarm.apr.toLocaleString('en-US', { maximumFractionDigits: 2 })
+  const totalStaked = getBalanceAmount(new BigNumber(mggFarm.totalDeposits ?? 0)).toFormat(4)
+
+  console.log(mggFarm)
   return (
     <>
       <PageHeader>
@@ -406,15 +411,15 @@ const Farms: React.FC = () => {
           <Flex style={{width: '100%'}} margin="20px 0px 0px 0px" justifyContent="space-between">
            <Flex flexDirection="column">
              <Text fontSize='20px' bold color={theme.colors.MGG_accent2}>Total MGG Staked</Text>
-             <Text fontSize='35px'>12345678 MGG</Text>
+             <Text fontSize='35px'> {totalStaked} MGG</Text>
            </Flex>
            <Flex flexDirection="column">
              <Text fontSize='20px' bold color={theme.colors.MGG_accent2}>Total value Locked</Text>
-             <Text fontSize='35px'>12354 USD</Text>
+             <Text fontSize='35px'>- USD</Text>
            </Flex>
            <Flex flexDirection="column">
              <Text fontSize='20px' bold color={theme.colors.MGG_accent2}>APR</Text>
-             <Text fontSize='35px'>9.81%</Text>
+             <Text fontSize='35px'>{apr}% </Text>
            </Flex>
         </Flex>
         </Flex>
