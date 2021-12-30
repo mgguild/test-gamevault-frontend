@@ -2,10 +2,20 @@ import { MenuEntry } from '@sparkpointio/sparkswap-uikit'
 
 const config: MenuEntry[] = [
   {
-    label: "Liquidity",
+    label: "Staking",
     icon: "",
     href: "/farms"
-  }
+  },
+  {
+    label: "GameFi",
+    icon: "",
+    href: "/gamefi"
+  },
+  {
+    label: "Bridge",
+    icon: "",
+    href: "https://app.srk.finance/#/bridge",
+  },
 /*
   {
     label: "Swap",
@@ -41,11 +51,6 @@ const config: MenuEntry[] = [
     href: "/pools",
   },
   
-  {
-    label: "Bridge",
-    icon: "BridgeIcon",
-    href: "https://app.srk.finance/#/bridge",
-  },
   {
     label: "Launch",
     icon: "LaunchIcon",

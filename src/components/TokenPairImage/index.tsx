@@ -16,6 +16,9 @@ const StyledLogo = styled.img`
 `
 const PairLogoImg = styled(Flex)`
   margin-bottom: 30px;
+  & > * {
+    margin-left: 10px;
+  }
 `
 
 const getImageUrlFromToken = (token: Token) => {

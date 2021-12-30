@@ -13,7 +13,7 @@ import { useFarms, usePollFarmsData, usePriceCakeBusd } from 'state/hooks'
 import usePersistState from 'hooks/usePersistState'
 import { Farm } from 'state/types'
 import { useTranslation } from 'contexts/Localization'
-import { getBalanceNumber } from 'utils/formatBalance'
+import { getBalanceNumber, getBalanceAmount } from 'utils/formatBalance'
 import { getFarmApr } from 'utils/apr'
 import { orderBy } from 'lodash'
 import isArchivedPid from 'utils/farmHelpers'
@@ -131,8 +131,8 @@ const Farms: React.FC = () => {
   // const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid))
   // const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
   // const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
-  const activeFarms = farmsLP.filter((farm) => farm.pid === 257 && !farm.hasEnded && !isArchivedPid(farm.pid))
-  const inactiveFarms = farmsLP.filter((farm) => farm.pid === 257 && farm.hasEnded && !isArchivedPid(farm.pid))
+  const activeFarms = farmsLP.filter((farm) => farm.pid === 260 && !farm.hasEnded && !isArchivedPid(farm.pid))
+  const inactiveFarms = farmsLP.filter((farm) => farm.pid === 260 && farm.hasEnded && !isArchivedPid(farm.pid))
   const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
 
   const stakedOnlyFarms = activeFarms.filter(
@@ -337,7 +337,7 @@ const Farms: React.FC = () => {
     }
 
     return (
-      <div>
+      <div style={{marginTop: '25x', paddingTop: '25px' }}>
         <FlexLayout>
           <Route exact path={`${path}`}>
             {farmsStakedMemoized.map((farm) => (
@@ -387,20 +387,42 @@ const Farms: React.FC = () => {
     )
   }
 
+  const mggFarm = farmsStakedMemoized[0];
+  const apr = mggFarm.apr && mggFarm.apr.toLocaleString('en-US', { maximumFractionDigits: 2 })
+  const totalStaked = getBalanceAmount(new BigNumber(mggFarm.totalDeposits ?? 0)).toFormat(4)
+
+  console.log(mggFarm)
   return (
     <>
-      <PageHeader background={theme.card.background}>
-        <Flex alignItems='center' justifyContent='space-between' flexDirection={['column', null, 'row']}
+      <PageHeader>
+        <Flex alignItems='center' justifyContent='space-around' flexDirection={['column', null, 'row']}
               style={isMobile ? { flexDirection: 'column-reverse' } : { minHeight: '20vh', marginLeft: '-16px' }}
               padding='24px'>
-          <Flex flexDirection='column' mr={['8px', 0]}>
-            <Text color='text' fontSize='60px' bold marginBottom='10px'>
-              <span style={{ borderBottom: `2px solid ${theme.colors.primary}` }}>Liquidity Farm</span>
+
+        <Flex flexDirection='column' flex="2">
+          <Flex justifyContent='space-around' flexDirection='column' padding="25px 25px 25px 0px" mr={['8px', 0]} style={{borderBottom: `1px solid ${theme.colors.MGG_active}`}}>
+            <Text color={theme.colors.primary} fontSize='60px' bold>
+              Liquidity Staking
             </Text>
-            <Text color='text' style={isMobile ? { fontSize: '17px' } : { fontSize: '27px' }}>
-              Stake MGG and earn LP tokens!
+            <Text color='text' bold style={isMobile ? { fontSize: '17px' } : { fontSize: '27px' }}>
+              Stake MGG and earn MGG!
             </Text>
           </Flex>
+          <Flex style={{width: '100%'}} margin="20px 0px 0px 0px" justifyContent="space-between">
+           <Flex flexDirection="column">
+             <Text fontSize='20px' bold color={theme.colors.MGG_accent2}>Total MGG Staked</Text>
+             <Text fontSize='35px'> {totalStaked} MGG</Text>
+           </Flex>
+           <Flex flexDirection="column">
+             <Text fontSize='20px' bold color={theme.colors.MGG_accent2}>Total value Locked</Text>
+             <Text fontSize='35px'>- USD</Text>
+           </Flex>
+           <Flex flexDirection="column">
+             <Text fontSize='20px' bold color={theme.colors.MGG_accent2}>APR</Text>
+             <Text fontSize='35px'>{apr}% </Text>
+           </Flex>
+        </Flex>
+        </Flex>
           <Flex style={isMobile ? {
             fontSize: '150px',
             margin: 'auto',
@@ -413,9 +435,9 @@ const Farms: React.FC = () => {
         </Flex>
       </PageHeader>
       <Page>
-        <ControlContainer>
+        { /* <ControlContainer>
           <ViewControls>
-            {/* <ToggleView viewMode={viewMode} onToggle={(mode: ViewMode) => setViewMode(mode)} /> */}
+            <ToggleView viewMode={viewMode} onToggle={(mode: ViewMode) => setViewMode(mode)} /> 
             <ToggleWrapper>
               <Toggle checked={stakedOnly} onChange={() => setStakedOnly(!stakedOnly)} scale='sm' />
               <Text> {t('Staked only')}</Text>
@@ -463,12 +485,11 @@ const Farms: React.FC = () => {
               <Text textTransform='uppercase'>{t('Search')}</Text>
               <SearchInput onChange={handleChangeQuery} placeholder='Search Farms' />
             </LabelWrapper>
-          </FilterContainer> */}
-        </ControlContainer>
+          </FilterContainer> 
+        </ControlContainer> */}
 
         {renderContent()}
         <div ref={loadMoreRef} />
-
       </Page>
     </>
   )
