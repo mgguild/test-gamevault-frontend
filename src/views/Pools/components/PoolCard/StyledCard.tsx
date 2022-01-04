@@ -13,18 +13,15 @@ const PromotedGradient = keyframes`
   }
 `
 
-export const StyledCard = styled(Card)<{ isPromotedPool?: boolean; isFinished?: boolean }>`
-  border: 5px solid ${(props) => props.theme.colors.primary};
-  max-width: 352px;
-  padding: 24px;
-  margin: 0 8px 24px;
+export const StyledCard = styled.div<{ isPromotedPool?: boolean; isFinished?: boolean }>`
+  border: 5px solid ${(props) => props.theme.colors.MGG_active};
+  max-width: 450px;
   display: flex;
   flex-direction: column;
   align-self: baseline;
   position: relative;
   justify-content: space-around;
-  background: ${(props) => props.theme.card.background};
-  text-align: center;
+  background: ${(props) => props.theme.colors.MGG_container};
   color: ${({ isFinished, theme }) => theme.colors[isFinished ? 'textDisabled' : 'secondary']};
   ${({ theme }) => theme.mediaQueries.sm} {
     margin: 0 12px 46px;

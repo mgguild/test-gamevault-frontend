@@ -10,8 +10,11 @@ import partition from 'lodash/partition'
 import { SvgIcon } from '@material-ui/core'
 import { useTranslation } from 'contexts/Localization'
 import usePersistState from 'hooks/usePersistState'
+import { usePoolPrice } from 'hooks/price'
 import { usePools, useFetchCakeVault, useFetchPublicPoolsData, usePollFarmsData, useCakeVault } from 'state/hooks'
 import { latinise } from 'utils/latinise'
+import { getPoolApr } from 'utils/apr'
+import { getBalanceAmount, getBalanceNumber } from 'utils/formatBalance'
 import FlexLayout from 'components/layout/Flex'
 import Page from 'components/layout/Page'
 import PageHeader from 'components/PageHeader'
@@ -28,11 +31,13 @@ import HelpButton from './components/HelpButton'
 import PoolsTable from './components/PoolsTable/PoolsTable'
 import { ViewMode } from './components/ToggleView/ToggleView'
 import { getAprData, getCakeVaultEarnings } from './helpers'
-import { ReactComponent as PoolsDarkLogo } from './components/assets/pool-dark.svg'
-import { ReactComponent as PoolsLightLogo } from './components/assets/pool-light.svg'
+import { ReactComponent as FarmsDarkLogo } from './components/assets/farm-dark.svg'
+import { ReactComponent as FarmsLightLogo } from './components/assets/farm-light.svg'
+
 
 const CardLayout = styled(FlexLayout)`
-  justify-content: flex-start;
+  justify-content: center;
+  margin: 25px 0px;
 `
 
 const PoolControls = styled(Flex)`
@@ -51,6 +56,14 @@ const SearchSortContainer = styled(Flex)`
 const ControlStretch = styled(Flex)`
   > div {
     flex: 1;
+  }
+`
+const InfoBox = styled(Flex)`
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    & > * {
+      margin: 10px 0px;
+    }
   }
 `
 
@@ -80,13 +93,14 @@ const Pools: React.FC = () => {
   const performanceFeeAsDecimal = performanceFee && performanceFee / 100
 
   const pools = useMemo(() => {
-    const cakePool = poolsWithoutAutoVault.find((pool) => pool.sousId === 0)
+    const cakePool = poolsWithoutAutoVault.map((pool) => pool.sousId === 0)
     const cakeAutoVault = { ...cakePool, isAutoVault: true }
+
     return [...poolsWithoutAutoVault]
   }, [poolsWithoutAutoVault])
 
   // TODO aren't arrays in dep array checked just by reference, i.e. it will rerender every time reference changes?
-  const [finishedPools, openPools] = useMemo(() => partition(pools, (pool) => pool.isFinished), [pools])
+  const [openPools, finishedPools] = useMemo(() => partition(pools, (pool) => pool.sousId === 9), [pools])
   const [upcomingPools, notUpcomingPools] = useMemo(() => partition(pools, (pool) => pool.isComingSoon), [pools])
   const stakedOnlyFinishedPools = useMemo(
     () =>
@@ -185,7 +199,7 @@ const Pools: React.FC = () => {
   const poolsToShow = () => {
     let chosenPools = []
     if (showUpcomingPools) {
-      chosenPools = stakedOnly ? stakedOnlyFinishedPools : finishedPools // TODO: @koji @mat-ivan Please apply here how to filter upcoming pools
+      chosenPools = stakedOnly ? stakedOnlyFinishedPools : finishedPools
     } else if (showFinishedPools) {
       chosenPools = stakedOnly ? stakedOnlyFinishedPools : finishedPools
     } else {
@@ -217,33 +231,72 @@ const Pools: React.FC = () => {
   const tableLayout = <PoolsTable pools={poolsToShow()} account={account} userDataLoaded={userDataLoaded} />
   const { path, url, isExact } = useRouteMatch()
 
+  const mggPool = openPools[0]
+  const totalStaked = mggPool.totalStaked ? getBalanceNumber(new BigNumber(mggPool.totalStaked.toString()), mggPool.stakingToken.decimals) : 0
+  const rewardPerBlock = mggPool?.tokenPerBlock ? getBalanceNumber(new BigNumber(mggPool.tokenPerBlock.toString()), mggPool.earningToken.decimals) : 0
+  const {stakingPrice, rewardPrice} = usePoolPrice(mggPool.stakingToken.address[56], mggPool.earningToken.address[56])
+  const apr = getPoolApr(stakingPrice, rewardPrice, totalStaked, rewardPerBlock)
+  // const totalStaked = getBalanceAmount(new BigNumber(mggPool.totalStaked ?? 0)).toFormat(4)
   return (
     <>
-      <PageHeader background={theme.card.background}>
+      <PageHeader>
         <Flex
           alignItems="center"
-          justifyContent="space-between"
+          justifyContent="space-around"
           flexDirection={['column', null, 'row']}
-          style={isMobile ? { flexDirection: 'column-reverse' } : { minHeight: '20vh', marginLeft: '-12px' }}
+          style={isMobile ? { flexDirection: 'column-reverse' } : { minHeight: '20vh', marginLeft: '-16px' }}
           padding="24px"
         >
-          <Flex flexDirection="column" mr={['8px', 0]}>
-            <Text color="text" fontSize="60px" bold marginBottom="10px">
-              <span style={{ borderBottom: `2px solid ${theme.colors.primary}` }}>Liquidity Farm</span>
-            </Text>
-            <Text color="text" style={isMobile ? { fontSize: '17px' } : { fontSize: '27px' }}>
-              Stake MGG and earn LP tokens!
-            </Text>
+          <Flex flexDirection="column" flex="2">
+            <Flex
+              justifyContent="space-around"
+              flexDirection="column"
+              padding="25px 25px 25px 0px"
+              mr={['8px', 0]}
+              style={{ borderBottom: `1px solid ${theme.colors.MGG_active}` }}
+            >
+              <Text color={theme.colors.primary} fontSize="60px" bold>
+                Pool Staking
+              </Text>
+              <Text color="text" bold style={isMobile ? { fontSize: '17px' } : { fontSize: '27px' }}>
+                Stake tokens and earn!
+              </Text>
+            </Flex>
+            <InfoBox style={{ width: '100%' }} margin="20px 0px 0px 0px" justifyContent="space-between">
+              <Flex flexDirection="column">
+                <Text fontSize="17px" bold color={theme.colors.MGG_accent2}>
+                  Total MGG Staked
+                </Text>
+                <Text fontSize="20px"> {totalStaked} MGG</Text>
+              </Flex>
+              <Flex flexDirection="column">
+                <Text fontSize="17px" bold color={theme.colors.MGG_accent2}>
+                  Total value Locked
+                </Text>
+                <Text fontSize="20px">- USD</Text>
+              </Flex>
+              <Flex flexDirection="column">
+                <Text fontSize="17px" bold color={theme.colors.MGG_accent2}>
+                  APR
+                </Text>
+                <Text fontSize="20px"> {apr} % </Text>
+              </Flex>
+            </InfoBox>
           </Flex>
           <Flex
             style={
               isMobile
-                ? { fontSize: '150px', margin: 'auto', marginTop: '20px', marginBottom: '20px' }
-                : { fontSize: '240px', marginRight: '-137px', position: 'relative' }
+                ? {
+                    fontSize: '150px',
+                    margin: 'auto',
+                    marginTop: '20px',
+                    marginBottom: '20px',
+                  }
+                : { fontSize: '240px', marginRight: '-118px' }
             }
           >
             <SvgIcon
-              component={theme.isDark ? PoolsDarkLogo : PoolsLightLogo}
+              component={theme.isDark ? FarmsDarkLogo : FarmsLightLogo}
               viewBox="0  0 384 512"
               style={isMobile ? { width: '200px' } : { width: '500px' }}
               fontSize="inherit"
@@ -252,69 +305,15 @@ const Pools: React.FC = () => {
         </Flex>
       </PageHeader>
       <Page>
-        <Flex
-          alignItems="center"
-          justifyContent="space-between"
-          style={isMobile ? { flexDirection: 'column' } : { flexDirection: 'row', marginLeft: '12px', }}
-        >
-          <Flex>
-            <PoolTabButtons
-              stakedOnly={stakedOnly}
-              setStakedOnly={setStakedOnly}
-              hasStakeInFinishedPools={hasStakeInFinishedPools}
-              viewMode={viewMode}
-              setViewMode={setViewMode}
-            />
-          </Flex>
-          <Flex flexDirection="column" marginTop="16px" >
-            <SearchSortContainer>
-              {/* <PoolControls>
-              <Text fontSize="12px" bold color="textSubtle" textTransform="uppercase">
-                {t('Sort by')}
-              </Text>
-              <ControlStretch>
-                <Select
-                  options={[
-                    {
-                      label: t('Hot'),
-                      value: 'hot',
-                    },
-                    {
-                      label: t('APR'),
-                      value: 'apr',
-                    },
-                    {
-                      label: t('Earned'),
-                      value: 'earned',
-                    },
-                    {
-                      label: t('Total staked'),
-                      value: 'totalStaked',
-                    },
-                  ]}
-                  onChange={handleSortOptionChange}
-                />
-              </ControlStretch>
-            </PoolControls> */}
-             <Text fontSize="12px" bold color="textSubtle" textTransform="uppercase">
-                  {t('Search')}
-                </Text>
-              <PoolControls>
-                <SearchInput onChange={handleChangeSearchQuery} placeholder="Search Farms" />
-              </PoolControls>
-            </SearchSortContainer>
-          </Flex>
-        </Flex>
-
-        {!showFinishedPools && !showUpcomingPools && (
+        {/* {!showFinishedPools && !showUpcomingPools && (
           <div>
-            {/* <Text bold fontSize="20px" marginLeft="24px" paddingBottom="24px">
+            <Text bold fontSize="20px" marginLeft="24px" paddingBottom="24px">
             {' '}
             Stake tokens to earn{' '}
-          </Text> */}
+          </Text>
             <StyledHr style={{ marginTop: '35px', width: '100%' }} />
 
-            {/* Header title for Active Pools   */}
+           // Header title for Active Pools  
 
             <Flex justifyContent="space-between" style={{ margin: '20px' }}>
               <Flex flexDirection="column" mr={['8px', 0]}>
@@ -324,7 +323,7 @@ const Pools: React.FC = () => {
               </Flex>
             </Flex>
           </div>
-        )}
+        )} */}
 
         {/* UPCOMING  */}
         {showUpcomingPools && (

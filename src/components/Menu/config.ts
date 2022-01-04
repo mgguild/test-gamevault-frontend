@@ -4,12 +4,17 @@ const config: MenuEntry[] = [
   {
     label: "Staking",
     icon: "",
-    href: "/farms"
-  },
-  {
-    label: "GameFi",
-    icon: "",
-    href: "/gamefi"
+    // href: "/farms"
+    items: [
+      {
+        label: 'Liquidity',
+        href: '/farms'
+      },
+      {
+        label: 'Pool-Based',
+        href: '/pools'
+      }
+    ]
   },
   {
     label: "Bridge",

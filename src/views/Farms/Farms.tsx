@@ -11,10 +11,11 @@ import useMedia from 'use-media'
 import { SvgIcon } from '@material-ui/core'
 import { useFarms, usePollFarmsData, usePriceCakeBusd } from 'state/hooks'
 import usePersistState from 'hooks/usePersistState'
+import { useFarmPrice } from 'hooks/price'
 import { Farm } from 'state/types'
 import { useTranslation } from 'contexts/Localization'
 import { getBalanceNumber, getBalanceAmount } from 'utils/formatBalance'
-import { getFarmApr } from 'utils/apr'
+import { getFarmApr, getFarmV2Apr } from 'utils/apr'
 import { orderBy } from 'lodash'
 import isArchivedPid from 'utils/farmHelpers'
 import { latinise } from 'utils/latinise'
@@ -96,6 +97,14 @@ const ViewControls = styled.div`
   }
 `
 
+const InfoBox = styled(Flex)`
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    & > * {
+      margin: 10px 0px;
+    }
+  }
+`
 const StyledImage = styled(Image)`
   margin-left: auto;
   margin-right: auto;
@@ -388,10 +397,9 @@ const Farms: React.FC = () => {
   }
 
   const mggFarm = farmsStakedMemoized[0];
-  const apr = mggFarm.apr && mggFarm.apr.toLocaleString('en-US', { maximumFractionDigits: 2 })
+  const {LPPrice, rewardPrice} = useFarmPrice(Number(mggFarm.lpTotalSupply), mggFarm.token.address[56], mggFarm.pairToken.address[56], mggFarm.quoteToken.address[56])
+  const apr = getFarmV2Apr(LPPrice, rewardPrice, Number(mggFarm.totalDeposits), Number(mggFarm.rewardRate))
   const totalStaked = getBalanceAmount(new BigNumber(mggFarm.totalDeposits ?? 0)).toFormat(4)
-
-  console.log(mggFarm)
   return (
     <>
       <PageHeader>
@@ -408,20 +416,20 @@ const Farms: React.FC = () => {
               Stake MGG and earn MGG!
             </Text>
           </Flex>
-          <Flex style={{width: '100%'}} margin="20px 0px 0px 0px" justifyContent="space-between">
+          <InfoBox style={{width: '100%'}} margin="20px 0px 0px 0px" justifyContent="space-between">
            <Flex flexDirection="column">
-             <Text fontSize='20px' bold color={theme.colors.MGG_accent2}>Total MGG Staked</Text>
-             <Text fontSize='35px'> {totalStaked} MGG</Text>
+             <Text fontSize='17px' bold color={theme.colors.MGG_accent2}>Total MGG Staked</Text>
+             <Text fontSize='20px'> {totalStaked} MGG</Text>
            </Flex>
            <Flex flexDirection="column">
-             <Text fontSize='20px' bold color={theme.colors.MGG_accent2}>Total value Locked</Text>
-             <Text fontSize='35px'>- USD</Text>
+             <Text fontSize='17px' bold color={theme.colors.MGG_accent2}>Total value Locked</Text>
+             <Text fontSize='20px'>- USD</Text>
            </Flex>
            <Flex flexDirection="column">
-             <Text fontSize='20px' bold color={theme.colors.MGG_accent2}>APR</Text>
-             <Text fontSize='35px'>{apr}% </Text>
+             <Text fontSize='17px' bold color={theme.colors.MGG_accent2}>APR</Text>
+             <Text fontSize='20px'>{apr} % </Text>
            </Flex>
-        </Flex>
+        </InfoBox>
         </Flex>
           <Flex style={isMobile ? {
             fontSize: '150px',
