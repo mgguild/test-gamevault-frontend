@@ -48,20 +48,20 @@ const CardActions: React.FC<CardActionsProps> = ({ pool, stakedBalance }) => {
       <Flex flexDirection="column" >
         {harvest && (
           <>
-            <Flex justifyContent="space-between">
+            {/* <Flex justifyContent="space-between">
               <Box display="inline">
-                {/* <Text color="text" textTransform="uppercase" bold fontSize="12px"> */}
+                <Text color="text" textTransform="uppercase" bold fontSize="12px">
                 <Text color="text" bold fontSize="15px" marginBottom="8px">
                   {`${stakingToken.symbol} Staked`}
                 </Text>
               </Box>
               <Box display="inline">
-                {/* <Text color="text" textTransform="uppercase" bold fontSize="12px"> */}
+                <Text color="text" textTransform="uppercase" bold fontSize="12px">
                 <Text color="text" bold fontSize="15px" marginBottom="8px">
                   {`${earningToken.symbol} Earned`}
                 </Text>
               </Box>
-            </Flex>
+            </Flex> */}
             <Flex justifyContent="space-between" marginBottom="20px">
               <Box display="inline">
                 {/* <Text color="text" textTransform="uppercase"  bold fontSize="12px"> */}

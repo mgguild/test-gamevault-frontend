@@ -11,12 +11,13 @@ import SuspenseWithChunkError from './components/SuspenseWithChunkError'
 import ToastListener from './components/ToastListener'
 import PageLoader from './components/PageLoader'
 import EasterEgg from './components/EasterEgg'
-import Pools from './views/Pools'
+// import Pools from './views/Pools'
 
 // Route-based code splitting
 // Only pool is included in the main bundle because of it's the most visited page
 // const Home = lazy(() => import('./views/Home'))
 const Farms = lazy(() => import('./views/Farms'))
+const Pools = lazy(() => import('./views/Pools'))
 const Lottery = lazy(() => import('./views/Lottery'))
 const Ifos = lazy(() => import('./views/Ifos'))
 const NotFound = lazy(() => import('./views/NotFound'))
@@ -49,9 +50,9 @@ const App: React.FC = () => {
             <Route path='/farms'>
               <Farms />
             </Route>
-            {/* <Route path='/' exact>
+            <Route path='/pools' exact>
               <Pools />
-            </Route> */}
+            </Route>
             {/* <Route path='/liquidity'>
               <Pools />
             </Route> */}

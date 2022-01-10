@@ -49,6 +49,7 @@ const StyledCardAccent = styled.div`
 
 const FCard = styled.div<{ isPromotedFarm: boolean }>`
   align-self: baseline;
+  max-width: 450px;
   background: ${(props) => props.theme.colors.MGG_container};
   border: 5px solid ${(props) => props.theme.colors.MGG_active};
     // border-radius: ${({ theme, isPromotedFarm }) => (isPromotedFarm ? '31px' : theme.radii.card)};
