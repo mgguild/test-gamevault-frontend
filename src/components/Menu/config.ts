@@ -17,6 +17,16 @@ const config: MenuEntry[] = [
     ]
   },
   {
+    label: "GameFi Vault",
+    icon: "",
+    href: "/gamefi",
+  },
+  {
+    label: "IGO Launchpad",
+    icon: "",
+    href: "/launchpad",
+  },
+  {
     label: "Bridge",
     icon: "",
     href: "https://app.srk.finance/#/bridge",
