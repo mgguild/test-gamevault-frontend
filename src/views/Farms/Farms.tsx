@@ -431,7 +431,7 @@ const Farms: React.FC = () => {
            </Flex>
         </InfoBox>
         </Flex>
-          <Flex style={isMobile ? {
+          {/* <Flex style={isMobile ? {
             fontSize: '150px',
             margin: 'auto',
             marginTop: '20px',
@@ -439,7 +439,7 @@ const Farms: React.FC = () => {
           } : { fontSize: '240px', marginRight: '-118px' }}>
             <SvgIcon component={theme.isDark ? FarmsDarkLogo : FarmsLightLogo} viewBox='0  0 384 512'
                      style={isMobile ? { width: '200px' } : { width: '500px' }} fontSize='inherit' />
-          </Flex>
+          </Flex> */}
         </Flex>
       </PageHeader>
       <Page>
