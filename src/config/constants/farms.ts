@@ -67,8 +67,8 @@ const farms: FarmConfig[] = [
       97: '',
       56: '0x5a870495971ed55bd377fc390f46ab1b96bcd6b4',
     },
-    token: tokens.hps,
-    pairToken: tokens.busd,
+    token: tokens.mgg,
+    pairToken: tokens.eth,
     quoteToken: tokens.hps,
     isPromoted: 1
   },

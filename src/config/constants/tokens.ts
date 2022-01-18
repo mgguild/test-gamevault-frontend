@@ -1610,7 +1610,7 @@ const tokens = {
     symbol: 'MGG',
     address: {
       1: '0x9F7A0406Abe72354006Ac8949c156365A7455e3A',
-      56: '0xC3440c10c4F36f354eB591B19FafB4906d449B75',
+      56: '0xeda21b525ac789eab1a08ef2404dd8505ffb973d',
       97: '',
     },
     decimals: 18,
