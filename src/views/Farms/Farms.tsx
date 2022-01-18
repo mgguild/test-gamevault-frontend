@@ -413,7 +413,7 @@ const Farms: React.FC = () => {
               Liquidity Staking
             </Text>
             <Text color='text' bold style={isMobile ? { fontSize: '17px' } : { fontSize: '27px' }}>
-              Stake MGG and earn MGG!
+              Stake LP token and earn MGG!
             </Text>
           </Flex>
           <InfoBox style={{width: '100%'}} margin="20px 0px 0px 0px" justifyContent="space-between">
