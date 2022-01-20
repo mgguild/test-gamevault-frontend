@@ -58,7 +58,7 @@ const farms: FarmConfig[] = [
    */
   {
     pid: 260,
-    lpSymbol: 'MGG-ETH LP',
+    lpSymbol: 'MGG-BUSD LP',
     lpAddresses: {
       97: '',
       56: '0xaaf827e2eaf72c62e77047458cbd40e7f30f1896',
@@ -68,8 +68,8 @@ const farms: FarmConfig[] = [
       56: '0x5a870495971ed55bd377fc390f46ab1b96bcd6b4',
     },
     token: tokens.mgg,
-    pairToken: tokens.eth,
-    quoteToken: tokens.hps,
+    pairToken: tokens.busd,
+    quoteToken: tokens.busd,
     isPromoted: 1
   },
 
