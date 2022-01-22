@@ -5,7 +5,7 @@ export const DEFAULT_META: PageMeta = {
   title: 'MGG',
   description:
     'Stake MGG and earn token rewards',
-  image: '%PUBLIC_URL%/MGG.png',
+  image: 'https://app.metagg.com/MGG.png',
 }
 
 export const getCustomMeta = (path: string, t: ContextApi['t']): PageMeta => {
