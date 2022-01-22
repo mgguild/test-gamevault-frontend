@@ -34,7 +34,7 @@ const config: MenuEntry[] = [
   {
     label: "Bridge",
     icon: "",
-    href: "https://app.srk.finance/#/bridge",
+    href: "https://app.chainport.io",
   },
 /*
   {
