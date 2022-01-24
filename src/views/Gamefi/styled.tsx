@@ -13,8 +13,14 @@ export const DetailsContainer = styled(Flex)`
 export const MainContainer = styled(Flex)`
     width: 100%;
     padding: 10px;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        & > * {
+            margin: 10px 0px;
+        }
+    }
 `
 
 export const MainForm = styled(Flex)`
-    
+
 `

@@ -32,7 +32,7 @@ const Gamefi: React.FC = () => {
     const zero = new BigNumber(0)
     return (
         <Page>
-            <MainContainer justifyContent='space-evenly'>
+            <MainContainer justifyContent='space-evenly' >
                 <Details apr='10%' mggRewards='10 MGG' />
                 <Form max={zero}/>
             </MainContainer>

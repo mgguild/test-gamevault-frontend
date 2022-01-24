@@ -20,6 +20,15 @@ const Container = styled(Card)`
   & > * {
     margin: 10px 0px;
   }
+  @media (max-width: 500px){
+      width: 400px;
+  }
+  @media (max-width: 400px){
+    width: 350px;
+    }
+    @media (max-width: 300px){
+        width: 300px;
+    }
 `
 const StyledLogo = styled.img`
   width: 50px;
