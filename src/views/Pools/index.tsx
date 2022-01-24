@@ -283,7 +283,7 @@ const Pools: React.FC = () => {
               </Flex>
             </InfoBox>
           </Flex>
-          <Flex
+          {/* <Flex
             style={
               isMobile
                 ? {
@@ -301,7 +301,7 @@ const Pools: React.FC = () => {
               style={isMobile ? { width: '200px' } : { width: '500px' }}
               fontSize="inherit"
             />
-          </Flex>
+          </Flex> */}
         </Flex>
       </PageHeader>
       <Page>

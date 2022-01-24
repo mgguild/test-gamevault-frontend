@@ -413,7 +413,7 @@ const Farms: React.FC = () => {
               Liquidity Staking
             </Text>
             <Text color='text' bold style={isMobile ? { fontSize: '17px' } : { fontSize: '27px' }}>
-              Stake MGG and earn MGG!
+              Stake LP token and earn MGG!
             </Text>
           </Flex>
           <InfoBox style={{width: '100%'}} margin="20px 0px 0px 0px" justifyContent="space-between">
@@ -431,7 +431,7 @@ const Farms: React.FC = () => {
            </Flex>
         </InfoBox>
         </Flex>
-          <Flex style={isMobile ? {
+          {/* <Flex style={isMobile ? {
             fontSize: '150px',
             margin: 'auto',
             marginTop: '20px',
@@ -439,7 +439,7 @@ const Farms: React.FC = () => {
           } : { fontSize: '240px', marginRight: '-118px' }}>
             <SvgIcon component={theme.isDark ? FarmsDarkLogo : FarmsLightLogo} viewBox='0  0 384 512'
                      style={isMobile ? { width: '200px' } : { width: '500px' }} fontSize='inherit' />
-          </Flex>
+          </Flex> */}
         </Flex>
       </PageHeader>
       <Page>

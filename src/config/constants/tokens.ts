@@ -1606,6 +1606,17 @@ const tokens = {
     iconExtension: 'png',
     projectLink: 'https://sparkpoint.io/',
   },
+  mgg: {
+    symbol: 'MGG',
+    address: {
+      1: '0x9F7A0406Abe72354006Ac8949c156365A7455e3A',
+      56: '0xeda21b525ac789eab1a08ef2404dd8505ffb973d',
+      97: '',
+    },
+    decimals: 18,
+    iconExtension: 'png',
+    projectLink: 'https://sparkpoint.io/',
+  },
   ttkb: {
     symbol: 'TTKb',
     address: {
@@ -1697,7 +1708,7 @@ const tokens = {
     iconExtension: 'png',
   },
   hps: {
-    symbol: 'HPS',
+    symbol: 'MGG',
     address: {
       56: '0xeda21b525ac789eab1a08ef2404dd8505ffb973d',
       97: '0xeda21b525ac789eab1a08ef2404dd8505ffb973d',

@@ -5,26 +5,26 @@ export const DEFAULT_META: PageMeta = {
   title: 'MGG',
   description:
     'Stake MGG and earn token rewards',
-  image: 'https://sparkswap.finance//images/192x192_App_Icon.png',
+  image: 'https://app.metagg.com/MGG.png',
 }
 
 export const getCustomMeta = (path: string, t: ContextApi['t']): PageMeta => {
   switch (path) {
-    case '/Liquidity':
+    case '/farms':
       return {
-        title: `${t('Home')} | ${t('MGG')}`,
+        title: `${t('Liquidity')} | ${t('MGG')}`,
       }
-    case '/competition':
+    case '/pools':
       return {
-        title: `${t('Trading Battle')} | ${t('MGG')}`,
+        title: `${t('Pools')} | ${t('MGG')}`,
       }
-    case '/prediction':
+    case '/gamefi':
       return {
-        title: `${t('Prediction')} | ${t('MGG')}`,
+        title: `${t('GameFi Vaults')} | ${t('MGG')}`,
       }
-    case '/gamefivaults':
+    case '/launchpad':
       return {
-        title: `${t('Vaults')} | ${t('MGG')} - ${t('Stake MGG and earn GameFi tokens!')}`,
+        title: `${t('IGO Launchpad')} | ${t('MGG')}`,
       }
     case '/liquidity':
       return {

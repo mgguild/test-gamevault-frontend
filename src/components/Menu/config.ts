@@ -27,9 +27,14 @@ const config: MenuEntry[] = [
     href: "/launchpad",
   },
   {
+    label: "Earning Dashboard",
+    icon: "",
+    href: "/earning-dashboard",
+  },
+  {
     label: "Bridge",
     icon: "",
-    href: "https://app.srk.finance/#/bridge",
+    href: "https://app.chainport.io",
   },
 /*
   {

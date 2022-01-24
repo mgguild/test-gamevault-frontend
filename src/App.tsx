@@ -61,6 +61,9 @@ const App: React.FC = () => {
             <Route path='/launchpad' exact>
               <ComingSoon title="IGO Launchpad" />
             </Route>
+            <Route path='/earning-dashboard' exact>
+              <ComingSoon title="Earning Dashboard" />
+            </Route>
             {/* <Route path='/liquidity'>
               <Pools />
             </Route> */}
