@@ -19,6 +19,7 @@ import EasterEgg from './components/EasterEgg'
 const Farms = lazy(() => import('./views/Farms'))
 const Pools = lazy(() => import('./views/Pools'))
 const ComingSoon = lazy(() => import('./views/ComingSoon'))
+const Guildpad = lazy(() => import('./views/GuildPad'))
 const Lottery = lazy(() => import('./views/Lottery'))
 const Ifos = lazy(() => import('./views/Ifos'))
 const NotFound = lazy(() => import('./views/NotFound'))
@@ -58,7 +59,8 @@ const App: React.FC = () => {
               <ComingSoon title="GameFi Vault"/>
             </Route>
             <Route path='/launchpad' exact>
-              <ComingSoon title="IGO Launchpad" />
+              {/* <ComingSoon title="IGO Launchpad" /> */}
+              <Guildpad />
             </Route>
             <Route path='/earning-dashboard' exact>
               <ComingSoon title="Earning Dashboard" />
