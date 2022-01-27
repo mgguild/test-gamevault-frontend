@@ -33,18 +33,18 @@ const HomeSection: React.FC = () => {
             }
           >
             <Heading size={isMobile ? 'xl' : 'xxl'} color={theme.colors.primary}>
-                 IGO Launchpad
+                Acquire early access to the incoming P2E Games in the Metaverse
             </Heading>
             <Text color="textSubtle" fontSize="19px">
-             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam porro, ut ad magnam deserunt unde eos mollitia natus doloribus cumque quod possimus.
+             IGO and INO Launchpad for exciting GameFi projects
             </Text>
             <hr  style={{width: '100%', border: 'none', borderBottom: `1px solid ${theme.colors.primary}`}}/>
             <ButtonContainer>
               <Button fullWidth style={{ borderRadius: '4px' }}>
-                BUY ON SWAP
+                BUY MGG
               </Button>
               <Button fullWidth style={{ backgroundColor: theme.colors.MGG_accent2, borderRadius: '4px' }}>
-                Apply for IDO
+                Apply for KYC
               </Button>
             </ButtonContainer>
           </Flex>
@@ -54,17 +54,18 @@ const HomeSection: React.FC = () => {
           
         </HomeContainer>
         <HomeContainer>
+          <Flex style={{margin: '0px auto'}} flexDirection='column' alignItems='center'>
           <Text color="textSubtle" style={isMobile ? { margin: '10px' } : { margin: '20px', fontSize: '20px' }}>
-            EXCLUSIVELY ON{' '}
-            <img
+            EXCLUSIVELY ON MULTIPLE CHAINS
+          </Text>
+          <img
               src="./images/icons/exclusive_binance.png"
               alt="ex-binance"
               width="20vw"
               height="20vh"
               style={{ verticalAlign: 'middle' }}
-            />{' '}
-            BINANCE SMART CHAIN
-          </Text>
+            />
+          </Flex>
         </HomeContainer>
         
       </StyledContainer>

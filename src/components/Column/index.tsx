@@ -1,9 +1,9 @@
 import styled from 'styled-components'
+import { Flex } from '@metagg/mgg-uikit'
 
 const Column = styled.div`
   display: grid;
 `
-
 export const AboutColumn = styled(Column)`
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto;
@@ -11,7 +11,7 @@ export const AboutColumn = styled(Column)`
   max-width: 1200px;
   height: auto;
   text-align: center;
-  justify-content: center;
+  // justify-content: center;
   column-gap: 200px;
   row-gap: 40px;
   @media (max-width: 600px) {
@@ -19,6 +19,12 @@ export const AboutColumn = styled(Column)`
     width: 80%;
   }
 `
+
+export const TierColumns = styled(Flex)`
+flex-wrap: wrap;
+justify-content: center;
+`
+
 export const TwoColumn = styled(Column)`
   grid-template-columns: repeat(2, 2fr);
   grid-template-rows: 1;

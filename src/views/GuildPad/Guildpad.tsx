@@ -1,7 +1,8 @@
 import React from 'react'
 import { Text } from '@metagg/mgg-uikit'
 import Page from 'components/layout/Page'
-import { ActiveSection, ApplySection, FooterSection, HomeSection } from './sections';
+import { AboutSection, ActiveSection, ApplySection, FooterSection, HomeSection } from './sections';
+
 
 const Guildpad: React.FC = () => {
     return (
@@ -9,6 +10,7 @@ const Guildpad: React.FC = () => {
             <HomeSection />
             <Page>
                 <ActiveSection />
+                <AboutSection />
                 <ApplySection />
             </Page>
             <FooterSection />
