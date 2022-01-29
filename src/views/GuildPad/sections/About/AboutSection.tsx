@@ -3,7 +3,6 @@ import { Flex, Text, Heading, Button} from '@metagg/mgg-uikit'
 import { AboutColumn as Column, TwoColumn, TierColumns } from 'components/Column'
 import { SvgProps } from 'components/SvgIcon/types'
 import { ThemeContext } from 'styled-components'
-import useMedia from 'use-media'
 import {
   StyledContainer,
   StyledHeading,
@@ -158,7 +157,6 @@ const RenderRoundTwo = () => {
 }
 
 const Section: React.FC = () => {
-  const isMobile = useMedia({ maxWidth: 500 })
   return (
     <>
       <PageSection direction="column">
