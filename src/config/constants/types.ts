@@ -163,3 +163,24 @@ export type PageMeta = {
   description?: string
   image?: string
 }
+
+export type Status = 'active' | 'upcoming' | 'completed' | null;
+
+export const STATE:{active: Status; upcoming: Status; completed: Status} = {
+    active: 'active',
+    upcoming: 'upcoming',
+    completed: 'completed'
+}
+
+interface GuildPadInformation {
+  title: string;
+  description: string;
+  distribution?: string;
+  status: Status
+}
+
+export interface IGuildpad extends GuildPadInformation {
+  address?: string;
+  buyingCoin?: Token;
+  sellingCoin?:  Token;
+}

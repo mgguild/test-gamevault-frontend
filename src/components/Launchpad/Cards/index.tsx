@@ -13,8 +13,8 @@ const GCard = styled(SCard)`
  background: ${(({theme}) => theme.colors.MGG_container)};
  border: 2px solid ${(({theme}) => theme.colors.MGG_active)};
  border-radius: 5px;
- width: 400px;
- margin: 20px 0px;
+ width: 100%;
+ margin: 0px auto;
 `
 
 const Header = styled(SCardHeader)<{ src?: string }>`

@@ -9,7 +9,7 @@ import PageSection from '../Layout'
 
 const StyledFlex = styled(Flex)`
   text-align: left;
-  width: 900px;
+  max-width: 900px;
   justify-content: center;
   padding: 80px;
   align-items: flex-start;
@@ -43,7 +43,6 @@ const HomeSection: React.FC = () => {
           {/* <AnimContainer>
             <LottieAnimation lotti={data} position="center" />
           </AnimContainer> */}
-          
         </HomeContainer>
         <HomeContainer>
           <Flex style={{margin: '0px auto'}} flexDirection='column' alignItems='center'>
