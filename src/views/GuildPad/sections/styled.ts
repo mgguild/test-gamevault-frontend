@@ -24,13 +24,14 @@ export const Container = styled.div`
   align-items: center;
 `
 
-export const BoxContainer = styled(Flex)`
-    border: 1px solid ${(({theme}) => theme.colors.primary)};
+export const BoxContainer = styled(Flex)<{borderColor?: string}>`
+    border: 1px solid ${(({theme, borderColor}) => !borderColor? 'rgba(131,131,131, 0.5)' : borderColor)};
     border-top: none;
     height: auto;
     justify-content: center;
     align-items: center;
     padding: 20px;
+    background-color: ${(({theme}) => theme.colors.MGG_container)};
 `
 export const BoxHeader = styled.div`
     text-align: center;
