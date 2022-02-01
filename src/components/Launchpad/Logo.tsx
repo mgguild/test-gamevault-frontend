@@ -2,6 +2,9 @@ import { Flex, Heading, Text } from '@sparkpointio/sparkswap-uikit'
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { Globe, Send, Twitter } from 'react-feather'
+import { Token } from 'config/constants/types'
+import tokens from 'config/constants/tokens'
+import { getAddress } from 'utils/addressHelpers'
 import Anchor from './Anchor'
 import { ReactComponent as MediumIcon } from './icons/MediumIcon.svg'
 import SvgIcon from './SvgIcon'
@@ -18,18 +21,23 @@ const TokenLogo = styled.img<{ size?: string }>`
   }
 `
 
-const Logo: React.FC<{ tokenName: string; image: string; subtitle?: string; socMeds?: string[]; padding?: string }> = ({
+const Logo: React.FC<{ tokenName: string; primaryToken: Token; subtitle?: string; socMeds?: string[]; padding?: string }> = ({
   tokenName,
-  image,
+  primaryToken,
   subtitle,
   socMeds,
   padding = '24px',
 }) => {
   const theme = useContext(ThemeContext)
-  const srcs = `${process.env.PUBLIC_URL}/images/tokens/${image}.png`
+
+  const getImageUrlFromToken = (token: Token) => {
+    const address = getAddress(token.symbol === 'BNB' ? tokens.wbnb.address : token.address)
+    return `/images/tokens/${address}.${token.iconExtension?? 'svg'}`
+  }
+
   return (
     <Flex padding={padding}>
-      <TokenLogo src={srcs} />
+      <TokenLogo src={getImageUrlFromToken(primaryToken)} />
       <Flex flexDirection="column" justifyContent="center" alignItems="flex-start">
         <Heading size="l">{tokenName}</Heading>
         {socMeds ? (

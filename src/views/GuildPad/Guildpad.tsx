@@ -10,15 +10,15 @@ import { AboutSection, ActiveSection, ApplySection, FooterSection, HomeSection, 
 const Guildpad: React.FC = () => {
 
     const activeGP = useMemo(() => Guildpads.filter((guildpad) => guildpad.status === STATE.active), [])
-    const upcomingGP = useMemo(() => Guildpads.filter((guildpad) => guildpad.status === STATE.upcoming), [])
-    const completedGP = useMemo(() => Guildpads.filter((guildpad) => guildpad.status === STATE.completed), [])
+    const inactiveGP = useMemo(() => Guildpads.filter((guildpad) => guildpad.status === STATE.upcoming || guildpad.status === STATE.completed), [])
+    // const completedGP = useMemo(() => Guildpads.filter((guildpad) => guildpad.status === STATE.completed), [])
 
     return (
         <>
             <HomeSection />
             <Page>
                 <ActiveSection guildpads={activeGP} />
-                <InactiveSection />
+                <InactiveSection guildpads={inactiveGP} />
                 <AboutSection />
                 <ApplySection />
             </Page>

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { CardHeader, Flex } from '@sparkpointio/sparkswap-uikit'
+import { CardHeader, Flex, Button } from '@sparkpointio/sparkswap-uikit'
 
 export const Header = styled(CardHeader)<{ src?: string }>`
   display: flex;
@@ -58,4 +58,92 @@ export const StatusColor = {
 export const StatusBox = styled(Flex)<{ status: string }>`
   background-color: ${({ status, theme }) => (status ? StatusColor[status] : theme.colors.primary)};
   border-radius: 3px;
+`
+
+export const PostHeader = styled(Header)<{background?:string}>`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // background-position: 50% 78%;
+  // background-size: cover;
+  // background-repeat: no-repeat;
+  border-top: 3px solid ${(({theme}) => theme.colors.MGG_active)};
+  border-bottom: 3px solid ${(({theme}) => theme.colors.MGG_active)};
+  ${({ background }) =>
+  background &&
+  `
+      &:before {
+          content: ' ';
+          display: block;
+          position: absolute;
+          left: 0;
+          top: 0;
+          opacity: 0.2;
+          width: 100%;
+          height: 100%;
+          z-index: 1;
+          background-image: url(${background});
+          background-repeat: no-repeat;
+          // background-attachment: fixed;
+          background-position: center;
+          background-size: cover;
+      }
+  `}
+  & > * {
+    position: relative;
+    z-index: 2;
+  }
+`
+export const PostBody = styled(Flex)`
+  width: 100%;
+  padding: 20px 30px;
+  background-color: ${({ theme }) => theme.card.background};
+  flex-direction: column;
+`
+export const PostContainer = styled.div`
+  width: 100%;
+  position: relative;
+`
+
+export const TokenProperty = styled(Flex)`
+  background-color: ${({ theme }) => theme.colors.MGG_accent2};
+  border-radius: 25px;
+  min-width: 60px;
+  margin: 0px 10px;
+  justify-content: center;
+  & > * {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 5px 10px;
+  }
+  // @media (max-width: 500px) {
+  //   width: auto;
+  //   min-width: auto;
+  // }
+`
+
+export const Details = styled(Button)`
+  background-color: ${(({theme}) => theme.colors.MGG_mainBG)};
+  border-radius: 5px;
+  height: 40px;
+  @media (max-width: 500px) {
+    width: 40%;
+  }
+`
+
+export const NavOption = styled(Button)<{ activeIndex: boolean }>`
+  background-color: transparent;
+  color: ${({ theme, activeIndex }) => (activeIndex ? theme.colors.text : theme.colors.textSubtle)};
+  border-bottom: ${({ theme, activeIndex }) => activeIndex && `3px solid ${theme.colors.primary}`};
+`
+export const SaleContainer = styled(Flex)`
+  margin: 10px 0px;
+  & > * {
+    width: 45%;
+  }
+`
+
+export const SaleRow = styled(Flex)`
+  margin: 10px 0px;
 `

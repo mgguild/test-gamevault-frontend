@@ -31,12 +31,18 @@ export const BoxContainer = styled(Flex)<{borderColor?: string}>`
     justify-content: center;
     align-items: center;
     padding: 20px;
-    background-color: ${(({theme}) => theme.colors.MGG_container)};
+    // background-color: ${(({theme}) => theme.colors.MGG_container)};
 `
-export const BoxHeader = styled.div`
-    text-align: center;
+export const BoxHeader = styled(Flex)`
     width: 100%;
     background: ${(({theme}) => theme.colors.MGG_active)};
     padding: 20px;
+    // min-height: 10vh;
+    align-items: center;
+    justify-content: center;
     border-radius: 10px 10px 0px 0px;
+`
+export const TabContainer = styled(Flex)`
+  border-radius: 10px 10px 0px 0px;
+  background-color: ${({ theme }) => theme.card.background};
 `

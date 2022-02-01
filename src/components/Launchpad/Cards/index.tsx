@@ -5,6 +5,7 @@ import { useWeb3React } from '@web3-react/core'
 // import TokenLogo from 'components/Launchpad/Logo'
 // import UnlockButton from 'components/UnlockButton'
 // import { TimerContainer, Header, StatusBox, TimerBox, InfoBox, InfoRow } from '../styled'
+import tokens from 'config/constants/tokens'
 import { Card as SCard, CardHeader as SCardHeader, Text, Heading, Flex, Button } from '@metagg/mgg-uikit'
 import TokenLogo from 'components/Launchpad/Logo'
 import UnlockButton from 'components/UnlockButton'
@@ -27,26 +28,6 @@ const Header = styled(SCardHeader)<{ src?: string }>`
   // background-image: url('/images/icons/oreBG6.png');
   background-position: center;
   background-size: cover;
-  ${({ src }) =>
-    src &&
-    `
-        &:before {
-            content: ' ';
-            display: block;
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0.3;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            background-image: url(${src});
-            background-repeat: no-repeat;
-            // background-attachment: fixed;
-            background-position: center;
-            background-size: cover;
-        }
-    `}
 `
 const TimerBox = styled(Flex)`
   & > * {
@@ -155,7 +136,7 @@ const Card: React.FC = () => {
     <GCard>
       <CardHeader status="ONGOING" />
       <CountDown />
-      <TokenLogo tokenName="MGG" image="MGG" subtitle="MGG" />
+      <TokenLogo tokenName="MGG" primaryToken={tokens.mgg} subtitle="MGG" />
       <TokenInformation raise="100" coinForSale="1000000" buyingCoin="BNB" type="Vesting" sellingCoin="MGG" />
       <Flex padding="24px">
         {!account ? (

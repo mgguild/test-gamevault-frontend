@@ -6,11 +6,11 @@ import { IGuildpad } from 'config/constants/types'
 import PageSection from '../Layout'
 import Card from '../../components/Card'
 import { BoxContainer, BoxHeader } from '../styled'
+import NoLaunches from '../../components/NoLaunches'
 
 
 
-
-const CardGroup: React.FC<{guildpads?: IGuildpad[] | null}> = ({guildpads}) => {
+const CardGroup: React.FC<{guildpads?: IGuildpad[]}> = ({guildpads}) => {
     return guildpads.length !==0 ? (
         <Grid container spacing={2} justifyContent='center' alignItems='center'>
             {
@@ -21,10 +21,10 @@ const CardGroup: React.FC<{guildpads?: IGuildpad[] | null}> = ({guildpads}) => {
                 ))
             }
         </Grid>
-    ) : <Text>No Active Guildpads ...</Text>
+    ) : <NoLaunches section="ONGOING" />
 }
 
-const Active: React.FC<{guildpads?: IGuildpad[] | null}> = ({guildpads}) => {
+const Active: React.FC<{guildpads?: IGuildpad[]}> = ({guildpads}) => {
     const theme = useContext(ThemeContext);
     return (
         <PageSection direction='column'> 
