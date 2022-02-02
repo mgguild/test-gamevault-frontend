@@ -3,7 +3,8 @@ import styled from 'styled-components'
 // import { SvgContainer } from "./svgicon-styles"
 
 interface Props {
-  Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
+  Icon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
+  Img?: string;
   width?: number
   height?: number
   fill?: string
@@ -28,10 +29,10 @@ export const SvgContainer = styled.div<{
 `
 
 const SvgIcon: React.FC<Props> = (props) => {
-  const { Icon } = props
+  const { Icon, Img} = props
   return (
     <SvgContainer {...props}>
-      <Icon />
+     {Icon? <Icon /> : <img src={Img} alt='tier-icon' width="118.8" />}
     </SvgContainer>
   )
 }
