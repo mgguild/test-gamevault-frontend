@@ -29,10 +29,10 @@ export const SvgContainer = styled.div<{
 `
 
 const SvgIcon: React.FC<Props> = (props) => {
-  const { Icon, Img} = props
+  const { Icon, Img, width} = props
   return (
     <SvgContainer {...props}>
-     {Icon? <Icon /> : <img src={Img} alt='tier-icon' width="118.8" />}
+     {Icon? <Icon /> : <img src={Img} alt='tier-icon' width={width} />}
     </SvgContainer>
   )
 }

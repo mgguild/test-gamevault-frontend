@@ -1,8 +1,10 @@
 import React, { useContext } from 'react'
-import { Flex, Text, Heading, Button} from '@metagg/mgg-uikit'
+import { Flex, Text, Heading, Button } from '@metagg/mgg-uikit'
 import { AboutColumn as Column, TwoColumn, TierColumns } from 'components/Column'
 import { SvgProps } from 'components/SvgIcon/types'
+import SvgIcon from 'components/SvgIcon'
 import { ThemeContext } from 'styled-components'
+import {ReactComponent as InoRequirementIcon} from 'assets/InoReq.svg'
 import {
   StyledContainer,
   StyledHeading,
@@ -56,6 +58,7 @@ const RenderTierSystem = () => {
         key={item.title}
         image={item.image}
         title={item.title}
+        nftRequirement={item.nftRequirement}
         requirement={item.requirement}
         poolWeight={item.poolWeight}
         stakingLength={item.stakingLength}
@@ -65,7 +68,15 @@ const RenderTierSystem = () => {
   })
 }
 
-const TierBox = ({ image, title, requirement, poolWeight, whitelistRequirement, stakingLength }: TierSystem) => {
+const TierBox = ({
+  image,
+  title,
+  requirement,
+  nftRequirement,
+  poolWeight,
+  whitelistRequirement,
+  stakingLength,
+}: TierSystem) => {
   const Tier = Tiers[image]
   const tierElement: React.ReactElement = <Tier width="24px" mr="8px" height="24" />
   const theme = useContext(ThemeContext)
@@ -78,6 +89,12 @@ const TierBox = ({ image, title, requirement, poolWeight, whitelistRequirement, 
           <Text fontSize="17px">{requirement}</Text>
           <Text fontSize="14px" color="textSubtle">
             Staking Requirement
+          </Text>
+        </div>
+        <div>
+          <Text fontSize="17px">{nftRequirement}</Text>
+          <Text fontSize="14px" color="textSubtle">
+            MGG NFT Holder
           </Text>
         </div>
         <div>
@@ -94,13 +111,53 @@ const TierBox = ({ image, title, requirement, poolWeight, whitelistRequirement, 
         </div>
       </TierDetails>
       <div>
-          <Text fontSize="17px">{poolWeight}</Text>
-          <Text fontSize="14px" color="textSubtle">
-            Pool Weight
-          </Text>
-        </div>
+        <Text fontSize="17px">{poolWeight}</Text>
+        <Text fontSize="14px" color="textSubtle">
+          Pool Weight
+        </Text>
+      </div>
       <TierFooter>
-        <Button as="a" href="https://medium.com/p/140532e2d1e/" fullWidth style={{backgroundColor: theme.colors.MGG_active}}>
+        <Button
+          as="a"
+          href="https://medium.com/p/140532e2d1e/"
+          fullWidth
+          style={{ backgroundColor: theme.colors.MGG_active }}
+        >
+          Learn More
+        </Button>
+      </TierFooter>
+    </Box>
+  )
+}
+
+const InoRequirement = () => {
+  const theme = useContext(ThemeContext)
+  return (
+    <Box>
+      <TierTitle>
+      <SvgIcon width={118.8} Icon={InoRequirementIcon} />
+      </TierTitle>
+      <TierDetails>
+      <div>
+        <Text fontSize="17px">Any amount of MGG staked</Text>
+        <Text fontSize="14px" color="textSubtle">
+          Staking Requirement
+        </Text>
+      </div>
+      <div>
+        <Text fontSize="17px">x2 Allocation</Text>
+        <Text fontSize="14px" color="textSubtle">
+          MGG NFT Holder
+        </Text>
+      </div>
+      </TierDetails>
+      <TierFooter>
+        <Button
+          as="a"
+          href="https://medium.com/p/140532e2d1e/"
+          fullWidth
+          style={{ backgroundColor: theme.colors.MGG_active }}
+        >
           Learn More
         </Button>
       </TierFooter>
@@ -169,16 +226,22 @@ const Section: React.FC = () => {
       </PageSection>
       <PageSection direction="column">
         <BoxHeader>
+          <Heading size="l">INO REQUIREMENTS</Heading>
+        </BoxHeader>
+        <BoxContainer>
+          <InoRequirement />
+        </BoxContainer>
+      </PageSection>
+      <PageSection direction="column">
+        <BoxHeader>
           <Heading size="l">Tier List</Heading>
         </BoxHeader>
         <BoxContainer flexDirection="column">
           <TierColumns>{RenderTierSystem()}</TierColumns>
         </BoxContainer>
       </PageSection>
-
       <PageSection direction="column">
         <BoxHeader>
-          {' '}
           <Heading size="l">ROUND 2 - FCFS ROUND </Heading>
         </BoxHeader>
         <BoxContainer flexDirection="column">

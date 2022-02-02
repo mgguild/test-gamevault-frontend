@@ -6,7 +6,7 @@ import TierIcon from 'assets/Tiers/Tier5Legendary.png'
 import SvgIcon from 'components/SvgIcon'
 
 const Icon: React.FC<SvgProps> = (props) => {
-  return <SvgIcon width={118.8} Img={TierIcon} />
+  return <SvgIcon width={105} Img={TierIcon} />
 }
 
 export default Icon

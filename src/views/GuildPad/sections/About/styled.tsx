@@ -64,7 +64,7 @@ export const Box = styled.div`
   line-height: 5px;
   transition: all 0.2s ease-in-out;
   &:hover {
-    cursor: pointer;
+    cursor: default;
     transform: scale(1.1);
   }
 `
@@ -85,7 +85,7 @@ export const TierTitle = styled(BoxHeading)`
     padding: 15px;
     display: block; 
     margin: 15px auto; 
-    width: 80%; 
+    width: 100%; 
     border-bottom: 3px solid ${({ theme }) => theme.colors.MGG_active}; 
     // border-top: 3px solid ${({ theme }) => theme.colors.primary}; 
 }
@@ -96,10 +96,10 @@ export const TierDetails = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding: 10px;
-  min-height: 200px;
+  min-height: 130px;
 `
 export const TierFooter = styled.div`
-  padding: 25px;
+  padding: 25px 0px;
 `
 
 export const StyledLink = styled.a`

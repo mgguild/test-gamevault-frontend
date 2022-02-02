@@ -7,6 +7,7 @@ export type Details = {
 export type TierSystem = {
   image: string
   title: string
+  nftRequirement: string;
   requirement: string
   poolWeight: number
   whitelistRequirement: string
