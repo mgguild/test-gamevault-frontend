@@ -20,7 +20,7 @@ const guildpad: IGuildpad = {
     status: STATE.upcoming,
     address: '0x001', // Contract address
     buyingCoin: tokens.bnb,
-    sellingCoin: tokens.mgg
+    sellingCoin: tokens.TankWarsZone,
 }
 
 export default guildpad

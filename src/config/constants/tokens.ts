@@ -1,4 +1,28 @@
+const guildpadTokens = {
+  TankWarsZone: {
+    symbol: 'TankWarsZone',
+    address: {
+      56: 'tankwarszone',
+      97: 'tankwarszone',
+    },
+    iconExtension: 'png',
+    decimals: 18,
+    projectLink: 'https://www.tankwars.zone/',
+  },
+  demole: {
+    symbol: '$DMLG',
+    address: {
+      56: 'demole',
+      97: 'demole',
+    },
+    iconExtension: 'png',
+    decimals: 18,
+    projectLink: 'https://demole.io/',
+  },
+}
+
 const tokens = {
+  ...guildpadTokens,
   sfuel: {
     symbol: 'SFUEL',
     address: {

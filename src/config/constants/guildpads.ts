@@ -1,10 +1,12 @@
 import { IGuildpad } from "./types";
 import MggGuildpad from "./Guildpads/MggGuildpad";
-import TankWarsZone from './Guildpads/TankWarsZone';
+import TankWarsZoneGuildpad from './Guildpads/TankWarsZone';
+import DemoleGuildpad from './Guildpads/Demole';
 
 const Guildpads: IGuildpad[] = [
     // MggGuildpad, [ disable mgg guildpad ]
-    TankWarsZone
+    TankWarsZoneGuildpad,
+    DemoleGuildpad
 ]
 
 export default Guildpads

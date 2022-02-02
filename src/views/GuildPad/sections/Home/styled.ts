@@ -41,7 +41,7 @@ export const HomeContainer = styled(TwoColumnHeader)`
 export const AnimContainer = styled(Flex)`
   // width: 950px;
   height: 800px;
-  background: radial-gradient(closest-side, #1b60a3, #000811);
+  // background: radial-gradient(closest-side, #1b60a3, #000811);
   @media (max-width: 1366px) {
     width: 550px;
     height: 400px;

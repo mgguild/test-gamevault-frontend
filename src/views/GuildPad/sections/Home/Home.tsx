@@ -27,7 +27,7 @@ const HomeSection: React.FC = () => {
             <Heading size='xl' color={theme.colors.primary}>
                 Acquire early access to the incoming P2E Games in the Metaverse
             </Heading>
-            <Text color="textSubtle" fontSize="19px">
+            <Text fontSize="19px">
              IGO and INO Launchpad for exciting GameFi projects
             </Text>
             <hr  style={{width: '100%', border: 'none', borderBottom: `1px solid ${theme.colors.primary}`}}/>
@@ -40,9 +40,9 @@ const HomeSection: React.FC = () => {
               </Button>
             </ButtonContainer>
           </StyledFlex>
-          {/* <AnimContainer>
+          <AnimContainer>
             <LottieAnimation lotti={data} position="center" />
-          </AnimContainer> */}
+          </AnimContainer>
         </HomeContainer>
         <HomeContainer>
           <Flex style={{margin: '0px auto'}} flexDirection='column' alignItems='center'>
