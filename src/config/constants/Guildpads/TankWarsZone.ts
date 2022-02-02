@@ -2,6 +2,7 @@
 import { IGuildpad, STATE, TYPE, DISTRIBUTION } from "../types";
 import tokens from '../tokens';
 
+
 const socials = {
     website: 'https://www.tankwars.zone/',
     twitter: 'https://twitter.com/TankWarsZone',
@@ -13,6 +14,7 @@ const socials = {
 const guildpad: IGuildpad = {
     title: 'TankWars Zone',
     description: 'TANK WARS ZONE IS A METAVERSE-READY EXCITING AND VISUALLY REFRESHING ACTION GAME BUILT ON BLOCKCHAIN TECHNOLOGY.',
+    socials,
     type: TYPE.INO,
     distribution: DISTRIBUTION.VESTING,
     status: STATE.upcoming,

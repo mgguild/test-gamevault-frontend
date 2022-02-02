@@ -2,7 +2,8 @@ import { Flex, Heading, Text } from '@sparkpointio/sparkswap-uikit'
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { Globe, Send, Twitter } from 'react-feather'
-import { Token } from 'config/constants/types'
+import { SiDiscord } from 'react-icons/si'
+import { Socials, Token } from 'config/constants/types'
 import tokens from 'config/constants/tokens'
 import { getAddress } from 'utils/addressHelpers'
 import Anchor from './Anchor'
@@ -21,18 +22,20 @@ const TokenLogo = styled.img<{ size?: string }>`
   }
 `
 
-const Logo: React.FC<{ tokenName: string; primaryToken: Token; subtitle?: string; socMeds?: string[]; padding?: string }> = ({
-  tokenName,
-  primaryToken,
-  subtitle,
-  socMeds,
-  padding = '24px',
-}) => {
+type LogoProps = {
+  tokenName: string
+  primaryToken: Token
+  subtitle?: string
+  socMeds?: Socials
+  padding?: string
+}
+
+const Logo: React.FC<LogoProps> = ({ tokenName, primaryToken, subtitle, socMeds, padding = '24px' }) => {
   const theme = useContext(ThemeContext)
 
   const getImageUrlFromToken = (token: Token) => {
     const address = getAddress(token.symbol === 'BNB' ? tokens.wbnb.address : token.address)
-    return `/images/tokens/${address}.${token.iconExtension?? 'svg'}`
+    return `/images/tokens/${address}.${token.iconExtension ?? 'svg'}`
   }
 
   return (
@@ -42,18 +45,31 @@ const Logo: React.FC<{ tokenName: string; primaryToken: Token; subtitle?: string
         <Heading size="l">{tokenName}</Heading>
         {socMeds ? (
           <Flex>
-            <Anchor href={socMeds?.[0]}>
-              <Globe size="16px" color={theme.colors.text} />
-            </Anchor>
-            <Anchor href={socMeds?.[1]}>
-              <Twitter size="16px" color={theme.colors.text} />
-            </Anchor>
-            <Anchor href={socMeds?.[2]}>
-              <Send size="16px" color={theme.colors.text} />
-            </Anchor>
-            <Anchor href={socMeds?.[3]}>
-              <SvgIcon width={16} Icon={MediumIcon} />
-            </Anchor>
+            {socMeds?.website && (
+              <Anchor href={socMeds?.website}>
+                <Globe size="16px" color={theme.colors.text} />
+              </Anchor>
+            )}
+            {socMeds?.twitter && (
+              <Anchor href={socMeds?.twitter}>
+                <Twitter size="16px" color={theme.colors.text} />
+              </Anchor>
+            )}
+            {socMeds?.telegram && (
+              <Anchor href={socMeds?.telegram}>
+                <Send size="16px" color={theme.colors.text} />
+              </Anchor>
+            )}
+            {socMeds?.discord && (
+              <Anchor href={socMeds?.discord}>
+                <SiDiscord size="16px" color={theme.colors.text} />
+              </Anchor>
+            )}
+            {socMeds?.medium && (
+              <Anchor href={socMeds?.medium}>
+                <SvgIcon width={16} Icon={MediumIcon} />
+              </Anchor>
+            )}
           </Flex>
         ) : (
           <Text fontSize="12px" color="textSubtle">

@@ -7,13 +7,12 @@ import useMedia from 'use-media'
 import { Header, SaleContainer, SaleRow, PostBody, PostContainer, PostHeader, TokenProperty, Details, NavOption } from './styled'
 import TokenLogo from './Logo'
 
-const Content: React.FC = () => {
+const Content: React.FC<{details: string}>= ({details}) => {
   const theme = useContext(ThemeContext)
   const [active, setActive] = useState(1)
 
   const renderDescription = () => {
-    const description =
-      'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.'
+   const description = details !== '' ? details : 'No description'
 
     return (
       <Text color="textSubtle" margin="10px 0px" style={{ lineHeight: '2em' }}>
@@ -23,10 +22,10 @@ const Content: React.FC = () => {
   }
 
   const renderSale = () => {
-    const price = '1 ORE = $0.13'
-    const start = 'November 24th 2021, 1:00PM UTC'
-    const end = 'November 30th 2021, 1:PM UTC'
-    const distribution = 'November 30th 2021, 2:PM UTC'
+    const price = 'TBA'
+    const start = 'TBA'
+    const end = 'TBA'
+    const distribution = 'TBA'
     const initMarketCap = 'TBA'
     const initTokenCirc = 'TBA'
 
@@ -85,13 +84,13 @@ const Content: React.FC = () => {
 
 const Post: React.FC<{guildpad?: IGuildpad}> = ({guildpad}) => {
   const [toggle, setToggle] = React.useState(false)
-  const sites = ['socmeds', 'socmeds', 'socmeds', 'socmeds']
+  const sites = guildpad.socials
   const isMobile = useMedia({ maxWidth: 500 })
  
-  const { buyingCoin, sellingCoin } = guildpad
+  const { buyingCoin, sellingCoin, description } = guildpad
   const pair = `${buyingCoin.symbol}/${sellingCoin.symbol}`
   const guildSymbol = sellingCoin.symbol
-  const srcs = `/images/guildpad-assets/mgg/mgg.png`
+  const srcs = `/images/guildpad-assets/${sellingCoin.symbol}/${sellingCoin.symbol}.png`
 
   return (
     <PostContainer>
@@ -112,7 +111,7 @@ const Post: React.FC<{guildpad?: IGuildpad}> = ({guildpad}) => {
           Details &nbsp; {toggle ? <ChevronUp /> : <ChevronDown />}{' '}
         </Details>
       </PostHeader>
-      {toggle && <Content />}
+      {toggle && <Content details={description}  />}
     </PostContainer>
   )
 }

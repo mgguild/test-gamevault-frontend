@@ -178,7 +178,7 @@ export const DISTRIBUTION: { VESTING: Distribution; SELF_CLAIM: Distribution } =
   SELF_CLAIM: 'SELF-CLAIM',
 } 
 
-interface Socials {
+export interface Socials {
   website?: string;
   twitter?: string;
   telegram?: string;
@@ -186,17 +186,20 @@ interface Socials {
   discord?: string;
 }
 
-interface GuildPadInformation extends Socials {
+interface GuildPadInformation {
   title: string;
   description: string;
   distribution?: string;
   type?: Type;
+  date?: string;
   status: Status;
+  socials?: Socials;
 }
 
 
 export interface IGuildpad extends GuildPadInformation {
   address?: string;
+  FundstoRaise?: string;
   buyingCoin?: Token;
   sellingCoin?:  Token;
 }
