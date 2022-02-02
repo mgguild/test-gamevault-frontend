@@ -45,7 +45,7 @@ const HomeSection: React.FC = () => {
           </AnimContainer>
         </HomeContainer>
         <HomeContainer>
-          <Flex style={{margin: '0px auto'}} flexDirection='column' alignItems='center'>
+          <Flex style={{margin: '10px auto'}} padding="25px" flexDirection='column' alignItems='center'>
           <Text color="textSubtle" style={{ margin: '10px', fontSize: '20px' }}>
             EXCLUSIVELY ON MULTIPLE CHAINS
           </Text>
@@ -63,9 +63,8 @@ const HomeSection: React.FC = () => {
             </Flex>
           </Flex>
         </HomeContainer>
-        
       </StyledContainer>
-      <Button style={{borderRadius: '50%', height: '50px', width: '50px', margin: '-50px auto 0px auto', background: theme.colors.MGG_container}}>
+      <Button margin="-25px auto" style={{borderRadius: '50%', width: '50px', background: theme.colors.MGG_container}}>
           <Text><ArrowDown color={theme.colors.MGG_accent2} /></Text>
       </Button>
     </PageSection>
