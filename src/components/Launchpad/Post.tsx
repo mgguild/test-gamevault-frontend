@@ -87,7 +87,7 @@ const Post: React.FC<{guildpad?: IGuildpad}> = ({guildpad}) => {
   const sites = guildpad.socials
   const isMobile = useMedia({ maxWidth: 500 })
  
-  const { buyingCoin, sellingCoin, description } = guildpad
+  const { buyingCoin, sellingCoin, description, type } = guildpad
   const pair = `${buyingCoin.symbol}/${sellingCoin.symbol}`
   const guildSymbol = sellingCoin.symbol
   const srcs = `/images/guildpad-assets/${sellingCoin.symbol}/${sellingCoin.symbol}.png`
@@ -101,15 +101,20 @@ const Post: React.FC<{guildpad?: IGuildpad}> = ({guildpad}) => {
         >
           <TokenLogo tokenName={guildpad.title} primaryToken={sellingCoin} padding="0px" socMeds={sites} />
           <TokenProperty>
-            <Text>{pair}</Text>
+            <Text bold>{pair}</Text>
           </TokenProperty>
           <TokenProperty>
-            <Text>{guildSymbol}</Text>
+            <Text bold>{guildSymbol}</Text>
           </TokenProperty>
         </Flex>
+        <Flex alignItems="center">
+        <TokenProperty>
+            <Text bold>{type}</Text>
+          </TokenProperty>
         <Details onClick={() => setToggle(!toggle)}>
-          Details &nbsp; {toggle ? <ChevronUp /> : <ChevronDown />}{' '}
+          Details &nbsp; {toggle ? <ChevronUp /> : <ChevronDown />}
         </Details>
+        </Flex>
       </PostHeader>
       {toggle && <Content details={description}  />}
     </PostContainer>

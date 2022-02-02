@@ -109,9 +109,10 @@ export const PostContainer = styled.div`
 export const TokenProperty = styled(Flex)`
   background-color: ${({ theme }) => theme.colors.MGG_accent2};
   border-radius: 25px;
-  min-width: 60px;
+  min-width: 80px;
   margin: 0px 10px;
   justify-content: center;
+  align-items: center;
   & > * {
     font-size: 12px;
     font-weight: bold;
@@ -127,6 +128,8 @@ export const Details = styled(Button)`
   background-color: ${(({theme}) => theme.colors.MGG_mainBG)};
   border-radius: 5px;
   height: 40px;
+  margin-left: 15px;
+  color: ${(({theme}) => theme.colors.text)}
   @media (max-width: 500px) {
     width: 40%;
   }
