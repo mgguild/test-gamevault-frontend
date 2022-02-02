@@ -172,12 +172,22 @@ export const STATE:{active: Status; upcoming: Status; completed: Status} = {
     completed: 'completed'
 }
 
-interface GuildPadInformation {
+
+interface Socials {
+  website?: string;
+  twitter?: string;
+  telegram?: string;
+  medium?: string;
+  discord?: string;
+}
+
+interface GuildPadInformation extends Socials {
   title: string;
   description: string;
   distribution?: string;
-  status: Status
+  status: Status;
 }
+
 
 export interface IGuildpad extends GuildPadInformation {
   address?: string;

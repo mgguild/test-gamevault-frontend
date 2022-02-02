@@ -7,7 +7,7 @@ const guildpad: IGuildpad = {
     description: 'Lorem Ipsum',
     distribution: 'vesting',
     status: STATE.upcoming,
-    address: '0x001', // Contract address
+    address: '0x000', // Contract address
     buyingCoin: tokens.bnb,
     sellingCoin: tokens.mgg
 }
