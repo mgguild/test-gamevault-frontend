@@ -119,7 +119,7 @@ const TierBox = ({
       <TierFooter>
         <Button
           as="a"
-          href="https://medium.com/p/140532e2d1e/"
+          href="https://medium.com/metagamingguild"
           fullWidth
           style={{ backgroundColor: theme.colors.MGG_active }}
         >
@@ -154,7 +154,7 @@ const InoRequirement = () => {
       <TierFooter>
         <Button
           as="a"
-          href="https://medium.com/p/140532e2d1e/"
+          href="https://medium.com/metagamingguild"
           fullWidth
           style={{ backgroundColor: theme.colors.MGG_active }}
         >
