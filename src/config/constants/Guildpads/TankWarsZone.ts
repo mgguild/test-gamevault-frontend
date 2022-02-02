@@ -1,5 +1,5 @@
 
-import { IGuildpad, STATE } from "../types";
+import { IGuildpad, STATE, TYPE, DISTRIBUTION } from "../types";
 import tokens from '../tokens';
 
 const socials = {
@@ -13,7 +13,8 @@ const socials = {
 const guildpad: IGuildpad = {
     title: 'TankWars Zone',
     description: 'TANK WARS ZONE IS A METAVERSE-READY EXCITING AND VISUALLY REFRESHING ACTION GAME BUILT ON BLOCKCHAIN TECHNOLOGY.',
-    distribution: 'vesting',
+    type: TYPE.INO,
+    distribution: DISTRIBUTION.VESTING,
     status: STATE.upcoming,
     address: '0x001', // Contract address
     buyingCoin: tokens.bnb,

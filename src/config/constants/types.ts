@@ -165,13 +165,18 @@ export type PageMeta = {
 }
 
 export type Status = 'active' | 'upcoming' | 'completed' | null;
-
-export const STATE:{active: Status; upcoming: Status; completed: Status} = {
-    active: 'active',
-    upcoming: 'upcoming',
-    completed: 'completed'
+export type Type = 'INO' | 'IGO';
+export type Distribution = 'VESTING' | 'SELF-CLAIM';
+export const STATE: { active: Status; upcoming: Status; completed: Status } = {
+  active: 'active',
+  upcoming: 'upcoming',
+  completed: 'completed',
 }
-
+export const TYPE: { INO: Type; IGO: Type } = { INO: 'INO', IGO: 'IGO' }
+export const DISTRIBUTION: { VESTING: Distribution; SELF_CLAIM: Distribution } = {
+  VESTING: 'VESTING',
+  SELF_CLAIM: 'SELF-CLAIM',
+} 
 
 interface Socials {
   website?: string;
@@ -185,6 +190,7 @@ interface GuildPadInformation extends Socials {
   title: string;
   description: string;
   distribution?: string;
+  type?: Type;
   status: Status;
 }
 
