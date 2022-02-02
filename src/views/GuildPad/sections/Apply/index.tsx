@@ -25,7 +25,7 @@ const Section: React.FC = () => {
       <StyledHeading size="lg" as="h2">
         Got a Project?
       </StyledHeading>
-      <Text>Apply for an IDO on SparkLaunch, submit your project and get a response within 24 hours.</Text>
+      <Text>Apply for an IDO on MGG, submit your project and get a response within 24 hours.</Text>
       <Actions>
         <Button as="a" href="https://forms.gle/hXZPr93vC8TEmsoh8" fullWidth style={{ borderRadius: '6px', backgroundColor: theme.colors.MGG_active }}>
           Apply Now
