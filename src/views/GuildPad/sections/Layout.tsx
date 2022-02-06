@@ -13,8 +13,8 @@ const Container = styled(Flex)<{ direction?: string }>`
   }
 `
 
-const Layout: React.FC<{ direction?: string }> = ({ direction, children }) => {
-  return <Container direction={direction}>{children}</Container>
+const Layout: React.FC<{ direction?: string, id?: string }> = ({ direction, id, children }) => {
+  return <Container id={id} direction={direction}>{children}</Container>
 }
 
 export default Layout

@@ -27,7 +27,7 @@ const CardGroup: React.FC<{guildpads?: IGuildpad[]}> = ({guildpads}) => {
 const Active: React.FC<{guildpads?: IGuildpad[]}> = ({guildpads}) => {
     const theme = useContext(ThemeContext);
     return (
-        <PageSection direction='column'> 
+        <PageSection direction='column' id="active"> 
             <BoxHeader><Heading size="l"> ONGOING LAUNCHES</Heading></BoxHeader>
             <BoxContainer borderColor={theme.colors.primary}>
                 <CardGroup guildpads={guildpads} />

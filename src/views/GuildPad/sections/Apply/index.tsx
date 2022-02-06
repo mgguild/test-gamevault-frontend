@@ -27,12 +27,12 @@ const Section: React.FC = () => {
       </StyledHeading>
       <Text>Apply for an IDO on MGG, submit your project and get a response within 24 hours.</Text>
       <Actions>
-        <Button as="a" href="https://forms.gle/hXZPr93vC8TEmsoh8" fullWidth style={{ borderRadius: '6px', backgroundColor: theme.colors.MGG_active }}>
+        <Button as="a" href="support@metagg.com" fullWidth style={{ borderRadius: '6px', backgroundColor: theme.colors.MGG_active }}>
           Apply Now
         </Button>
         <Button
           as="a"
-          href="mailto: support@sparkpoint.io"
+          href="mailto: support@metagg.com"
           fullWidth
           style={{ backgroundColor: theme.colors.MGG_accent2, borderRadius: '6px' }}
         >

@@ -1,5 +1,5 @@
 import React, { lazy } from 'react'
-import { HashRouter, Redirect, Route, Switch } from 'react-router-dom'
+import { HashRouter, Redirect, Route, Switch, Link } from 'react-router-dom'
 import { ResetCSS,  } from '@metagg/mgg-uikit'
 import BigNumber from 'bignumber.js'
 import useEagerConnect from 'hooks/useEagerConnect'
@@ -36,6 +36,10 @@ BigNumber.config({
   DECIMAL_PLACES: 80,
 })
 
+const ExternalRedirect = ({ to, ...routeProps }) => {
+  return <Redirect to={to} />;
+};
+
 const App: React.FC = () => {
   usePollBlockNumber()
   useEagerConnect()
@@ -65,36 +69,14 @@ const App: React.FC = () => {
             <Route path='/earning-dashboard' exact>
               <ComingSoon title="Earning Dashboard" />
             </Route>
-            {/* <Route path='/liquidity'>
-              <Pools />
-            </Route> */}
-            {/* 
-            
-            <Route path='/lottery'>
-              <Lottery />
-            </Route>
-            <Route path='/ifo'>
-              <Ifos />
-            </Route>
-            <Route path='/collectibles'>
-              <Collectibles />
-            </Route>
-            <Route exact path='/teams'>
-              <Teams />
-            </Route>
-            <Route path='/teams/:id'>
-              <Team />
-            </Route>
-            <Route path='/profile'>
-              <Profile />
-            </Route> */}
-            {/* Redirect */}
             <Route path='/staking'>
               <Redirect to='/farms' />
             </Route>
             <Route path='/' component={RedirectToFarms} />
             {/* 404 */}
             <Route component={NotFound} />
+            {/* External link for redirect */}
+            <ExternalRedirect exact path="/apply" to="https://www.google.com" />
           </Switch>
         </SuspenseWithChunkError>
       </Menu>

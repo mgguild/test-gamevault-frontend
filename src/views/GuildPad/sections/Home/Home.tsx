@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Text, Flex, Heading, Button } from '@sparkpointio/sparkswap-uikit'
 import styled, { ThemeContext } from 'styled-components'
+import * as Scroll from 'react-scroll'
 import { ArrowDown } from 'react-feather'
 import LottieAnimation from 'lottie'
 import data from 'Animation/data.json'
@@ -18,7 +19,7 @@ const StyledFlex = styled(Flex)`
 
 const HomeSection: React.FC = () => {
   const theme = useContext(ThemeContext)
-
+  const scrollTo = () => Scroll.animateScroll.scrollTo(1000);
   return (
     <PageSection direction='column'>
       <StyledContainer>
@@ -32,12 +33,16 @@ const HomeSection: React.FC = () => {
             </Text>
             <hr  style={{width: '100%', border: 'none', borderBottom: `1px solid ${theme.colors.primary}`}}/>
             <ButtonContainer>
-              <Button fullWidth style={{ borderRadius: '4px' }}>
+              <form action="https://sparkswap.finance" style={{width: '100%'}}>
+              <Button type="submit"fullWidth style={{ borderRadius: '4px' }}>
                 BUY MGG
               </Button>
-              <Button fullWidth style={{ backgroundColor: theme.colors.MGG_accent2, borderRadius: '4px' }}>
+              </form>
+              <form action="mailto: support@metagg.com" style={{width: '100%'}}>
+              <Button type="submit" fullWidth style={{ backgroundColor: theme.colors.MGG_accent2, borderRadius: '4px' }}>
                 Apply for KYC
               </Button>
+              </form>
             </ButtonContainer>
           </StyledFlex>
           <AnimContainer>
@@ -64,7 +69,7 @@ const HomeSection: React.FC = () => {
           </Flex>
         </HomeContainer>
       </StyledContainer>
-      <Button margin="-25px auto" style={{borderRadius: '50%', width: '50px', background: theme.colors.MGG_container}}>
+      <Button onClick={scrollTo} margin="-25px auto" style={{borderRadius: '50%', width: '50px', background: theme.colors.MGG_container}}>
           <Text><ArrowDown color={theme.colors.MGG_accent2} /></Text>
       </Button>
     </PageSection>
