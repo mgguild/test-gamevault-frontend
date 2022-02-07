@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js'
 import React, { useCallback, useState } from 'react'
 import { Contract } from 'web3-eth-contract'
 import { useWeb3React } from '@web3-react/core'
-import { Button, Modal, Skeleton, Text, useModal } from '@sparkpointio/sparkswap-uikit'
+import { Button, Modal, Skeleton, Text, useModal } from '@metagg/mgg-uikit'
 import { useApprove } from 'hooks/useApprove'
 import { useERC20, useLPStakingContract } from 'hooks/useContract'
 import useTokenBalance from 'hooks/useTokenBalance'
@@ -169,7 +169,7 @@ const DepositModal: React.FC<DepositModalProps> = (
           onMouseEnter={() => setActiveSelect(true)}
           onMouseLeave={() => setActiveSelect(false)}
         >
-          <Button fullWidth onClick={onPresentWithdraw}>
+          <Button fullWidth onClick={onPresentWithdraw} disabled={earnings === '0'}>
             <Text>Claim & Withdraw</Text>
           </Button>
         </DetailsCont>
