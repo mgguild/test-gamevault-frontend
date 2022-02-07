@@ -4,7 +4,7 @@ import TankWarsZoneGuildpad from './Guildpads/TankWarsZone';
 import DemoleGuildpad from './Guildpads/Demole';
 
 const Guildpads: IGuildpad[] = [
-    // MggGuildpad, [ disable mgg guildpad ]
+    // MggGuildpad, disable MGG 
     TankWarsZoneGuildpad,
     DemoleGuildpad
 ]
