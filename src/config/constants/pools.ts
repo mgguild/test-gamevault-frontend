@@ -3,6 +3,7 @@ import { PoolConfig, PoolCategory } from './types'
 
 const pools: PoolConfig[] = [
   {
+    isMain: true,
     sousId: 9,
     stakingToken: tokens.mgg,
     earningToken: tokens.mgg,

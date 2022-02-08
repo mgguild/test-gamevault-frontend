@@ -57,6 +57,7 @@ const farms: FarmConfig[] = [
    * EXTERNAL STAKING POOLS
    */
   {
+    isMain: true,
     pid: 260,
     lpSymbol: 'MGG-BUSD LP',
     lpAddresses: {
