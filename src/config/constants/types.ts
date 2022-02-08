@@ -202,4 +202,5 @@ export interface IGuildpad extends GuildPadInformation {
   FundstoRaise?: string;
   buyingCoin?: Token;
   sellingCoin?:  Token;
+  available?: string;
 }
