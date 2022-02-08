@@ -1,5 +1,5 @@
 import React, { lazy } from 'react'
-import { HashRouter, Redirect, Route, Switch } from 'react-router-dom'
+import { HashRouter, Redirect, Route, Switch, Link } from 'react-router-dom'
 import { ResetCSS,  } from '@metagg/mgg-uikit'
 import BigNumber from 'bignumber.js'
 import useEagerConnect from 'hooks/useEagerConnect'
@@ -19,9 +19,9 @@ import EasterEgg from './components/EasterEgg'
 const Farms = lazy(() => import('./views/Farms'))
 const Pools = lazy(() => import('./views/Pools'))
 const ComingSoon = lazy(() => import('./views/ComingSoon'))
-const Gamefi  = lazy(() => import('./views/Gamefi'));
-// const Lottery = lazy(() => import('./views/Lottery'))
-// const Ifos = lazy(() => import('./views/Ifos'))
+const Guildpad = lazy(() => import('./views/GuildPad'))
+const Lottery = lazy(() => import('./views/Lottery'))
+const Ifos = lazy(() => import('./views/Ifos'))
 const NotFound = lazy(() => import('./views/NotFound'))
 // const Collectibles = lazy(() => import('./views/Collectibles'))
 // const Teams = lazy(() => import('./views/Teams'))
@@ -35,6 +35,10 @@ BigNumber.config({
   EXPONENTIAL_AT: 1000,
   DECIMAL_PLACES: 80,
 })
+
+const ExternalRedirect = ({ to, ...routeProps }) => {
+  return <Redirect to={to} />;
+};
 
 const App: React.FC = () => {
   usePollBlockNumber()
@@ -56,45 +60,23 @@ const App: React.FC = () => {
               <Pools />
             </Route>
             <Route path='/gamefi' exact>
-              {/* <Gamefi /> */}
               <ComingSoon title="GameFi Vaults" />
             </Route>
             <Route path='/launchpad' exact>
-              <ComingSoon title="IGO Launchpad" />
+              {/* <ComingSoon title="IGO Launchpad" /> */}
+              <Guildpad />
             </Route>
             <Route path='/earning-dashboard' exact>
               <ComingSoon title="Earning Dashboard" />
             </Route>
-            {/* <Route path='/liquidity'>
-              <Pools />
-            </Route> */}
-            {/* 
-            
-            <Route path='/lottery'>
-              <Lottery />
-            </Route>
-            <Route path='/ifo'>
-              <Ifos />
-            </Route>
-            <Route path='/collectibles'>
-              <Collectibles />
-            </Route>
-            <Route exact path='/teams'>
-              <Teams />
-            </Route>
-            <Route path='/teams/:id'>
-              <Team />
-            </Route>
-            <Route path='/profile'>
-              <Profile />
-            </Route> */}
-            {/* Redirect */}
             <Route path='/staking'>
               <Redirect to='/farms' />
             </Route>
             <Route path='/' component={RedirectToFarms} />
             {/* 404 */}
             <Route component={NotFound} />
+            {/* External link for redirect */}
+            <ExternalRedirect exact path="/apply" to="https://www.google.com" />
           </Switch>
         </SuspenseWithChunkError>
       </Menu>
