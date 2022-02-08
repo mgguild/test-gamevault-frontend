@@ -19,15 +19,16 @@ import EasterEgg from './components/EasterEgg'
 const Farms = lazy(() => import('./views/Farms'))
 const Pools = lazy(() => import('./views/Pools'))
 const ComingSoon = lazy(() => import('./views/ComingSoon'))
-const Lottery = lazy(() => import('./views/Lottery'))
-const Ifos = lazy(() => import('./views/Ifos'))
+const Gamefi  = lazy(() => import('./views/Gamefi'));
+// const Lottery = lazy(() => import('./views/Lottery'))
+// const Ifos = lazy(() => import('./views/Ifos'))
 const NotFound = lazy(() => import('./views/NotFound'))
-const Collectibles = lazy(() => import('./views/Collectibles'))
-const Teams = lazy(() => import('./views/Teams'))
-const Team = lazy(() => import('./views/Teams/Team'))
-const Profile = lazy(() => import('./views/Profile'))
-const TradingCompetition = lazy(() => import('./views/TradingCompetition'))
-const Predictions = lazy(() => import('./views/Predictions'))
+// const Collectibles = lazy(() => import('./views/Collectibles'))
+// const Teams = lazy(() => import('./views/Teams'))
+// const Team = lazy(() => import('./views/Teams/Team'))
+// const Profile = lazy(() => import('./views/Profile'))
+// const TradingCompetition = lazy(() => import('./views/TradingCompetition'))
+// const Predictions = lazy(() => import('./views/Predictions'))
 
 // This config is required for number formatting
 BigNumber.config({
@@ -55,7 +56,7 @@ const App: React.FC = () => {
               <Pools />
             </Route>
             <Route path='/gamefi' exact>
-              <ComingSoon title="GameFi Vault"/>
+              <Gamefi />
             </Route>
             <Route path='/launchpad' exact>
               <ComingSoon title="IGO Launchpad" />

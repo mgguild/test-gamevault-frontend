@@ -169,7 +169,7 @@ const DepositModal: React.FC<DepositModalProps> = (
           onMouseEnter={() => setActiveSelect(true)}
           onMouseLeave={() => setActiveSelect(false)}
         >
-          <Button fullWidth onClick={onPresentWithdraw}>
+          <Button fullWidth onClick={onPresentWithdraw} disabled={earnings === '0'}>
             <Text>Claim & Withdraw</Text>
           </Button>
         </DetailsCont>
