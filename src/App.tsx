@@ -56,7 +56,8 @@ const App: React.FC = () => {
               <Pools />
             </Route>
             <Route path='/gamefi' exact>
-              <Gamefi />
+              {/* <Gamefi /> */}
+              <ComingSoon title="GameFi Vaults" />
             </Route>
             <Route path='/launchpad' exact>
               <ComingSoon title="IGO Launchpad" />

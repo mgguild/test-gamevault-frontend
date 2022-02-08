@@ -22,7 +22,7 @@ import { getAddress } from '../../../../utils/addressHelpers'
 import ClaimAction from '../ClaimAction'
 
 
-const PoolCard: React.FC<{ pool: Pool; account: string }> = ({ pool, account }) => {
+const PoolCard: React.FC<{ pool: Pool; account: string, userDataReady: boolean }> = ({ pool, account, userDataReady }) => {
   const { sousId, stakingToken, earningToken, isFinished, userData, startBlock, endBlock, isComingSoon } = pool
   const { t } = useTranslation()
   const stakedBalance = userData?.stakedBalance ? new BigNumber(userData.stakedBalance) : BIG_ZERO
@@ -46,7 +46,7 @@ const PoolCard: React.FC<{ pool: Pool; account: string }> = ({ pool, account }) 
     getPoolBlockInfo(pool, currentBlock)
 
   const { stakingPrice, rewardPrice } = usePoolPrice(stakingToken.address[56], earningToken.address[56])
-
+  
   const apr = getPoolApr(stakingPrice, rewardPrice, totalStaked, rewardPerBlock)
   return (
     <StyledCard isFinished={isFinished && sousId !== 0}>
@@ -58,7 +58,7 @@ const PoolCard: React.FC<{ pool: Pool; account: string }> = ({ pool, account }) 
       />
       <Flex style={{ margin: '24px' }} flexDirection="column" justifyContent="space-evenly">
         <Flex>
-          <ClaimAction />
+          <ClaimAction stakingContract={getAddress(pool.contractAddress)} tokenRewardSymbol={pool.earningToken.symbol} userDataReady={userDataReady} userData={userData} pid={pool.sousId} />
         </Flex>
         <Flex justifyContent="space-between" style={{ textAlign: 'left' }}>
           <Text>Duration</Text>
