@@ -163,3 +163,43 @@ export type PageMeta = {
   description?: string
   image?: string
 }
+
+export type Status = 'active' | 'upcoming' | 'completed' | null;
+export type Type = 'INO' | 'IGO';
+export type Distribution = 'VESTING' | 'SELF-CLAIM';
+export const STATE: { active: Status; upcoming: Status; completed: Status } = {
+  active: 'active',
+  upcoming: 'upcoming',
+  completed: 'completed',
+}
+export const TYPE: { INO: Type; IGO: Type } = { INO: 'INO', IGO: 'IGO' }
+export const DISTRIBUTION: { VESTING: Distribution; SELF_CLAIM: Distribution } = {
+  VESTING: 'VESTING',
+  SELF_CLAIM: 'SELF-CLAIM',
+} 
+
+export interface Socials {
+  website?: string;
+  twitter?: string;
+  telegram?: string;
+  medium?: string;
+  discord?: string;
+}
+
+interface GuildPadInformation {
+  title: string;
+  description: string;
+  distribution?: string;
+  type?: Type;
+  date?: string;
+  status: Status;
+  socials?: Socials;
+}
+
+
+export interface IGuildpad extends GuildPadInformation {
+  address?: string;
+  FundstoRaise?: string;
+  buyingCoin?: Token;
+  sellingCoin?:  Token;
+}

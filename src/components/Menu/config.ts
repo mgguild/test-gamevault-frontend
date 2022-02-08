@@ -22,7 +22,7 @@ const config: MenuEntry[] = [
     href: "/gamefi",
   },
   {
-    label: "IGO Launchpad",
+    label: "Launchpad",
     icon: "",
     href: "/launchpad",
   },
