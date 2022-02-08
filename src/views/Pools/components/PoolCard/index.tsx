@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js'
 import React, { useContext, useEffect, useState } from 'react'
 import { CardBody, Flex, Text, Link, LinkExternal } from '@sparkpointio/sparkswap-uikit'
+import { PoolCategory } from 'config/constants/types'
 import { ThemeContext } from 'styled-components'
 import UnlockButton from 'components/UnlockButton'
 import { useTranslation } from 'contexts/Localization'
@@ -23,7 +24,7 @@ import ClaimAction from '../ClaimAction'
 
 
 const PoolCard: React.FC<{ pool: Pool; account: string, userDataReady: boolean }> = ({ pool, account, userDataReady }) => {
-  const { sousId, stakingToken, earningToken, isFinished, userData, startBlock, endBlock, isComingSoon } = pool
+  const { sousId, stakingToken, earningToken, isFinished, userData, startBlock, endBlock, isComingSoon, poolCategory, stakingTokenPrice } = pool
   const { t } = useTranslation()
   const stakedBalance = userData?.stakedBalance ? new BigNumber(userData.stakedBalance) : BIG_ZERO
   const accountHasStakedBalance = stakedBalance.gt(0)
@@ -44,9 +45,9 @@ const PoolCard: React.FC<{ pool: Pool; account: string, userDataReady: boolean }
 
   const { shouldShowBlockCountdown, blocksUntilStart, blocksRemaining, hasPoolStarted, blocksToDisplay } =
     getPoolBlockInfo(pool, currentBlock)
-
+    const stakingTokenBalance = userData?.stakingTokenBalance ? new BigNumber(userData.stakingTokenBalance) : BIG_ZERO
   const { stakingPrice, rewardPrice } = usePoolPrice(stakingToken.address[56], earningToken.address[56])
-  
+  const isBnbPool = poolCategory === PoolCategory.BINANCE
   const apr = getPoolApr(stakingPrice, rewardPrice, totalStaked, rewardPerBlock)
   return (
     <StyledCard isFinished={isFinished && sousId !== 0}>
@@ -58,7 +59,12 @@ const PoolCard: React.FC<{ pool: Pool; account: string, userDataReady: boolean }
       />
       <Flex style={{ margin: '24px' }} flexDirection="column" justifyContent="space-evenly">
         <Flex>
-          <ClaimAction stakingContract={getAddress(pool.contractAddress)} tokenRewardSymbol={pool.earningToken.symbol} userDataReady={userDataReady} userData={userData} pid={pool.sousId} />
+        <ClaimAction
+            stakingTokenBalance={stakingTokenBalance}
+            isBnbPool={isBnbPool}
+            pool={pool}
+            stakingTokenPrice={stakingTokenPrice}
+          />
         </Flex>
         <Flex justifyContent="space-between" style={{ textAlign: 'left' }}>
           <Text>Duration</Text>
