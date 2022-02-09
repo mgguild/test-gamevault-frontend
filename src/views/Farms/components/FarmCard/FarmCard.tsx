@@ -146,36 +146,46 @@ const FarmCard: React.FC<FarmCardProps> = ({ userDataReady, farm, removed, cakeP
         <Text>{t('Total Deposits')}</Text>
         <Text color='textSubtle'>{farm.totalDeposits ? formatTotalDeposits : <Skeleton width={60} display='inline-block' />}</Text>
       </Flex> */}
-      <div style={{margin: '24px'}}>
-      <Flex>
-        <HarvestAction stakingContract={getAddress(farm.stakingAddresses)}
-                       tokenRewardSymbol={earnLabel} userDataReady={userDataReady} userData={farm.userData}
-                       pid={farm.pid} />
-      </Flex>
-      {/* <Flex justifyContent='space-between'>
+      <div style={{ margin: '24px' }}>
+        <Flex>
+          <HarvestAction
+            stakingContract={getAddress(farm.stakingAddresses)}
+            tokenRewardSymbol={earnLabel}
+            userDataReady={userDataReady}
+            userData={farm.userData}
+            pid={farm.pid}
+          />
+        </Flex>
+        {/* <Flex justifyContent='space-between'>
         <Text>{t('APR')}</Text>
         <Text color='textSubtle'>{(apr === 0 || apr === null ? "-- " : apr.toFixed(2))}%</Text>
       </Flex> */}
-      <Flex justifyContent='space-between'>
-        <Text>{t('Rate')}</Text>
-        <Text color='textSubtle'>
-          {formatTotalRewardRate ?? <Skeleton width={60} display='inline-block' />} {earnLabel} / week</Text>
-      </Flex>
-      <Flex justifyContent='space-between'>
-        <Text>{t('Duration')}</Text>
-        <Text color='textSubtle'>{farm.remainingDays ??  <Skeleton width={60} display='inline-block' />} Days</Text>
-      </Flex>
-      <CardActionsContainer userDataReady={userDataReady} farm={farm} account={account}
-                            addLiquidityUrl={addLiquidityUrl} addTokenUrl={AddTokenUrl} />
+        <Flex justifyContent="space-between">
+          <Text>{t('Rate')}</Text>
+          <Text color="textSubtle">
+            {formatTotalRewardRate ?? <Skeleton width={60} display="inline-block" />} {earnLabel} / week
+          </Text>
+        </Flex>
+        <Flex justifyContent="space-between">
+          <Text>{t('Duration')}</Text>
+          <Text color="textSubtle">{farm.remainingDays ?? <Skeleton width={60} display="inline-block" />} Days</Text>
+        </Flex>
+        <CardActionsContainer
+          userDataReady={userDataReady}
+          farm={farm}
+          account={account}
+          addLiquidityUrl={addLiquidityUrl}
+          addTokenUrl={AddTokenUrl}
+        />
 
-      <DetailsSection
-        removed={removed}
-        stakingAddress={getBscScanAddressUrl(stakingAddress)}
-        lpInfoAddress={`${farm.infoURL?? BASE_INFO_URL}/${lpAddress}`}
-        lpLabel={lpLabel}
-      />
+        <DetailsSection
+          removed={removed}
+          stakingAddress={getBscScanAddressUrl(stakingAddress)}
+          lpInfoAddress={`${farm.infoURL ?? BASE_INFO_URL}/${lpAddress}`}
+          lpLabel={lpLabel}
+        />
 
-      {/* <Divider />
+        {/* <Divider />
        <ExpandableSectionButton
         onClick={() => setShowExpandableSection(!showExpandableSection)}
         expanded={showExpandableSection}

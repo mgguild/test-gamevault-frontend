@@ -52,6 +52,7 @@ export enum PoolCategory {
 }
 
 export interface FarmConfig {
+  isMain?: true
   pid: number
   lpSymbol: string
   lpAddresses: Address
@@ -72,6 +73,7 @@ export interface FarmConfig {
 }
 
 export interface PoolConfig {
+  isMain?: boolean
   sousId: number
   earningToken: Token
   stakingToken: Token
