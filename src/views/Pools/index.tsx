@@ -273,7 +273,7 @@ const Pools: React.FC = () => {
               </Flex>
               <Flex flexDirection="column">
                 <Text fontSize="17px" bold color={theme.colors.MGG_accent2}>
-                  Total value Locked
+                  Total Value Locked
                 </Text>
                 <Text fontSize="20px">- USD</Text>
               </Flex>

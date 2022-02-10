@@ -413,7 +413,7 @@ const Farms: React.FC = () => {
               Liquidity Staking
             </Text>
             <Text color='text' bold style={isMobile ? { fontSize: '17px' } : { fontSize: '27px' }}>
-              Stake LP token and earn MGG!
+              Earn MGG and other tokens by staking!
             </Text>
           </Flex>
           <InfoBox style={{width: '100%'}} margin="20px 0px 0px 0px" justifyContent="space-between">
@@ -422,7 +422,7 @@ const Farms: React.FC = () => {
              <Text fontSize='20px'> {totalStaked} MGG</Text>
            </Flex>
            <Flex flexDirection="column">
-             <Text fontSize='17px' bold color={theme.colors.MGG_accent2}>Total value Locked</Text>
+             <Text fontSize='17px' bold color={theme.colors.MGG_accent2}>Total Value Locked</Text>
              <Text fontSize='20px'>- USD</Text>
            </Flex>
            <Flex flexDirection="column">
