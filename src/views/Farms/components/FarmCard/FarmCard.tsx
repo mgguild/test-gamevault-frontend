@@ -5,6 +5,7 @@ import { Flex, Skeleton, Text } from '@sparkpointio/sparkswap-uikit'
 import { Farm } from 'state/types'
 import { useFarmPrice } from 'hooks/price'
 import { getFarmV2Apr } from 'utils/apr'
+import useTokenBalance from 'hooks/useTokenBalance'
 import { useTranslation } from 'contexts/Localization'
 import { BASE_ADD_LIQUIDITY_URL, BASE_EXCHANGE_URL, BASE_INFO_URL, BASE_SWAP_URL } from 'config'
 import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts'
@@ -104,8 +105,9 @@ const FarmCard: React.FC<FarmCardProps> = ({ userDataReady, farm, removed, cakeP
   const isPromotedFarm = farm.token.symbol === 'CAKE'
   const theme = useContext(ThemeContext)
 
-
-  const {LPPrice, rewardPrice} = useFarmPrice(Number(farm.lpTotalSupply), farm.token.address[56], farm.pairToken.address[56], farm.quoteToken.address[56])
+  const token1Balance = useTokenBalance(farm.token.address[56], farm.lpAddresses[56])
+  const token2Balance = useTokenBalance(farm.pairToken.address[56], farm.lpAddresses[56])
+  const {LPPrice, rewardPrice} = useFarmPrice(Number(farm.lpTotalSupply), farm.token.address[56], farm.pairToken.address[56], farm.quoteToken.address[56], farm.stakingAddresses[56], token1Balance.balance , token1Balance.balance)
 
   const aprBlackList = ["0x9f6b80e3867ab402081574e9e0a3be6fdf4ae95b"]
   const apr = (aprBlackList.includes(farm.lpAddresses[56]) ? null : getFarmV2Apr(LPPrice, rewardPrice, Number(farm.totalDeposits), Number(farm.rewardRate)) )

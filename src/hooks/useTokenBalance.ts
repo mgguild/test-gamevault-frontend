@@ -18,14 +18,16 @@ export enum FetchStatus {
   FAILED = 'failed',
 }
 
-const useTokenBalance = (tokenAddress: string) => {
+const useTokenBalance = (tokenAddress: string, customAccount = "0x0000") => {
   const { NOT_FETCHED, SUCCESS, FAILED } = FetchStatus
   const [balanceState, setBalanceState] = useState<UseTokenBalanceState>({
     balance: BIG_ZERO,
     fetchStatus: NOT_FETCHED,
   })
-  const { account } = useWeb3React()
+  let { account } = useWeb3React()
   const { fastRefresh } = useRefresh()
+
+  if (customAccount !== "0x0000") account = customAccount;
 
   useEffect(() => {
     const fetchBalance = async () => {

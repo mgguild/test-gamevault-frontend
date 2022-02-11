@@ -16,6 +16,7 @@ import { Farm } from 'state/types'
 import { useTranslation } from 'contexts/Localization'
 import { getBalanceNumber, getBalanceAmount } from 'utils/formatBalance'
 import { getFarmApr, getFarmV2Apr } from 'utils/apr'
+import useTokenBalance from 'hooks/useTokenBalance'
 import { orderBy } from 'lodash'
 import isArchivedPid from 'utils/farmHelpers'
 import { latinise } from 'utils/latinise'
@@ -397,7 +398,10 @@ const Farms: React.FC = () => {
   }
 
   const mggFarm = farmsStakedMemoized.filter((farm) => farm.isMain)[0];
-  const {LPPrice, rewardPrice} = useFarmPrice(Number(mggFarm.lpTotalSupply), mggFarm.token.address[chainId], mggFarm.pairToken.address[chainId], mggFarm.quoteToken.address[chainId])
+  console.log(mggFarm.stakingAddresses[chainId])
+  const token1Balance = useTokenBalance(mggFarm.token.address[chainId], mggFarm.lpAddresses[chainId])
+  const token2Balance = useTokenBalance(mggFarm.pairToken.address[chainId], mggFarm.lpAddresses[chainId])
+  const {LPPrice, rewardPrice} = useFarmPrice(Number(mggFarm.lpTotalSupply), mggFarm.token.address[chainId], mggFarm.pairToken.address[chainId], mggFarm.quoteToken.address[chainId], mggFarm.stakingAddresses[chainId], token1Balance.balance, token2Balance.balance)
   const apr = getFarmV2Apr(LPPrice, rewardPrice, Number(mggFarm.totalDeposits), Number(mggFarm.rewardRate))
   const totalStaked = getBalanceAmount(new BigNumber(mggFarm.totalDeposits ?? 0)).toFormat(4)
   return (
