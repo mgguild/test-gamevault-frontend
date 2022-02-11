@@ -140,8 +140,8 @@ const Farms: React.FC = () => {
   // const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid))
   // const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
   // const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
-  const activeFarms = farmsLP.filter((farm) => farm.pid === 260 && !farm.hasEnded && !isArchivedPid(farm.pid))
-  const inactiveFarms = farmsLP.filter((farm) => farm.pid === 260 && farm.hasEnded && !isArchivedPid(farm.pid))
+  const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid))
+  const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
   const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
 
   const stakedOnlyFarms = activeFarms.filter(
@@ -445,7 +445,7 @@ const Farms: React.FC = () => {
       <Page>
         { /* <ControlContainer>
           <ViewControls>
-            <ToggleView viewMode={viewMode} onToggle={(mode: ViewMode) => setViewMode(mode)} /> 
+            <ToggleView viewMode={viewMode} onToggle={(mode: ViewMode) => setViewMode(mode)} />
             <ToggleWrapper>
               <Toggle checked={stakedOnly} onChange={() => setStakedOnly(!stakedOnly)} scale='sm' />
               <Text> {t('Staked only')}</Text>
@@ -493,7 +493,7 @@ const Farms: React.FC = () => {
               <Text textTransform='uppercase'>{t('Search')}</Text>
               <SearchInput onChange={handleChangeQuery} placeholder='Search Farms' />
             </LabelWrapper>
-          </FilterContainer> 
+          </FilterContainer>
         </ControlContainer> */}
 
         {renderContent()}
