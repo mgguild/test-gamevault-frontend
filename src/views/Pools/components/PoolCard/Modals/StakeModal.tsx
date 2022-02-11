@@ -11,6 +11,7 @@ import BigNumber from 'bignumber.js'
 import { formatNumber, getBalanceNumber, getFullDisplayBalance } from 'utils/formatBalance'
 import useTokenBalance from 'hooks/useTokenBalance'
 import { Pool } from 'state/types'
+import { getAddress } from '../../../../../utils/addressHelpers'
 
 import StakeTokenModal from './Stake'
 
@@ -52,7 +53,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const { t } = useTranslation()
   const { theme } = useTheme()
   const [activeSelect, setActiveSelect] = useState(false)
-  const { balance: earnedTokenBalance } = useTokenBalance(pool.earningToken.address[56])
+  const { balance: earnedTokenBalance } = useTokenBalance(getAddress(pool.earningToken.address))
   const { toastSuccess, toastError } = useToast()
   const totalStakingTokens = userData?.stakingTokenBalance ? getBalanceNumber(new BigNumber(userData.stakingTokenBalance), stakingToken.decimals) : 0
   const totalStakedTokens = userData?.stakedBalance ? getBalanceNumber(new BigNumber(userData.stakedBalance), stakingToken.decimals) : 0
