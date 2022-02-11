@@ -261,7 +261,7 @@ const Pools: React.FC = () => {
                 Pool Staking
               </Text>
               <Text color="text" bold style={isMobile ? { fontSize: '17px' } : { fontSize: '27px' }}>
-                Stake tokens and earn!
+                Earn MGG and other tokens by staking!
               </Text>
             </Flex>
             <InfoBox style={{ width: '100%' }} margin="20px 0px 0px 0px" justifyContent="space-between">
