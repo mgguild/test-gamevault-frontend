@@ -120,7 +120,7 @@ const Farms: React.FC = () => {
   const cakePrice = usePriceCakeBusd()
   const [query, setQuery] = useState('')
   const [viewMode, setViewMode] = usePersistState(ViewMode.CARD, { localStorageKey: 'sparkswap_farm_view' })
-  const { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
   const [sortOption, setSortOption] = useState('earned')
   const theme = useContext(ThemeContext)
   const isArchived = pathname.includes('archived')
@@ -140,8 +140,8 @@ const Farms: React.FC = () => {
   // const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid))
   // const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
   // const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
-  const activeFarms = farmsLP.filter((farm) => farm.pid === 260 && !farm.hasEnded && !isArchivedPid(farm.pid))
-  const inactiveFarms = farmsLP.filter((farm) => farm.pid === 260 && farm.hasEnded && !isArchivedPid(farm.pid))
+  const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid))
+  const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
   const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
 
   const stakedOnlyFarms = activeFarms.filter(
@@ -396,8 +396,8 @@ const Farms: React.FC = () => {
     )
   }
 
-  const mggFarm = farmsStakedMemoized[0];
-  const {LPPrice, rewardPrice} = useFarmPrice(Number(mggFarm.lpTotalSupply), mggFarm.token.address[56], mggFarm.pairToken.address[56], mggFarm.quoteToken.address[56])
+  const mggFarm = farmsStakedMemoized.filter((farm) => farm.isMain)[0];
+  const {LPPrice, rewardPrice} = useFarmPrice(Number(mggFarm.lpTotalSupply), mggFarm.token.address[chainId], mggFarm.pairToken.address[chainId], mggFarm.quoteToken.address[chainId])
   const apr = getFarmV2Apr(LPPrice, rewardPrice, Number(mggFarm.totalDeposits), Number(mggFarm.rewardRate))
   const totalStaked = getBalanceAmount(new BigNumber(mggFarm.totalDeposits ?? 0)).toFormat(4)
   return (
@@ -413,22 +413,22 @@ const Farms: React.FC = () => {
               Liquidity Staking
             </Text>
             <Text color='text' bold style={isMobile ? { fontSize: '17px' } : { fontSize: '27px' }}>
-              Stake LP token and earn MGG!
+              Earn MGG and other tokens by staking!
             </Text>
           </Flex>
           <InfoBox style={{width: '100%'}} margin="20px 0px 0px 0px" justifyContent="space-between">
            <Flex flexDirection="column">
-             <Text fontSize='17px' bold color={theme.colors.MGG_accent2}>Total MGG Staked</Text>
+             <Text fontSize='17px' bold color={theme.colors.MGG_accent2}>Total MGG-BUSD LP Tokens Staked</Text>
              <Text fontSize='20px'> {totalStaked} MGG</Text>
            </Flex>
-           <Flex flexDirection="column">
-             <Text fontSize='17px' bold color={theme.colors.MGG_accent2}>Total value Locked</Text>
+           {/* <Flex flexDirection="column">
+             <Text fontSize='17px' bold color={theme.colors.MGG_accent2}>Total Value Locked</Text>
              <Text fontSize='20px'>- USD</Text>
            </Flex>
            <Flex flexDirection="column">
              <Text fontSize='17px' bold color={theme.colors.MGG_accent2}>APR</Text>
              <Text fontSize='20px'>{apr} % </Text>
-           </Flex>
+           </Flex> */}
         </InfoBox>
         </Flex>
           {/* <Flex style={isMobile ? {
@@ -445,7 +445,7 @@ const Farms: React.FC = () => {
       <Page>
         { /* <ControlContainer>
           <ViewControls>
-            <ToggleView viewMode={viewMode} onToggle={(mode: ViewMode) => setViewMode(mode)} /> 
+            <ToggleView viewMode={viewMode} onToggle={(mode: ViewMode) => setViewMode(mode)} />
             <ToggleWrapper>
               <Toggle checked={stakedOnly} onChange={() => setStakedOnly(!stakedOnly)} scale='sm' />
               <Text> {t('Staked only')}</Text>
@@ -493,7 +493,7 @@ const Farms: React.FC = () => {
               <Text textTransform='uppercase'>{t('Search')}</Text>
               <SearchInput onChange={handleChangeQuery} placeholder='Search Farms' />
             </LabelWrapper>
-          </FilterContainer> 
+          </FilterContainer>
         </ControlContainer> */}
 
         {renderContent()}

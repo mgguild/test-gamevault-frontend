@@ -11,8 +11,10 @@ import BigNumber from 'bignumber.js'
 import { formatNumber, getBalanceNumber, getFullDisplayBalance } from 'utils/formatBalance'
 import useTokenBalance from 'hooks/useTokenBalance'
 import { Pool } from 'state/types'
+import { getAddress } from '../../../../../utils/addressHelpers'
 
 import StakeTokenModal from './Stake'
+import { BASE_SWAP_URL } from '../../../../../config'
 
 interface StakeModalProps {
   isBnbPool: boolean
@@ -52,7 +54,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const { t } = useTranslation()
   const { theme } = useTheme()
   const [activeSelect, setActiveSelect] = useState(false)
-  const { balance: earnedTokenBalance } = useTokenBalance(pool.earningToken.address[56])
+  const { balance: earnedTokenBalance } = useTokenBalance(getAddress(pool.earningToken.address))
   const { toastSuccess, toastError } = useToast()
   const totalStakingTokens = userData?.stakingTokenBalance ? getBalanceNumber(new BigNumber(userData.stakingTokenBalance), stakingToken.decimals) : 0
   const totalStakedTokens = userData?.stakedBalance ? getBalanceNumber(new BigNumber(userData.stakedBalance), stakingToken.decimals) : 0
@@ -122,7 +124,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
               fullWidth
               className='disabled'
               onClick={() => {
-                window.open(`https://sparkswap.finance/#/swap/${pool.stakingToken.address[56]}`, '_blank')
+                window.open(`${BASE_SWAP_URL}/${pool.stakingToken.address[56]}`, '_blank')
               }}
             >Add More</Button>
           </Flex>
@@ -133,7 +135,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
             <Button
               fullWidth
               onClick={() => {
-                window.open(`https://sparkswap.finance/#/swap/${pool.earningToken.address[56]}`, '_blank')
+                window.open(`${BASE_SWAP_URL}/${pool.earningToken.address[56]}`, '_blank')
               }}>Add More</Button>
           </Flex>
           }

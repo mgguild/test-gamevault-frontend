@@ -3,16 +3,17 @@ import { PoolConfig, PoolCategory } from './types'
 
 const pools: PoolConfig[] = [
   {
+    isMain: true,
     sousId: 9,
     stakingToken: tokens.mgg,
     earningToken: tokens.mgg,
     contractAddress: {
-      97: '0x1DEC10EF7a9F8031715bC09DB5fa0bCC20E2780B',
+      97: '0x131E4A6743C942c1c564fB124fD069f96e44629B',
       56: '0xa1a3f2c3d2b76926500b3f923ef997b64948a6ec',
     },
     poolCategory: PoolCategory.CORE,
     harvest: true,
-    tokenPerBlock: '307004629629629629',
+    tokenPerBlock: '10000000000000000000',
     sortOrder: 999,
     isFinished: false,
   },

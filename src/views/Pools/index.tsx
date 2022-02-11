@@ -70,11 +70,13 @@ const InfoBox = styled(Flex)`
 const NUMBER_OF_POOLS_VISIBLE = 12
 
 const Pools: React.FC = () => {
+
   const theme = useContext(ThemeContext)
   const location = useLocation()
   const { t } = useTranslation()
-  const { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
   const { pools: poolsWithoutAutoVault, userDataLoaded } = usePools(account)
+  const userDataReady = !account || (!!account && userDataLoaded)
   const [stakedOnly, setStakedOnly] = usePersistState(false, { localStorageKey: 'pancake_pool_staked' })
   const [numberOfPoolsVisible, setNumberOfPoolsVisible] = useState(NUMBER_OF_POOLS_VISIBLE)
   const [observerIsSet, setObserverIsSet] = useState(false)
@@ -100,7 +102,7 @@ const Pools: React.FC = () => {
   }, [poolsWithoutAutoVault])
 
   // TODO aren't arrays in dep array checked just by reference, i.e. it will rerender every time reference changes?
-  const [openPools, finishedPools] = useMemo(() => partition(pools, (pool) => pool.sousId === 9), [pools])
+  const [finishedPools, openPools] = useMemo(() => partition(pools, (pool) => pool.isFinished), [pools])
   const [upcomingPools, notUpcomingPools] = useMemo(() => partition(pools, (pool) => pool.isComingSoon), [pools])
   const stakedOnlyFinishedPools = useMemo(
     () =>
@@ -222,7 +224,7 @@ const Pools: React.FC = () => {
         pool.isAutoVault ? (
           <CakeVaultCard key="auto-cake" pool={pool} showStakedOnly={stakedOnly} />
         ) : (
-          <PoolCard key={pool.sousId} pool={pool} account={account} />
+          <PoolCard key={pool.sousId} pool={pool} account={account} userDataReady={userDataReady} />
         ),
       )}
     </CardLayout>
@@ -231,10 +233,10 @@ const Pools: React.FC = () => {
   const tableLayout = <PoolsTable pools={poolsToShow()} account={account} userDataLoaded={userDataLoaded} />
   const { path, url, isExact } = useRouteMatch()
 
-  const mggPool = openPools[0]
+  const mggPool = openPools.filter((pool) => pool.isMain)[0]
   const totalStaked = mggPool.totalStaked ? getBalanceNumber(new BigNumber(mggPool.totalStaked.toString()), mggPool.stakingToken.decimals) : 0
   const rewardPerBlock = mggPool?.tokenPerBlock ? getBalanceNumber(new BigNumber(mggPool.tokenPerBlock.toString()), mggPool.earningToken.decimals) : 0
-  const {stakingPrice, rewardPrice} = usePoolPrice(mggPool.stakingToken.address[56], mggPool.earningToken.address[56])
+  const {stakingPrice, rewardPrice} = usePoolPrice(mggPool.stakingToken.address[chainId], mggPool.earningToken.address[chainId])
   const apr = getPoolApr(stakingPrice, rewardPrice, totalStaked, rewardPerBlock)
   // const totalStaked = getBalanceAmount(new BigNumber(mggPool.totalStaked ?? 0)).toFormat(4)
   return (
@@ -259,7 +261,7 @@ const Pools: React.FC = () => {
                 Pool Staking
               </Text>
               <Text color="text" bold style={isMobile ? { fontSize: '17px' } : { fontSize: '27px' }}>
-                Stake tokens and earn!
+                Earn MGG and other tokens by staking!
               </Text>
             </Flex>
             <InfoBox style={{ width: '100%' }} margin="20px 0px 0px 0px" justifyContent="space-between">
@@ -271,7 +273,7 @@ const Pools: React.FC = () => {
               </Flex>
               <Flex flexDirection="column">
                 <Text fontSize="17px" bold color={theme.colors.MGG_accent2}>
-                  Total value Locked
+                  Total Value Locked
                 </Text>
                 <Text fontSize="20px">- USD</Text>
               </Flex>

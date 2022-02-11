@@ -6,7 +6,7 @@ import { Farm } from 'state/types'
 import { useFarmPrice } from 'hooks/price'
 import { getFarmV2Apr } from 'utils/apr'
 import { useTranslation } from 'contexts/Localization'
-import { BASE_ADD_LIQUIDITY_URL, BASE_EXCHANGE_URL, BASE_INFO_URL } from 'config'
+import { BASE_ADD_LIQUIDITY_URL, BASE_EXCHANGE_URL, BASE_INFO_URL, BASE_SWAP_URL } from 'config'
 import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts'
 import CardHeading from './CardHeading'
 import CardActionsContainer from './CardActionsContainer'
@@ -95,11 +95,11 @@ const FarmCard: React.FC<FarmCardProps> = ({ userDataReady, farm, removed, cakeP
     mainTokenAddress: farm.token.address,
     pairTokenAddress: farm.pairToken.address,
   })
-  
+
   const stakingAddress = getAddress(farm.stakingAddresses);
 
   const addLiquidityUrl = `${farm.liquidityUrl ?? BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`
-  const AddTokenUrl = `${BASE_EXCHANGE_URL}/#/swap/${farm.token.address[56]}`
+  const AddTokenUrl = `${BASE_SWAP_URL}/${farm.token.address[56]}`
   const lpAddress = farm.lpAddresses[process.env.REACT_APP_CHAIN_ID]
   const isPromotedFarm = farm.token.symbol === 'CAKE'
   const theme = useContext(ThemeContext)
@@ -146,36 +146,46 @@ const FarmCard: React.FC<FarmCardProps> = ({ userDataReady, farm, removed, cakeP
         <Text>{t('Total Deposits')}</Text>
         <Text color='textSubtle'>{farm.totalDeposits ? formatTotalDeposits : <Skeleton width={60} display='inline-block' />}</Text>
       </Flex> */}
-      <div style={{margin: '24px'}}>
-      <Flex>
-        <HarvestAction stakingContract={getAddress(farm.stakingAddresses)}
-                       tokenRewardSymbol={earnLabel} userDataReady={userDataReady} userData={farm.userData}
-                       pid={farm.pid} />
-      </Flex>
-      {/* <Flex justifyContent='space-between'>
+      <div style={{ margin: '24px' }}>
+        <Flex>
+          <HarvestAction
+            stakingContract={getAddress(farm.stakingAddresses)}
+            tokenRewardSymbol={earnLabel}
+            userDataReady={userDataReady}
+            userData={farm.userData}
+            pid={farm.pid}
+          />
+        </Flex>
+        {/* <Flex justifyContent='space-between'>
         <Text>{t('APR')}</Text>
         <Text color='textSubtle'>{(apr === 0 || apr === null ? "-- " : apr.toFixed(2))}%</Text>
       </Flex> */}
-      <Flex justifyContent='space-between'>
-        <Text>{t('Rate')}</Text>
-        <Text color='textSubtle'>
-          {formatTotalRewardRate ?? <Skeleton width={60} display='inline-block' />} {earnLabel} / week</Text>
-      </Flex>
-      <Flex justifyContent='space-between'>
-        <Text>{t('Duration')}</Text>
-        <Text color='textSubtle'>{farm.remainingDays ??  <Skeleton width={60} display='inline-block' />} Days</Text>
-      </Flex>
-      <CardActionsContainer userDataReady={userDataReady} farm={farm} account={account}
-                            addLiquidityUrl={addLiquidityUrl} addTokenUrl={AddTokenUrl} />
+        <Flex justifyContent="space-between">
+          <Text>{t('Rate')}</Text>
+          <Text color="textSubtle">
+            {formatTotalRewardRate ?? <Skeleton width={60} display="inline-block" />} {earnLabel} / week
+          </Text>
+        </Flex>
+        <Flex justifyContent="space-between">
+          <Text>{t('Duration')}</Text>
+          <Text color="textSubtle">{farm.remainingDays ?? <Skeleton width={60} display="inline-block" />} Days</Text>
+        </Flex>
+        <CardActionsContainer
+          userDataReady={userDataReady}
+          farm={farm}
+          account={account}
+          addLiquidityUrl={addLiquidityUrl}
+          addTokenUrl={AddTokenUrl}
+        />
 
-      <DetailsSection
-        removed={removed}
-        stakingAddress={getBscScanAddressUrl(stakingAddress)}
-        lpInfoAddress={`${farm.infoURL?? BASE_INFO_URL}/${lpAddress}`}
-        lpLabel={lpLabel}
-      />
+        <DetailsSection
+          removed={removed}
+          stakingAddress={getBscScanAddressUrl(stakingAddress)}
+          lpInfoAddress={`${farm.infoURL ?? BASE_INFO_URL}/${lpAddress}`}
+          lpLabel={lpLabel}
+        />
 
-      {/* <Divider />
+        {/* <Divider />
        <ExpandableSectionButton
         onClick={() => setShowExpandableSection(!showExpandableSection)}
         expanded={showExpandableSection}
