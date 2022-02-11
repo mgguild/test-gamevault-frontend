@@ -6,7 +6,7 @@ import { Farm } from 'state/types'
 import { useFarmPrice } from 'hooks/price'
 import { getFarmV2Apr } from 'utils/apr'
 import { useTranslation } from 'contexts/Localization'
-import { BASE_ADD_LIQUIDITY_URL, BASE_EXCHANGE_URL, BASE_INFO_URL } from 'config'
+import { BASE_ADD_LIQUIDITY_URL, BASE_EXCHANGE_URL, BASE_INFO_URL, BASE_SWAP_URL } from 'config'
 import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts'
 import CardHeading from './CardHeading'
 import CardActionsContainer from './CardActionsContainer'
@@ -95,11 +95,11 @@ const FarmCard: React.FC<FarmCardProps> = ({ userDataReady, farm, removed, cakeP
     mainTokenAddress: farm.token.address,
     pairTokenAddress: farm.pairToken.address,
   })
-  
+
   const stakingAddress = getAddress(farm.stakingAddresses);
 
   const addLiquidityUrl = `${farm.liquidityUrl ?? BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`
-  const AddTokenUrl = `${BASE_EXCHANGE_URL}/#/swap/${farm.token.address[56]}`
+  const AddTokenUrl = `${BASE_SWAP_URL}/${farm.token.address[56]}`
   const lpAddress = farm.lpAddresses[process.env.REACT_APP_CHAIN_ID]
   const isPromotedFarm = farm.token.symbol === 'CAKE'
   const theme = useContext(ThemeContext)
