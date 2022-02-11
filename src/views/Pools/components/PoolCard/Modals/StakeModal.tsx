@@ -14,6 +14,7 @@ import { Pool } from 'state/types'
 import { getAddress } from '../../../../../utils/addressHelpers'
 
 import StakeTokenModal from './Stake'
+import { BASE_SWAP_URL } from '../../../../../config'
 
 interface StakeModalProps {
   isBnbPool: boolean
@@ -123,7 +124,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
               fullWidth
               className='disabled'
               onClick={() => {
-                window.open(`https://sparkswap.finance/#/swap/${pool.stakingToken.address[56]}`, '_blank')
+                window.open(`${BASE_SWAP_URL}/${pool.stakingToken.address[56]}`, '_blank')
               }}
             >Add More</Button>
           </Flex>
@@ -134,7 +135,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
             <Button
               fullWidth
               onClick={() => {
-                window.open(`https://sparkswap.finance/#/swap/${pool.earningToken.address[56]}`, '_blank')
+                window.open(`${BASE_SWAP_URL}/${pool.earningToken.address[56]}`, '_blank')
               }}>Add More</Button>
           </Flex>
           }
