@@ -181,30 +181,29 @@ const RenderRoundTwo = () => {
       </div>
       <div className="row">
         <Text>
-          {' '}
-          All unsold tokens from the first round will be sold to all Tiered participants, and there will be NO LIMIT on
-          how much a tiered participant can buy!{' '}
-        </Text>{' '}
+          All unsold tokens/boxes from the first round will be sold to all Tiered participants, and there will be NO LIMIT on
+          how much a tiered participant can buy!
+        </Text>
         &nbsp;
         <Text>
           {' '}
-          Tiered participants will be able to buy the remaining tokens on the same page where the first round was
+          Tiered participants will be able to buy the remaining tokens/boxes on the same page where the first round was
           conducted, and at the same time regardless of the tier.{' '}
         </Text>{' '}
         &nbsp;
         <Text>
           {' '}
-          This round will remain open until all tokens are sold. Once all tokens are sold, that signals the end of the
+          This round will remain open until all tokens/boxes are sold. Once all tokens are sold, that signals the end of the
           IDO sale.
         </Text>{' '}
         &nbsp;
         <Text>
           {' '}
-          Once the IDO sale has been concluded, the platform will prepare the tokens for release. Once the necessary
+          Once the IGO/INO sale has been concluded, the platform will prepare the tokens for release. Once the necessary
           preparations are done, participants can now proceed with claiming. Just click the Claim buttons designated for
           the first and second rounds of the sale found on the same page where the sale was conducted. Participants may
           choose to participate in the
-          <StyledLink href="https://app.srk.finance/#/"> Liquidity Staking </StyledLink>
+          <StyledLink href="https://app.metagg.com/#/farms"> Liquidity Staking </StyledLink>
           options that will be launched after the sale to earn extra token rewards.
         </Text>{' '}
         &nbsp;
