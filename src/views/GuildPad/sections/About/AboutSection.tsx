@@ -34,9 +34,9 @@ const DetailBox = ({ image, title, description }: Details) => {
   return (
     <Box>
       {iconElement}
-      <div style={{ textAlign: 'left', margin: '10px' }}>
+      <div style={{ textAlign: 'center', margin: '10px' }}>
         <BoxHeading>{title}</BoxHeading>
-        <Text fontSize="14px" color="textSubtle">
+        <Text fontSize="14px" color="textSubtle" >
           {description}
         </Text>
       </div>
