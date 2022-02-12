@@ -86,33 +86,33 @@ const TierBox = ({
       <TierTitle>{title}</TierTitle>
       <TierDetails>
         <div>
-          <Text fontSize="17px">{requirement}</Text>
-          <Text fontSize="14px" color="textSubtle">
+          <Text fontSize="1rem">{requirement}</Text>
+          <Text fontSize="0.8rem" color="textSubtle">
             Staking Requirement
           </Text>
         </div>
         <div>
-          <Text fontSize="17px">{nftRequirement}</Text>
-          <Text fontSize="14px" color="textSubtle">
+          <Text fontSize="1rem">{nftRequirement}</Text>
+          <Text fontSize="0.8rem" color="textSubtle">
             MGG NFT Holder
           </Text>
         </div>
         <div>
-          <Text fontSize="17px">{stakingLength}</Text>
-          <Text fontSize="14px" color="textSubtle">
+          <Text fontSize="1rem">{stakingLength}</Text>
+          <Text fontSize="0.8rem" color="textSubtle">
             Staking Length Required
           </Text>
         </div>
         <div>
-          <Text fontSize="17px">{whitelistRequirement}</Text>
-          <Text fontSize="14px" color="textSubtle">
+          <Text fontSize="1rem">{whitelistRequirement}</Text>
+          <Text fontSize="0.8rem" color="textSubtle">
             WhiteList Requirement
           </Text>
         </div>
       </TierDetails>
       <div>
-        <Text fontSize="17px">{poolWeight}</Text>
-        <Text fontSize="14px" color="textSubtle">
+        <Text fontSize="1rem">{poolWeight}</Text>
+        <Text fontSize="0.8rem" color="textSubtle">
           Pool Weight
         </Text>
       </div>
@@ -139,14 +139,14 @@ const InoRequirement = () => {
       </TierTitle>
       <TierDetails>
       <div>
-        <Text fontSize="17px">4,000 MGG</Text>
-        <Text fontSize="14px" color="textSubtle">
+        <Text fontSize="1rem">4,000 MGG</Text>
+        <Text fontSize="0.8rem" color="textSubtle">
           Staking Requirement
         </Text>
       </div>
       <div>
-        <Text fontSize="17px">x2 Allocation</Text>
-        <Text fontSize="14px" color="textSubtle">
+        <Text fontSize="1rem">x2 Allocation</Text>
+        <Text fontSize="0.8rem" color="textSubtle">
           MGG NFT Holder
         </Text>
       </div>
@@ -180,24 +180,24 @@ const RenderRoundTwo = () => {
         />
       </div>
       <div className="row">
-        <Text>
+        <Text fontSize='1rem'>
           All unsold tokens/boxes from the first round will be sold to all Tiered participants, and there will be NO LIMIT on
           how much a tiered participant can buy!
         </Text>
         &nbsp;
-        <Text>
+        <Text fontSize='1rem'>
           {' '}
           Tiered participants will be able to buy the remaining tokens/boxes on the same page where the first round was
           conducted, and at the same time regardless of the tier.{' '}
         </Text>{' '}
         &nbsp;
-        <Text>
+        <Text fontSize='1rem'>
           {' '}
           This round will remain open until all tokens/boxes are sold. Once all tokens are sold, that signals the end of the
           IDO sale.
         </Text>{' '}
         &nbsp;
-        <Text>
+        <Text fontSize='1rem'>
           {' '}
           Once the IGO/INO sale has been concluded, the platform will prepare the tokens for release. Once the necessary
           preparations are done, participants can now proceed with claiming. Just click the Claim buttons designated for
