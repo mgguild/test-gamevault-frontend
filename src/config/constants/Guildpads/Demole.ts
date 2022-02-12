@@ -8,7 +8,7 @@ const socials = {
     twitter: 'https://twitter.com/demoleio',
     telegram: 'https://t.me/Demoleio',
     discord: 'https://discord.com/invite/demole',
-    medium: 'https://www.youtube.com/channel/UCs69Rvm26wDYf7-r3YX2Bzw'
+    youtube: 'https://www.youtube.com/channel/UCs69Rvm26wDYf7-r3YX2Bzw'
 }
 
 const guildpad: IGuildpad = {

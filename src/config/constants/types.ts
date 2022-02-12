@@ -187,6 +187,7 @@ export interface Socials {
   telegram?: string;
   medium?: string;
   discord?: string;
+  youtube?: string;
 }
 
 interface GuildPadInformation {
