@@ -60,7 +60,7 @@ export const Box = styled.div`
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  padding: 15px;
+  padding: 5px;
   line-height: 5px;
   transition: all 0.2s ease-in-out;
   &:hover {
@@ -97,6 +97,10 @@ export const TierDetails = styled.div`
   justify-content: space-between;
   padding: 10px;
   min-height: 130px;
+  & > * {
+    margin: 10px 0px;
+    padding: 5px 0px;
+  }
 `
 export const TierFooter = styled.div`
   padding: 25px 0px;

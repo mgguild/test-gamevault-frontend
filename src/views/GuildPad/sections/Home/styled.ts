@@ -12,16 +12,12 @@ export const StyledContainer = styled(Container)`
   justify-content: space-evenly;
 `
 
-export const HomeContainer = styled(TwoColumnHeader)`
-  & > * {
-    // border: 1px solid white;
-  }
-  // position: absolute;
-`
+export const HomeContainer = styled(TwoColumnHeader)``
 
 export const AnimContainer = styled(Flex)`
-  height: 800px;
-  // margin: 0px auto;
+  max-height: 500px;
+  max-width: 700px;
+  margin: 24px auto;
   & > * {
     margin: 0px auto;
   }

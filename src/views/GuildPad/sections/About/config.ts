@@ -6,13 +6,13 @@ const DetailsList = [
   },
   {
     image: 'LiquiditylockingIcon',
-    title: 'Liquidity Locking',
+    title: 'Insurance Treasury',
     description:
-      "Projects will be required to lock their liquidity for at least one (1) year to avoid rug pulls and increase investor's confidence. ",
+      "All IGOs and INOs are secured by $200k in case of project failure",
   },
   {
     image: 'MultiChainIcon',
-    title: 'MultiChain',
+    title: 'Chain-agnostic',
     description:
       'Supports multiple blockchains such as Binance Smart Chain and Ethereum',
   },
