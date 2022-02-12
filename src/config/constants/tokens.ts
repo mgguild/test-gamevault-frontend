@@ -19,6 +19,16 @@ const guildpadTokens = {
     decimals: 18,
     projectLink: 'https://demole.io/',
   },
+  acknoledger: {
+    symbol: 'Acknoledger',
+    address: {
+      56: 'Acknoledger',
+      96: 'Acknoledger',
+    },
+    iconExtension: 'png',
+    decimals: 18,
+    projectLink: 'https://acknoledger.com/'
+  }
 }
 
 const tokens = {

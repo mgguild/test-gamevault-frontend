@@ -8,7 +8,7 @@ const socials = {
     twitter: 'https://twitter.com/demoleio',
     telegram: 'https://t.me/Demoleio',
     discord: 'https://discord.com/invite/demole',
-    medium: 'https://www.youtube.com/channel/UCs69Rvm26wDYf7-r3YX2Bzw'
+    youtube: 'https://www.youtube.com/channel/UCs69Rvm26wDYf7-r3YX2Bzw'
 }
 
 const guildpad: IGuildpad = {
@@ -16,11 +16,14 @@ const guildpad: IGuildpad = {
     description: 'Demole is a 3D Metaverse Game that allows players to walk through 3 different modes of the world Metaverse from Station, RPG, and MOBA.',
     socials,
     type: TYPE.INO,
-    distribution: DISTRIBUTION.VESTING,
+    distribution: DISTRIBUTION.AIRDROP,
     status: STATE.upcoming,
-    address: '0x001', // Contract address
+    address: '0x002', // Contract address
     buyingCoin: tokens.bnb,
     sellingCoin: tokens.demole,
+    inoDetails: {
+        price: 'TBA',
+    }
 }
 
 export default guildpad

@@ -2,7 +2,7 @@ import { Flex, Heading, Text } from '@sparkpointio/sparkswap-uikit'
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { Globe, Send, Twitter } from 'react-feather'
-import { SiDiscord } from 'react-icons/si'
+import { SiDiscord, SiYoutube } from 'react-icons/si'
 import { Socials, Token } from 'config/constants/types'
 import tokens from 'config/constants/tokens'
 import { getAddress } from 'utils/addressHelpers'
@@ -12,8 +12,8 @@ import SvgIcon from './SvgIcon'
 
 const TokenLogo = styled.img<{ size?: string }>`
   border-radius: 50%;
-  height: ${({ size }) => (!size ? '60px' : size)};
-  width: ${({ size }) => (!size ? '60px' : size)};
+  height: ${({ size }) => (!size ? '80px' : size)};
+  width: ${({ size }) => (!size ? '80px' : size)};
   margin-right: 15px;
   z-index: 2;
   @media (max-width: 500px) {
@@ -69,6 +69,11 @@ const Logo: React.FC<LogoProps> = ({ tokenName, primaryToken, subtitle, socMeds,
               <Anchor href={socMeds?.medium}>
                 <SvgIcon width={16} Icon={MediumIcon} />
               </Anchor>
+            )}  
+            {socMeds?.youtube && (
+              <Anchor href={socMeds?.youtube}>
+              <SiYoutube width={16} color={theme.colors.text} />
+            </Anchor>
             )}
           </Flex>
         ) : (
