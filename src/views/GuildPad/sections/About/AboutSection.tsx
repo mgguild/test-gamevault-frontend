@@ -217,7 +217,7 @@ const Section: React.FC = () => {
     <>
       <PageSection direction="column">
         <BoxHeader>
-          <Heading size="l">About Guild Pad</Heading>
+          <Heading size="l">ABOUT METAGAMING PAD</Heading>
         </BoxHeader>
         <BoxContainer flexDirection="column">
           <Column>{RenderDetails()}</Column>
@@ -233,7 +233,7 @@ const Section: React.FC = () => {
       </PageSection>
       <PageSection direction="column">
         <BoxHeader>
-          <Heading size="l">Tier List</Heading>
+          <Heading size="l">IGO TIER LIST</Heading>
         </BoxHeader>
         <BoxContainer flexDirection="column">
           <TierColumns>{RenderTierSystem()}</TierColumns>
