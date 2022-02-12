@@ -172,13 +172,12 @@ const RenderRoundTwo = () => {
 
   return (
     <>
-      <div>
+      <Flex alignItems='center'>
         <img
           src={round2Icon}
           alt="roundtwo"
-          style={{ position: 'relative', width: '102%', height: '102%', marginTop: '-2vh' }}
         />
-      </div>
+      </Flex>
       <div className="row">
         <Text>
           All unsold tokens/boxes from the first round will be sold to all Tiered participants, and there will be NO LIMIT on
