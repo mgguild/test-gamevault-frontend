@@ -60,7 +60,7 @@ export const Box = styled.div`
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  padding: 15px;
+  padding: 5px;
   line-height: 5px;
   transition: all 0.2s ease-in-out;
   &:hover {
