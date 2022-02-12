@@ -19,7 +19,7 @@ const StyledFlex = styled(Flex)`
 
 const HomeSection: React.FC = () => {
   const theme = useContext(ThemeContext)
-  const scrollTo = () => Scroll.animateScroll.scrollTo(1000);
+  const scrollTo = () => Scroll.animateScroll.scrollTo(700);
   return (
     <PageSection direction='column'>
       <StyledContainer>

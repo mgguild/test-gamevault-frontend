@@ -20,7 +20,7 @@ export const HomeContainer = styled(TwoColumnHeader)`
 `
 
 export const AnimContainer = styled(Flex)`
-  height: 800px;
+  max-height: 500px;
   // margin: 0px auto;
   & > * {
     margin: 0px auto;
