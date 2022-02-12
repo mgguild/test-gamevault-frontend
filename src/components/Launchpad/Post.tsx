@@ -2,17 +2,17 @@ import React, { useContext, useState } from 'react'
 import { Text, Flex, Button } from '@sparkpointio/sparkswap-uikit'
 import styled, { ThemeContext } from 'styled-components'
 import { ChevronUp, ChevronDown } from 'react-feather'
-import { IGuildpad } from 'config/constants/types'
+import { IGuildpad, TYPE }  from 'config/constants/types'
 import useMedia from 'use-media'
 import { Header, SaleContainer, SaleRow, PostBody, PostContainer, PostHeader, TokenProperty, Details, NavOption } from './styled'
 import TokenLogo from './Logo'
 
-const Content: React.FC<{details: string}>= ({details}) => {
+const Content: React.FC<{guildpad: IGuildpad; }>= ({guildpad}) => {
   const theme = useContext(ThemeContext)
   const [active, setActive] = useState(1)
 
   const renderDescription = () => {
-   const description = details !== '' ? details : 'No description'
+   const description = guildpad.description !== '' ? guildpad.description : 'No description'
 
     return (
       <Text color="textSubtle" margin="10px 0px" style={{ lineHeight: '2em' }}>
@@ -22,10 +22,11 @@ const Content: React.FC<{details: string}>= ({details}) => {
   }
 
   const renderSale = () => {
-    const price = 'TBA'
+    const price = `${guildpad.type === TYPE.INO ? guildpad.inoDetails.price : guildpad.idoDetails.price}`
+    const ratio = guildpad.inoDetails.ratio && guildpad.inoDetails.ratio 
     const start = 'TBA'
     const end = 'TBA'
-    const distribution = 'TBA'
+    const distribution = guildpad.distribution
     const initMarketCap = 'TBA'
     const initTokenCirc = 'TBA'
 
@@ -34,8 +35,18 @@ const Content: React.FC<{details: string}>= ({details}) => {
         <Flex flexDirection="column">
           <SaleRow justifyContent="space-between">
             <Text color="textSubtle">Sale Price</Text>
-            <Text>{price}</Text>
+            <Text>
+              {price !== 'TBA'? `${price} ${guildpad.buyingCoin.symbol}` : price}
+            </Text>
           </SaleRow>
+          {ratio && (
+            <SaleRow justifyContent="space-between">
+              <Text color="textSubtle">Ratio</Text>
+              <Text>
+                {guildpad.inoDetails.ratio}
+              </Text>
+            </SaleRow>
+          )}
           <SaleRow justifyContent="space-between">
             <Text color="textSubtle">Sale Start Time</Text>
             <Text>{start}</Text>
@@ -116,7 +127,7 @@ const Post: React.FC<{guildpad?: IGuildpad}> = ({guildpad}) => {
         </Details>
         </Flex>
       </PostHeader>
-      {toggle && <Content details={description}  />}
+      {toggle && <Content guildpad={guildpad}  />}
     </PostContainer>
   )
 }

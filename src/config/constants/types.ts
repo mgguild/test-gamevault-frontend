@@ -190,6 +190,15 @@ export interface Socials {
   youtube?: string;
 }
 
+type InoDetails = { 
+  price?: string;
+  ratio?: string;
+}
+
+type IdoDetails = {
+  price?: string;
+}
+
 interface GuildPadInformation {
   title: string;
   description: string;
@@ -198,6 +207,8 @@ interface GuildPadInformation {
   date?: string;
   status: Status;
   socials?: Socials;
+  inoDetails?: InoDetails;
+  idoDetails?: IdoDetails;
 }
 
 

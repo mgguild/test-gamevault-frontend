@@ -21,6 +21,9 @@ const guildpad: IGuildpad = {
     address: '0x001', // Contract address
     buyingCoin: tokens.bnb,
     sellingCoin: tokens.TankWarsZone,
+    inoDetails: {
+        price: 'TBA',
+    }
 }
 
 export default guildpad
