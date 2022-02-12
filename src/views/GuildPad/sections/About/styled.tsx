@@ -97,6 +97,10 @@ export const TierDetails = styled.div`
   justify-content: space-between;
   padding: 10px;
   min-height: 130px;
+  & > * {
+    margin: 10px 0px;
+    padding: 5px 0px;
+  }
 `
 export const TierFooter = styled.div`
   padding: 25px 0px;
