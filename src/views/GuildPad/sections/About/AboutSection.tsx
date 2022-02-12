@@ -139,7 +139,7 @@ const InoRequirement = () => {
       </TierTitle>
       <TierDetails>
       <div>
-        <Text fontSize="17px">Any amount of MGG staked</Text>
+        <Text fontSize="17px">4,000 MGG</Text>
         <Text fontSize="14px" color="textSubtle">
           Staking Requirement
         </Text>
