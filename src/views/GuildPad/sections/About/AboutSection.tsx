@@ -180,33 +180,21 @@ const RenderRoundTwo = () => {
         />
       </div>
       <div className="row">
-        <Text fontSize='1rem'>
+        <Text>
           All unsold tokens/boxes from the first round will be sold to all Tiered participants, and there will be NO LIMIT on
-          how much a tiered participant can buy!
-        </Text>
-        &nbsp;
-        <Text fontSize='1rem'>
-          {' '}
+          how much a tiered participant can buy! &nbsp; <br /><br />
           Tiered participants will be able to buy the remaining tokens/boxes on the same page where the first round was
-          conducted, and at the same time regardless of the tier.{' '}
-        </Text>{' '}
-        &nbsp;
-        <Text fontSize='1rem'>
-          {' '}
+          conducted, and at the same time regardless of the tier.&nbsp; <br /><br />
           This round will remain open until all tokens/boxes are sold. Once all tokens are sold, that signals the end of the
-          IDO sale.
-        </Text>{' '}
-        &nbsp;
-        <Text fontSize='1rem'>
-          {' '}
+          IDO sale. &nbsp; <br /><br />
           Once the IGO/INO sale has been concluded, the platform will prepare the tokens for release. Once the necessary
           preparations are done, participants can now proceed with claiming. Just click the Claim buttons designated for
           the first and second rounds of the sale found on the same page where the sale was conducted. Participants may
           choose to participate in the
           <StyledLink href="https://app.metagg.com/#/farms"> Liquidity Staking </StyledLink>
           options that will be launched after the sale to earn extra token rewards.
-        </Text>{' '}
-        &nbsp;
+        </Text>
+        <br />
       </div>
     </>
   )
