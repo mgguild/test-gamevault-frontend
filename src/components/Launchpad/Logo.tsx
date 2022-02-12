@@ -12,8 +12,8 @@ import SvgIcon from './SvgIcon'
 
 const TokenLogo = styled.img<{ size?: string }>`
   border-radius: 50%;
-  height: ${({ size }) => (!size ? '60px' : size)};
-  width: ${({ size }) => (!size ? '60px' : size)};
+  height: ${({ size }) => (!size ? '80px' : size)};
+  width: ${({ size }) => (!size ? '80px' : size)};
   margin-right: 15px;
   z-index: 2;
   @media (max-width: 500px) {
