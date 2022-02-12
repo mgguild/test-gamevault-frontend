@@ -1,14 +1,11 @@
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { useWeb3React } from '@web3-react/core'
-// import { Card as SCard, Text, Heading, Flex, Button } from '@sparkpointio/sparkswap-uikit'
-// import TokenLogo from 'components/Launchpad/Logo'
-// import UnlockButton from 'components/UnlockButton'
-// import { TimerContainer, Header, StatusBox, TimerBox, InfoBox, InfoRow } from '../styled'
-import tokens from 'config/constants/tokens'
+import { IGuildpad, STATE } from 'config/constants/types'
 import { Card as SCard, CardHeader as SCardHeader, Text, Heading, Flex, Button } from '@metagg/mgg-uikit'
 import TokenLogo from 'components/Launchpad/Logo'
 import UnlockButton from 'components/UnlockButton'
+
 
 const GCard = styled(SCard)`
  background: ${(({theme}) => theme.colors.MGG_container)};
@@ -25,9 +22,26 @@ const Header = styled(SCardHeader)<{ src?: string }>`
   position: relative;
   height: 20vh;
   justify-content: flex-end;
-  // background-image: url('/images/icons/oreBG6.png');
-  background-position: center;
-  background-size: cover;
+  ${({ src }) =>
+    src &&
+    `
+        &:before {
+            content: ' ';
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0.3;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background-image: url(${src});
+            background-repeat: no-repeat;
+            // background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+        }
+    `}
 `
 const TimerBox = styled(Flex)`
   & > * {
@@ -86,7 +100,7 @@ const TokenInformation: React.FC<{ raise: string; coinForSale: string; buyingCoi
   type,
   sellingCoin
 }) => {
-  const totalRaise = `${raise} ${buyingCoin}`
+  const totalRaise = raise? `${raise} ${buyingCoin}` : `0 ${buyingCoin}`;
 
   return (
     <InfoBox flexDirection="column" padding="0px 24px 12px 24px">
@@ -121,23 +135,24 @@ const StatusBox = styled(Flex)<{ status: string }>`
   border-radius: 3px;
 `
 
-const CardHeader: React.FC<{ status: string }> = ({ status }) => (
-  <Header>
+const CardHeader: React.FC<{ status: string, background?: string }> = ({ status, background }) => (
+  <Header src={background}>
     <StatusBox status={status.toLowerCase()} padding="10px">
       {status}
     </StatusBox>
   </Header>
 )
 
-const Card: React.FC = () => {
+const Card: React.FC<{guildpad: IGuildpad}> = ({guildpad}) => {
   const { account } = useWeb3React()
   const theme = useContext(ThemeContext);
+  const src = `/images/guildpad-assets/${guildpad.sellingCoin.symbol}/${guildpad.sellingCoin.symbol}Banner.png`
   return (
     <GCard>
-      <CardHeader status="ONGOING" />
+      <CardHeader status="ONGOING" background={src}/>
       <CountDown />
-      <TokenLogo tokenName="MGG" primaryToken={tokens.mgg} subtitle="MGG" />
-      <TokenInformation raise="100" coinForSale="1000000" buyingCoin="BNB" type="Vesting" sellingCoin="MGG" />
+      <TokenLogo tokenName={guildpad.sellingCoin.symbol} primaryToken={guildpad.sellingCoin} subtitle={guildpad.title} />
+      <TokenInformation raise={guildpad.FundstoRaise} coinForSale={guildpad.available} buyingCoin={guildpad.buyingCoin.symbol} type={guildpad.distribution} sellingCoin={guildpad.sellingCoin.symbol} />
       <Flex padding="24px">
         {!account ? (
           <UnlockButton fullWidth />
