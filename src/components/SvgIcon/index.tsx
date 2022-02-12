@@ -32,7 +32,7 @@ const SvgIcon: React.FC<Props> = (props) => {
   const { Icon, Img, width} = props
   return (
     <SvgContainer {...props}>
-     {Icon? <Icon /> : <img src={Img} alt='tier-icon' width={width} />}
+     {Icon? <Icon /> : <img src={Img} alt='tier-icon' width={width} style={{height: width}}/>}
     </SvgContainer>
   )
 }
