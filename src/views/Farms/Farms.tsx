@@ -422,8 +422,8 @@ const Farms: React.FC = () => {
           </Flex>
           <InfoBox style={{width: '100%'}} margin="20px 0px 0px 0px" justifyContent="space-between">
            <Flex flexDirection="column">
-             <Text fontSize='17px' bold color={theme.colors.MGG_accent2}>Total MGG-BUSD LP Tokens Staked</Text>
-             <Text fontSize='20px'> {totalStaked} MGG</Text>
+             <Text fontSize='17px' bold color={theme.colors.MGG_accent2}>Total Tokens Staked</Text>
+             <Text fontSize='20px'> {totalStaked} {mggFarm.lpSymbol}</Text>
            </Flex>
            {/* <Flex flexDirection="column">
              <Text fontSize='17px' bold color={theme.colors.MGG_accent2}>Total Value Locked</Text>
