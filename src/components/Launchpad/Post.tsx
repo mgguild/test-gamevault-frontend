@@ -4,7 +4,7 @@ import styled, { ThemeContext } from 'styled-components'
 import { ChevronUp, ChevronDown } from 'react-feather'
 import { IGuildpad, TYPE }  from 'config/constants/types'
 import useMedia from 'use-media'
-import { Header, SaleContainer, SaleRow, PostBody, PostContainer, PostHeader, TokenProperty, Details, NavOption } from './styled'
+import { Header, SaleContainer, SaleRow, PostBody, PostContainer, PostHeader, TokenProperty, Details, NavOption, PadTitles, PadActions } from './styled'
 import TokenLogo from './Logo'
 
 const Content: React.FC<{guildpad: IGuildpad; }>= ({guildpad}) => {
@@ -110,7 +110,7 @@ const Post: React.FC<{guildpad?: IGuildpad}> = ({guildpad}) => {
   return (
     <PostContainer>
       <PostHeader background={srcs}>
-        <Flex
+        <PadTitles
           alignItems="center"
           style={isMobile ? { flexDirection: 'column', rowGap: '1.5px' } : { flexDirection: 'row' }}
         >
@@ -121,15 +121,15 @@ const Post: React.FC<{guildpad?: IGuildpad}> = ({guildpad}) => {
           <TokenProperty>
             <Text bold>{guildSymbol}</Text>
           </TokenProperty>
-        </Flex>
-        <Flex alignItems="center">
+        </PadTitles>
+        <PadActions>
         <TokenProperty>
             <Text bold>{type}</Text>
           </TokenProperty>
         <Details onClick={() => setToggle(!toggle)}>
           Details &nbsp; {toggle ? <ChevronUp /> : <ChevronDown />}
         </Details>
-        </Flex>
+        </PadActions>
       </PostHeader>
       {toggle && <Content guildpad={guildpad}  />}
     </PostContainer>

@@ -150,3 +150,25 @@ export const SaleContainer = styled(Flex)`
 export const SaleRow = styled(Flex)`
   margin: 10px 0px;
 `
+
+export const PadTitles = styled(Flex)`
+flex-direction: column;
+align-items: flex-start;
+  ${(({theme}) => `
+    ${theme.mediaQueries.md} {
+      flex-direction: row;
+      align-items: center;
+    }
+  `)}
+`
+
+export const PadActions = styled(Flex)`
+flex-direction: column;
+align-items: flex-end;
+  ${(({theme}) => `
+    ${theme.mediaQueries.md} {
+      flex-direction: row;
+      align-items: center;
+    }
+  `)}
+`
