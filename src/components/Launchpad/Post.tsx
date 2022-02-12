@@ -24,7 +24,7 @@ const Content: React.FC<{guildpad: IGuildpad; }>= ({guildpad}) => {
   const renderSale = () => {
     const price = `${guildpad.type === TYPE.INO ? guildpad.inoDetails.price : guildpad.idoDetails.price}`
     const ratio = guildpad.inoDetails.ratio && guildpad.inoDetails.ratio 
-    const start = 'TBA'
+    const start = guildpad.date ?? 'TBA'
     const end = 'TBA'
     const distribution = guildpad.distribution
     const initMarketCap = 'TBA'
@@ -58,17 +58,21 @@ const Content: React.FC<{guildpad: IGuildpad; }>= ({guildpad}) => {
         </Flex>
         <Flex flexDirection="column">
           <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Token Distribution</Text>
+            <Text color="textSubtle">{guildpad.type === TYPE.INO? 'NFT' : 'TOKEN'} Distribution</Text>
             <Text>{distribution}</Text>
           </SaleRow>
-          <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Initial Market Cap</Text>
-            <Text>{initMarketCap}</Text>
-          </SaleRow>
-          <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Initial Token Circulation</Text>
-            <Text>{initTokenCirc}</Text>
-          </SaleRow>
+          { guildpad.type === TYPE.IDO && (
+            <>
+            <SaleRow justifyContent="space-between">
+              <Text color="textSubtle">Initial Market Cap</Text>
+              <Text>{initMarketCap}</Text>
+            </SaleRow>
+            <SaleRow justifyContent="space-between">
+              <Text color="textSubtle">Initial Token Circulation</Text>
+              <Text>{initTokenCirc}</Text>
+            </SaleRow>
+            </>
+          )}
         </Flex>
       </SaleContainer>
     )
@@ -85,7 +89,7 @@ const Content: React.FC<{guildpad: IGuildpad; }>= ({guildpad}) => {
           Description
         </NavOption>
         <NavOption onClick={() => setActive(2)} activeIndex={active === 2}>
-          Token Sale
+          {guildpad.type === TYPE.INO? 'NFT' : 'TOKEN'} Sale
         </NavOption>
       </Flex>
       {active === 1 ? renderDescription() : active === 2 && renderSale()}
