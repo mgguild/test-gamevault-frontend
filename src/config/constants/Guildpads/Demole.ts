@@ -16,9 +16,9 @@ const guildpad: IGuildpad = {
     description: 'Demole is a 3D Metaverse Game that allows players to walk through 3 different modes of the world Metaverse from Station, RPG, and MOBA.',
     socials,
     type: TYPE.INO,
-    distribution: DISTRIBUTION.VESTING,
+    distribution: DISTRIBUTION.AIRDROP,
     status: STATE.upcoming,
-    address: '0x001', // Contract address
+    address: '0x002', // Contract address
     buyingCoin: tokens.bnb,
     sellingCoin: tokens.demole,
 }
