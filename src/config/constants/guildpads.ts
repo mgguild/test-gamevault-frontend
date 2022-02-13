@@ -5,7 +5,7 @@ import DemoleGuildpad from './Guildpads/Demole';
 import AcknoledgerGuildpad from './Guildpads/Acknoledger';
 
 const Guildpads: IGuildpad[] = [
-    // MggGuildpad, disable mgg
+    MggGuildpad, 
     TankWarsZoneGuildpad,
     DemoleGuildpad,
     AcknoledgerGuildpad,

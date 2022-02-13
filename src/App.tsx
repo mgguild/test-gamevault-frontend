@@ -23,6 +23,7 @@ const Guildpad = lazy(() => import('./views/GuildPad'))
 const Lottery = lazy(() => import('./views/Lottery'))
 const Ifos = lazy(() => import('./views/Ifos'))
 const NotFound = lazy(() => import('./views/NotFound'))
+const Pad = lazy(() => import('./views/GuildPad/Pad'))
 // const Collectibles = lazy(() => import('./views/Collectibles'))
 // const Teams = lazy(() => import('./views/Teams'))
 // const Team = lazy(() => import('./views/Teams/Team'))
@@ -64,8 +65,11 @@ const App: React.FC = () => {
               <ComingSoon title="GameFi Vaults" />
             </Route>
             <Route path='/launchpad' exact>
-              <ComingSoon title="Launchpad" />
-              {/* <Guildpad /> */}
+              {/* <ComingSoon title="Launchpad" /> */}
+              <Guildpad />
+            </Route>
+            <Route path='/launchpad/:projectId'>
+              <Pad />
             </Route>
             <Route path='/earning-dashboard' exact>
               <ComingSoon title="Earning Dashboard" />

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
+import { Link } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
 import { IGuildpad, STATE } from 'config/constants/types'
 import { Card as SCard, CardHeader as SCardHeader, Text, Heading, Flex, Button } from '@metagg/mgg-uikit'
@@ -157,9 +158,11 @@ const Card: React.FC<{guildpad: IGuildpad}> = ({guildpad}) => {
         {!account ? (
           <UnlockButton fullWidth />
         ) : (
+          <Link to={`/launchpad/${guildpad.title}`} style={{ width: '100%' }}>
           <Button fullWidth style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}>
             Participate
           </Button>
+          </Link>
         )}
       </Flex>
     </GCard>
