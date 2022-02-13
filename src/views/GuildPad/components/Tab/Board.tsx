@@ -11,7 +11,7 @@ const Completed: React.FC<{ guildpads?: IGuildpad[] }> = ({ guildpads }) => {
   const renderCompleted = (launchpads) => (
     <OrganizerContainer>
       {launchpads.map((launchpad) => (
-        <Post guildpad={launchpad} />
+        <Post key={launchpad.address} guildpad={launchpad} />
       ))}
     </OrganizerContainer>
   )
@@ -22,7 +22,7 @@ const Upcoming: React.FC<{ guildpads?: IGuildpad[]}> = ({ guildpads }) => {
   const renderUpcoming = (launchpads) => (
     <OrganizerContainer>
       {launchpads.map((launchpad) => (
-        <Post guildpad={launchpad} />
+        <Post key={launchpad.address} guildpad={launchpad} />
       ))}
     </OrganizerContainer>
   )

@@ -68,9 +68,7 @@ const App: React.FC = () => {
               {/* <ComingSoon title="Launchpad" /> */}
               <Guildpad />
             </Route>
-            <Route path='/launchpad/:projectId'>
-              <Pad />
-            </Route>
+            <Route path='/launchpad/:guildpadId' component={Pad}/>
             <Route path='/earning-dashboard' exact>
               <ComingSoon title="Earning Dashboard" />
             </Route>

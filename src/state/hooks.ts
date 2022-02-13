@@ -20,6 +20,7 @@ import {
   fetchPoolsPublicDataAsync,
   fetchPoolsUserDataAsync,
   setBlock,
+  setGuildpad
 } from './actions'
 import { AchievementState, Farm, FarmsState, GuildpadState, Pool, ProfileState, State, TeamsState } from './types'
 import { fetchProfile } from './profile'
@@ -474,4 +475,17 @@ export const useGetCollectibles = () => {
 export const useGuildpads = (): GuildpadState => {
   const guildpads = useSelector((state: State) => state.guildpads)
   return guildpads
+}
+
+export const useGuildpad = () => {
+  const guildpad = useSelector((state: State) => state.guildpads.selected)
+  return guildpad
+}
+
+export const useSetGuildpad = (address?: string) => {
+  const dispatch = useAppDispatch();
+  if (!address) {
+    return null;
+  }
+  return dispatch(setGuildpad(address)) 
 }

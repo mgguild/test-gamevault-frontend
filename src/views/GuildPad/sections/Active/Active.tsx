@@ -15,8 +15,8 @@ const CardGroup: React.FC<{guildpads?: IGuildpad[]}> = ({guildpads}) => {
         <Grid container spacing={2} justifyContent='center' alignItems='center'>
             {
                 guildpads.map(guildpad => (
-                <Grid item xs='auto' md={5}>
-                <Card key={guildpad.address} guildpad={guildpad}/> 
+                <Grid key={guildpad.address} item xs='auto' md={5}>
+                <Card guildpad={guildpad}/> 
                 </Grid>
                 ))
             }

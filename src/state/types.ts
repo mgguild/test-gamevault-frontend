@@ -263,7 +263,7 @@ export interface PredictionsState {
 }
 
 export interface GuildpadState {
-  selected?: string | null;
+  selected?: IGuildpad | null;
   data: IGuildpad[];
 }
 
