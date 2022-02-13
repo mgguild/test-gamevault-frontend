@@ -6,6 +6,7 @@ import predictionsReducer from './predictions'
 import profileReducer from './profile'
 import teamsReducer from './teams'
 import achievementsReducer from './achievements'
+import launchpadReduer from './launchpad'
 import blockReducer from './block'
 import collectiblesReducer from './collectibles'
 
@@ -13,6 +14,7 @@ const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
   reducer: {
     achievements: achievementsReducer,
+    launchpads: launchpadReduer,
     block: blockReducer,
     farms: farmsReducer,
     pools: poolsReducer,
