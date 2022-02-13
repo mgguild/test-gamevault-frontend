@@ -262,21 +262,21 @@ export interface PredictionsState {
   bets: BetData
 }
 
+export interface GuildpadState {
+  selected?: string | null;
+  data: IGuildpad[];
+}
+
 // Global state
 
 export interface State {
   achievements: AchievementState
   block: BlockState
   farms: FarmsState
+  guildpads: GuildpadState
   pools: PoolsState
   predictions: PredictionsState
   profile: ProfileState
   teams: TeamsState
   collectibles: CollectiblesState
-}
-
-
-export interface GuildpadState {
-  selectedProject?: string | null;
-  data: IGuildpad[];
 }

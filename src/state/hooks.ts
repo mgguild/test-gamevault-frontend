@@ -21,7 +21,7 @@ import {
   fetchPoolsUserDataAsync,
   setBlock,
 } from './actions'
-import { AchievementState, Farm, FarmsState, Pool, ProfileState, State, TeamsState } from './types'
+import { AchievementState, Farm, FarmsState, GuildpadState, Pool, ProfileState, State, TeamsState } from './types'
 import { fetchProfile } from './profile'
 import { fetchTeam, fetchTeams } from './teams'
 import { fetchAchievements } from './achievements'
@@ -466,4 +466,12 @@ export const useGetCollectibles = () => {
     tokenIds: data,
     nftsInWallet: Nfts.filter((nft) => identifiers.includes(nft.identifier)),
   }
+}
+
+
+// Launchpad or Guildpad
+
+export const useGuildpads = (): GuildpadState => {
+  const guildpads = useSelector((state: State) => state.guildpads)
+  return guildpads
 }

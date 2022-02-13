@@ -7,25 +7,27 @@ import { GuildpadState, AppThunk } from '../types'
 
 
 const initialState: GuildpadState = {
-  selectedProject: null,
+  selected: null,
   data: Guildpads,
 }
 
 
-export const setProject = (address: string): AppThunk => (dispatch) => {
-  dispatch(selectProject(address));
+export const setGuildpad = (address: string): AppThunk => (dispatch) => {
+  dispatch(selectGuildpad(address));
 }
 
-export const projectSlice = createSlice({
+export const guildpadSlice = createSlice({
   name: 'Projects',
   initialState,
   reducers: {
-      selectProject:  (state, action: PayloadAction<string>) => {
-          state.selectedProject = action.payload
+    selectGuildpad:  (state, action: PayloadAction<string>) => {
+          state.selected = action.payload
       }
   }
 })
 
+// Thunks 
 
-export const { selectProject } = projectSlice.actions;
-export default projectSlice.reducer
+
+export const { selectGuildpad } = guildpadSlice.actions;
+export default guildpadSlice.reducer
