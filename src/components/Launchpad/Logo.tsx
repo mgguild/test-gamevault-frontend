@@ -24,13 +24,14 @@ const TokenLogo = styled.img<{ size?: string }>`
 
 type LogoProps = {
   tokenName: string
+  nameSize?: string
   primaryToken: Token
   subtitle?: string
   socMeds?: Socials
   padding?: string
 }
 
-const Logo: React.FC<LogoProps> = ({ tokenName, primaryToken, subtitle, socMeds, padding = '24px' }) => {
+const Logo: React.FC<LogoProps> = ({ tokenName, nameSize = 'l', primaryToken, subtitle, socMeds, padding = '24px' }) => {
   const theme = useContext(ThemeContext)
 
   const getImageUrlFromToken = (token: Token) => {
@@ -42,7 +43,7 @@ const Logo: React.FC<LogoProps> = ({ tokenName, primaryToken, subtitle, socMeds,
     <Flex padding={padding}>
       <TokenLogo src={getImageUrlFromToken(primaryToken)} />
       <Flex flexDirection="column" justifyContent="center" alignItems="flex-start">
-        <Heading size="l">{tokenName}</Heading>
+        <Heading size={nameSize}>{tokenName}</Heading>
         {socMeds ? (
           <Flex>
             {socMeds?.website && (
