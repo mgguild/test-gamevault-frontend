@@ -16,6 +16,24 @@ const StyledFlex = styled(Flex)`
   align-items: flex-start;
   row-gap: 40px;
 `
+const HeadingAdapt = styled(Heading)`
+  font-size: 4rem;
+  @media screen and (max-width: 1024px) {
+    font-size: 2.5rem;
+  }
+`
+
+const HomeContainerAdapt = styled(HomeContainer)`
+  @media screen and (min-width: 1100px) {
+    height: 74vmin;
+  }
+`
+const AnimContainerAdapt = styled(AnimContainer)`
+  @media screen and (min-width: 1100px) {
+    max-height: 600px;
+    max-width: 800px;
+  }
+`
 
 const HomeSection: React.FC = () => {
   const theme = useContext(ThemeContext)
@@ -23,11 +41,11 @@ const HomeSection: React.FC = () => {
   return (
     <PageSection direction='column'>
       <StyledContainer>
-        <HomeContainer>
+        <HomeContainerAdapt>
           <StyledFlex flexDirection="column">
-            <Heading size='xl' color={theme.colors.primary}>
+            <HeadingAdapt color={theme.colors.primary}>
                 Acquire early access to the incoming P2E Games in the Metaverse
-            </Heading>
+            </HeadingAdapt>
             <Text fontSize="19px">
              IGO and INO Launchpad for exciting GameFi projects
             </Text>
@@ -45,10 +63,10 @@ const HomeSection: React.FC = () => {
               </form>
             </ButtonContainer>
           </StyledFlex>
-          <AnimContainer>
+          <AnimContainerAdapt>
             <LottieAnimation lotti={data} position="center" />
-          </AnimContainer>
-        </HomeContainer>
+          </AnimContainerAdapt>
+        </HomeContainerAdapt>
         <HomeContainer>
           <Flex style={{margin: '10px auto'}} padding="25px" flexDirection='column' alignItems='center'>
           <Text color="textSubtle" style={{ margin: '10px', fontSize: '20px' }}>
