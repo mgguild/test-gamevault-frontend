@@ -42,7 +42,7 @@ const PoolCard: React.FC<{ pool: Pool; account: string, userDataReady: boolean }
   const rewardRate = pool?.tokenPerBlock ? getBalanceNumber(temp) : 0
 
   const { currentBlock } = useBlock()
-
+  const stakingAddess = getAddress(pool.contractAddress);
   const { shouldShowBlockCountdown, blocksUntilStart, blocksRemaining, hasPoolStarted, blocksToDisplay } =
     getPoolBlockInfo(pool, currentBlock)
     const stakingTokenBalance = userData?.stakingTokenBalance ? new BigNumber(userData.stakingTokenBalance) : BIG_ZERO
@@ -102,8 +102,7 @@ const PoolCard: React.FC<{ pool: Pool; account: string, userDataReady: boolean }
         {/* <Text color="textSubtle" fontSize="14px">{t('This will only work on Binance Smart Chain')}</Text> */}
         {/* <CardFooter pool={pool} account={account} /> */}
         <DetailsSection 
-            stakingAddress={getBscScanAddressUrl("test")}
-            lpInfoAddress=""
+            stakingAddress={getBscScanAddressUrl(stakingAddess)}
         />
       </Flex>
     </StyledCard>
