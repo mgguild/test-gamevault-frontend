@@ -94,6 +94,7 @@ const InfoRow = styled(Flex)`
 `
 
 const ColumnTwo = styled(TwoColumn)`
+  z-index: 1;
   max-width: 100%;
   background-color: ${(({theme}) => theme.colors.MGG_container)};
 `
@@ -113,6 +114,7 @@ const ContainerBoxCard = styled(Flex)`
 
 const ContainerProjDesc = styled(Flex)`
   background-color: ${(({theme}) => theme.colors.MGG_container)};
+  z-index: 1;
   margin: 1.5rem;
 `
 // COUNTDOWN TIMER
@@ -263,7 +265,7 @@ const Content: React.FC<{guildpad: IGuildpad; }>= ({guildpad}) => {
   }
 
   return (
-    <PostBody style={{backgroundColor: `${theme.colors.MGG_container}`}}>
+    <PostBody style={{zIndex: 1, backgroundColor: `${theme.colors.MGG_container}`}}>
       <Flex
         alignItems="center"
         margin="10px 0px 20px 0px"
@@ -290,18 +292,20 @@ const Card: React.FC<{guildpad: IGuildpad}> = ({guildpad}) => {
     <GCard src={bgSrc}>
       <CardHeader status="ONGOING" background={src} guildpad={guildpad}/>
       <Contain>
-        <ColumnTwo>
-          <SocMeds socials={guildpad.socials} status="ONGOING"/>
-          <CountDown />
-        </ColumnTwo>
+        <Flex>
+          <ColumnTwo>
+            <SocMeds socials={guildpad.socials} status="ONGOING"/>
+            <CountDown />
+          </ColumnTwo>
+        </Flex>
         <ContainerBoxCard>
           {/* BOX CARD */}
           <Boxcard imgProps={{src: 'Chest3.png', size: '15rem'}} guildpad={guildpad}/>
         </ContainerBoxCard>
 
-        <ContainerProjDesc>
-          <Content guildpad={guildpad}  />
-        </ContainerProjDesc>
+          <ContainerProjDesc>
+              <Content guildpad={guildpad}  />
+          </ContainerProjDesc>
       </Contain>
     </GCard>
   )
