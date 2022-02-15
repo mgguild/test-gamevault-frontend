@@ -63,7 +63,7 @@ const Header = styled(SCardHeader)<{ src?: string }>`
             opacity: 0.3;
             width: 100%;
             height: 100%;
-            z-index: 1;
+            z-index: 0;
             background-image: url(${src});
             background-repeat: no-repeat;
             // background-attachment: fixed;
@@ -73,6 +73,9 @@ const Header = styled(SCardHeader)<{ src?: string }>`
     `}
 `
 const TimerBox = styled(Flex)`
+  display: grid;
+  grid-template-columns: 1.3fr 0.5fr 0.5fr 0.5fr 0.5fr;
+  align-items: center;
   & > * {
     flex: 1;
     margin-right: 10px;
@@ -121,11 +124,11 @@ const ContainerProjDesc = styled(Flex)`
 const CountDown: React.FC = () => {
   return (
     <TimerContainer justifyContent='right' padding="10px">
-      <div style={{ padding: '0 3rem 0 0' }}>
-        <Heading size="l">ROUND 1</Heading>
-        <Text fontSize="12px"> ENDS IN</Text>
-      </div>
       <TimerBox justifyContent="space-between">
+        <div>
+          <Heading size="l">ROUND 1</Heading>
+          <Text fontSize="12px"> ENDS IN</Text>
+        </div>
         <div>
           <Heading size="l">10</Heading>
           <Text fontSize="12px"> DAYS </Text>
@@ -153,40 +156,38 @@ const SocMeds: React.FC<{socials: Socials, status: string}> = ({socials, status}
   return (
     <div style={{display: 'flex', alignItems: 'center', padding: '1rem'}}>
       <Flex>
-        {socials?.website && (
-          <Anchor href={socials?.website}>
-            <Globe size="20px" color={theme.colors.text} />
-          </Anchor>
-        )}
-        {socials?.twitter && (
-          <Anchor href={socials?.twitter}>
-            <Twitter size="20px" color={theme.colors.text} />
-          </Anchor>
-        )}
-        {socials?.telegram && (
-          <Anchor href={socials?.telegram}>
-            <Send size="20px" color={theme.colors.text} />
-          </Anchor>
-        )}
-        {socials?.discord && (
-          <Anchor href={socials?.discord}>
-            <SiDiscord size="20px" color={theme.colors.text} />
-          </Anchor>
-        )}
-        {socials?.medium && (
-          <Anchor href={socials?.medium}>
-            <SvgIcon width={20} Icon={MediumIcon} />
-          </Anchor>
-        )}
-        {socials?.youtube && (
-          <Anchor href={socials?.youtube}>
-            <SiYoutube width={20} color={theme.colors.text} />
-          </Anchor>
-        )}
-
-        <StatusBox style={{marginLeft: '1rem'}} status={status.toLowerCase()} padding="10px">
-          {status}
-        </StatusBox>
+        <Flex margin='0.2rem 0 0 0'>
+          {socials?.website && (
+            <Anchor href={socials?.website}>
+              <Globe size="20px" color={theme.colors.text} />
+            </Anchor>
+          )}
+          {socials?.twitter && (
+            <Anchor href={socials?.twitter}>
+              <Twitter size="20px" color={theme.colors.text} />
+            </Anchor>
+          )}
+          {socials?.telegram && (
+            <Anchor href={socials?.telegram}>
+              <Send size="20px" color={theme.colors.text} />
+            </Anchor>
+          )}
+          {socials?.discord && (
+            <Anchor href={socials?.discord}>
+              <SiDiscord size="20px" color={theme.colors.text} />
+            </Anchor>
+          )}
+          {socials?.medium && (
+            <Anchor href={socials?.medium}>
+              <SvgIcon width={20} Icon={MediumIcon} />
+            </Anchor>
+          )}
+          {socials?.youtube && (
+            <Anchor href={socials?.youtube}>
+              <SiYoutube width={20} color={theme.colors.text} />
+            </Anchor>
+          )}
+          </Flex>
       </Flex>
     </div>
   )
@@ -236,12 +237,15 @@ const StatusBox = styled(Flex)<{ status: string }>`
 // CARD HEADER
 const CardHeader: React.FC<{ status: string, background?: string, guildpad: IGuildpad }> = ({ status, background, guildpad }) => (
   <Header src={background}>
-    <TokenLogo
-      tokenName={guildpad.sellingCoin.symbol}
-      nameSize='xl'
-      primaryToken={guildpad.sellingCoin}
-      padding="0"
-    />
+    <div style={{display: 'flex', zIndex: 1}}>
+      <TokenLogo
+        tokenName={guildpad.sellingCoin.symbol}
+        nameSize='xl'
+        primaryToken={guildpad.sellingCoin}
+        padding="0"
+        socMeds={guildpad.socials}
+      />
+    </div>
   </Header>
 )
 
@@ -294,7 +298,11 @@ const Card: React.FC<{guildpad: IGuildpad}> = ({guildpad}) => {
       <Contain>
         <Flex>
           <ColumnTwo>
-            <SocMeds socials={guildpad.socials} status="ONGOING"/>
+            <div style={{display: 'flex', alignItems: 'center', padding: '1rem'}}>
+              <StatusBox style={{margin: '0 1rem 0 0'}} status={"ONGOING".toLowerCase()} padding="10px">
+                ONGOING
+              </StatusBox>
+            </div>
             <CountDown />
           </ColumnTwo>
         </Flex>
