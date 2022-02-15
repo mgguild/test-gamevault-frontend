@@ -2,11 +2,15 @@ import React from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import styled from 'styled-components'
 import { STATE } from 'config/constants/types'
+import { Grid } from '@mui/material';
 import { ChevronLeft } from 'react-feather';
 import { Heading, Flex, Text, Breadcrumbs, Button } from '@metagg/mgg-uikit';
 import { useGuildpads, useSetGuildpad } from 'state/hooks';
 import Page from 'components/layout/Page';
+import { BoxContainer, BoxHeader } from '../sections/styled';
+import PageSection from '../sections/Layout'
 import Footer from '../sections/Footer';
+import Card from './Cards';
 
 const Container = styled(Flex)`
     flex-direction: column;
@@ -33,18 +37,23 @@ const Pad: React.FC <RouteComponentProps<{guildpadId?: string}>> = ({match: {par
     const { title } = guildpad
     const status = guildpad.status === STATE.active? 'ONGOING' : 'COMPLETED'
 
-    return (    
+    return (
         <>
             <Container>
                 <GuildpadContainer>
-                <Breadcrumbs>
-                    <Link to="/launchpad">
-                    <Text>MetaGaming Guild</Text>
-                    </Link>
-                    <Text>{status}</Text>
-                    <Text>{title}</Text>
-                </Breadcrumbs>
+                  <Breadcrumbs>
+                      <Link to="/launchpad">
+                      <Text>MetaGaming Guild</Text>
+                      </Link>
+                      <Text>{status}</Text>
+                      <Text>{title}</Text>
+                  </Breadcrumbs>
                 </GuildpadContainer>
+                <PageSection>
+                  <Grid container justifyContent='center' alignItems='center'>
+                    <Card guildpad={guildpad}/>
+                  </Grid>
+                </PageSection>
             </Container>
             <Footer />
         </>
