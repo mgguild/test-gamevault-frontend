@@ -9,11 +9,11 @@ const pools: PoolConfig[] = [
     earningToken: tokens.mgg,
     contractAddress: {
       97: '0x131E4A6743C942c1c564fB124fD069f96e44629B',
-      56: '0xa1a3f2c3d2b76926500b3f923ef997b64948a6ec',
+      56: '0x6506b58CEFecA9820debC9485Fc2A49E3310C869',
     },
     poolCategory: PoolCategory.CORE,
     harvest: true,
-    tokenPerBlock: '10000000000000000000',
+    tokenPerBlock: '154320987654320987',
     sortOrder: 999,
     isFinished: false,
   },
