@@ -210,14 +210,14 @@ const Section: React.FC = () => {
           <Column>{RenderDetails()}</Column>
         </BoxContainer>
       </PageSection>
-      <PageSection direction="column">
+      {/* <PageSection direction="column">
         <BoxHeader>
           <Heading size="l">INO REQUIREMENTS</Heading>
         </BoxHeader>
         <BoxContainer>
           <InoRequirement />
         </BoxContainer>
-      </PageSection>
+      </PageSection> */}
       {/* <PageSection direction="column">
         <BoxHeader>
           <Heading size="l">IGO TIER LIST</Heading>
