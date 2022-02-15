@@ -101,7 +101,7 @@ const Post: React.FC<{guildpad?: IGuildpad}> = ({guildpad}) => {
   const [toggle, setToggle] = React.useState(false)
   const sites = guildpad.socials
   const isMobile = useMedia({ maxWidth: 500 })
- 
+
   const { buyingCoin, sellingCoin, description, type } = guildpad
   const pair = `${buyingCoin.symbol}/${sellingCoin.symbol}`
   const guildSymbol = sellingCoin.symbol
@@ -114,13 +114,20 @@ const Post: React.FC<{guildpad?: IGuildpad}> = ({guildpad}) => {
           alignItems="center"
           style={isMobile ? { flexDirection: 'column', rowGap: '1.5px' } : { flexDirection: 'row' }}
         >
-          <TokenLogo tokenName={guildpad.title} primaryToken={sellingCoin} padding="0px" socMeds={sites} />
-          <TokenProperty>
+          <TokenLogo
+           tokenName={guildpad.title}
+           nameSize='xl'
+           primaryToken={sellingCoin}
+           padding="0px"
+           socMeds={sites}
+           socMedsSize={22}
+          />
+          {/* <TokenProperty>
             <Text bold>{pair}</Text>
           </TokenProperty>
           <TokenProperty>
             <Text bold>{guildSymbol}</Text>
-          </TokenProperty>
+          </TokenProperty> */}
         </PadTitles>
         <PadActions>
         <TokenProperty>
