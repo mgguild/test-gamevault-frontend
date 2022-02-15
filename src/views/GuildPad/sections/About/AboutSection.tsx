@@ -218,14 +218,14 @@ const Section: React.FC = () => {
           <InoRequirement />
         </BoxContainer>
       </PageSection>
-      <PageSection direction="column">
+      {/* <PageSection direction="column">
         <BoxHeader>
           <Heading size="l">IGO TIER LIST</Heading>
         </BoxHeader>
         <BoxContainer flexDirection="column">
           <TierColumns>{RenderTierSystem()}</TierColumns>
         </BoxContainer>
-      </PageSection>
+      </PageSection> */}
       <PageSection direction="column">
         <BoxHeader>
           <Heading size="l">ROUND 2 - FCFS ROUND </Heading>

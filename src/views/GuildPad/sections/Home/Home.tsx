@@ -51,12 +51,12 @@ const HomeSection: React.FC = () => {
             </Text>
             <hr  style={{width: '100%', border: 'none', borderBottom: `1px solid ${theme.colors.primary}`}}/>
             <ButtonContainer>
-              <form action="https://sparkswap.finance" style={{width: '100%'}}>
+              <form action="https://coinmarketcap.com/currencies/metagaming-guild/" style={{width: '100%'}}>
               <Button type="submit"fullWidth style={{ borderRadius: '4px' }}>
                 BUY MGG
               </Button>
               </form>
-              <form action="mailto: support@metagg.com" style={{width: '100%'}}>
+              <form action="https://docs.google.com/forms/d/1BqJHkJYQSuKScdyLKrtMqMkhi5SHe8srOQnQxjcEQ8k" style={{width: '100%'}}>
               <Button type="submit" fullWidth style={{ backgroundColor: theme.colors.MGG_accent2, borderRadius: '4px' }}>
                 Apply for KYC
               </Button>
