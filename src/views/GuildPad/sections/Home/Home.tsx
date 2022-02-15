@@ -57,8 +57,8 @@ const HomeSection: React.FC = () => {
               </Button>
               </form>
               <form action="https://docs.google.com/forms/d/1BqJHkJYQSuKScdyLKrtMqMkhi5SHe8srOQnQxjcEQ8k" style={{width: '100%'}}>
-              <Button type="submit" fullWidth style={{ backgroundColor: theme.colors.MGG_active, borderRadius: '4px' }}>
-                Apply Now
+              <Button type="submit" disabled fullWidth style={{ backgroundColor: theme.colors.backgroundDisabled, borderRadius: '4px' }}>
+                Apply KYC
               </Button>
               </form>
             </ButtonContainer>
