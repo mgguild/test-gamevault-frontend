@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
 import Container from 'components/layout/Container'
 import { AboutColumn as Column, TwoColumn, TierColumns } from 'components/Column'
-import { Socials, IGuildpad, STATE, Token } from 'config/constants/types'
+import { Socials, GuildpadConfig, GUILDPAD_STATUS, Token } from 'config/constants/types'
 import { Globe, Send, Twitter } from 'react-feather'
 import { SiDiscord, SiYoutube } from 'react-icons/si'
 import Anchor from 'components/Launchpad/Anchor'
@@ -109,7 +109,7 @@ const ProgressBar: React.FC<{token: string}> = ({token}) => {
 }
 
 
-const BoxCard: React.FC<{guildpad: IGuildpad, imgProps: ImgProps}> = ({guildpad, imgProps}) => {
+const BoxCard: React.FC<{guildpad: GuildpadConfig, imgProps: ImgProps}> = ({guildpad, imgProps}) => {
   const [percent, setPercent] = useState(20)
 
   const theme = useContext(ThemeContext)

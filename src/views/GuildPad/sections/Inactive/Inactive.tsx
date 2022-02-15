@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, Flex } from '@metagg/mgg-uikit'
 import styled from 'styled-components'
 import SearchInput from 'components/SearchInput'
-import { IGuildpad } from 'config/constants/types'
+import { GuildpadConfig } from 'config/constants/types'
 import PageSection from '../Layout';
 import { BoxContainer, BoxHeader, TabContainer } from '../styled'
 import GuildBoard from '../../components/Tab/Board'
@@ -21,12 +21,12 @@ const SearchBar = ({ searchFn }) => {
       </Flex>
     )
   }
-  
 
 
-const Inactive:React.FC<{guildpads?: IGuildpad[] | null}> = ({guildpads}) => {
+
+const Inactive:React.FC<{guildpads?: GuildpadConfig[] | null}> = ({guildpads}) => {
     const [ activeIndex, setActiveIndex ] = useState<number>(1)
-    
+
     return (
         <PageSection direction='column'>
             <TabContainer>

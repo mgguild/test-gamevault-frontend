@@ -2,12 +2,12 @@ import React, { useContext, useState } from 'react'
 import { Text, Flex, Button } from '@sparkpointio/sparkswap-uikit'
 import styled, { ThemeContext } from 'styled-components'
 import { ChevronUp, ChevronDown } from 'react-feather'
-import { IGuildpad, TYPE }  from 'config/constants/types'
+import { GuildpadConfig, TYPE }  from 'config/constants/types'
 import useMedia from 'use-media'
 import { Header, SaleContainer, SaleRow, PostBody, PostContainer, PostHeader, TokenProperty, Details, NavOption, PadTitles, PadActions } from './styled'
 import TokenLogo from './Logo'
 
-const Content: React.FC<{guildpad: IGuildpad; }>= ({guildpad}) => {
+const Content: React.FC<{guildpad: GuildpadConfig; }>= ({guildpad}) => {
   const theme = useContext(ThemeContext)
   const [active, setActive] = useState(1)
 
@@ -23,7 +23,7 @@ const Content: React.FC<{guildpad: IGuildpad; }>= ({guildpad}) => {
 
   const renderSale = () => {
     const price = `${guildpad.type === TYPE.INO ? guildpad.inoDetails.price : guildpad.idoDetails.price}`
-    const ratio = guildpad.inoDetails.ratio && guildpad.inoDetails.ratio 
+    const ratio = guildpad.inoDetails.ratio && guildpad.inoDetails.ratio
     const start = guildpad.date ?? 'TBA'
     const end = 'TBA'
     const distribution = guildpad.distribution
@@ -97,7 +97,7 @@ const Content: React.FC<{guildpad: IGuildpad; }>= ({guildpad}) => {
   )
 }
 
-const Post: React.FC<{guildpad?: IGuildpad}> = ({guildpad}) => {
+const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
   const [toggle, setToggle] = React.useState(false)
   const sites = guildpad.socials
   const isMobile = useMedia({ maxWidth: 500 })
