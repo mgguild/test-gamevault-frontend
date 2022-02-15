@@ -210,22 +210,22 @@ const Section: React.FC = () => {
           <Column>{RenderDetails()}</Column>
         </BoxContainer>
       </PageSection>
-      {/* <PageSection direction="column">
+      <PageSection direction="column">
         <BoxHeader>
           <Heading size="l">INO REQUIREMENTS</Heading>
         </BoxHeader>
         <BoxContainer>
           <InoRequirement />
         </BoxContainer>
-      </PageSection> */}
-      {/* <PageSection direction="column">
+      </PageSection>
+      <PageSection direction="column">
         <BoxHeader>
           <Heading size="l">IGO TIER LIST</Heading>
         </BoxHeader>
         <BoxContainer flexDirection="column">
           <TierColumns>{RenderTierSystem()}</TierColumns>
         </BoxContainer>
-      </PageSection> */}
+      </PageSection>
       <PageSection direction="column">
         <BoxHeader>
           <Heading size="l">ROUND 2 - FCFS ROUND </Heading>
