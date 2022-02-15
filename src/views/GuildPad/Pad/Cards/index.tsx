@@ -63,7 +63,7 @@ const Header = styled(SCardHeader)<{ src?: string }>`
             opacity: 0.3;
             width: 100%;
             height: 100%;
-            z-index: 1;
+            z-index: 0;
             background-image: url(${src});
             background-repeat: no-repeat;
             // background-attachment: fixed;
@@ -156,10 +156,6 @@ const SocMeds: React.FC<{socials: Socials, status: string}> = ({socials, status}
   return (
     <div style={{display: 'flex', alignItems: 'center', padding: '1rem'}}>
       <Flex>
-        <StatusBox style={{margin: '0 1rem 0 0'}} status={status.toLowerCase()} padding="10px">
-          {status}
-        </StatusBox>
-
         <Flex margin='0.2rem 0 0 0'>
           {socials?.website && (
             <Anchor href={socials?.website}>
@@ -241,12 +237,15 @@ const StatusBox = styled(Flex)<{ status: string }>`
 // CARD HEADER
 const CardHeader: React.FC<{ status: string, background?: string, guildpad: IGuildpad }> = ({ status, background, guildpad }) => (
   <Header src={background}>
-    <TokenLogo
-      tokenName={guildpad.sellingCoin.symbol}
-      nameSize='xl'
-      primaryToken={guildpad.sellingCoin}
-      padding="0"
-    />
+    <div style={{display: 'flex', zIndex: 1}}>
+      <TokenLogo
+        tokenName={guildpad.sellingCoin.symbol}
+        nameSize='xl'
+        primaryToken={guildpad.sellingCoin}
+        padding="0"
+        socMeds={guildpad.socials}
+      />
+    </div>
   </Header>
 )
 
@@ -299,7 +298,11 @@ const Card: React.FC<{guildpad: IGuildpad}> = ({guildpad}) => {
       <Contain>
         <Flex>
           <ColumnTwo>
-            <SocMeds socials={guildpad.socials} status="ONGOING"/>
+            <div style={{display: 'flex', alignItems: 'center', padding: '1rem'}}>
+              <StatusBox style={{margin: '0 1rem 0 0'}} status={"ONGOING".toLowerCase()} padding="10px">
+                ONGOING
+              </StatusBox>
+            </div>
             <CountDown />
           </ColumnTwo>
         </Flex>
