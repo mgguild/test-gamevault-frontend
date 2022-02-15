@@ -37,7 +37,7 @@ export const TierSystemList = [
   {
     image: 'TierOneIcon',
     title: 'Common',
-    requirement: '4,000 MGG',
+    requirement: '8,000 MGG',
     nftRequirement: 'x1.5 Allocation',
     stakingLength: '3 days before Allocation Round opens',
     poolWeight: 5,
@@ -46,7 +46,7 @@ export const TierSystemList = [
   {
     image: 'TierTwoIcon',
     title: 'Uncommon',
-    requirement: '7,000 MGG',
+    requirement: '14,000 MGG',
     nftRequirement: 'x1.5 Allocation',
     stakingLength: '3 days before Allocation Round opens',
     poolWeight: 10,
@@ -55,7 +55,7 @@ export const TierSystemList = [
   {
     image: 'TierThreeIcon',
     title: 'Rare',
-    requirement: '14,000 MGG',
+    requirement: '28,000 MGG',
     nftRequirement: 'x1.5 Allocation',
     stakingLength: '3 days before Allocation Round opens',
     poolWeight: 20,
@@ -64,7 +64,7 @@ export const TierSystemList = [
   {
     image: 'TierFourIcon',
     title: 'Epic',
-    requirement: '30,000 MGG',
+    requirement: '60,000 MGG',
     nftRequirement: 'x1.5 Allocation',
     stakingLength: '3 days before Allocation Round opens',
     poolWeight: 30,
@@ -73,7 +73,7 @@ export const TierSystemList = [
   {
     image: 'TierFiveIcon',
     title: 'Legendary',
-    requirement: '60,000 MGG',
+    requirement: '120,000 MGG',
     nftRequirement: 'x1.5 Allocation',
     stakingLength: '3 days before Allocation Round opens',
     poolWeight: 50,

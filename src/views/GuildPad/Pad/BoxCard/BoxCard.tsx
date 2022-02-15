@@ -57,6 +57,14 @@ const BoxImg = styled.img<{ size?: string }>`
 //   outline: none;
 //   white-space: pre-wrap;
 // `
+
+const UnorderedList = styled.ul`
+ &  li {
+    margin: 3px 0px;
+    color: ${(({theme}) => theme.colors.textSubtle)};
+ }
+`
+
 const JustifyR = styled(Flex)`
   justify-content: flex-end;
 `
@@ -84,7 +92,7 @@ const ProgressBar: React.FC<{token: string}> = ({token}) => {
         <Text>Price per Box:</Text>
         <JustifyR>
           <BoxImg size="1.8rem" src={`/images/tokens/${token}.svg`} alt='BNB' />
-          <Text>50 BNB</Text>
+          <Text>0.99 BNB</Text>
         </JustifyR>
       </ColumnTwo>
       <Progress
@@ -123,15 +131,14 @@ const BoxCard: React.FC<{guildpad: IGuildpad, imgProps: ImgProps}> = ({guildpad,
           </Flex>
           <Flex>
             <div style={{padding: '1.2rem 0 5rem 0'}}>
-              <Text color={theme.colors.textSubtle}>
-                Win 1 or both:
-              </Text>
-              <Text color={theme.colors.textSubtle}>
-                -1 Sample
-              </Text>
-              <Text color={theme.colors.textSubtle}>
-                -$ACK: random number, up to 5,000 tokens
-              </Text>
+              <UnorderedList>
+                <li>
+                  Each box contains 1 NFT (Generation 1)
+                </li>
+                <li>
+                    There will be a total of 10,000 NFTs in the first generation of AcknoLedger Genesis NFTs.
+                </li>
+              </UnorderedList>
             </div>
           </Flex>
           <Flex>
@@ -145,9 +152,6 @@ const BoxCard: React.FC<{guildpad: IGuildpad, imgProps: ImgProps}> = ({guildpad,
               </JustifyR>
             </GridTwo>
           </Flex>
-          <Cont>
-            <Text small color={theme.colors.textSubtle}>Max <b>25 boxes</b> per transaction</Text>
-          </Cont>
         </div>
       </GCard>
   )

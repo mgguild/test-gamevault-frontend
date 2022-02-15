@@ -28,10 +28,11 @@ type LogoProps = {
   primaryToken: Token
   subtitle?: string
   socMeds?: Socials
+  socMedsSize?: number
   padding?: string
 }
 
-const Logo: React.FC<LogoProps> = ({ tokenName, nameSize = 'l', primaryToken, subtitle, socMeds, padding = '24px' }) => {
+const Logo: React.FC<LogoProps> = ({ tokenName, nameSize = 'l', primaryToken, subtitle, socMeds, socMedsSize = 16, padding = '24px' }) => {
   const theme = useContext(ThemeContext)
 
   const getImageUrlFromToken = (token: Token) => {
@@ -48,32 +49,32 @@ const Logo: React.FC<LogoProps> = ({ tokenName, nameSize = 'l', primaryToken, su
           <Flex>
             {socMeds?.website && (
               <Anchor href={socMeds?.website}>
-                <Globe size="16px" color={theme.colors.text} />
+                <Globe size={`${socMedsSize}px`} color={theme.colors.text} />
               </Anchor>
             )}
             {socMeds?.twitter && (
               <Anchor href={socMeds?.twitter}>
-                <Twitter size="16px" color={theme.colors.text} />
+                <Twitter size={`${socMedsSize}px`} color={theme.colors.text} />
               </Anchor>
             )}
             {socMeds?.telegram && (
               <Anchor href={socMeds?.telegram}>
-                <Send size="16px" color={theme.colors.text} />
+                <Send size={`${socMedsSize}px`}  color={theme.colors.text} />
               </Anchor>
             )}
             {socMeds?.discord && (
               <Anchor href={socMeds?.discord}>
-                <SiDiscord size="16px" color={theme.colors.text} />
+                <SiDiscord size={`${socMedsSize}px`} color={theme.colors.text} />
               </Anchor>
             )}
             {socMeds?.medium && (
               <Anchor href={socMeds?.medium}>
-                <SvgIcon width={16} Icon={MediumIcon} />
+                <SvgIcon width={socMedsSize} Icon={MediumIcon} />
               </Anchor>
-            )}  
+            )}
             {socMeds?.youtube && (
               <Anchor href={socMeds?.youtube}>
-              <SiYoutube width={16} color={theme.colors.text} />
+              <SiYoutube width={socMedsSize} color={theme.colors.text} />
             </Anchor>
             )}
           </Flex>

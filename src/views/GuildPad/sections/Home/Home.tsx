@@ -35,9 +35,20 @@ const AnimContainerAdapt = styled(AnimContainer)`
   }
 `
 
+const StyledLink = styled(Scroll.Link)`
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: ${(({theme}) => theme.colors.MGG_container)};
+  margin: -25px auto;
+`
+
 const HomeSection: React.FC = () => {
   const theme = useContext(ThemeContext)
-  const scrollTo = () => Scroll.animateScroll.scrollTo(900);
+  const scrollTo = () => Scroll.animateScroll.scrollTo('activeSection');
   return (
     <PageSection direction='column'>
       <StyledContainer>
@@ -87,9 +98,9 @@ const HomeSection: React.FC = () => {
           </Flex>
         </HomeContainer>
       </StyledContainer>
-      <Button onClick={scrollTo} margin="-25px auto" style={{borderRadius: '50%', width: '50px', background: theme.colors.MGG_container}}>
+      <StyledLink to="activeSection" isDynamic smooth>
           <Text><ArrowDown color={theme.colors.MGG_accent2} /></Text>
-      </Button>
+      </StyledLink>
     </PageSection>
   )
 }
