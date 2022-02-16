@@ -15,6 +15,7 @@ import { getAddress } from 'utils/addressHelpers'
 import TokenLogo from 'components/Launchpad/Logo'
 import tokens from 'config/constants/tokens'
 import { color } from '@mui/system'
+import { getImageUrlFromToken } from 'utils/assetFetch'
 
 export interface ImgProps {
   src: string
@@ -86,13 +87,15 @@ const GridTwo = styled.div`
 const ProgressBar: React.FC<{token: string; guildpad: GuildpadConfig}> = ({token, guildpad}) => {
   const theme = useContext(ThemeContext)
   const price = guildpad.inoDetails ? guildpad.inoDetails.price: '-' 
-
+  const userPurchase = '250';
+  const maxPurchase = guildpad.totalSupply;
+  console.log(guildpad)
   return(
     <div style={{height: '100%', width: '100%'}}>
       <ColumnTwo>
         <Text>Price per Box:</Text>
         <JustifyR>
-          <BoxImg size="1.8rem" src={`/images/tokens/${token}.svg`} alt='BNB' />
+          <BoxImg size="1.8rem" src={token} alt='BNB' />
           <Text>{price} BNB</Text>
         </JustifyR>
       </ColumnTwo>
@@ -103,7 +106,7 @@ const ProgressBar: React.FC<{token: string; guildpad: GuildpadConfig}> = ({token
       <GridThree>
         <Text>0%</Text>
         <Text small color={theme.colors.textSubtle}>You own <span style={{color: 'white'}}>0</span> boxes</Text>
-        <Text small style={{textAlign: 'right'}} color={theme.colors.textSubtle}>250/250 boxes</Text>
+        <Text small style={{textAlign: 'right'}} color={theme.colors.textSubtle}>{`${userPurchase}/${maxPurchase}`} boxes</Text>
       </GridThree>
     </div>
   )
@@ -120,7 +123,9 @@ const BoxCard: React.FC<{guildpad: GuildpadConfig, imgProps: ImgProps}> = ({guil
   const handleChangePercent = (sliderPercent: number) => {
     setPercent(20);
   }
-  const wbnbAddress = getAddress(tokens.wbnb.address);
+
+ const wbnbAddress = getImageUrlFromToken(tokens.wbnb)
+
 
   return (
       <GCard>
