@@ -264,7 +264,7 @@ export interface PredictionsState {
 
 export interface Guildpad extends GuildpadConfig {
   userData?: {
-    boughtBoxes: string
+    boxesBought: string
   }
 }
 
