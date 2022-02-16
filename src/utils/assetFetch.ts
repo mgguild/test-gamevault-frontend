@@ -12,6 +12,10 @@ export const useFetchPadBG = (symbol:string) => {
     return `/images/guildpad-assets/${symbol}PadBG.png`
 }
 
+export const useFetchImage = (symbol: string) => {
+    return `/images/guildpad-assets/${symbol}.png`
+}
+
 export const getImageUrlFromToken = (token: Token) => {
     const address = getAddress(token.symbol === 'BNB' ? tokens.wbnb.address : token.address)
     return `/images/tokens/${address}.${token.iconExtension ?? 'svg'}`
