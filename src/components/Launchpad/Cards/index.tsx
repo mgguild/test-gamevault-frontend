@@ -150,7 +150,7 @@ const CardHeader: React.FC<{ status: string, background?: string }> = ({ status,
 const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
   const { account } = useWeb3React()
   const theme = useContext(ThemeContext)
-  const src = `/images/guildpad-assets/${guildpad.sellingCoin.symbol}/${guildpad.sellingCoin.symbol}Banner.png`
+  const src = `/images/guildpad-assets/${guildpad.sellingCoin.symbol}Banner.png`
 
   // const handleParticipate = (gpad: Guildpad) => {
   //   history.push(`/launchpad/${gpad.title}`)

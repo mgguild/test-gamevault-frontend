@@ -288,7 +288,7 @@ const Card: React.FC<{guildpad: GuildpadConfig}> = ({guildpad}) => {
   console.log(guildpad)
   const { account } = useWeb3React()
   const theme = useContext(ThemeContext)
-  const src = `/images/guildpad-assets/${guildpad.sellingCoin.symbol}/${guildpad.sellingCoin.symbol}Banner.png`
+  const src = `/images/guildpad-assets/${guildpad.sellingCoin.symbol}Banner.png`
 
   // TEMP: ONLY PUTS BACKGROUND ON ACKNOLDGER
   const bgSrc = guildpad.title === 'Acknoledger' ? `/images/guildpad-assets/${guildpad.sellingCoin.symbol}/${guildpad.sellingCoin.symbol}PadBG.png` : '';

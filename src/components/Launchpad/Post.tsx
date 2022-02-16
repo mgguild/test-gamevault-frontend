@@ -105,7 +105,7 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
   const { buyingCoin, sellingCoin, description, type } = guildpad
   const pair = `${buyingCoin.symbol}/${sellingCoin.symbol}`
   const guildSymbol = sellingCoin.symbol
-  const srcs = `/images/guildpad-assets/${sellingCoin.symbol}/${sellingCoin.symbol}.png`
+  const srcs = `/images/guildpad-assets/${sellingCoin.symbol}.png`
 
   return (
     <PostContainer>
