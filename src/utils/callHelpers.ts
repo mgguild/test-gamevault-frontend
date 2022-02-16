@@ -17,10 +17,10 @@ export const approve = async (lpContract, masterChefContract, account) => {
     .send({ from: account })
 }
 
-export const buyBox = async (inoContract, rarity, account) => {
+export const buyBox = async (inoContract, rarity, account, amount) => {
   return inoContract.methods
     .buy(rarity)
-    .send({ from: account, value: '10000000000000000' }) // to fix
+    .send({ from: account, value: getDecimalAmount(amount) }) // to fix
 }
 
 export const approveWithAmount = async (lpContract, masterChefContract, account, amount) => {

@@ -23,7 +23,7 @@ export const useBuyBox = (contractAddress: string) => {
 
   const handleBuyBox = useCallback(
     async (rarity: string, quantity, contract?: Contract) => {
-      const txHash = await buyBox(contract?? inoContract, rarity, account)
+      const txHash = await buyBox(contract?? inoContract, rarity, account, quantity)
       console.info(txHash)
     },
     [account, inoContract],

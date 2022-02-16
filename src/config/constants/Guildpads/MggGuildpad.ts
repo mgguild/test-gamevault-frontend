@@ -22,7 +22,7 @@ const guildpad: GuildpadConfig = {
     },
     buyingCoin: tokens.wbnb,
     sellingCoin: tokens.mgg,
-    available: '1000000',
+    available: '100',
     hasStarted: false,
     hasEnded: false,
     totalSupply: '0',

@@ -128,6 +128,7 @@ const ProgressBar: React.FC<{token: string, guildpad: Guildpad, rarity?: string}
 
 
 const BoxCard: React.FC<{guildpad: GuildpadConfig, imgProps: ImgProps}> = ({guildpad, imgProps}) => {
+  const [rarityId, setRarityId] = useState("1") // TODO: For dynamic in case there are multiple types of boxes for sale
   const [buyQuantity, setBuyQuantity] = useState(0)
   const { account } = useWeb3React()
   const theme = useContext(ThemeContext)
@@ -137,7 +138,7 @@ const BoxCard: React.FC<{guildpad: GuildpadConfig, imgProps: ImgProps}> = ({guil
   const { onBuyBox } = useBuyBox(getAddress(guildpad.contractAddress));
   const handleBuy = async () => {
     const ids = [guildpad.id]
-    await onBuyBox('1', buyQuantity)
+    await onBuyBox(rarityId, buyQuantity * guildpad.boxInfo[rarityId].price)
     dispatch(fetchPublicGuildpadDataAsync([guildpad.id]))
     dispatch(fetchGuildpadUserDataAsync({ account, ids }))
   }
@@ -170,7 +171,7 @@ const BoxCard: React.FC<{guildpad: GuildpadConfig, imgProps: ImgProps}> = ({guil
             </div>
           </Flex>
           <Flex>
-            <ProgressBar token={getAddress(tokens.wbnb.address)} guildpad={guildpad}/>
+            <ProgressBar token={getAddress(tokens.wbnb.address)} guildpad={guildpad} rarity={rarityId}/>
           </Flex>
           <Flex style={{padding: '1rem 0 0 0'}}>
               {!account ? (
