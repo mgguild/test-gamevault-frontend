@@ -504,7 +504,8 @@ export const useGuildpadData = () => {
     dispatch(fetchPublicGuildpadDataAsync(ids))
 
     if (account) {
-      dispatch(fetchGuildpadUserDataAsync({ account, ids }))
+      dispatch(
+        fetchGuildpadUserDataAsync({ account, ids }))
     }
   }, [dispatch, slowRefresh, account])
 }

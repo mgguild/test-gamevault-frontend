@@ -312,7 +312,7 @@ const Card: React.FC<{guildpad: GuildpadConfig}> = ({guildpad}) => {
         </ContainerBoxCard>
 
           <ContainerProjDesc>
-              <Content guildpad={guildpad}  />
+            <Content guildpad={guildpad}  />
           </ContainerProjDesc>
       </Contain>
     </GCard>
