@@ -39,7 +39,9 @@ const guildpad: GuildpadConfig = {
       }
     },
     totalSold: '0',
-    totalRaise: '0'
+    totalRaise: '0',
+    buyLimitEnabled: false,
+    buyLimit: '0'
 }
 
 export default guildpad

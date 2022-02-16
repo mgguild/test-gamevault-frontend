@@ -228,6 +228,8 @@ interface GuildPadInformation {
   totalSupply: string;
   totalSold: string;
   totalRaise: string;
+  buyLimitEnabled: boolean,
+  buyLimit: string,
   socials?: Socials;
   inoDetails?: InoDetails;
   idoDetails?: IdoDetails;
