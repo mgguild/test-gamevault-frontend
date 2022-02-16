@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js'
 import erc20ABI from 'config/abi/erc20.json'
 import ino from 'config/abi/ino.json'
-import multicall, { multicallv2 } from 'utils/multicall'
+import multicall from 'utils/multicall'
 import { getAddress } from 'utils/addressHelpers'
 import { FarmConfig, GuildpadConfig } from 'config/constants/types'
-import lpStakingAbi from 'config/abi/lpStaking.json'
+import { isAddress } from '../../utils'
 
 export const fetchFarmUserAllowances = async (account: string, farmsToFetch: FarmConfig[]) => {
   const calls = farmsToFetch.map((farm) => {
@@ -26,11 +26,11 @@ export const fetchGuildpadUserBoxes = async (account: string, guildpadsToFetch: 
       name: 'getAddressRewardedAmount',
       params: [account, 1],
     }
+  }).filter(gpad => {
+    return isAddress(gpad.address)
   })
-  console.log('asdad')
-  const rawBoxes = await multicallv2(ino, calls)
+  const rawBoxes = await multicall(ino, calls)
   const parsedBoxes = rawBoxes.map((box) => {
-    console.log(box)
     return new BigNumber(box).toJSON()
   })
   return parsedBoxes
