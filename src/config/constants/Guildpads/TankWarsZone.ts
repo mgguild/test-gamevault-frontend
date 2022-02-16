@@ -17,7 +17,7 @@ const guildpad: GuildpadConfig = {
     socials,
     type: TYPE.INO,
     distribution: DISTRIBUTION.VESTING,
-    status: GUILDPAD_STATUS.upcoming,
+    status: GUILDPAD_STATUS.ongoing,
     contractAddress: {
       97: '0x001',
       56: '0x001',

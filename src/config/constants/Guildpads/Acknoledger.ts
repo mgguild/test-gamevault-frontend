@@ -18,7 +18,7 @@ const guildpad: GuildpadConfig = {
     socials,
     type: TYPE.INO,
     distribution: DISTRIBUTION.AIRDROP,
-    status: GUILDPAD_STATUS.ongoing,
+    status: GUILDPAD_STATUS.upcoming,
     contractAddress: {
       97: '0x003',
       56: '0x003',

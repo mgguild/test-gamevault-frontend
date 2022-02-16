@@ -9,7 +9,7 @@ import { Socials, GuildpadConfig, GUILDPAD_STATUS, Token } from 'config/constant
 import { Globe, Send, Twitter } from 'react-feather'
 import { SiDiscord, SiYoutube } from 'react-icons/si'
 import Anchor from 'components/Launchpad/Anchor'
-import SvgIcon from 'components/Launchpad/SvgIcon'
+import SvgIcon from 'components/SvgIcon'
 import { ReactComponent as BoxCrate } from 'assets/InoCrates/INO2.svg'
 import { ReactComponent as MediumIcon } from 'components/Launchpad/icons/MediumIcon.svg'
 import { Card as SCard, CardHeader as SCardHeader, Text, Heading, Flex, Button, Progress } from '@metagg/mgg-uikit'
