@@ -10,11 +10,10 @@ import { SiDiscord, SiYoutube } from 'react-icons/si'
 import Anchor from 'components/Launchpad/Anchor'
 import SvgIcon from 'components/Launchpad/SvgIcon'
 import { ReactComponent as MediumIcon } from 'components/Launchpad/icons/MediumIcon.svg'
-import { Card as SCard, CardHeader as SCardHeader, Text, Heading, Flex, Button, useModal } from '@metagg/mgg-uikit'
+import { Card as SCard, CardHeader as SCardHeader, Text, Heading, Flex, Button } from '@metagg/mgg-uikit'
 import TokenLogo from 'components/Launchpad/Logo'
 import { PostBody, NavOption } from '../../../../components/Launchpad/styled'
 import Boxcard from '../BoxCard'
-import ModalWhitelist from '../Modal/ModalWhitelist'
 
 
 const GCard = styled(SCard)<{ src?: string }>`
@@ -290,10 +289,6 @@ const Card: React.FC<{guildpad: GuildpadConfig}> = ({guildpad}) => {
   const theme = useContext(ThemeContext)
   const src = `/images/guildpad-assets/${guildpad.sellingCoin.symbol}/${guildpad.sellingCoin.symbol}Banner.png`
 
-  // SHOW MODAL WHITELIST NEED PROP DATE: VALUE TYPE DATE
-  const [showModalWhitelist] = useModal(
-    <ModalWhitelist date={new Date('2/16/2022 08:00:00 UTC')}/>
-  )
 
   // TEMP: ONLY PUTS BACKGROUND ON ACKNOLDGER
   const bgSrc = guildpad.title === 'Acknoledger' ? `/images/guildpad-assets/${guildpad.sellingCoin.symbol}/${guildpad.sellingCoin.symbol}PadBG.png` : '';
@@ -302,7 +297,6 @@ const Card: React.FC<{guildpad: GuildpadConfig}> = ({guildpad}) => {
     <GCard src={bgSrc}>
       <CardHeader status="ONGOING" background={src} guildpad={guildpad}/>
       <Contain>
-        {/* <Button onClick={showModalWhitelist}>MODAL TEST</Button> */}
         <Flex>
           <ColumnTwo>
             <div style={{display: 'flex', alignItems: 'center', padding: '1rem'}}>

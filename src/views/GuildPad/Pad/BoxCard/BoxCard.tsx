@@ -11,7 +11,7 @@ import { SiDiscord, SiYoutube } from 'react-icons/si'
 import Anchor from 'components/Launchpad/Anchor'
 import SvgIcon from 'components/Launchpad/SvgIcon'
 import { ReactComponent as MediumIcon } from 'components/Launchpad/icons/MediumIcon.svg'
-import { Card as SCard, CardHeader as SCardHeader, Text, Heading, Flex, Button, Progress } from '@metagg/mgg-uikit'
+import { Card as SCard, CardHeader as SCardHeader, Text, Heading, Flex, Button, Progress, useModal } from '@metagg/mgg-uikit'
 import { getAddress } from 'utils/addressHelpers'
 import TokenLogo from 'components/Launchpad/Logo'
 import tokens from 'config/constants/tokens'
@@ -26,6 +26,7 @@ import { fetchGuildpadUserDataAsync, fetchPublicGuildpadDataAsync } from '../../
 import { useAppDispatch } from '../../../../state'
 import useWeb3 from '../../../../hooks/useWeb3'
 import useEthBalance from '../../../../hooks/useEthBalance'
+import ModalWhitelist from '../Modal/ModalWhitelist'
 
 export interface ImgProps {
   src: string
@@ -134,6 +135,7 @@ const ProgressBar: React.FC<{token: string, guildpad: Guildpad, rarity?: string}
 const BoxCard: React.FC<{guildpad: GuildpadConfig, imgProps: ImgProps}> = ({guildpad, imgProps}) => {
   const [rarityId, setRarityId] = useState("1") // TODO: For dynamic in case there are multiple types of boxes for sale
   const [buyQuantity, setBuyQuantity] = useState(0)
+  const [isWhitelist, setIsWhitelist] = useState(false) // Determine account white list status, set to false for default/test purposes
   const { account } = useWeb3React()
   const theme = useContext(ThemeContext)
   const {src, size} = imgProps
@@ -153,6 +155,10 @@ const BoxCard: React.FC<{guildpad: GuildpadConfig, imgProps: ImgProps}> = ({guil
     }
     setBuyQuantity(parseInt(e.target.value))
   }
+  // SHOW MODAL WHITELIST REQUIRE PROP DATE: VALUE TYPE DATE
+  const [showModalWhitelist] = useModal(
+    <ModalWhitelist date={new Date('2/16/2022 08:00:00 UTC')}/>
+  )
   return (
       <GCard>
         <div style={{padding: '1rem 2.5rem'}}>
@@ -192,6 +198,7 @@ const BoxCard: React.FC<{guildpad: GuildpadConfig, imgProps: ImgProps}> = ({guil
               )}
           </Flex>
         </div>
+        <Button onClick={showModalWhitelist}>MODAL TEST</Button>
       </GCard>
   )
 }
