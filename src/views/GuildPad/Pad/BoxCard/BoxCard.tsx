@@ -20,6 +20,10 @@ import { Guildpad } from '../../../../state/types'
 import UnlockButton from '../../../../components/UnlockButton'
 import useTokenBalance from '../../../../hooks/useTokenBalance'
 import { getBalanceAmount } from '../../../../utils/formatBalance'
+import { useBuyBox } from '../../../../hooks/useGuildPad'
+import { useGuildpadData } from '../../../../state/hooks'
+import { fetchGuildpadUserDataAsync, fetchPublicGuildpadDataAsync } from '../../../../state/guildpads'
+import { useAppDispatch } from '../../../../state'
 
 export interface ImgProps {
   src: string
@@ -124,12 +128,26 @@ const ProgressBar: React.FC<{token: string, guildpad: Guildpad, rarity?: string}
 
 
 const BoxCard: React.FC<{guildpad: GuildpadConfig, imgProps: ImgProps}> = ({guildpad, imgProps}) => {
-  const [percent, setPercent] = useState(20)
+  const [buyQuantity, setBuyQuantity] = useState(0)
   const { account } = useWeb3React()
   const theme = useContext(ThemeContext)
   const {src, size} = imgProps
   const img = `/images/guildpad-assets/${src}`
-
+  const dispatch = useAppDispatch()
+  const { onBuyBox } = useBuyBox(getAddress(guildpad.contractAddress));
+  const handleBuy = async () => {
+    const ids = [guildpad.id]
+    await onBuyBox('1', buyQuantity)
+    dispatch(fetchPublicGuildpadDataAsync([guildpad.id]))
+    dispatch(fetchGuildpadUserDataAsync({ account, ids }))
+  }
+  const onChange = (e) => {
+    if (!e.target.value) {
+      setBuyQuantity(0)
+      return
+    }
+    setBuyQuantity(parseInt(e.target.value))
+  }
   return (
       <GCard>
         <div style={{padding: '1rem 2.5rem'}}>
@@ -159,11 +177,11 @@ const BoxCard: React.FC<{guildpad: GuildpadConfig, imgProps: ImgProps}> = ({guil
                 <UnlockButton fullWidth />
               ) : (
                 <GridTwo>
-                  <input placeholder='Qty.'/>
-                  <JustifyR>
-                    <Button style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}>
-                      Buy
-                    </Button>
+                  <input placeholder='Qty.' name='buyQuantity' value={buyQuantity} onChange={onChange}/>
+                    <JustifyR>
+                      <Button disabled={buyQuantity <= 0} onClick={handleBuy} fullWidth style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}>
+                        Buy
+                      </Button>
                   </JustifyR>
                 </GridTwo>
               )}

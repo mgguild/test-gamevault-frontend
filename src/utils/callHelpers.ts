@@ -8,13 +8,19 @@ import farms from 'config/constants/farms'
 import { getAddress, getCakeAddress } from 'utils/addressHelpers'
 import tokens from 'config/constants/tokens'
 import { web3WithArchivedNodeProvider } from './web3'
-import { getBalanceAmount } from './formatBalance'
+import { getBalanceAmount, getDecimalAmount } from './formatBalance'
 import { BIG_TEN, BIG_ZERO } from './bigNumber'
 
 export const approve = async (lpContract, masterChefContract, account) => {
   return lpContract.methods
     .approve(masterChefContract.options.address, ethers.constants.MaxUint256)
     .send({ from: account })
+}
+
+export const buyBox = async (inoContract, rarity, account) => {
+  return inoContract.methods
+    .buy(rarity)
+    .send({ from: account, value: '10000000000000000' }) // to fix
 }
 
 export const approveWithAmount = async (lpContract, masterChefContract, account, amount) => {
