@@ -2,6 +2,20 @@
   {
     "constant": true,
     "inputs": [],
+    "name": "getLimitPerAddressEnable",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
     "name": "getAddressBuyersList",
     "outputs": [
       {
@@ -21,6 +35,25 @@
       {
         "name": "",
         "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_rarityId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getLimitPerAddress",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
       }
     ],
     "payable": false,
@@ -168,6 +201,24 @@
     ],
     "payable": false,
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_rarityId",
+        "type": "uint256"
+      },
+      {
+        "name": "_limitAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "editPurchaseLimit",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -496,24 +547,6 @@
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_startTime",
-        "type": "uint256"
-      },
-      {
-        "name": "_whitelist",
-        "type": "bool"
-      }
-    ],
-    "name": "openSale",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "constant": true,
     "inputs": [
       {
@@ -541,6 +574,28 @@
       }
     ],
     "name": "transferOwnership",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_startTime",
+        "type": "uint256"
+      },
+      {
+        "name": "_whitelist",
+        "type": "bool"
+      },
+      {
+        "name": "_limit",
+        "type": "bool"
+      }
+    ],
+    "name": "openSale",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -641,6 +696,23 @@
       }
     ],
     "name": "RemoveWhiteList",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "rarityId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "limitAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "UpdatePurchaseLimit",
     "type": "event"
   },
   {

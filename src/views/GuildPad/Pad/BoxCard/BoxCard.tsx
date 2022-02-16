@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import styled, { ThemeContext } from 'styled-components'
+import BigNumber from 'bignumber.js'
 import { Link } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
 import Container from 'components/layout/Container'
@@ -15,6 +16,16 @@ import { getAddress } from 'utils/addressHelpers'
 import TokenLogo from 'components/Launchpad/Logo'
 import tokens from 'config/constants/tokens'
 import { color } from '@mui/system'
+import { Guildpad } from '../../../../state/types'
+import UnlockButton from '../../../../components/UnlockButton'
+import useTokenBalance from '../../../../hooks/useTokenBalance'
+import { getBalanceAmount } from '../../../../utils/formatBalance'
+import { useBuyBox } from '../../../../hooks/useGuildPad'
+import { useGuildpadData } from '../../../../state/hooks'
+import { fetchGuildpadUserDataAsync, fetchPublicGuildpadDataAsync } from '../../../../state/guildpads'
+import { useAppDispatch } from '../../../../state'
+import useWeb3 from '../../../../hooks/useWeb3'
+import useEthBalance from '../../../../hooks/useEthBalance'
 
 export interface ImgProps {
   src: string
@@ -27,7 +38,7 @@ const GCard = styled(SCard)`
  border-radius: 5px;
  width: 25rem;
  margin: 0px auto;
- padding: '1rem';
+ padding: 1rem;
 `
 
 const Cont = styled.div`
@@ -83,8 +94,12 @@ const GridTwo = styled.div`
   grid-template-columns: 2fr 1fr;
 `
 
-const ProgressBar: React.FC<{token: string}> = ({token}) => {
+const ProgressBar: React.FC<{token: string, guildpad: Guildpad, rarity?: string}> = ({token, guildpad, rarity = '1'}) => {
   const theme = useContext(ThemeContext)
+  const { account } = useWeb3React()
+  const web3 = useWeb3()
+  const balance = useEthBalance()
+  const tokenBalanceAmount = getBalanceAmount(balance, guildpad.buyingCoin.decimals)
 
   return(
     <div style={{height: '100%', width: '100%'}}>
@@ -92,17 +107,24 @@ const ProgressBar: React.FC<{token: string}> = ({token}) => {
         <Text>Price per Box:</Text>
         <JustifyR>
           <BoxImg size="1.8rem" src={`/images/tokens/${token}.svg`} alt='BNB' />
-          <Text>0.99 BNB</Text>
+          <Text>{guildpad.boxInfo[rarity].price} BNB</Text>
+        </JustifyR>
+      </ColumnTwo>
+      <ColumnTwo>
+        <Text>Balance:</Text>
+        <JustifyR>
+          <BoxImg size="1.8rem" src={`/images/tokens/${token}.svg`} alt='BNB' />
+          <Text>{tokenBalanceAmount.toPrecision(6)} BNB</Text>
         </JustifyR>
       </ColumnTwo>
       <Progress
         variant='round'
-        primaryStep={50}
+        primaryStep={guildpad.boxInfo[rarity].percentSold}
       />
       <GridThree>
-        <Text>50%</Text>
-        <Text small color={theme.colors.textSubtle}>You own <span style={{color: 'white'}}>0</span> boxes</Text>
-        <Text small style={{textAlign: 'right'}} color={theme.colors.textSubtle}>250/250 boxes</Text>
+        <Text>{guildpad.boxInfo[rarity].percentSold}%</Text>
+         <Text small color={theme.colors.textSubtle}>You own <span style={{color: 'white'}}>{guildpad.userData.boughtBoxes}</span> boxes</Text>
+        <Text small style={{textAlign: 'right'}} color={theme.colors.textSubtle}>{guildpad.boxInfo[rarity].supply-guildpad.boxInfo[rarity].sold}/{guildpad.boxInfo[rarity].supply} boxes</Text>
       </GridThree>
     </div>
   )
@@ -110,16 +132,27 @@ const ProgressBar: React.FC<{token: string}> = ({token}) => {
 
 
 const BoxCard: React.FC<{guildpad: GuildpadConfig, imgProps: ImgProps}> = ({guildpad, imgProps}) => {
-  const [percent, setPercent] = useState(20)
-
+  const [rarityId, setRarityId] = useState("1") // TODO: For dynamic in case there are multiple types of boxes for sale
+  const [buyQuantity, setBuyQuantity] = useState(0)
+  const { account } = useWeb3React()
   const theme = useContext(ThemeContext)
   const {src, size} = imgProps
   const img = `/images/guildpad-assets/${src}`
-  const val = true
-  const handleChangePercent = (sliderPercent: number) => {
-    setPercent(20);
+  const dispatch = useAppDispatch()
+  const { onBuyBox } = useBuyBox(getAddress(guildpad.contractAddress));
+  const handleBuy = async () => {
+    const ids = [guildpad.id]
+    await onBuyBox(rarityId, buyQuantity * guildpad.boxInfo[rarityId].price)
+    dispatch(fetchPublicGuildpadDataAsync([guildpad.id]))
+    dispatch(fetchGuildpadUserDataAsync({ account, ids }))
   }
-
+  const onChange = (e) => {
+    if (!e.target.value) {
+      setBuyQuantity(0)
+      return
+    }
+    setBuyQuantity(parseInt(e.target.value))
+  }
   return (
       <GCard>
         <div style={{padding: '1rem 2.5rem'}}>
@@ -142,15 +175,21 @@ const BoxCard: React.FC<{guildpad: GuildpadConfig, imgProps: ImgProps}> = ({guil
             </div>
           </Flex>
           <Flex>
-            <ProgressBar token={tokens.wbnb.address[56]}/>
+            <ProgressBar token={getAddress(tokens.wbnb.address)} guildpad={guildpad} rarity={rarityId}/>
           </Flex>
           <Flex style={{padding: '1rem 0 0 0'}}>
-            <GridTwo>
-              <input placeholder='Qty.'/>
-              <JustifyR>
-                <Button>BUY</Button>
-              </JustifyR>
-            </GridTwo>
+              {!account ? (
+                <UnlockButton fullWidth />
+              ) : (
+                <GridTwo>
+                  <input placeholder='Qty.' name='buyQuantity' value={buyQuantity} onChange={onChange}/>
+                    <JustifyR>
+                      <Button disabled={buyQuantity <= 0} onClick={handleBuy} fullWidth style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}>
+                        Buy
+                      </Button>
+                  </JustifyR>
+                </GridTwo>
+              )}
           </Flex>
         </div>
       </GCard>

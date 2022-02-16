@@ -17,12 +17,24 @@ const guildpad: GuildpadConfig = {
     distribution: DISTRIBUTION.AIRDROP,
     status: GUILDPAD_STATUS.ongoing,
     contractAddress: {
-      97: '0xd9B59A1277Bd9953D3764168B004f35534cf805B',
-      56: '0x482d9F053bF1D38Cd77EC6F2289c38FE22f6f4C1',
+      97: '0xE673E67bD59A7390725ED98cBead9A5928F6f51E',
+      56: '0x73fbf9DF2807CDfc050276ef2EfFcA72B5BDE05A',
     },
-    buyingCoin: tokens.bnb,
+    buyingCoin: tokens.wbnb,
     sellingCoin: tokens.mgg,
-    available: '1000000'
+    available: '100',
+    hasStarted: false,
+    hasEnded: false,
+    totalSupply: '0',
+    boxInfo: {
+      1: {
+        price: '0',
+        supply: '0',
+        sold: '0'
+      }
+    },
+    totalSold: '0',
+    totalRaise: '0'
 }
 
 export default guildpad;

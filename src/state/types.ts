@@ -264,7 +264,6 @@ export interface PredictionsState {
 
 export interface Guildpad extends GuildpadConfig {
   userData?: {
-    allowance: string
     boughtBoxes: string
   }
 }
@@ -272,6 +271,7 @@ export interface Guildpad extends GuildpadConfig {
 export interface GuildpadState {
   selected?: Guildpad | null;
   data: Guildpad[];
+  userDataLoaded: boolean
 }
 
 // Global state
