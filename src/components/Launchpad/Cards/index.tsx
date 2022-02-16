@@ -32,7 +32,7 @@ const Header = styled(SCardHeader)<{ src?: string }>`
             position: absolute;
             left: 0;
             top: 0;
-            opacity: 0.3;
+            opacity: 0.2;
             width: 100%;
             height: 100%;
             z-index: 1;
@@ -43,6 +43,10 @@ const Header = styled(SCardHeader)<{ src?: string }>`
             background-size: cover;
         }
     `}
+  & > * {
+    position: relative;
+    z-index: 2;
+  }
 `
 const TimerBox = styled(Flex)`
   & > * {
