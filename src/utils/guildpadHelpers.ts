@@ -8,14 +8,14 @@ export const getCountDown = (guildpad: Guildpad) => {
 export const getStatus = (guildpad: Guildpad) => {
   switch (guildpad.status) {
     case GUILDPAD_STATUS.ongoing:
-      if (guildpad.hasEnded[0]) {
+      if (guildpad.hasEnded) {
         return GUILDPAD_STATUS.completed
-      } 
+      }
       break;
     case GUILDPAD_STATUS.upcoming:
-      if (guildpad.hasStarted[0]) {
+      if (guildpad.hasStarted) {
         return GUILDPAD_STATUS.ongoing
-      } 
+      }
       break;
     default:
   }
