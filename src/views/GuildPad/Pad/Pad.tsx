@@ -35,6 +35,7 @@ const Pad: React.FC<RouteComponentProps<{ guildpadTitle?: string }>> = ({ match:
   const theme = useContext(ThemeContext);
   const { data: guildpads } = useGuildpads()
   useGuildpadData()
+  // console.log(guildpads)
   const activeGuildpad = guildpads.filter((gpad) => gpad.title === guildpadTitle)[0]
   const { title } = activeGuildpad
   const status = getStatus(activeGuildpad)

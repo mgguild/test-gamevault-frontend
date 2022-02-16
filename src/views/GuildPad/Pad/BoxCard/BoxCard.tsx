@@ -1,13 +1,14 @@
 import React, { useContext, useState } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { useWeb3React } from '@web3-react/core'
-import { AboutColumn as Column, TwoColumn, TierColumns } from 'components/Column'
-import { Socials, GuildpadConfig, GUILDPAD_STATUS, Token } from 'config/constants/types'
-import SvgIcon from 'components/SvgIcon'
-import { ReactComponent as BoxCrate } from 'assets/InoCrates/INO2.svg'
-import { Card as SCard, CardHeader as SCardHeader, Text, Heading, Flex, Button, Progress } from '@metagg/mgg-uikit'
+import BigNumber from 'bignumber.js'
+import { TwoColumn } from 'components/Column'
+import { GuildpadConfig } from 'config/constants/types'
+import { Button, Card as SCard, Flex, Heading, Progress, Text } from '@metagg/mgg-uikit'
 import { getAddress } from 'utils/addressHelpers'
 import tokens from 'config/constants/tokens'
+import { ReactComponent as BoxCrate } from 'assets/InoCrates/INO2.svg'
+import SvgIcon from 'components/SvgIcon'
 import { Guildpad } from '../../../../state/types'
 import UnlockButton from '../../../../components/UnlockButton'
 import { getBalanceAmount } from '../../../../utils/formatBalance'
@@ -16,6 +17,7 @@ import { fetchGuildpadUserDataAsync, fetchPublicGuildpadDataAsync } from '../../
 import { useAppDispatch } from '../../../../state'
 import useWeb3 from '../../../../hooks/useWeb3'
 import useEthBalance from '../../../../hooks/useEthBalance'
+
 
 export interface ImgProps {
   src: string
@@ -84,17 +86,20 @@ const GridTwo = styled.div`
   grid-template-columns: 2fr 1fr;
 `
 
-const ProgressBar: React.FC<{ token: string; guildpad: Guildpad; rarity?: string }> = ({
-  token,
-  guildpad,
-  rarity = '1',
-}) => {
+const ProgressBar: React.FC<{ token: string, guildpad: Guildpad, rarity?: string }> = (
+  {
+    token,
+    guildpad,
+    rarity = '1',
+  }) => {
   const theme = useContext(ThemeContext)
-  const { account } = useWeb3React()
-  const web3 = useWeb3()
   const balance = useEthBalance()
   const tokenBalanceAmount = getBalanceAmount(balance, guildpad.buyingCoin.decimals)
 
+  let remainingText = '';
+  if (guildpad.buyLimitEnabled) {
+    remainingText = `out of ${guildpad.buyLimit}`
+  }
   return (
     <div style={{ height: '100%', width: '100%' }}>
       <ColumnTwo>
@@ -120,23 +125,26 @@ const ProgressBar: React.FC<{ token: string; guildpad: Guildpad; rarity?: string
           <Text>{tokenBalanceAmount.toPrecision(6)} BNB</Text>
         </JustifyR>
       </ColumnTwo>
-      <Progress variant="round" primaryStep={guildpad.boxInfo[rarity].percentSold} />
-      <GridThree>
+      <div style={{ textAlign: 'center'}}>
+        <Progress
+          variant='round'
+          primaryStep={guildpad.boxInfo[rarity].percentSold}
+        />
         <Text>{guildpad.boxInfo[rarity].percentSold}%</Text>
-        <Text small color={theme.colors.textSubtle}>
-          You own <span style={{ color: 'white' }}>{guildpad.userData.boxesBought}</span> boxes
-        </Text>
-        <Text small style={{ textAlign: 'right' }} color={theme.colors.textSubtle}>
-          {guildpad.boxInfo[rarity].supply - guildpad.boxInfo[rarity].sold}/{guildpad.boxInfo[rarity].supply} boxes
-        </Text>
-      </GridThree>
+      </div>
+      <div style={{ textAlign: 'center'}}>
+        <Text small color={theme.colors.textSubtle}>You own <span
+          style={{ color: 'white' }}>{guildpad.userData.boxesBought}</span> boxes {remainingText}</Text>
+      </div>
     </div>
   )
 }
 
-const BoxCard: React.FC<{ guildpad: GuildpadConfig; imgProps: ImgProps }> = ({ guildpad, imgProps }) => {
+
+const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpad, imgProps }) => {
   const [rarityId, setRarityId] = useState('1') // TODO: For dynamic in case there are multiple types of boxes for sale
   const [buyQuantity, setBuyQuantity] = useState(0)
+  const [buyDisabled, setBuyDisabled] = useState(false)
   const { account } = useWeb3React()
   const theme = useContext(ThemeContext)
   const { src, size } = imgProps
@@ -145,16 +153,30 @@ const BoxCard: React.FC<{ guildpad: GuildpadConfig; imgProps: ImgProps }> = ({ g
   const { onBuyBox } = useBuyBox(getAddress(guildpad.contractAddress))
   const handleBuy = async () => {
     const ids = [guildpad.id]
-    await onBuyBox(rarityId, buyQuantity * guildpad.boxInfo[rarityId].price)
+    await onBuyBox(rarityId, new BigNumber(buyQuantity).multipliedBy(new BigNumber(guildpad.boxInfo[rarityId].price)).toString())
     dispatch(fetchPublicGuildpadDataAsync([guildpad.id]))
     dispatch(fetchGuildpadUserDataAsync({ account, ids }))
   }
+
+  const limitReached = (quantity) => {
+    const totalOwnedToOwn = parseInt(guildpad.userData.boxesBought) + parseInt(quantity)
+    if (guildpad.buyLimitEnabled && totalOwnedToOwn > parseInt(guildpad.buyLimit)) {
+      return true;
+    }
+    return false;
+  }
   const onChange = (e) => {
-    if (!e.target.value) {
+    const quantity = e.target.value
+    if (!quantity) {
       setBuyQuantity(0)
       return
     }
-    setBuyQuantity(parseInt(e.target.value))
+    if (limitReached(quantity)) {
+      setBuyDisabled(true)
+    } else {
+      setBuyDisabled(false)
+    }
+    setBuyQuantity(parseInt(quantity))
   }
   return (
     <GCard>
@@ -186,12 +208,8 @@ const BoxCard: React.FC<{ guildpad: GuildpadConfig; imgProps: ImgProps }> = ({ g
             <GridTwo>
               <input placeholder="Qty." name="buyQuantity" value={buyQuantity} onChange={onChange} />
               <JustifyR>
-                <Button
-                  disabled={buyQuantity <= 0}
-                  onClick={handleBuy}
-                  fullWidth
-                  style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}
-                >
+                <Button disabled={buyDisabled || buyQuantity <= 0} onClick={handleBuy} fullWidth
+                        style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}>
                   Buy
                 </Button>
               </JustifyR>

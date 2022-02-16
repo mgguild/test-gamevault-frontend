@@ -35,3 +35,20 @@ export const fetchGuildpadUserBoxes = async (account: string, guildpadsToFetch: 
   })
   return parsedBoxes
 }
+
+export const fetchGuildpadUserLimits = async (account: string, guildpadsToFetch: GuildpadConfig[]) => {
+  const calls = guildpadsToFetch.map((guildpad) => {
+    return {
+      address: getAddress(guildpad.contractAddress),
+      name: 'getAddressRewardedAmount',
+      params: [account, 1],
+    }
+  }).filter(gpad => {
+    return isAddress(gpad.address)
+  })
+  const rawBoxes = await multicall(ino, calls)
+  const parsedBoxes = rawBoxes.map((box) => {
+    return new BigNumber(box).toJSON()
+  })
+  return parsedBoxes
+}
