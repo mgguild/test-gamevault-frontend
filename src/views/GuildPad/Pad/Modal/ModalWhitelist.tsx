@@ -37,7 +37,7 @@ const ModalWhitelist: React.FC<ModalWhitelistProps> = ({
             <HeadingIcon size='xxl' color='#b80000'>X</HeadingIcon>
           </Flex>
           <Heading>SORRY, YOU ARE NOT WHITELISTED</Heading>
-          <Text>Please come back to purchase box from {moment(date).format('DD/MM/YYYY, hh:mm:ss')}</Text>
+          <Text>Please come back to purchase box from {moment(date).utc().format('MM/DD/YYYY, hh:mm:ss A UTC')}</Text>
           <Flex alignItems='center' justifyContent='center'>
             <Button
               style={{padding: '0 3rem'}}

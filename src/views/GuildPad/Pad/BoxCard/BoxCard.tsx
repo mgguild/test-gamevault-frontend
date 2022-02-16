@@ -157,11 +157,11 @@ const BoxCard: React.FC<{guildpad: GuildpadConfig, imgProps: ImgProps}> = ({guil
   }
   // SHOW MODAL WHITELIST REQUIRE PROP DATE: VALUE TYPE DATE
   const [showModalWhitelist] = useModal(
-    <ModalWhitelist date={new Date('2/16/2022 08:00:00 UTC')}/>
+    <ModalWhitelist date={new Date('2/19/2022 13:00:00 UTC')}/>
   )
   return (
       <GCard>
-        {/* <Button onClick={showModalWhitelist}>MODAL TEST</Button> */}
+        <Button onClick={showModalWhitelist}>MODAL TEST</Button>
         <div style={{padding: '1rem 2.5rem'}}>
           <Cont>
             <BoxImg src={img} size={size}/>
