@@ -502,7 +502,6 @@ export const useGuildpadData = () => {
     const ids = guildpadsToFetch.map((guildpadToFetch) => guildpadToFetch.id)
 
     dispatch(fetchPublicGuildpadDataAsync(ids))
-    console.log(ids)
 
     if (account) {
       dispatch(

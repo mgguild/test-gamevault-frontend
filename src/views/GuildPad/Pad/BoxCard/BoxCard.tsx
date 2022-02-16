@@ -24,6 +24,8 @@ import { useBuyBox } from '../../../../hooks/useGuildPad'
 import { useGuildpadData } from '../../../../state/hooks'
 import { fetchGuildpadUserDataAsync, fetchPublicGuildpadDataAsync } from '../../../../state/guildpads'
 import { useAppDispatch } from '../../../../state'
+import useWeb3 from '../../../../hooks/useWeb3'
+import useEthBalance from '../../../../hooks/useEthBalance'
 
 export interface ImgProps {
   src: string
@@ -94,8 +96,10 @@ const GridTwo = styled.div`
 
 const ProgressBar: React.FC<{token: string, guildpad: Guildpad, rarity?: string}> = ({token, guildpad, rarity = '1'}) => {
   const theme = useContext(ThemeContext)
-  const tokenBalance = useTokenBalance(getAddress(guildpad.buyingCoin.address))
-  const tokenBalanceAmount = getBalanceAmount(tokenBalance.balance, guildpad.buyingCoin.decimals)
+  const { account } = useWeb3React()
+  const web3 = useWeb3()
+  const balance = useEthBalance()
+  const tokenBalanceAmount = getBalanceAmount(balance, guildpad.buyingCoin.decimals)
 
   return(
     <div style={{height: '100%', width: '100%'}}>
@@ -110,7 +114,7 @@ const ProgressBar: React.FC<{token: string, guildpad: Guildpad, rarity?: string}
         <Text>Balance:</Text>
         <JustifyR>
           <BoxImg size="1.8rem" src={`/images/tokens/${token}.svg`} alt='BNB' />
-          <Text>{tokenBalanceAmount.toString()} BNB</Text>
+          <Text>{tokenBalanceAmount.toPrecision(6)} BNB</Text>
         </JustifyR>
       </ColumnTwo>
       <Progress
