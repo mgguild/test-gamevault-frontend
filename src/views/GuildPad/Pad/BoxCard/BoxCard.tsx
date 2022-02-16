@@ -7,6 +7,8 @@ import { GuildpadConfig } from 'config/constants/types'
 import { Button, Card as SCard, Flex, Heading, Progress, Text } from '@metagg/mgg-uikit'
 import { getAddress } from 'utils/addressHelpers'
 import tokens from 'config/constants/tokens'
+import { ReactComponent as BoxCrate } from 'assets/InoCrates/INO2.svg'
+import SvgIcon from 'components/SvgIcon'
 import { Guildpad } from '../../../../state/types'
 import UnlockButton from '../../../../components/UnlockButton'
 import { getBalanceAmount } from '../../../../utils/formatBalance'
@@ -16,14 +18,15 @@ import { useAppDispatch } from '../../../../state'
 import useWeb3 from '../../../../hooks/useWeb3'
 import useEthBalance from '../../../../hooks/useEthBalance'
 
+
 export interface ImgProps {
   src: string
   size?: string
 }
 
 const GCard = styled(SCard)`
-  background: ${(({ theme }) => theme.colors.MGG_container)};
-  border: 2px solid ${(({ theme }) => theme.colors.MGG_active)};
+  background: ${({ theme }) => theme.colors.MGG_container};
+  border: 2px solid ${({ theme }) => theme.colors.MGG_active};
   border-radius: 5px;
   width: 25rem;
   margin: 0px auto;
@@ -60,8 +63,8 @@ const BoxImg = styled.img<{ size?: string }>`
 
 const UnorderedList = styled.ul`
   & li {
-    margin: 3px 0px;
-    color: ${(({ theme }) => theme.colors.textSubtle)};
+    margin: 0.9rem;
+    color: ${({ theme }) => theme.colors.textSubtle};
   }
 `
 
@@ -102,21 +105,23 @@ const ProgressBar: React.FC<{ token: string, guildpad: Guildpad, rarity?: string
       <ColumnTwo>
         <Text>Remaining Boxes:</Text>
         <JustifyR>
-          <BoxImg size='1.8rem' src={`/images/tokens/${token}.svg`} alt='BNB' />
-          <Text>{guildpad.boxInfo[rarity].supply - guildpad.boxInfo[rarity].sold}/{guildpad.boxInfo[rarity].supply} Boxes</Text>
+          <BoxImg size="1.8rem" src={`/images/tokens/${token}.svg`} alt="BNB" />
+          <Text>
+            {guildpad.boxInfo[rarity].supply - guildpad.boxInfo[rarity].sold}/{guildpad.boxInfo[rarity].supply} Boxes
+          </Text>
         </JustifyR>
       </ColumnTwo>
       <ColumnTwo>
         <Text>Price per Box:</Text>
         <JustifyR>
-          <BoxImg size='1.8rem' src={`/images/tokens/${token}.svg`} alt='BNB' />
+          <BoxImg size="1.8rem" src={`/images/tokens/${token}.svg`} alt="BNB" />
           <Text>{guildpad.boxInfo[rarity].price} BNB</Text>
         </JustifyR>
       </ColumnTwo>
       <ColumnTwo>
         <Text>Balance:</Text>
         <JustifyR>
-          <BoxImg size='1.8rem' src={`/images/tokens/${token}.svg`} alt='BNB' />
+          <BoxImg size="1.8rem" src={`/images/tokens/${token}.svg`} alt="BNB" />
           <Text>{tokenBalanceAmount.toPrecision(6)} BNB</Text>
         </JustifyR>
       </ColumnTwo>
@@ -177,20 +182,19 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpa
     <GCard>
       <div style={{ padding: '1rem 2.5rem' }}>
         <Cont>
-          <BoxImg src={img} size={size} />
+          {/* <BoxImg src={img} size={size}/> */}
+          <SvgIcon Icon={BoxCrate} />
         </Cont>
         <Flex style={{ paddingTop: '2rem' }}>
-          <Heading size='lg' color={theme.colors.primary}>Sample Box 1</Heading>
+          <Heading size="lg" color={theme.colors.primary}>
+            Mystery Box
+          </Heading>
         </Flex>
         <Flex>
           <div style={{ padding: '1.2rem 0 5rem 0' }}>
             <UnorderedList>
-              <li>
-                Each box contains 1 NFT (Generation 1)
-              </li>
-              <li>
-                There will be a total of 10,000 NFTs in the first generation of AcknoLedger Genesis NFTs.
-              </li>
+              <li>Each box contains 1 NFT (Generation 1)</li>
+              <li>There will be a total of 10,000 NFTs in the first generation of AcknoLedger Genesis NFTs.</li>
             </UnorderedList>
           </div>
         </Flex>
@@ -202,7 +206,7 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpa
             <UnlockButton fullWidth />
           ) : (
             <GridTwo>
-              <input placeholder='Qty.' name='buyQuantity' value={buyQuantity} onChange={onChange} />
+              <input placeholder="Qty." name="buyQuantity" value={buyQuantity} onChange={onChange} />
               <JustifyR>
                 <Button disabled={buyDisabled || buyQuantity <= 0} onClick={handleBuy} fullWidth
                         style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}>

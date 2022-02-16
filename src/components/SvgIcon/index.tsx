@@ -22,7 +22,7 @@ export const SvgContainer = styled.div<{
   justify-content: center;
 
   & svg {
-    fill: ${(props) => (props.fill ? props.fill : props.theme.colors.text)};
+    // fill: ${(props) => (props.fill ? props.fill : props.theme.colors.text)};
     height: ${(props) => (props.height ? `${props.height}px` : '100%')};
     width: ${(props) => (props.width ? `${props.width}px` : '100%')};
   }

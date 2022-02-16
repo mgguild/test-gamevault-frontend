@@ -3,6 +3,7 @@ import { Text, Flex, Button } from '@sparkpointio/sparkswap-uikit'
 import styled, { ThemeContext } from 'styled-components'
 import { ChevronUp, ChevronDown } from 'react-feather'
 import { GuildpadConfig, TYPE }  from 'config/constants/types'
+import { useFetchImage } from 'utils/assetFetch'
 import useMedia from 'use-media'
 import { Header, SaleContainer, SaleRow, PostBody, PostContainer, PostHeader, TokenProperty, Details, NavOption, PadTitles, PadActions } from './styled'
 import TokenLogo from './Logo'
@@ -105,7 +106,7 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
   const { buyingCoin, sellingCoin, description, type } = guildpad
   const pair = `${buyingCoin.symbol}/${sellingCoin.symbol}`
   const guildSymbol = sellingCoin.symbol
-  const srcs = `/images/guildpad-assets/${sellingCoin.symbol}/${sellingCoin.symbol}.png`
+  const srcs = useFetchImage(sellingCoin.symbol);
 
   return (
     <PostContainer>
