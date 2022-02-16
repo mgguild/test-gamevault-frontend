@@ -10,6 +10,7 @@ import { Globe, Send, Twitter } from 'react-feather'
 import { SiDiscord, SiYoutube } from 'react-icons/si'
 import Anchor from 'components/Launchpad/Anchor'
 import SvgIcon from 'components/Launchpad/SvgIcon'
+import { ReactComponent as BoxCrate } from 'assets/InoCrates/INO2.svg'
 import { ReactComponent as MediumIcon } from 'components/Launchpad/icons/MediumIcon.svg'
 import { Card as SCard, CardHeader as SCardHeader, Text, Heading, Flex, Button, Progress } from '@metagg/mgg-uikit'
 import { getAddress } from 'utils/addressHelpers'
@@ -138,7 +139,8 @@ const BoxCard: React.FC<{guildpad: GuildpadConfig, imgProps: ImgProps}> = ({guil
       <GCard>
         <div style={{padding: '1rem 2.5rem'}}>
           <Cont>
-            <BoxImg src={img} size={size}/>
+            {/* <BoxImg src={img} size={size}/> */}
+            <SvgIcon Icon={BoxCrate} />
           </Cont>
           <Flex style={{paddingTop: '2rem'}}>
             <Heading size='lg' color={theme.colors.primary}>Sample Box 1</Heading>
