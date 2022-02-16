@@ -7,8 +7,6 @@ import { useFetchBanner } from 'utils/assetFetch'
 import { Button, Card as SCard, CardHeader as SCardHeader, Flex, Heading, Text } from '@metagg/mgg-uikit'
 import TokenLogo from 'components/Launchpad/Logo'
 import UnlockButton from 'components/UnlockButton'
-import history from '../../../routerHistory'
-import { Guildpad } from '../../../state/types'
 
 const GCard = styled(SCard)`
   background: ${({ theme }) => theme.colors.MGG_container};
@@ -57,8 +55,7 @@ const TimerContainer = styled(Flex)`
 `
 
 const InfoBox = styled(Flex)`
-  width;
-100%;
+  width: 100%;
 & > * {
   margin-top: 5px;
 }
@@ -97,24 +94,24 @@ const CountDown: React.FC = () => {
   )
 }
 
-const TokenInformation: React.FC<{
-  raise: string
-  coinForSale: string
-  buyingCoin: string
-  type: string
-  sellingCoin: string
-}> = ({ raise, coinForSale, buyingCoin, type, sellingCoin }) => {
-  const totalRaise = raise ? `${raise} ${buyingCoin}` : `0 ${buyingCoin}`
+const TokenInformation: React.FC<{ totalRaise: string; boxesForSale: string; buyingCoin: string; type: string; sellingCoin: string }> = (
+  {
+    totalRaise,
+    boxesForSale,
+    buyingCoin,
+    type,
+    sellingCoin,
+  }) => {
 
   return (
     <InfoBox flexDirection="column" padding="0px 24px 12px 24px">
       <InfoRow justifyContent="space-between">
         <Text>Total Raised</Text>
-        <Text bold>{totalRaise}</Text>
+        <Text bold>{totalRaise ?? 0} {buyingCoin}</Text>
       </InfoRow>
-      <InfoRow justifyContent="space-between">
-        <Text>{`${sellingCoin} for Sale`}</Text>
-        <Text bold>{coinForSale}</Text>
+      <InfoRow justifyContent='space-between'>
+        <Text>Boxes for Sale</Text>
+        <Text bold>{boxesForSale}</Text>
       </InfoRow>
       <InfoRow justifyContent="space-between">
         <Text>Buying Coin</Text>
@@ -160,19 +157,12 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
     <GCard>
       <CardHeader status="ONGOING" background={src} />
       <CountDown />
-      <TokenLogo
-        tokenName={guildpad.sellingCoin.symbol}
-        primaryToken={guildpad.sellingCoin}
-        subtitle={guildpad.title}
-      />
-      <TokenInformation
-        raise={guildpad.FundstoRaise}
-        coinForSale={guildpad.available}
-        buyingCoin={guildpad.buyingCoin.symbol}
-        type={guildpad.distribution}
-        sellingCoin={guildpad.sellingCoin.symbol}
-      />
-      <Flex padding="24px">
+      <TokenLogo tokenName={guildpad.sellingCoin.symbol} primaryToken={guildpad.sellingCoin}
+                 subtitle={guildpad.title} />
+      <TokenInformation totalRaise={guildpad.totalRaise.toString()} boxesForSale={guildpad.totalSupply.toString()}
+                        buyingCoin={guildpad.buyingCoin.symbol} type={guildpad.distribution}
+                        sellingCoin={guildpad.sellingCoin.symbol} />
+      <Flex padding='24px'>
         {!account ? (
           <UnlockButton fullWidth />
         ) : (

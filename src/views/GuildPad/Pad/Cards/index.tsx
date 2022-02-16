@@ -21,7 +21,7 @@ const GCard = styled(SCard)<{ src?: string }>`
   border: 2px solid ${(({theme}) => theme.colors.MGG_active)};
   border-radius: 5px;
   width: 100%;
-  margin 0 8rem;
+  margin: 0 8rem;
   @media screen and (max-width: 925px){
     margin: 0px auto;
   }
@@ -87,7 +87,7 @@ const TimerContainer = styled(Flex)`
 `
 
 const InfoBox = styled(Flex)`
-    width; 100%;
+    width: 100%;
     & > * {
       margin-top: 5px;
     }
