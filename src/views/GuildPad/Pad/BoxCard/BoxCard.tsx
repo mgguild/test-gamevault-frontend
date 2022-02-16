@@ -66,7 +66,7 @@ const BoxImg = styled.img<{ size?: string }>`
 
 const UnorderedList = styled.ul`
  &  li {
-    margin: 3px 0px;
+    font-size: 0.9rem;
     color: ${(({theme}) => theme.colors.textSubtle)};
  }
 `
