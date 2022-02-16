@@ -15,9 +15,6 @@ const Guildpad: React.FC = () => {
   )
   useGuildpadData()
 
-  console.log(Guildpads)
-  // const completedGP = useMemo(() => Guildpads.filter((guildpad) => guildpad.status === STATE.completed), [])
-
   return (
     <>
       <HomeSection />

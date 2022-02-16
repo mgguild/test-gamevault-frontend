@@ -1,4 +1,4 @@
-
+import BigNumber from 'bignumber.js'
 import { GuildpadConfig, GUILDPAD_STATUS, TYPE, DISTRIBUTION } from "../types";
 import tokens from '../tokens';
 
@@ -23,11 +23,23 @@ const guildpad: GuildpadConfig = {
       97: '0x002',
       56: '0x002',
     },
-    buyingCoin: tokens.bnb,
+    buyingCoin: tokens.wbnb,
     sellingCoin: tokens.demole,
     inoDetails: {
         price: 'TBA',
-    }
+    },
+    hasStarted: false,
+    hasEnded: false,
+    totalSupply: '0',
+    boxInfo: {
+      1: {
+        price: '0',
+        supply: '0',
+        sold: '0'
+      }
+    },
+    totalSold: '0',
+    totalRaise: '0'
 }
 
 export default guildpad

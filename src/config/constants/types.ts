@@ -1,4 +1,5 @@
 import { TranslatableText } from 'state/types'
+import BigNumber from 'bignumber.js'
 
 export interface Address {
   97?: string
@@ -222,15 +223,15 @@ interface GuildPadInformation {
   type?: Type;
   date?: string;
   status: Status;
-  hasStarted?: boolean;
-  hasEnded?: boolean;
-  totalSupply?: string;
-  totalSold?: string;
-  totalRaise?: string;
+  hasStarted: boolean;
+  hasEnded: boolean;
+  totalSupply: string;
+  totalSold: string;
+  totalRaise: string;
   socials?: Socials;
   inoDetails?: InoDetails;
   idoDetails?: IdoDetails;
-  boxInfo?: any;
+  boxInfo: any;
 }
 
 
