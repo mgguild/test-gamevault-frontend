@@ -16,7 +16,7 @@ import { fetchGuildpadUserBoxes } from './fetchGuildpadUser'
 const noAccountGuildpadConfig = guildpadsConfig.map((guildpad) => ({
   ...guildpad,
   userData: {
-    boughtBoxes: '0',
+    boxesBought: '0',
   }
 }))
 
@@ -28,8 +28,6 @@ export const fetchPublicGuildpadDataAsync = createAsyncThunk<Guildpad[], number[
   async (ids) => {
     const guildpadToFetch = guildpadsConfig.filter((guildpadConfig) => ids.includes(guildpadConfig.id))
     const guildpads = await fetchGuildpads(guildpadToFetch)
-    // console.log('guildpadToFetch')
-    // console.log(guildpads)
 
     return guildpads
   },
@@ -37,19 +35,18 @@ export const fetchPublicGuildpadDataAsync = createAsyncThunk<Guildpad[], number[
 
 interface GuildpadUserDataResponse {
   id: number
-  boughtBoxes: string
+  boxesBought: string
 }
 
 export const fetchGuildpadUserDataAsync = createAsyncThunk<GuildpadUserDataResponse[], { account: string; ids: number[] }>(
   'farms/fetchGuildpadUserDataAsync',
   async ({account, ids}) => {
     const guildpadToFetch = guildpadsConfig.filter((guildpadConfig) => ids.includes(guildpadConfig.id))
-    const guildpads = await fetchGuildpads(guildpadToFetch)
     const useGuildpadBoxes = await fetchGuildpadUserBoxes(account, guildpadToFetch)
 
     return useGuildpadBoxes.map((box, index) => {
       return {
-        id: index,
+        id: guildpadToFetch[index].id,
         boxesBought: box
       }
     })
@@ -60,21 +57,10 @@ export const guildpadSlice = createSlice({
   name: 'Guildpads',
   initialState,
   reducers: {
-    selectGuildpad:  (state, action: PayloadAction<GuildpadConfig>) => {
-      state.selected = action.payload
-    }
-    // setLoadArchivedGuildpadData: (state, action) => {
-    //   // const loadArchivedGuildpadData = action.payload
-    //   // state.loadArchivedGuildpadData = loadArchivedGuildpadData
-    // },
   },
   extraReducers: (builder) => {
     // Update guildpad with live data
     builder.addCase(fetchPublicGuildpadDataAsync.fulfilled, (state, action) => {
-      // state.data = state.data.map((guildpad) => {
-      //   return { ...guildpad }
-      // })
-
       state.data = state.data.map((guildpad) => {
         const liveGuildpadData = action.payload.find((guildpadData) => guildpadData.id === guildpad.id)
         return { ...guildpad, ...liveGuildpadData }
