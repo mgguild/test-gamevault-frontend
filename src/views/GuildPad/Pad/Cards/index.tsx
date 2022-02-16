@@ -7,6 +7,7 @@ import { AboutColumn as Column, TwoColumn, TierColumns } from 'components/Column
 import { Socials, GuildpadConfig, GUILDPAD_STATUS, TYPE } from 'config/constants/types'
 import { Globe, Send, Twitter } from 'react-feather'
 import { SiDiscord, SiYoutube } from 'react-icons/si'
+import { useFetchBanner, useFetchPadBG } from 'utils/assetFetch'
 import Anchor from 'components/Launchpad/Anchor'
 import SvgIcon from 'components/Launchpad/SvgIcon'
 import { ReactComponent as MediumIcon } from 'components/Launchpad/icons/MediumIcon.svg'
@@ -285,13 +286,12 @@ const Content: React.FC<{guildpad: GuildpadConfig; }>= ({guildpad}) => {
 }
 
 const Card: React.FC<{guildpad: GuildpadConfig}> = ({guildpad}) => {
-  console.log(guildpad)
   const { account } = useWeb3React()
   const theme = useContext(ThemeContext)
-  const src = `/images/guildpad-assets/${guildpad.sellingCoin.symbol}Banner.png`
+  const src = useFetchBanner(guildpad.sellingCoin.symbol)
+  const bgSrc = useFetchPadBG(guildpad.sellingCoin.symbol)
+  const status = guildpad.status
 
-  // TEMP: ONLY PUTS BACKGROUND ON ACKNOLDGER
-  const bgSrc = guildpad.title === 'Acknoledger' ? `/images/guildpad-assets/${guildpad.sellingCoin.symbol}/${guildpad.sellingCoin.symbol}PadBG.png` : '';
 
   return (
     <GCard src={bgSrc}>
@@ -300,8 +300,8 @@ const Card: React.FC<{guildpad: GuildpadConfig}> = ({guildpad}) => {
         <Flex>
           <ColumnTwo>
             <div style={{display: 'flex', alignItems: 'center', padding: '1rem'}}>
-              <StatusBox style={{margin: '0 1rem 0 0'}} status={"ONGOING".toLowerCase()} padding="10px">
-                ONGOING
+              <StatusBox style={{margin: '0 1rem 0 0'}} status={status.toLowerCase()} padding="10px">
+                {status.toUpperCase()}
               </StatusBox>
             </div>
             <CountDown />
@@ -311,7 +311,6 @@ const Card: React.FC<{guildpad: GuildpadConfig}> = ({guildpad}) => {
           {/* BOX CARD */}
           <Boxcard imgProps={{src: 'Chest3.png', size: '15rem'}} guildpad={guildpad}/>
         </ContainerBoxCard>
-
           <ContainerProjDesc>
               <Content guildpad={guildpad}  />
           </ContainerProjDesc>

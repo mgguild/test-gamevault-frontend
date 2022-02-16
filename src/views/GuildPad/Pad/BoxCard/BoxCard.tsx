@@ -83,8 +83,9 @@ const GridTwo = styled.div`
   grid-template-columns: 2fr 1fr;
 `
 
-const ProgressBar: React.FC<{token: string}> = ({token}) => {
+const ProgressBar: React.FC<{token: string; guildpad: GuildpadConfig}> = ({token, guildpad}) => {
   const theme = useContext(ThemeContext)
+  const price = guildpad.inoDetails ? guildpad.inoDetails.price: '-' 
 
   return(
     <div style={{height: '100%', width: '100%'}}>
@@ -92,15 +93,15 @@ const ProgressBar: React.FC<{token: string}> = ({token}) => {
         <Text>Price per Box:</Text>
         <JustifyR>
           <BoxImg size="1.8rem" src={`/images/tokens/${token}.svg`} alt='BNB' />
-          <Text>0.99 BNB</Text>
+          <Text>{price} BNB</Text>
         </JustifyR>
       </ColumnTwo>
       <Progress
         variant='round'
-        primaryStep={50}
+        primaryStep={0}
       />
       <GridThree>
-        <Text>50%</Text>
+        <Text>0%</Text>
         <Text small color={theme.colors.textSubtle}>You own <span style={{color: 'white'}}>0</span> boxes</Text>
         <Text small style={{textAlign: 'right'}} color={theme.colors.textSubtle}>250/250 boxes</Text>
       </GridThree>
@@ -119,6 +120,7 @@ const BoxCard: React.FC<{guildpad: GuildpadConfig, imgProps: ImgProps}> = ({guil
   const handleChangePercent = (sliderPercent: number) => {
     setPercent(20);
   }
+  const wbnbAddress = getAddress(tokens.wbnb.address);
 
   return (
       <GCard>
@@ -142,7 +144,7 @@ const BoxCard: React.FC<{guildpad: GuildpadConfig, imgProps: ImgProps}> = ({guil
             </div>
           </Flex>
           <Flex>
-            <ProgressBar token={tokens.wbnb.address[56]}/>
+            <ProgressBar token={wbnbAddress} guildpad={guildpad}/>
           </Flex>
           <Flex style={{padding: '1rem 0 0 0'}}>
             <GridTwo>
