@@ -35,6 +35,10 @@ export const fetchPublicGuildpadDataAsync = createAsyncThunk<Guildpad[], number[
   },
 )
 
+// export const updateGuildpadStatus = createAsyncThunk('guildpad/updateGuildpadStatus', async() => {
+
+// })
+
 interface GuildpadUserDataResponse {
   id: number
   boughtBoxes: string
