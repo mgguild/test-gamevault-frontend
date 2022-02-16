@@ -8,6 +8,7 @@ import { Socials, GuildpadConfig, GUILDPAD_STATUS, TYPE } from 'config/constants
 import { Globe, Send, Twitter } from 'react-feather'
 import { SiDiscord, SiYoutube } from 'react-icons/si'
 import { useFetchBanner, useFetchPadBG } from 'utils/assetFetch'
+import { getStatus } from 'utils/guildpadHelpers'
 import Anchor from 'components/Launchpad/Anchor'
 import SvgIcon from 'components/Launchpad/SvgIcon'
 import { ReactComponent as MediumIcon } from 'components/Launchpad/icons/MediumIcon.svg'
@@ -15,6 +16,7 @@ import { Card as SCard, CardHeader as SCardHeader, Text, Heading, Flex, Button }
 import TokenLogo from 'components/Launchpad/Logo'
 import { PostBody, NavOption } from '../../../../components/Launchpad/styled'
 import Boxcard from '../BoxCard'
+
 
 
 const GCard = styled(SCard)<{ src?: string }>`
@@ -290,7 +292,7 @@ const Card: React.FC<{guildpad: GuildpadConfig}> = ({guildpad}) => {
   const theme = useContext(ThemeContext)
   const src = useFetchBanner(guildpad.sellingCoin.symbol)
   const bgSrc = useFetchPadBG(guildpad.sellingCoin.symbol)
-  const status = guildpad.status
+  const status = getStatus(guildpad)
 
 
   return (
