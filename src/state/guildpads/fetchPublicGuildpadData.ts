@@ -1,8 +1,10 @@
 import ino from 'config/abi/ino.json'
+import BigNumber from 'bignumber.js'
 import { getAddress } from 'utils/addressHelpers'
 import { multicallv2 } from 'utils/multicall'
 import { Guildpad } from '../types'
 import { isAddress } from '../../utils'
+import { getBalanceAmount } from '../../utils/formatBalance'
 
 type PublicBridgeData = {
   hasStarted: boolean
@@ -18,14 +20,7 @@ const fetchPublicGuildpadData = async (guildpad: Guildpad): Promise<PublicBridge
   const guildpadAddress = getAddress(contractAddress)
 
   if (!isAddress(guildpadAddress)) {
-    return {
-      hasStarted: false,
-      hasEnded: false,
-      totalSupply: '0',
-      boxInfo: {},
-      totalSold: '0',
-      totalRaise: '0'
-    }
+    return guildpad
   }
 
   const calls = [
@@ -55,19 +50,27 @@ const fetchPublicGuildpadData = async (guildpad: Guildpad): Promise<PublicBridge
       address: guildpadAddress,
       name: 'getTotalRaised',
     },
+    {
+      address: guildpadAddress,
+      name: 'getSoldRarity',
+      params: [1]
+    },
   ]
 
-  const [hasStarted, hasEnded, totalSupply, boxInfo, totalSold, totalRaise] =
+  const [hasStarted, hasEnded, totalSupply, boxInfo, totalSold, totalRaise, soldRarity1] =
     await multicallv2(ino, calls)
 
+  const boxPrice = getBalanceAmount(new BigNumber(boxInfo.rarityPrice.toString()))
   return {
     hasStarted,
     hasEnded,
     totalSupply: totalSupply.toString(),
     boxInfo: {
       1: {
-        price: boxInfo.rarityPrice.toString(),
+        price: boxPrice.toString(),
         supply: boxInfo.raritySupply.toString(),
+        sold: soldRarity1['0'].toString(),
+        percentSold: soldRarity1['0'].div(boxInfo.raritySupply).mul(100).toString(),
       }
     },
     totalSold: totalSold.toString(),

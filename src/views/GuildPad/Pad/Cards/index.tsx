@@ -20,7 +20,7 @@ const GCard = styled(SCard)<{ src?: string }>`
   border: 2px solid ${(({theme}) => theme.colors.MGG_active)};
   border-radius: 5px;
   width: 100%;
-  margin 0 8rem;
+  margin: 0 8rem;
   @media screen and (max-width: 925px){
     margin: 0px auto;
   }
@@ -86,7 +86,7 @@ const TimerContainer = styled(Flex)`
 `
 
 const InfoBox = styled(Flex)`
-    width; 100%;
+    width: 100%;
     & > * {
       margin-top: 5px;
     }
@@ -285,7 +285,6 @@ const Content: React.FC<{guildpad: GuildpadConfig; }>= ({guildpad}) => {
 }
 
 const Card: React.FC<{guildpad: GuildpadConfig}> = ({guildpad}) => {
-  console.log(guildpad)
   const { account } = useWeb3React()
   const theme = useContext(ThemeContext)
   const src = `/images/guildpad-assets/${guildpad.sellingCoin.symbol}/${guildpad.sellingCoin.symbol}Banner.png`

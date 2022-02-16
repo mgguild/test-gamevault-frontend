@@ -40,7 +40,7 @@ import { getCanClaim } from './predictions/helpers'
 import { transformPool } from './pools/helpers'
 import { fetchPoolsStakingLimitsAsync } from './pools'
 import { fetchFarmUserDataAsync, nonArchivedFarms } from './farms'
-import { fetchPublicGuildpadDataAsync } from './guildpads'
+import { fetchGuildpadUserDataAsync, fetchPublicGuildpadDataAsync } from './guildpads'
 
 export const usePollFarmsData = (includeArchive = false) => {
   const dispatch = useAppDispatch()
@@ -503,8 +503,8 @@ export const useGuildpadData = () => {
 
     dispatch(fetchPublicGuildpadDataAsync(ids))
 
-    // if (account) {
-    //   dispatch(fetchFarmUserDataAsync({ account, id }))
-    // }
+    if (account) {
+      dispatch(fetchGuildpadUserDataAsync({ account, ids }))
+    }
   }, [dispatch, slowRefresh, account])
 }
