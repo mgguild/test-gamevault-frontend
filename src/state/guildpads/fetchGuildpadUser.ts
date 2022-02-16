@@ -27,9 +27,10 @@ export const fetchGuildpadUserBoxes = async (account: string, guildpadsToFetch: 
       params: [account, 1],
     }
   })
-
+  console.log('asdad')
   const rawBoxes = await multicallv2(ino, calls)
   const parsedBoxes = rawBoxes.map((box) => {
+    console.log(box)
     return new BigNumber(box).toJSON()
   })
   return parsedBoxes

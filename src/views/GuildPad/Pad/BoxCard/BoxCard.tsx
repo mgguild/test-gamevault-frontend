@@ -22,6 +22,12 @@ import { Guildpad } from '../../../../state/types'
 import UnlockButton from '../../../../components/UnlockButton'
 import useTokenBalance from '../../../../hooks/useTokenBalance'
 import { getBalanceAmount } from '../../../../utils/formatBalance'
+import { useBuyBox } from '../../../../hooks/useGuildPad'
+import { useGuildpadData } from '../../../../state/hooks'
+import { fetchGuildpadUserDataAsync, fetchPublicGuildpadDataAsync } from '../../../../state/guildpads'
+import { useAppDispatch } from '../../../../state'
+import useWeb3 from '../../../../hooks/useWeb3'
+import useEthBalance from '../../../../hooks/useEthBalance'
 
 export interface ImgProps {
   src: string
@@ -92,8 +98,10 @@ const GridTwo = styled.div`
 
 const ProgressBar: React.FC<{token: string, guildpad: Guildpad, rarity?: string}> = ({token, guildpad, rarity = '1'}) => {
   const theme = useContext(ThemeContext)
-  const tokenBalance = useTokenBalance(getAddress(guildpad.buyingCoin.address))
-  const tokenBalanceAmount = getBalanceAmount(tokenBalance.balance, guildpad.buyingCoin.decimals)
+  const { account } = useWeb3React()
+  const web3 = useWeb3()
+  const balance = useEthBalance()
+  const tokenBalanceAmount = getBalanceAmount(balance, guildpad.buyingCoin.decimals)
 
   return(
     <div style={{height: '100%', width: '100%'}}>
@@ -108,7 +116,7 @@ const ProgressBar: React.FC<{token: string, guildpad: Guildpad, rarity?: string}
         <Text>Balance:</Text>
         <JustifyR>
           <BoxImg size="1.8rem" src={`/images/tokens/${token}.svg`} alt='BNB' />
-          <Text>{tokenBalanceAmount.toString()} BNB</Text>
+          <Text>{tokenBalanceAmount.toPrecision(6)} BNB</Text>
         </JustifyR>
       </ColumnTwo>
       <Progress
@@ -126,15 +134,27 @@ const ProgressBar: React.FC<{token: string, guildpad: Guildpad, rarity?: string}
 
 
 const BoxCard: React.FC<{guildpad: GuildpadConfig, imgProps: ImgProps}> = ({guildpad, imgProps}) => {
-  const [percent, setPercent] = useState(20)
+  const [rarityId, setRarityId] = useState("1") // TODO: For dynamic in case there are multiple types of boxes for sale
+  const [buyQuantity, setBuyQuantity] = useState(0)
   const { account } = useWeb3React()
   const theme = useContext(ThemeContext)
   const {src, size} = imgProps
   const img = `/images/guildpad-assets/${src}`
-
- const wbnbAddress = getImageUrlFromToken(tokens.wbnb)
-
-
+  const dispatch = useAppDispatch()
+  const { onBuyBox } = useBuyBox(getAddress(guildpad.contractAddress));
+  const handleBuy = async () => {
+    const ids = [guildpad.id]
+    await onBuyBox(rarityId, buyQuantity * guildpad.boxInfo[rarityId].price)
+    dispatch(fetchPublicGuildpadDataAsync([guildpad.id]))
+    dispatch(fetchGuildpadUserDataAsync({ account, ids }))
+  }
+  const onChange = (e) => {
+    if (!e.target.value) {
+      setBuyQuantity(0)
+      return
+    }
+    setBuyQuantity(parseInt(e.target.value))
+  }
   return (
       <GCard>
         <div style={{padding: '1rem 2.5rem'}}>
@@ -158,18 +178,18 @@ const BoxCard: React.FC<{guildpad: GuildpadConfig, imgProps: ImgProps}> = ({guil
             </div>
           </Flex>
           <Flex>
-            <ProgressBar token={getAddress(tokens.wbnb.address)} guildpad={guildpad}/>
+            <ProgressBar token={getAddress(tokens.wbnb.address)} guildpad={guildpad} rarity={rarityId}/>
           </Flex>
           <Flex style={{padding: '1rem 0 0 0'}}>
               {!account ? (
                 <UnlockButton fullWidth />
               ) : (
                 <GridTwo>
-                  <input placeholder='Qty.'/>
-                  <JustifyR>
-                    <Button style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}>
-                      Buy
-                    </Button>
+                  <input placeholder='Qty.' name='buyQuantity' value={buyQuantity} onChange={onChange}/>
+                    <JustifyR>
+                      <Button disabled={buyQuantity <= 0} onClick={handleBuy} fullWidth style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}>
+                        Buy
+                      </Button>
                   </JustifyR>
                 </GridTwo>
               )}
