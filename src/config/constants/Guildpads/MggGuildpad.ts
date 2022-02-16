@@ -1,4 +1,4 @@
-import { IGuildpad, STATE, TYPE, DISTRIBUTION } from "../types";
+import { GuildpadConfig, GUILDPAD_STATUS, TYPE, DISTRIBUTION } from "../types";
 import tokens from '../tokens';
 
 const socials = {
@@ -8,14 +8,18 @@ const socials = {
     discord: 'https://discord.com/invite/82jCm7QyRA',
     medium: 'https://tankwarszone.medium.com/'
 }
-const guildpad: IGuildpad = {
+const guildpad: GuildpadConfig = {
+    id: 1,
     title: 'MGG',
     description: 'Lorem Ipsum',
     socials,
     type: TYPE.INO,
-    distribution: DISTRIBUTION.VESTING,
-    status: STATE.active,
-    address: '0x000', // Contract address
+    distribution: DISTRIBUTION.AIRDROP,
+    status: GUILDPAD_STATUS.ongoing,
+    contractAddress: {
+      97: '0xd9B59A1277Bd9953D3764168B004f35534cf805B',
+      56: '0x482d9F053bF1D38Cd77EC6F2289c38FE22f6f4C1',
+    },
     buyingCoin: tokens.bnb,
     sellingCoin: tokens.mgg,
     available: '1000000'

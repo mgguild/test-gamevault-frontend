@@ -44,6 +44,22 @@ export interface Ifo {
   [PoolIds.poolUnlimited]: IfoPoolInfo
 }
 
+export interface Ino {
+  id: string
+  isActive: boolean
+  address: string
+  name: string
+  currency: Token
+  token: Token
+  releaseBlockNumber: number
+  articleUrl: string
+  campaignId: string
+  tokenOfferingPrice: number
+  version: number
+  [PoolIds.poolBasic]?: IfoPoolInfo
+  [PoolIds.poolUnlimited]: IfoPoolInfo
+}
+
 export enum PoolCategory {
   'COMMUNITY' = 'Community',
   'CORE' = 'Core',
@@ -166,11 +182,11 @@ export type PageMeta = {
   image?: string
 }
 
-export type Status = 'active' | 'upcoming' | 'completed' | null;
+export type Status = 'ongoing' | 'upcoming' | 'completed' | null;
 export type Type = 'INO' | 'IDO';
 export type Distribution = 'VESTING' | 'SELF-CLAIM' | 'AIRDROP';
-export const STATE: { active: Status; upcoming: Status; completed: Status } = {
-  active: 'active',
+export const GUILDPAD_STATUS: { ongoing: Status; upcoming: Status; completed: Status } = {
+  ongoing: 'ongoing',
   upcoming: 'upcoming',
   completed: 'completed',
 }
@@ -179,7 +195,7 @@ export const DISTRIBUTION: { VESTING: Distribution; SELF_CLAIM: Distribution; AI
   VESTING: 'VESTING',
   SELF_CLAIM: 'SELF-CLAIM',
   AIRDROP: 'AIRDROP'
-} 
+}
 
 export interface Socials {
   website?: string;
@@ -190,7 +206,7 @@ export interface Socials {
   youtube?: string;
 }
 
-type InoDetails = { 
+type InoDetails = {
   price?: string;
   ratio?: string;
 }
@@ -206,14 +222,21 @@ interface GuildPadInformation {
   type?: Type;
   date?: string;
   status: Status;
+  hasStarted?: boolean;
+  hasEnded?: boolean;
+  totalSupply?: string;
+  totalSold?: string;
+  totalRaise?: string;
   socials?: Socials;
   inoDetails?: InoDetails;
   idoDetails?: IdoDetails;
+  boxInfo?: any;
 }
 
 
-export interface IGuildpad extends GuildPadInformation {
-  address?: string;
+export interface GuildpadConfig extends GuildPadInformation {
+  id: number,
+  contractAddress?: Address;
   FundstoRaise?: string;
   buyingCoin?: Token;
   sellingCoin?:  Token;

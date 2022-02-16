@@ -1,4 +1,3 @@
-export { setGuildpad } from './launchpad/index';
 export { fetchFarmsPublicDataAsync, fetchFarmUserDataAsync } from './farms'
 export {
   fetchPoolsPublicDataAsync,

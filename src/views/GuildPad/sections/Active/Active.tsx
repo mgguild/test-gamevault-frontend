@@ -3,21 +3,22 @@ import { ThemeContext } from 'styled-components'
 
 import { Grid } from '@mui/material'
 import { Flex, Heading, Text } from '@metagg/mgg-uikit'
-import { IGuildpad } from 'config/constants/types'
+import { GuildpadConfig } from 'config/constants/types'
 import PageSection from '../Layout'
 import Card from '../../components/Card'
 import { BoxContainer, BoxHeader } from '../styled'
 import NoLaunches from '../../components/NoLaunches'
+import { getAddress } from '../../../../utils/addressHelpers'
 
 
 
-const CardGroup: React.FC<{guildpads?: IGuildpad[]}> = ({guildpads}) => {
+const CardGroup: React.FC<{guildpads?: GuildpadConfig[]}> = ({guildpads}) => {
     return guildpads.length !==0 ? (
         <Grid container spacing={2} justifyContent='center' alignItems='center'>
             {
                 guildpads.map(guildpad => (
-                <Grid key={guildpad.address} item xs='auto' md={5}>
-                <Card guildpad={guildpad}/> 
+                <Grid key={getAddress(guildpad.contractAddress)} item xs='auto' md={5}>
+                <Card guildpad={guildpad}/>
                 </Grid>
                 ))
             }
@@ -25,7 +26,7 @@ const CardGroup: React.FC<{guildpads?: IGuildpad[]}> = ({guildpads}) => {
     ) : <NoLaunches section="ONGOING" />
 }
 
-const Active: React.FC<{ guildpads?: IGuildpad[] }> = ({ guildpads }) => {
+const Active: React.FC<{ guildpads?: GuildpadConfig[] }> = ({ guildpads }) => {
   const theme = useContext(ThemeContext)
   return (
 

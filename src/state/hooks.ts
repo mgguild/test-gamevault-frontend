@@ -6,7 +6,7 @@ import { useAppDispatch } from 'state'
 import { orderBy } from 'lodash'
 import { Team } from 'config/constants/types'
 import Nfts from 'config/constants/nfts'
-import { farmsConfig } from 'config/constants'
+import { farmsConfig, guildpadConfig } from 'config/constants'
 import web3NoAccount from 'utils/web3'
 import { getBalanceAmount } from 'utils/formatBalance'
 import { BIG_ZERO } from 'utils/bigNumber'
@@ -20,9 +20,18 @@ import {
   fetchPoolsPublicDataAsync,
   fetchPoolsUserDataAsync,
   setBlock,
-  setGuildpad
 } from './actions'
-import { AchievementState, Farm, FarmsState, GuildpadState, Pool, ProfileState, State, TeamsState } from './types'
+import {
+  AchievementState,
+  Farm,
+  FarmsState,
+  Guildpad,
+  GuildpadState,
+  Pool,
+  ProfileState,
+  State,
+  TeamsState,
+} from './types'
 import { fetchProfile } from './profile'
 import { fetchTeam, fetchTeams } from './teams'
 import { fetchAchievements } from './achievements'
@@ -31,6 +40,7 @@ import { getCanClaim } from './predictions/helpers'
 import { transformPool } from './pools/helpers'
 import { fetchPoolsStakingLimitsAsync } from './pools'
 import { fetchFarmUserDataAsync, nonArchivedFarms } from './farms'
+import { fetchPublicGuildpadDataAsync } from './guildpads'
 
 export const usePollFarmsData = (includeArchive = false) => {
   const dispatch = useAppDispatch()
@@ -482,10 +492,19 @@ export const useGuildpad = () => {
   return guildpad
 }
 
-export const useSetGuildpad = (address?: string) => {
-  const dispatch = useAppDispatch();
-  if (!address) {
-    return null;
-  }
-  return dispatch(setGuildpad(address)) 
+export const useGuildpadData = () => {
+  const dispatch = useAppDispatch()
+  const { slowRefresh } = useRefresh()
+  const { account } = useWeb3React()
+
+  useEffect(() => {
+    const guildpadsToFetch = guildpadConfig
+    const ids = guildpadsToFetch.map((guildpadToFetch) => guildpadToFetch.id)
+
+    dispatch(fetchPublicGuildpadDataAsync(ids))
+
+    // if (account) {
+    //   dispatch(fetchFarmUserDataAsync({ account, id }))
+    // }
+  }, [dispatch, slowRefresh, account])
 }

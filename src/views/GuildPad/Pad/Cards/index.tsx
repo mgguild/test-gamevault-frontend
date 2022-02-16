@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
 import Container from 'components/layout/Container'
 import { AboutColumn as Column, TwoColumn, TierColumns } from 'components/Column'
-import { Socials, IGuildpad, STATE, TYPE } from 'config/constants/types'
+import { Socials, GuildpadConfig, GUILDPAD_STATUS, TYPE } from 'config/constants/types'
 import { Globe, Send, Twitter } from 'react-feather'
 import { SiDiscord, SiYoutube } from 'react-icons/si'
 import Anchor from 'components/Launchpad/Anchor'
@@ -235,7 +235,7 @@ const StatusBox = styled(Flex)<{ status: string }>`
   border-radius: 3px;
 `
 // CARD HEADER
-const CardHeader: React.FC<{ status: string, background?: string, guildpad: IGuildpad }> = ({ status, background, guildpad }) => (
+const CardHeader: React.FC<{ status: string, background?: string, guildpad: GuildpadConfig }> = ({ status, background, guildpad }) => (
   <Header src={background}>
     <div style={{display: 'flex', zIndex: 1}}>
       <TokenLogo
@@ -250,7 +250,7 @@ const CardHeader: React.FC<{ status: string, background?: string, guildpad: IGui
 )
 
 // PROJECT CONTENT
-const Content: React.FC<{guildpad: IGuildpad; }>= ({guildpad}) => {
+const Content: React.FC<{guildpad: GuildpadConfig; }>= ({guildpad}) => {
   const theme = useContext(ThemeContext)
   const [active, setActive] = useState(1)
 
@@ -284,7 +284,8 @@ const Content: React.FC<{guildpad: IGuildpad; }>= ({guildpad}) => {
   )
 }
 
-const Card: React.FC<{guildpad: IGuildpad}> = ({guildpad}) => {
+const Card: React.FC<{guildpad: GuildpadConfig}> = ({guildpad}) => {
+  console.log(guildpad)
   const { account } = useWeb3React()
   const theme = useContext(ThemeContext)
   const src = `/images/guildpad-assets/${guildpad.sellingCoin.symbol}/${guildpad.sellingCoin.symbol}Banner.png`
