@@ -143,7 +143,7 @@ const BoxCard: React.FC<{guildpad: GuildpadConfig, imgProps: ImgProps}> = ({guil
             <SvgIcon Icon={BoxCrate} />
           </Cont>
           <Flex style={{paddingTop: '2rem'}}>
-            <Heading size='lg' color={theme.colors.primary}>Sample Box 1</Heading>
+            <Heading size='lg' color={theme.colors.primary}>Mystery Box</Heading>
           </Flex>
           <Flex>
             <div style={{padding: '1.2rem 0 5rem 0'}}>
