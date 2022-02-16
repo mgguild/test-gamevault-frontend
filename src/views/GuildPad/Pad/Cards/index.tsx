@@ -68,7 +68,7 @@ const Header = styled(SCardHeader)<{ src?: string }>`
             background-image: url(${src});
             background-repeat: no-repeat;
             // background-attachment: fixed;
-            background-position: center;
+            background-position: top;
             background-size: cover;
         }
     `}
