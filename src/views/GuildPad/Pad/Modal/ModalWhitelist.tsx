@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import moment from 'moment'
 import styled, { ThemeContext } from 'styled-components'
 import { Flex, Heading, Text, Modal, Button } from '@metagg/mgg-uikit'
-import { color } from '@mui/system';
 
 interface ModalWhitelistProps{
   onDismiss?: () => void
@@ -31,7 +30,7 @@ const ModalWhitelist: React.FC<ModalWhitelistProps> = ({
 }) => {
   const theme = useContext(ThemeContext);
   return (
-    <Modal title='' onDismiss={onDismiss}>
+    <Modal title='' onDismiss={onDismiss} onBack={onBack}>
       <Flex>
         <Content>
           <Flex alignItems='center' justifyContent='center'>
