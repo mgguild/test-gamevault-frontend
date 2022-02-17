@@ -2,11 +2,14 @@ import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
-import { GuildpadConfig } from 'config/constants/types'
+import Timer from 'views/GuildPad/components/Timer'
+import { GuildpadConfig, GUILDPAD_STATUS } from 'config/constants/types'
 import { useFetchBanner } from 'utils/assetFetch'
 import { Button, Card as SCard, CardHeader as SCardHeader, Flex, Heading, Text } from '@metagg/mgg-uikit'
 import TokenLogo from 'components/Launchpad/Logo'
 import UnlockButton from 'components/UnlockButton'
+import { getStatus } from 'utils/guildpadHelpers'
+
 
 const GCard = styled(SCard)`
   background: ${({ theme }) => theme.colors.MGG_container};
@@ -69,32 +72,43 @@ const InfoRow = styled(Flex)`
   width: 100%;
 `
 
-const CountDown: React.FC = () => {
-  return (
-    <TimerContainer justifyContent="space-between" padding="10px">
+const CountDown: React.FC<{start?:boolean, end?:number}>  = ({start, end}) => {
+  const endDate = end
+  const isStart = start;
+
+  const Renderer = (days?: number, hours?: number, minutes?: number, seconds?: number) => {
+    return(
+      <TimerContainer justifyContent="space-between" padding="10px">
       <div style={{ textAlign: 'left' }}>
         <Heading size="l">ROUND 1</Heading>
         <Text fontSize="12px"> ENDS IN</Text>
       </div>
       <TimerBox justifyContent="space-between">
         <div>
-          <Heading size="l">10</Heading>
+          <Heading size="l">{days}</Heading>
           <Text fontSize="12px"> DAYS </Text>
         </div>
         <div>
-          <Heading size="l">20 </Heading>
+          <Heading size="l">{hours}</Heading>
           <Text fontSize="12px"> HOURS </Text>
         </div>
         <div>
-          <Heading size="l">30</Heading>
+          <Heading size="l">{minutes}</Heading>
           <Text fontSize="12px"> MINUTES</Text>
         </div>
         <div>
-          <Heading size="l">40</Heading>
+          <Heading size="l">{seconds}</Heading>
           <Text fontSize="12px"> SECONDS </Text>
         </div>
       </TimerBox>
     </TimerContainer>
+    )
+   }
+  return (
+    <Timer 
+      dateSettings={{ isStart, end: endDate }}
+      Renderer={Renderer}
+    />
   )
 }
 
@@ -152,7 +166,7 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
   const { account } = useWeb3React()
   const theme = useContext(ThemeContext)
   const src = useFetchBanner(guildpad.sellingCoin.symbol)
-
+  const status = getStatus(guildpad)
   // const handleParticipate = (gpad: Guildpad) => {
   //   history.push(`/launchpad/${gpad.title}`)
   // }
@@ -160,7 +174,7 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
   return (
     <GCard>
       <CardHeader status="ONGOING" background={src} />
-      <CountDown />
+      <CountDown start={status === GUILDPAD_STATUS.ongoing} end={guildpad.epochEndDate} />
       <TokenLogo tokenName={guildpad.sellingCoin.symbol} primaryToken={guildpad.sellingCoin}
                  subtitle={guildpad.title} />
       <TokenInformation totalRaise={guildpad.totalRaise.toString()} boxesForSale={guildpad.totalSupply.toString()}
