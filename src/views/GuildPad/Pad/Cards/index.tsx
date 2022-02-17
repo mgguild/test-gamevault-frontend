@@ -146,7 +146,7 @@ const TimeSpan = styled.div`
 const CountDown: React.FC = () => {
   return (
     <div>
-      <Heading style={{textAlign: 'center', paddingTop: '0.5rem'}} size="l"><u>ROUND 1 ENDS IN</u></Heading>
+      <Heading style={{textAlign: 'center', paddingTop: '0.5rem'}} size="l">ROUND 1 ENDS IN</Heading>
 
       <TimerContainer justifyContent='right'>
         <TimerBox>
