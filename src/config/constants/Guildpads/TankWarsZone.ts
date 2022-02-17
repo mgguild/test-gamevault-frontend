@@ -37,6 +37,18 @@ const guildpad: GuildpadConfig = {
         sold: '0'
       }
     },
+    rewardInfo:[
+      {
+        description: 'There are 5 different tank rarity levels:',
+        list: [
+          '5923 Common Tanks',
+          '2200 Uncommon Tanks',
+          '1100 Rare Tanks',
+          '555 Epic Tanks',
+          '222 Legendary Tanks',
+        ]
+      }
+    ],
     totalSold: '0',
     totalRaise: '0',
     buyLimitEnabled: false,
