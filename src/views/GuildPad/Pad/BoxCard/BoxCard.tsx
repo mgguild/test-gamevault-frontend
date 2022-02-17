@@ -29,7 +29,7 @@ const GCard = styled(SCard)`
   background: ${({ theme }) => theme.colors.MGG_container};
   border: 2px solid ${({ theme }) => theme.colors.MGG_active};
   border-radius: 5px;
-  width: 25rem;
+  width: 28rem;
   margin: 0px auto;
   padding: 1rem;
 `
@@ -146,14 +146,14 @@ const RewardInfo: React.FC<{guildpad: Guildpad}> = ({guildpad}) => {
   return(
     <>
       {
-        guildpad.rewardInfo.map((info) => {
+        guildpad.boxDetails.map((detail) => {
           return(
             <div>
-              <Text>{info.description}</Text>
+              <Text>{detail.description}</Text>
               <UnorderedList>
               {
-                info.list.map((reward) => {
-                  return(<li>{reward}</li>)
+                detail.rarityLevels.map((rarityLevel) => {
+                  return(<li>{rarityLevel}</li>)
                 })
               }
               </UnorderedList>
@@ -222,7 +222,7 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpa
         </Flex>
         <Flex>
           <div style={{ padding: '1.2rem 0 2rem 0' }}>
-            {guildpad.rewardInfo ? <RewardInfo guildpad={guildpad}/> : 'No Reward Info'}
+            {guildpad.boxDetails ? <RewardInfo guildpad={guildpad}/> : 'No boxDetails Info'}
           </div>
         </Flex>
         <Flex>

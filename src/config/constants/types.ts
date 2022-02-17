@@ -234,7 +234,7 @@ interface GuildPadInformation {
   inoDetails?: InoDetails;
   idoDetails?: IdoDetails;
   boxInfo: any;
-  rewardInfo?: any;
+  boxDetails?: any;
 }
 
 

@@ -37,10 +37,10 @@ const guildpad: GuildpadConfig = {
         sold: '0'
       }
     },
-    rewardInfo:[
+    boxDetails:[
       {
         description: 'There are 5 different tank rarity levels:',
-        list: [
+        rarityLevels: [
           '5923 Common Tanks',
           '2200 Uncommon Tanks',
           '1100 Rare Tanks',
