@@ -12,6 +12,11 @@ export const StyledContainer = styled(Container)`
   justify-content: space-evenly;
 `
 
+export const BgContainer = styled.div`
+  width: 100%;
+  background: ${({ theme }) => theme.isDark? `linear-gradient(0deg, rgba(43,28,0,1) 5%, rgba(16,16,16,1) 100%)` : theme.colors.modal};
+`
+
 export const HomeContainer = styled(TwoColumnHeader)``
 
 export const AnimContainer = styled(Flex)`
