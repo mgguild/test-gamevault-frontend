@@ -10,10 +10,9 @@ type dateSettingsProps = {
 type TimerProps = {
     Renderer: (days?:number, hours?: number, minutes?:number, seconds?: number) => JSX.Element;
     dateSettings?: dateSettingsProps;
-    round?: string;
 }
 
-const Timer: React.FC<TimerProps> = ({Renderer, dateSettings, round}) => {
+const Timer: React.FC<TimerProps> = ({Renderer, dateSettings}) => {
     const { isStart, end } = dateSettings
     return (
         <Countdown
@@ -26,7 +25,7 @@ const Timer: React.FC<TimerProps> = ({Renderer, dateSettings, round}) => {
                 return Renderer(days,hours,minutes,seconds)
             }
           if (completed) {
-            return <Text>Round {round} Ended</Text>
+            return <Text>Round Ended</Text>
           }
           return ''
         }}
