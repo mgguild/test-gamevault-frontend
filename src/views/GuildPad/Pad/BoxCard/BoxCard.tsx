@@ -216,7 +216,9 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpa
       <div style={{ padding: '1rem 2.5rem' }}>
         <Cont>
           {/* <BoxImg src={img} size={size}/> */}
-          <SvgIcon Icon={BoxCrate} />
+          <div className='img-shadow'>
+            <SvgIcon Icon={BoxCrate}/>
+          </div>
         </Cont>
         <Flex style={{ paddingTop: '2rem', justifyContent: 'center' }}>
           <Heading size="lg" color={theme.colors.primary}>
