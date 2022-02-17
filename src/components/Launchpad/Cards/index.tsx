@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js'
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { Link } from 'react-router-dom'
@@ -9,7 +10,7 @@ import { Button, Card as SCard, CardHeader as SCardHeader, Flex, Heading, Text }
 import TokenLogo from 'components/Launchpad/Logo'
 import UnlockButton from 'components/UnlockButton'
 import { getStatus } from 'utils/guildpadHelpers'
-import useWeb3 from 'hooks/useWeb3'
+import { getBalanceAmount } from 'utils/formatBalance'
 
 const GCard = styled(SCard)`
   background: ${({ theme }) => theme.colors.MGG_container};
@@ -162,11 +163,7 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
   const theme = useContext(ThemeContext)
   const src = useFetchBanner(guildpad.sellingCoin.symbol)
   const status = getStatus(guildpad)
-  const web3 = useWeb3()
-  // const handleParticipate = (gpad: Guildpad) => {
-  //   history.push(`/launchpad/${gpad.title}`)
-  // }
-  const totalRaiseInBnb = web3.utils.fromWei(guildpad.totalRaise, 'ether');
+  const totalRaiseInBnb = getBalanceAmount(new BigNumber(guildpad.totalRaise), 18);
 
   return (
     <GCard>
