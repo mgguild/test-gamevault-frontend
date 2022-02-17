@@ -22,6 +22,7 @@ import { Details, TierSystem } from './types'
 import * as IconModule from './icons'
 import PageSection from '../Layout'
 import { BoxContainer, BoxHeader } from '../styled'
+import { BgContainer } from '../Home/styled'
 
 
 const Icons = IconModule as unknown as { [key: string]: React.FC<SvgProps> }
@@ -203,36 +204,44 @@ const Section: React.FC = () => {
   return (
     <>
       <PageSection direction="column">
-        <BoxHeader>
-          <Heading size="l">ABOUT METAGAMING PAD</Heading>
-        </BoxHeader>
-        <BoxContainer flexDirection="column">
-          <Column>{RenderDetails()}</Column>
-        </BoxContainer>
+        <BgContainer>
+          <BoxHeader>
+            <Heading size="l">ABOUT METAGAMING PAD</Heading>
+          </BoxHeader>
+          <BoxContainer flexDirection="column">
+            <Column>{RenderDetails()}</Column>
+          </BoxContainer>
+        </BgContainer>
       </PageSection>
       <PageSection direction="column">
-        <BoxHeader>
-          <Heading size="l">INO REQUIREMENTS</Heading>
-        </BoxHeader>
-        <BoxContainer>
-          <InoRequirement />
-        </BoxContainer>
+        <BgContainer>
+          <BoxHeader>
+            <Heading size="l">INO REQUIREMENTS</Heading>
+          </BoxHeader>
+          <BoxContainer>
+            <InoRequirement />
+          </BoxContainer>
+        </BgContainer>
       </PageSection>
       <PageSection direction="column">
-        <BoxHeader>
-          <Heading size="l">IGO TIER LIST</Heading>
-        </BoxHeader>
-        <BoxContainer flexDirection="column">
-          <TierColumns>{RenderTierSystem()}</TierColumns>
-        </BoxContainer>
+        <BgContainer>
+          <BoxHeader>
+            <Heading size="l">IGO TIER LIST</Heading>
+          </BoxHeader>
+          <BoxContainer flexDirection="column">
+            <TierColumns>{RenderTierSystem()}</TierColumns>
+          </BoxContainer>
+        </BgContainer>
       </PageSection>
       <PageSection direction="column">
-        <BoxHeader>
-          <Heading size="l">ROUND 2 - FCFS ROUND </Heading>
-        </BoxHeader>
-        <BoxContainer flexDirection="column">
-          <TwoColumn>{RenderRoundTwo()}</TwoColumn>
-        </BoxContainer>
+        <BgContainer>
+          <BoxHeader>
+            <Heading size="l">ROUND 2 - FCFS ROUND </Heading>
+          </BoxHeader>
+          <BoxContainer flexDirection="column">
+            <TwoColumn>{RenderRoundTwo()}</TwoColumn>
+          </BoxContainer>
+        </BgContainer>
       </PageSection>
     </>
   )
