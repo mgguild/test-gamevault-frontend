@@ -56,7 +56,7 @@ const Content: React.FC<{guildpad: IGuildpad; }>= ({guildpad}) => {
         <Flex flexDirection="column">
         {guildpad.type === TYPE.INO && (
             <SaleRow justifyContent="space-between">
-              <Text color="textSubtle">Box for Sale</Text>
+              <Text color="textSubtle">Boxes for Sale</Text>
               <Text>{boxes}</Text>
             </SaleRow>
           )}
