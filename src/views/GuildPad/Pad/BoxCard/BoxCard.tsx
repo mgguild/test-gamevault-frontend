@@ -29,7 +29,7 @@ const GCard = styled(SCard)`
   background: ${({ theme }) => theme.colors.MGG_container};
   border: 2px solid ${({ theme }) => theme.colors.MGG_active};
   border-radius: 5px;
-  width: 25rem;
+  width: 28rem;
   margin: 0px auto;
   padding: 1rem;
 `
@@ -141,6 +141,33 @@ const ProgressBar: React.FC<{ token: string, guildpad: Guildpad, rarity?: string
   )
 }
 
+const RewardInfo: React.FC<{guildpad: Guildpad}> = ({guildpad}) => {
+  return(
+    <>
+      {
+        guildpad.boxDetails.rewardList.map((reward) => {
+          return(
+            <div>
+              <Text>{reward.description}</Text>
+              {// If reward.rearitLevels exists
+                reward.rarityLevels &&
+                <UnorderedList>
+                {
+                  reward.rarityLevels.map((rarityLevel) => {
+                    return(<li>{rarityLevel}</li>)
+                  })
+                }
+                </UnorderedList>
+              }
+            </div>
+          )
+        })
+      }
+      <Text>{guildpad.boxDetails.redeemInfo}</Text>
+    </>
+  )
+}
+
 
 const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpad, imgProps }) => {
   const [rarityId, setRarityId] = useState('1') // TODO: For dynamic in case there are multiple types of boxes for sale
@@ -191,17 +218,14 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpa
           {/* <BoxImg src={img} size={size}/> */}
           <SvgIcon Icon={BoxCrate} />
         </Cont>
-        <Flex style={{ paddingTop: '2rem' }}>
+        <Flex style={{ paddingTop: '2rem', justifyContent: 'center' }}>
           <Heading size="lg" color={theme.colors.primary}>
             Mystery Box
           </Heading>
         </Flex>
         <Flex>
-          <div style={{ padding: '1.2rem 0 5rem 0' }}>
-            <UnorderedList>
-              <li>Each box contains 1 NFT (Generation 1)</li>
-              <li>There will be a total of 10,000 NFTs in the first generation of AcknoLedger Genesis NFTs.</li>
-            </UnorderedList>
+          <div style={{ padding: '1.2rem 0 2rem 0' }}>
+            {guildpad.boxDetails ? <RewardInfo guildpad={guildpad}/> : 'No boxDetails Info'}
           </div>
         </Flex>
         <Flex>
