@@ -8,7 +8,7 @@ const Guildpads: IGuildpad[] = [
     // MggGuildpad, disable mgg
     TankWarsZoneGuildpad,
     DemoleGuildpad,
-    AcknoledgerGuildpad,
+    // AcknoledgerGuildpad,
 ]
 
 export default Guildpads
