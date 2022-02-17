@@ -185,7 +185,7 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpa
   )
   return (
     <GCard>
-      <Button onClick={showModalWhitelist}>MODAL TEST</Button>
+      {/* <Button onClick={showModalWhitelist}>MODAL TEST</Button> */}
       <div style={{ padding: '1rem 2.5rem' }}>
         <Cont>
           {/* <BoxImg src={img} size={size}/> */}
