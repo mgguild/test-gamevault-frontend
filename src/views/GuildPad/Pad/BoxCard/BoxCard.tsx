@@ -248,9 +248,9 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpa
             <UnlockButton fullWidth />
           ) : (
             <GridTwo>
-              <input style={{borderRadius: '0.5rem'}} placeholder="Qty." name="buyQuantity" value={buyQuantity} onChange={onChange} />
+              <input disabled={!guildpad.userData.isWhitelisted} style={{borderRadius: '0.5rem'}} placeholder="Qty." name="buyQuantity" value={buyQuantity} onChange={onChange} />
               <JustifyR>
-                <Button disabled={buyDisabled || buyQuantity <= 0} onClick={handleBuy} fullWidth
+                <Button disabled={!guildpad.userData.isWhitelisted || buyDisabled || buyQuantity <= 0} onClick={handleBuy} fullWidth
                         style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}>
                   Buy
                 </Button>
