@@ -33,6 +33,7 @@ const guildpad: GuildpadConfig = {
         sold: '0'
       }
     },
+    epochEndDate: 1645246800000,
     totalSold: '0',
     totalRaise: '0',
     buyLimitEnabled: false,
