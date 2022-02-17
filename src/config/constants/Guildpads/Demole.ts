@@ -28,6 +28,10 @@ const guildpad: GuildpadConfig = {
     inoDetails: {
         price: 'TBA',
     },
+    date: {
+        start: 'TBA',
+        end: 'TBA'
+    },
     hasStarted: false,
     hasEnded: false,
     totalSupply: '0',
