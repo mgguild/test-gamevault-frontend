@@ -11,12 +11,13 @@ import {
   fetchFarmUserStakedBalances,
   fetchFarmUserTokenBalances,
 } from '../farms/fetchFarmUser'
-import { fetchGuildpadUserBoxes } from './fetchGuildpadUser'
+import { fetchGuildpadIsUserWhitelisted, fetchGuildpadUserBoxes } from './fetchGuildpadUser'
 
 const noAccountGuildpadConfig = guildpadsConfig.map((guildpad) => ({
   ...guildpad,
   userData: {
     boxesBought: '0',
+    isWhitelisted: false,
   }
 }))
 
@@ -40,6 +41,7 @@ export const fetchPublicGuildpadDataAsync = createAsyncThunk<Guildpad[], number[
 interface GuildpadUserDataResponse {
   id: number
   boxesBought: string
+  isWhitelisted?: boolean
 }
 
 export const fetchGuildpadUserDataAsync = createAsyncThunk<GuildpadUserDataResponse[], { account: string; ids: number[] }>(
@@ -47,11 +49,12 @@ export const fetchGuildpadUserDataAsync = createAsyncThunk<GuildpadUserDataRespo
   async ({account, ids}) => {
     const guildpadToFetch = guildpadsConfig.filter((guildpadConfig) => ids.includes(guildpadConfig.id))
     const useGuildpadBoxes = await fetchGuildpadUserBoxes(account, guildpadToFetch)
-
+    const useGuildpadIsWhitelist = await fetchGuildpadIsUserWhitelisted(account, guildpadToFetch)
     return useGuildpadBoxes.map((box, index) => {
       return {
         id: guildpadToFetch[index].id,
-        boxesBought: box
+        boxesBought: box,
+        isWhitelisted: useGuildpadIsWhitelist[index],
       }
     })
   }

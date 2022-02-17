@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { useWeb3React } from '@web3-react/core'
 import BigNumber from 'bignumber.js'
@@ -173,6 +173,7 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpa
   const [rarityId, setRarityId] = useState('1') // TODO: For dynamic in case there are multiple types of boxes for sale
   const [buyQuantity, setBuyQuantity] = useState(0)
   const [buyDisabled, setBuyDisabled] = useState(false)
+  const [whitelistModalShowed, setWhitelistModalShowed] = useState(false)
   const { account } = useWeb3React()
   const theme = useContext(ThemeContext)
   const { src, size } = imgProps
@@ -207,12 +208,21 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpa
     setBuyQuantity(parseInt(quantity))
   }
   // SHOW MODAL WHITELIST REQUIRE PROP DATE: VALUE TYPE DATE
-  const [showModalWhitelist] = useModal(
-    <ModalWhitelist date={new Date('2/19/2022 13:00:00 UTC')}/>
+  const [showNotInWhitelistModal] = useModal(
+    <ModalWhitelist onDismiss={() => {
+      setWhitelistModalShowed(false)
+    }} date={new Date('2/19/2022 13:00:00 UTC')}/>
   )
+
+  useEffect(() => {
+    if (!guildpad.userData.isWhitelisted && !whitelistModalShowed) {
+      showNotInWhitelistModal()
+      setWhitelistModalShowed(true)
+    }
+  }, [guildpad, showNotInWhitelistModal, whitelistModalShowed])
+
   return (
     <GCard>
-      {/* <Button onClick={showModalWhitelist}>MODAL TEST</Button> */}
       <div style={{ padding: '1rem 2.5rem' }}>
         <Cont>
           {/* <BoxImg src={img} size={size}/> */}
