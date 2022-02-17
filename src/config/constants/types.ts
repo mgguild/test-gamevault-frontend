@@ -235,6 +235,7 @@ interface GuildPadInformation {
   idoDetails?: IdoDetails;
   boxInfo: any;
   boxDetails?: any;
+  epochEndDate?: number
 }
 
 

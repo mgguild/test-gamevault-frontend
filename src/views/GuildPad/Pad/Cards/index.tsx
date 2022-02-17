@@ -9,6 +9,7 @@ import { Socials, GuildpadConfig, GUILDPAD_STATUS, TYPE } from 'config/constants
 import { Globe, Send, Twitter } from 'react-feather'
 import { SiDiscord, SiYoutube } from 'react-icons/si'
 import { useFetchBanner, useFetchPadBG } from 'utils/assetFetch'
+import Timer from 'views/GuildPad/components/Timer'
 import { getStatus } from 'utils/guildpadHelpers'
 import Anchor from 'components/Launchpad/Anchor'
 import SvgIcon from 'components/Launchpad/SvgIcon'
@@ -17,6 +18,7 @@ import { Card as SCard, CardHeader as SCardHeader, Text, Heading, Flex, Button }
 import TokenLogo from 'components/Launchpad/Logo'
 import { PostBody, NavOption } from '../../../../components/Launchpad/styled'
 import Boxcard from '../BoxCard'
+
 
 const GCard = styled(SCard)<{ src?: string }>`
   border: 2px solid ${({ theme }) => theme.colors.MGG_active};
@@ -122,66 +124,47 @@ const ContainerProjDesc = styled(Flex)`
   margin: 1.5rem;
 `
 // COUNTDOWN TIMER
-const CountDown: React.FC = () => {
-  const startDate = 1645160400000;
-  const endDate = 86400;
-
-  return (
-    <TimerContainer justifyContent="right" padding="10px">
-      {/* <TimerBox justifyContent="space-between">
+const CountDown: React.FC<{start?:boolean, end?:number}> = ({start, end}) => {
+  const endDate = end
+  const isStart = start;
+  
+  const Renderer = (days?: number, hours?: number, minutes?: number, seconds?: number) => {
+    return(
+      <TimerBox justifyContent="space-between">
         <div>
           <Heading size="l">ROUND 1</Heading>
           <Text fontSize="12px"> ENDS IN</Text>
         </div>
         <div>
-          <Heading size="l">10</Heading>
+          <Heading size="l">{days}</Heading>
           <Text fontSize="12px"> DAYS </Text>
         </div>
         <div>
-          <Heading size="l">20 </Heading>
+          <Heading size="l">{hours} </Heading>
           <Text fontSize="12px"> HOURS </Text>
         </div>
         <div>
-          <Heading size="l">30</Heading>
+          <Heading size="l">{minutes}</Heading>
           <Text fontSize="12px"> MINUTES</Text>
         </div>
         <div>
-          <Heading size="l">40</Heading>
+          <Heading size="l">{seconds}</Heading>
           <Text fontSize="12px"> SECONDS </Text>
         </div>
-      </TimerBox> */}
-      <Countdown
-        date={startDate + endDate}
-        renderer={({ days, hours, minutes, seconds, completed }) => {
-          if (completed) {
-            return <Text>Done!</Text>
-          }
-          return (
-            <TimerBox justifyContent="space-between">
-              <div>
-                <Heading size="l">ROUND 1</Heading>
-                <Text fontSize="12px"> ENDS IN</Text>
-              </div>
-              <div>
-                <Heading size="l">{days}</Heading>
-                <Text fontSize="12px"> DAYS </Text>
-              </div>
-              <div>
-                <Heading size="l">{hours} </Heading>
-                <Text fontSize="12px"> HOURS </Text>
-              </div>
-              <div>
-                <Heading size="l">{minutes}</Heading>
-                <Text fontSize="12px"> MINUTES</Text>
-              </div>
-              <div>
-                <Heading size="l">{seconds}</Heading>
-                <Text fontSize="12px"> SECONDS </Text>
-              </div>
-            </TimerBox>
-          )
-        }}
+      </TimerBox>
+    )
+   }
+ 
+  return (
+    <TimerContainer justifyContent="right" padding="10px">
+      { isStart ? (
+        <Timer
+        dateSettings={{ isStart, end: endDate }}
+        Renderer={Renderer}
       />
+      ) : (
+        ''
+      )}
     </TimerContainer>
   )
 }
@@ -330,7 +313,7 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
   const src = useFetchBanner(guildpad.sellingCoin.symbol)
   const bgSrc = useFetchPadBG(guildpad.sellingCoin.symbol)
   const status = getStatus(guildpad)
-
+  
   return (
     <GCard src={bgSrc}>
       <CardHeader status="ONGOING" background={src} guildpad={guildpad} />
@@ -342,7 +325,7 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
                 {status.toUpperCase()}
               </StatusBox>
             </div>
-            <CountDown />
+            <CountDown start={status === GUILDPAD_STATUS.ongoing} end={guildpad.epochEndDate}/>
           </ColumnTwo>
         </Flex>
         <ContainerBoxCard>

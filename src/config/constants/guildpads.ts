@@ -8,7 +8,7 @@ const Guildpads: GuildpadConfig[] = [
     MggGuildpad,
     TankWarsZoneGuildpad,
     DemoleGuildpad,
-    AcknoledgerGuildpad,
+    // AcknoledgerGuildpad,
 ]
 
 export default Guildpads
