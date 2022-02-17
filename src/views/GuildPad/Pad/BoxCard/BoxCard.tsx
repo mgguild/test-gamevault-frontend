@@ -142,25 +142,28 @@ const ProgressBar: React.FC<{ token: string, guildpad: Guildpad, rarity?: string
 }
 
 const RewardInfo: React.FC<{guildpad: Guildpad}> = ({guildpad}) => {
-
   return(
     <>
       {
-        guildpad.boxDetails.map((detail) => {
+        guildpad.boxDetails.rewardList.map((reward) => {
           return(
             <div>
-              <Text>{detail.description}</Text>
-              <UnorderedList>
-              {
-                detail.rarityLevels.map((rarityLevel) => {
-                  return(<li>{rarityLevel}</li>)
-                })
+              <Text>{reward.description}</Text>
+              {// If reward.rearitLevels exists
+                reward.rarityLevels &&
+                <UnorderedList>
+                {
+                  reward.rarityLevels.map((rarityLevel) => {
+                    return(<li>{rarityLevel}</li>)
+                  })
+                }
+                </UnorderedList>
               }
-              </UnorderedList>
             </div>
           )
         })
       }
+      <Text>{guildpad.boxDetails.redeemInfo}</Text>
     </>
   )
 }
@@ -215,7 +218,7 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpa
           {/* <BoxImg src={img} size={size}/> */}
           <SvgIcon Icon={BoxCrate} />
         </Cont>
-        <Flex style={{ paddingTop: '2rem' }}>
+        <Flex style={{ paddingTop: '2rem', justifyContent: 'center' }}>
           <Heading size="lg" color={theme.colors.primary}>
             Mystery Box
           </Heading>

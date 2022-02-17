@@ -37,18 +37,21 @@ const guildpad: GuildpadConfig = {
         sold: '0'
       }
     },
-    boxDetails:[
-      {
-        description: 'There are 5 different tank rarity levels:',
-        rarityLevels: [
-          '5923 Common Tanks',
-          '2200 Uncommon Tanks',
-          '1100 Rare Tanks',
-          '555 Epic Tanks',
-          '222 Legendary Tanks',
-        ]
-      }
-    ],
+    boxDetails:{
+      redeemInfo: 'Mystery Box can be later redeemed for Tanks after the Game Official Launch.',
+      rewardList: [ // made into array in case tokens & nfts are both rewards
+        {
+          description: 'There are 5 different tank rarity levels:',
+          rarityLevels: [
+            '5923 Common Tanks',
+            '2200 Uncommon Tanks',
+            '1100 Rare Tanks',
+            '555 Epic Tanks',
+            '222 Legendary Tanks',
+          ]
+        }
+      ]
+    },
     totalSold: '0',
     totalRaise: '0',
     buyLimitEnabled: false,
