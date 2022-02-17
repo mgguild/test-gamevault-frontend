@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import Countdown from 'react-countdown'
 import styled, { ThemeContext } from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
@@ -17,14 +18,12 @@ import TokenLogo from 'components/Launchpad/Logo'
 import { PostBody, NavOption } from '../../../../components/Launchpad/styled'
 import Boxcard from '../BoxCard'
 
-
-
 const GCard = styled(SCard)<{ src?: string }>`
-  border: 2px solid ${(({theme}) => theme.colors.MGG_active)};
+  border: 2px solid ${({ theme }) => theme.colors.MGG_active};
   border-radius: 5px;
   width: 100%;
   margin: 0 8rem;
-  @media screen and (max-width: 925px){
+  @media screen and (max-width: 925px) {
     margin: 0px auto;
   }
   ${({ src }) =>
@@ -43,8 +42,7 @@ const GCard = styled(SCard)<{ src?: string }>`
       // background-attachment: fixed;
       background-position: center;
       background-size: cover;
-    }`
-  }
+    }`}
 `
 
 const Header = styled(SCardHeader)<{ src?: string }>`
@@ -89,10 +87,10 @@ const TimerContainer = styled(Flex)`
 `
 
 const InfoBox = styled(Flex)`
-    width: 100%;
-    & > * {
-      margin-top: 5px;
-    }
+  width: 100%;
+  & > * {
+    margin-top: 5px;
+  }
 `
 
 const InfoRow = styled(Flex)`
@@ -102,7 +100,7 @@ const InfoRow = styled(Flex)`
 const ColumnTwo = styled(TwoColumn)`
   z-index: 1;
   max-width: 100%;
-  background-color: ${(({theme}) => theme.colors.MGG_container)};
+  background-color: ${({ theme }) => theme.colors.MGG_container};
 `
 
 const Contain = styled(Container)`
@@ -119,15 +117,18 @@ const ContainerBoxCard = styled(Flex)`
 `
 
 const ContainerProjDesc = styled(Flex)`
-  background-color: ${(({theme}) => theme.colors.MGG_container)};
+  background-color: ${({ theme }) => theme.colors.MGG_container};
   z-index: 1;
   margin: 1.5rem;
 `
 // COUNTDOWN TIMER
 const CountDown: React.FC = () => {
+  const startDate = 1645160400000;
+  const endDate = 86400;
+
   return (
-    <TimerContainer justifyContent='right' padding="10px">
-      <TimerBox justifyContent="space-between">
+    <TimerContainer justifyContent="right" padding="10px">
+      {/* <TimerBox justifyContent="space-between">
         <div>
           <Heading size="l">ROUND 1</Heading>
           <Text fontSize="12px"> ENDS IN</Text>
@@ -148,18 +149,50 @@ const CountDown: React.FC = () => {
           <Heading size="l">40</Heading>
           <Text fontSize="12px"> SECONDS </Text>
         </div>
-      </TimerBox>
+      </TimerBox> */}
+      <Countdown
+        date={startDate + endDate}
+        renderer={({ days, hours, minutes, seconds, completed }) => {
+          if (completed) {
+            return <Text>Done!</Text>
+          }
+          return (
+            <TimerBox justifyContent="space-between">
+              <div>
+                <Heading size="l">ROUND 1</Heading>
+                <Text fontSize="12px"> ENDS IN</Text>
+              </div>
+              <div>
+                <Heading size="l">{days}</Heading>
+                <Text fontSize="12px"> DAYS </Text>
+              </div>
+              <div>
+                <Heading size="l">{hours} </Heading>
+                <Text fontSize="12px"> HOURS </Text>
+              </div>
+              <div>
+                <Heading size="l">{minutes}</Heading>
+                <Text fontSize="12px"> MINUTES</Text>
+              </div>
+              <div>
+                <Heading size="l">{seconds}</Heading>
+                <Text fontSize="12px"> SECONDS </Text>
+              </div>
+            </TimerBox>
+          )
+        }}
+      />
     </TimerContainer>
   )
 }
 
 // SOCIALS LINKS IN HEADER
-const SocMeds: React.FC<{socials: Socials, status: string}> = ({socials, status}) => {
-  const theme = useContext(ThemeContext);
+const SocMeds: React.FC<{ socials: Socials; status: string }> = ({ socials, status }) => {
+  const theme = useContext(ThemeContext)
   return (
-    <div style={{display: 'flex', alignItems: 'center', padding: '1rem'}}>
+    <div style={{ display: 'flex', alignItems: 'center', padding: '1rem' }}>
       <Flex>
-        <Flex margin='0.2rem 0 0 0'>
+        <Flex margin="0.2rem 0 0 0">
           {socials?.website && (
             <Anchor href={socials?.website}>
               <Globe size="20px" color={theme.colors.text} />
@@ -190,20 +223,20 @@ const SocMeds: React.FC<{socials: Socials, status: string}> = ({socials, status}
               <SiYoutube width={20} color={theme.colors.text} />
             </Anchor>
           )}
-          </Flex>
+        </Flex>
       </Flex>
     </div>
   )
 }
 
-const TokenInformation: React.FC<{ raise: string; coinForSale: string; buyingCoin: string; type: string; sellingCoin: string}> = ({
-  raise,
-  coinForSale,
-  buyingCoin,
-  type,
-  sellingCoin
-}) => {
-  const totalRaise = raise? `${raise} ${buyingCoin}` : `0 ${buyingCoin}`;
+const TokenInformation: React.FC<{
+  raise: string
+  coinForSale: string
+  buyingCoin: string
+  type: string
+  sellingCoin: string
+}> = ({ raise, coinForSale, buyingCoin, type, sellingCoin }) => {
+  const totalRaise = raise ? `${raise} ${buyingCoin}` : `0 ${buyingCoin}`
 
   return (
     <InfoBox flexDirection="column" padding="0px 24px 12px 24px">
@@ -238,12 +271,16 @@ const StatusBox = styled(Flex)<{ status: string }>`
   border-radius: 3px;
 `
 // CARD HEADER
-const CardHeader: React.FC<{ status: string, background?: string, guildpad: GuildpadConfig }> = ({ status, background, guildpad }) => (
+const CardHeader: React.FC<{ status: string; background?: string; guildpad: GuildpadConfig }> = ({
+  status,
+  background,
+  guildpad,
+}) => (
   <Header src={background}>
-    <div style={{display: 'flex', zIndex: 1}}>
+    <div style={{ display: 'flex', zIndex: 1 }}>
       <TokenLogo
         tokenName={guildpad.sellingCoin.symbol}
-        nameSize='xl'
+        nameSize="xl"
         primaryToken={guildpad.sellingCoin}
         padding="0"
         socMeds={guildpad.socials}
@@ -253,12 +290,12 @@ const CardHeader: React.FC<{ status: string, background?: string, guildpad: Guil
 )
 
 // PROJECT CONTENT
-const Content: React.FC<{guildpad: GuildpadConfig; }>= ({guildpad}) => {
+const Content: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
   const theme = useContext(ThemeContext)
   const [active, setActive] = useState(1)
 
   const renderDescription = () => {
-   const description = guildpad.description !== '' ? guildpad.description : 'No description'
+    const description = guildpad.description !== '' ? guildpad.description : 'No description'
 
     return (
       <Text color="textSubtle" margin="10px 0px" style={{ lineHeight: '2em' }}>
@@ -268,11 +305,11 @@ const Content: React.FC<{guildpad: GuildpadConfig; }>= ({guildpad}) => {
   }
 
   const renderSale = () => {
-    return (<p>sale</p>)
+    return <p>sale</p>
   }
 
   return (
-    <PostBody style={{zIndex: 1, backgroundColor: `${theme.colors.MGG_container}`}}>
+    <PostBody style={{ zIndex: 1, backgroundColor: `${theme.colors.MGG_container}` }}>
       <Flex
         alignItems="center"
         margin="10px 0px 20px 0px"
@@ -287,22 +324,21 @@ const Content: React.FC<{guildpad: GuildpadConfig; }>= ({guildpad}) => {
   )
 }
 
-const Card: React.FC<{guildpad: GuildpadConfig}> = ({guildpad}) => {
+const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
   const { account } = useWeb3React()
   const theme = useContext(ThemeContext)
   const src = useFetchBanner(guildpad.sellingCoin.symbol)
   const bgSrc = useFetchPadBG(guildpad.sellingCoin.symbol)
   const status = getStatus(guildpad)
 
-
   return (
     <GCard src={bgSrc}>
-      <CardHeader status="ONGOING" background={src} guildpad={guildpad}/>
+      <CardHeader status="ONGOING" background={src} guildpad={guildpad} />
       <Contain>
         <Flex>
           <ColumnTwo>
-            <div style={{display: 'flex', alignItems: 'center', padding: '1rem'}}>
-              <StatusBox style={{margin: '0 1rem 0 0'}} status={status.toLowerCase()} padding="10px">
+            <div style={{ display: 'flex', alignItems: 'center', padding: '1rem' }}>
+              <StatusBox style={{ margin: '0 1rem 0 0' }} status={status.toLowerCase()} padding="10px">
                 {status.toUpperCase()}
               </StatusBox>
             </div>
@@ -311,11 +347,11 @@ const Card: React.FC<{guildpad: GuildpadConfig}> = ({guildpad}) => {
         </Flex>
         <ContainerBoxCard>
           {/* BOX CARD */}
-          <Boxcard imgProps={{src: 'Chest3.png', size: '15rem'}} guildpad={guildpad}/>
+          <Boxcard imgProps={{ src: 'Chest3.png', size: '15rem' }} guildpad={guildpad} />
         </ContainerBoxCard>
-          <ContainerProjDesc>
-            <Content guildpad={guildpad}  />
-          </ContainerProjDesc>
+        <ContainerProjDesc>
+          <Content guildpad={guildpad} />
+        </ContainerProjDesc>
       </Contain>
     </GCard>
   )
