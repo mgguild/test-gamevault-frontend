@@ -9,6 +9,7 @@ import Card from '../../components/Card'
 import { BoxContainer, BoxHeader } from '../styled'
 import NoLaunches from '../../components/NoLaunches'
 import { getAddress } from '../../../../utils/addressHelpers'
+import { BgContainer } from '../Home/styled'
 
 
 
@@ -31,12 +32,14 @@ const Active: React.FC<{ guildpads?: GuildpadConfig[] }> = ({ guildpads }) => {
   return (
 
       <PageSection direction="column">
-        <BoxHeader>
-          <Heading size="l"> ONGOING LAUNCHES</Heading>
-        </BoxHeader>
-        <BoxContainer borderColor={theme.colors.primary}>
-          <CardGroup guildpads={guildpads} />
-        </BoxContainer>
+        <BgContainer>
+          <BoxHeader>
+            <Heading size="l"> ONGOING LAUNCHES</Heading>
+          </BoxHeader>
+          <BoxContainer borderColor={theme.colors.primary}>
+            <CardGroup guildpads={guildpads} />
+          </BoxContainer>
+        </BgContainer>
       </PageSection>
   )
 }
