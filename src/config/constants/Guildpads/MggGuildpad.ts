@@ -24,6 +24,7 @@ const guildpad: GuildpadConfig = {
     sellingCoin: tokens.mgg,
     available: '100',
     epochEndDate: 1645246800000,
+    nextRoundDate: 1645275600000
 }
 
 export default guildpad;

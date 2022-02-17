@@ -210,7 +210,7 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps, userDataLoaded
   const [showNotInWhitelistModal] = useModal(
     <ModalWhitelist onDismiss={() => {
       setWhitelistModalShowed(false)
-    }} date={new Date('2/19/2022 13:00:00 UTC')} />,
+    }} dateInMilli={guildpad.nextRoundDate} />,
   )
 
   useEffect(() => {

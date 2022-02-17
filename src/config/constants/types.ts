@@ -236,13 +236,6 @@ interface GuildPadInformation {
   socials?: Socials;
   inoDetails?: InoDetails;
   idoDetails?: IdoDetails;
-  boxInfo?: {
-    1: {
-      price: string,
-      supply: string,
-      sold: string
-    }
-  };
   boxDetails?: any;
   epochEndDate?: number
 }
@@ -255,4 +248,11 @@ export interface GuildpadConfig extends GuildPadInformation {
   buyingCoin?: Token;
   sellingCoin?:  Token;
   available?: string;
+  boxInfo?: {
+    1: {
+      price: string,
+      supply: string,
+      sold: string
+    }
+  };
 }

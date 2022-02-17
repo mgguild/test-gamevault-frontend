@@ -6,7 +6,7 @@ import { Flex, Heading, Text, Modal, Button } from '@metagg/mgg-uikit'
 interface ModalWhitelistProps{
   onDismiss?: () => void
   onBack?: () => void
-  date: Date
+  dateInMilli: number
 }
 
 const Content = styled.div`
@@ -26,8 +26,13 @@ const HeadingIcon = styled(Heading)`
 const ModalWhitelist: React.FC<ModalWhitelistProps> = ({
   onDismiss,
   onBack,
-  date
+  dateInMilli
 }) => {
+  let comebackText = <Text>Please check other Guildpads :)</Text>
+  if (dateInMilli) {
+    const date = new Date(dateInMilli)
+    comebackText = <Text>Please come back to purchase box from {moment(date).utc().format('MM/DD/YYYY, hh:mm:ss A UTC')}</Text>
+  }
   const theme = useContext(ThemeContext);
   return (
     <Modal title='' onDismiss={onDismiss} onBack={onBack}>
@@ -37,7 +42,7 @@ const ModalWhitelist: React.FC<ModalWhitelistProps> = ({
             <HeadingIcon size='xxl' color='#b80000'>X</HeadingIcon>
           </Flex>
           <Heading>SORRY, YOU ARE NOT WHITELISTED</Heading>
-          <Text>Please come back to purchase box from {moment(date).utc().format('MM/DD/YYYY, hh:mm:ss A UTC')}</Text>
+          {comebackText}
           <Flex alignItems='center' justifyContent='center'>
             <Button
               style={{padding: '0 3rem'}}
