@@ -7,14 +7,14 @@ import { isAddress } from '../../utils'
 import { getBalanceAmount } from '../../utils/formatBalance'
 
 type PublicGuildpadData = {
-  hasStarted: boolean
-  hasEnded: boolean
-  totalSupply: string
-  totalSold: string
-  totalRaise: string
-  boxInfo: any
-  buyLimitEnabled: boolean
-  buyLimit: string
+  hasStarted?: boolean
+  hasEnded?: boolean
+  totalSupply?: string
+  totalSold?: string
+  totalRaise?: string
+  boxInfo?: any
+  buyLimitEnabled?: boolean
+  buyLimit?: string
   whitelistEnabled?: boolean
 }
 

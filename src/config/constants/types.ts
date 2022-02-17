@@ -224,19 +224,25 @@ interface GuildPadInformation {
   type?: Type;
   date?: {start: string, end: string};
   status: Status;
-  hasStarted: boolean;
-  hasEnded: boolean;
-  totalSupply: string;
-  totalSold: string;
-  totalRaise: string;
-  buyLimitEnabled: boolean,
+  hasStarted?: boolean;
+  hasEnded?: boolean;
+  totalSupply?: string;
+  totalSold?: string;
+  totalRaise?: string;
+  buyLimitEnabled?: boolean,
   whitelistEnabled?: boolean,
   nextRoundDate?: number,
-  buyLimit: string,
+  buyLimit?: string,
   socials?: Socials;
   inoDetails?: InoDetails;
   idoDetails?: IdoDetails;
-  boxInfo: any;
+  boxInfo?: {
+    1: {
+      price: string,
+      supply: string,
+      sold: string
+    }
+  };
   boxDetails?: any;
   epochEndDate?: number
 }

@@ -168,7 +168,7 @@ const RewardInfo: React.FC<{ guildpad: Guildpad }> = ({ guildpad }) => {
 }
 
 
-const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpad, imgProps }) => {
+const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps, userDataLoaded: boolean }> = ({ guildpad, imgProps, userDataLoaded }) => {
   const [rarityId, setRarityId] = useState('1') // TODO: For dynamic in case there are multiple types of boxes for sale
   const [buyQuantity, setBuyQuantity] = useState(0)
   const [buyDisabled, setBuyDisabled] = useState(false)
@@ -214,11 +214,11 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpa
   )
 
   useEffect(() => {
-    if (!guildpad.userData.isWhitelisted && !whitelistModalShowed) {
+    if (account && !guildpad.userData.isWhitelisted && !whitelistModalShowed && userDataLoaded) {
       showNotInWhitelistModal()
       setWhitelistModalShowed(true)
     }
-  }, [guildpad, showNotInWhitelistModal, whitelistModalShowed])
+  }, [account, guildpad, showNotInWhitelistModal, whitelistModalShowed, userDataLoaded])
 
   const hasRemainingSupply = (guildpad.boxInfo[rarityId].supply - guildpad.boxInfo[rarityId].sold) > 0
   return (

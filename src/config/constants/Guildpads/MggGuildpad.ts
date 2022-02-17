@@ -23,21 +23,7 @@ const guildpad: GuildpadConfig = {
     buyingCoin: tokens.bnb,
     sellingCoin: tokens.mgg,
     available: '100',
-    hasStarted: false,
-    hasEnded: false,
-    totalSupply: '0',
-    boxInfo: {
-      1: {
-        price: '0',
-        supply: '0',
-        sold: '0'
-      }
-    },
     epochEndDate: 1645246800000,
-    totalSold: '0',
-    totalRaise: '0',
-    buyLimitEnabled: false,
-    buyLimit: '0'
 }
 
 export default guildpad;
