@@ -23,6 +23,10 @@ const guildpad: IGuildpad = {
     sellingCoin: tokens.demole,
     inoDetails: {
         price: 'TBA',
+    },
+    date: {
+        start: 'TBA',
+        end: 'TBA'
     }
 }
 
