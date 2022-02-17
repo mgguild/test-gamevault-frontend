@@ -141,6 +141,30 @@ const ProgressBar: React.FC<{ token: string, guildpad: Guildpad, rarity?: string
   )
 }
 
+const RewardInfo: React.FC<{guildpad: Guildpad}> = ({guildpad}) => {
+
+  return(
+    <>
+      {
+        guildpad.rewardInfo.map((info) => {
+          return(
+            <div>
+              <Text>{info.description}</Text>
+              <UnorderedList>
+              {
+                info.list.map((reward) => {
+                  return(<li>{reward}</li>)
+                })
+              }
+              </UnorderedList>
+            </div>
+          )
+        })
+      }
+    </>
+  )
+}
+
 
 const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpad, imgProps }) => {
   const [rarityId, setRarityId] = useState('1') // TODO: For dynamic in case there are multiple types of boxes for sale
@@ -197,11 +221,8 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpa
           </Heading>
         </Flex>
         <Flex>
-          <div style={{ padding: '1.2rem 0 5rem 0' }}>
-            <UnorderedList>
-              <li>Each box contains 1 NFT (Generation 1)</li>
-              <li>There will be a total of 10,000 NFTs in the first generation of AcknoLedger Genesis NFTs.</li>
-            </UnorderedList>
+          <div style={{ padding: '1.2rem 0 2rem 0' }}>
+            {guildpad.rewardInfo ? <RewardInfo guildpad={guildpad}/> : 'No Reward Info'}
           </div>
         </Flex>
         <Flex>
