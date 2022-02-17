@@ -18,6 +18,7 @@ import { Card as SCard, CardHeader as SCardHeader, Text, Heading, Flex, Button }
 import TokenLogo from 'components/Launchpad/Logo'
 import { PostBody, NavOption } from '../../../../components/Launchpad/styled'
 import Boxcard from '../BoxCard'
+import '../../../../css/styleFX.css'
 
 
 const GCard = styled(SCard)<{ src?: string }>`
@@ -77,14 +78,16 @@ const Header = styled(SCardHeader)<{ src?: string }>`
 `
 const TimerBox = styled(Flex)`
   display: grid;
-  grid-template-columns: 1.3fr 0.5fr 0.5fr 0.5fr 0.5fr;
+  grid-template-columns: 0.5fr 0.5fr 0.5fr 0.5fr;
   align-items: center;
+  text-align: center;
   & > * {
     flex: 1;
-    margin-right: 10px;
+    margin-right: 0px;
   }
 `
 const TimerContainer = styled(Flex)`
+  z-index: 1;
   //background-color: rgba(41, 178, 19, 1);
 `
 
@@ -102,7 +105,6 @@ const InfoRow = styled(Flex)`
 const ColumnTwo = styled(TwoColumn)`
   z-index: 1;
   max-width: 100%;
-  background-color: ${({ theme }) => theme.colors.MGG_container};
 `
 
 const Contain = styled(Container)`
@@ -123,6 +125,23 @@ const ContainerProjDesc = styled(Flex)`
   z-index: 1;
   margin: 1.5rem;
 `
+const Box = styled.div`
+  height: 100%;
+  min-width: 100px;
+`
+
+const HOrbitron = styled(Heading)`
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-family: Orbitron !important;
+  line-height: 0.7em;
+  color: grey;
+`
+const TimeSpan = styled.div`
+  margin: 1rem 0 1.5rem 0;
+`
+
 // COUNTDOWN TIMER
 const CountDown: React.FC<{start?:boolean, end?:number}> = ({start, end}) => {
   const endDate = end
@@ -130,28 +149,37 @@ const CountDown: React.FC<{start?:boolean, end?:number}> = ({start, end}) => {
   
   const Renderer = (days?: number, hours?: number, minutes?: number, seconds?: number) => {
     return(
-      <TimerBox justifyContent="space-between">
-        <div>
-          <Heading size="l">ROUND 1</Heading>
-          <Text fontSize="12px"> ENDS IN</Text>
-        </div>
-        <div>
-          <Heading size="l">{days}</Heading>
-          <Text fontSize="12px"> DAYS </Text>
-        </div>
-        <div>
-          <Heading size="l">{hours} </Heading>
-          <Text fontSize="12px"> HOURS </Text>
-        </div>
-        <div>
-          <Heading size="l">{minutes}</Heading>
-          <Text fontSize="12px"> MINUTES</Text>
-        </div>
-        <div>
-          <Heading size="l">{seconds}</Heading>
-          <Text fontSize="12px"> SECONDS </Text>
-        </div>
-      </TimerBox>
+      <div>
+        <Heading style={{textAlign: 'center', paddingTop: '0.5rem'}} size="l">ROUND 1 ENDS IN</Heading>
+      <TimerContainer>
+      <TimerBox>
+          <Box>
+            <TimeSpan>
+              <HOrbitron size="xl" className='glow'>{days}</HOrbitron>
+            </TimeSpan>
+            <Text fontSize="1rem"> DAYS </Text>
+          </Box>
+          <Box>
+            <TimeSpan>
+              <HOrbitron size="xl" className='glow'>{hours}</HOrbitron>
+            </TimeSpan>
+            <Text fontSize="1rem"> HOURS </Text>
+          </Box>
+          <Box>
+            <TimeSpan>
+              <HOrbitron size="xl" className='glow'>{minutes}</HOrbitron>
+            </TimeSpan>
+            <Text fontSize="1rem"> MINUTES</Text>
+          </Box>
+          <Box>
+            <TimeSpan>
+              <HOrbitron size="xl" className='glow'>{seconds}</HOrbitron>
+            </TimeSpan>
+            <Text fontSize="1rem"> SECONDS</Text>
+          </Box>
+        </TimerBox>
+      </TimerContainer>
+      </div>
     )
    }
  
@@ -260,15 +288,24 @@ const CardHeader: React.FC<{ status: string; background?: string; guildpad: Guil
   guildpad,
 }) => (
   <Header src={background}>
-    <div style={{ display: 'flex', zIndex: 1 }}>
-      <TokenLogo
-        tokenName={guildpad.sellingCoin.symbol}
-        nameSize="xl"
-        primaryToken={guildpad.sellingCoin}
-        padding="0"
-        socMeds={guildpad.socials}
-      />
-    </div>
+    <Flex style={{zIndex: 1, width: '100%'}}>
+      <ColumnTwo>
+        <TokenLogo
+          tokenName={guildpad.sellingCoin.symbol}
+          nameSize='xl'
+          primaryToken={guildpad.sellingCoin}
+          padding="0"
+          socMeds={guildpad.socials}
+        />
+        <Flex justifyContent='right'>
+          <div>
+            <StatusBox status={status.toLowerCase()} padding="10px">
+              {status.toUpperCase()}
+            </StatusBox>
+          </div>
+        </Flex>
+      </ColumnTwo>
+    </Flex>
   </Header>
 )
 
@@ -316,17 +353,10 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
   
   return (
     <GCard src={bgSrc}>
-      <CardHeader status="ONGOING" background={src} guildpad={guildpad} />
+      <CardHeader status={status} background={src} guildpad={guildpad}/>
       <Contain>
-        <Flex>
-          <ColumnTwo>
-            <div style={{ display: 'flex', alignItems: 'center', padding: '1rem' }}>
-              <StatusBox style={{ margin: '0 1rem 0 0' }} status={status.toLowerCase()} padding="10px">
-                {status.toUpperCase()}
-              </StatusBox>
-            </div>
-            <CountDown start={status === GUILDPAD_STATUS.ongoing} end={guildpad.epochEndDate}/>
-          </ColumnTwo>
+        <Flex justifyContent='center' style={{background: 'black'}}>
+        <CountDown start={status === GUILDPAD_STATUS.ongoing} end={guildpad.epochEndDate}/>
         </Flex>
         <ContainerBoxCard>
           {/* BOX CARD */}
