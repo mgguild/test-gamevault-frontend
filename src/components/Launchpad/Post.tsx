@@ -25,8 +25,9 @@ const Content: React.FC<{guildpad: GuildpadConfig; }>= ({guildpad}) => {
   const renderSale = () => {
     const price = `${guildpad.type === TYPE.INO ? guildpad.inoDetails.price : guildpad.idoDetails.price}`
     const ratio = guildpad.inoDetails.ratio && guildpad.inoDetails.ratio
-    const start = guildpad.date ?? 'TBA'
-    const end = 'TBA'
+    const boxes = guildpad.inoDetails.boxes ?? 'TBA'
+    const start = guildpad.date.start ?? 'TBA'
+    const end = guildpad.date.end ?? 'TBA'
     const distribution = guildpad.distribution
     const initMarketCap = 'TBA'
     const initTokenCirc = 'TBA'
@@ -36,16 +37,12 @@ const Content: React.FC<{guildpad: GuildpadConfig; }>= ({guildpad}) => {
         <Flex flexDirection="column">
           <SaleRow justifyContent="space-between">
             <Text color="textSubtle">Sale Price</Text>
-            <Text>
-              {price !== 'TBA'? `${price} ${guildpad.buyingCoin.symbol}` : price}
-            </Text>
+            <Text>{price !== 'TBA' ? `${price} ${guildpad.buyingCoin.symbol}` : price}</Text>
           </SaleRow>
           {ratio && (
             <SaleRow justifyContent="space-between">
               <Text color="textSubtle">Ratio</Text>
-              <Text>
-                {guildpad.inoDetails.ratio}
-              </Text>
+              <Text>{guildpad.inoDetails.ratio}</Text>
             </SaleRow>
           )}
           <SaleRow justifyContent="space-between">
@@ -58,20 +55,26 @@ const Content: React.FC<{guildpad: GuildpadConfig; }>= ({guildpad}) => {
           </SaleRow>
         </Flex>
         <Flex flexDirection="column">
+          {guildpad.type === TYPE.INO && (
+            <SaleRow justifyContent="space-between">
+              <Text color="textSubtle">Boxes for Sale</Text>
+              <Text>{boxes}</Text>
+            </SaleRow>
+          )}
           <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">{guildpad.type === TYPE.INO? 'NFT' : 'TOKEN'} Distribution</Text>
+            <Text color="textSubtle">{guildpad.type === TYPE.INO ? 'NFT' : 'TOKEN'} Distribution</Text>
             <Text>{distribution}</Text>
           </SaleRow>
-          { guildpad.type === TYPE.IDO && (
+          {guildpad.type === TYPE.IDO && (
             <>
-            <SaleRow justifyContent="space-between">
-              <Text color="textSubtle">Initial Market Cap</Text>
-              <Text>{initMarketCap}</Text>
-            </SaleRow>
-            <SaleRow justifyContent="space-between">
-              <Text color="textSubtle">Initial Token Circulation</Text>
-              <Text>{initTokenCirc}</Text>
-            </SaleRow>
+              <SaleRow justifyContent="space-between">
+                <Text color="textSubtle">Initial Market Cap</Text>
+                <Text>{initMarketCap}</Text>
+              </SaleRow>
+              <SaleRow justifyContent="space-between">
+                <Text color="textSubtle">Initial Token Circulation</Text>
+                <Text>{initTokenCirc}</Text>
+              </SaleRow>
             </>
           )}
         </Flex>
