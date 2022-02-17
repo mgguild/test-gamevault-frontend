@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { useWeb3React } from '@web3-react/core'
+import { isNaN, isNumber } from 'lodash'
 import BigNumber from 'bignumber.js'
 import { TwoColumn } from 'components/Column'
 import { GuildpadConfig } from 'config/constants/types'
@@ -196,7 +197,7 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpa
   }
   const onChange = (e) => {
     const quantity = e.target.value
-    if (!quantity) {
+    if (!quantity || isNaN(parseInt(quantity))) {
       setBuyQuantity(0)
       return
     }
