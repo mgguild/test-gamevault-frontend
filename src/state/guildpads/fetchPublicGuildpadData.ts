@@ -72,7 +72,7 @@ const fetchPublicGuildpadData = async (guildpad: Guildpad): Promise<PublicGuildp
     await multicallv2(ino, calls)
 
   const boxPrice = getBalanceAmount(new BigNumber(boxInfo.rarityPrice.toString()))
-  const percentSold =  new BigNumber(soldRarity1.toString()).div(new BigNumber(boxInfo.raritySupply.toString()))
+  const percentSold =  new BigNumber(new BigNumber(soldRarity1.toString()).div(new BigNumber(boxInfo.raritySupply.toString())).toString()).multipliedBy(new BigNumber(100).toString())
   return {
     hasStarted: hasStarted[0],
     hasEnded: hasEnded[0],
