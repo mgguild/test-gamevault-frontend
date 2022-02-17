@@ -106,7 +106,7 @@ const ProgressBar: React.FC<{ token: string, guildpad: Guildpad, rarity?: string
       <ColumnTwo>
         <Text>Remaining Boxes:</Text>
         <JustifyR>
-          <BoxImg size="1.8rem" src={`/images/tokens/${token}.svg`} alt="BNB" />
+          {/* <BoxImg size="1.8rem" src={`/images/tokens/${token}.svg`} alt="BNB" /> */}
           <Text>
             {guildpad.boxInfo[rarity].supply - guildpad.boxInfo[rarity].sold}/{guildpad.boxInfo[rarity].supply} Boxes
           </Text>
@@ -115,14 +115,14 @@ const ProgressBar: React.FC<{ token: string, guildpad: Guildpad, rarity?: string
       <ColumnTwo>
         <Text>Price per Box:</Text>
         <JustifyR>
-          <BoxImg size="1.8rem" src={`/images/tokens/${token}.svg`} alt="BNB" />
+          {/* <BoxImg size="1.8rem" src={`/images/tokens/${token}.svg`} alt="BNB" /> */}
           <Text>{guildpad.boxInfo[rarity].price} BNB</Text>
         </JustifyR>
       </ColumnTwo>
       <ColumnTwo>
         <Text>Balance:</Text>
         <JustifyR>
-          <BoxImg size="1.8rem" src={`/images/tokens/${token}.svg`} alt="BNB" />
+          {/* <BoxImg size="1.8rem" src={`/images/tokens/${token}.svg`} alt="BNB" /> */}
           <Text>{tokenBalanceAmount.toPrecision(6)} BNB</Text>
         </JustifyR>
       </ColumnTwo>
