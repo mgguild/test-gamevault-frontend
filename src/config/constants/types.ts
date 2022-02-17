@@ -210,6 +210,7 @@ export interface Socials {
 type InoDetails = {
   price?: string;
   ratio?: string;
+  boxes?: string;
 }
 
 type IdoDetails = {
@@ -221,7 +222,7 @@ interface GuildPadInformation {
   description: string;
   distribution?: string;
   type?: Type;
-  date?: string;
+  date?: {start: string, end: string};
   status: Status;
   hasStarted: boolean;
   hasEnded: boolean;
