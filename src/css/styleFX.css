@@ -9,10 +9,6 @@
   filter: drop-shadow(-0.3rem 0.3rem 2px #222);
 }
 
-.reflect {
-  -webkit-box-reflect: below 1px linear-gradient(transparent 95%, #0008);
-}
-
 @keyframes glow {
   from {
     box-shadow: none;
