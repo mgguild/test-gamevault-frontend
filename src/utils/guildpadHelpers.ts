@@ -11,12 +11,12 @@ export const getStatus = (guildpad: Guildpad) => {
       if (guildpad.hasEnded) {
         return GUILDPAD_STATUS.completed
       }
-      break
+      break;
     case GUILDPAD_STATUS.upcoming:
       if (guildpad.hasStarted) {
         return GUILDPAD_STATUS.ongoing
       }
-      break
+      break;
     default:
   }
 

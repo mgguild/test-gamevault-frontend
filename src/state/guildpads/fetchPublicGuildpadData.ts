@@ -6,16 +6,18 @@ import { Guildpad } from '../types'
 import { isAddress } from '../../utils'
 import { getBalanceAmount } from '../../utils/formatBalance'
 
-type PublicBridgeData = {
+type PublicGuildpadData = {
   hasStarted: boolean
   hasEnded: boolean
   totalSupply: string
   totalSold: string
   totalRaise: string
   boxInfo: any
+  buyLimitEnabled: boolean
+  buyLimit: string
 }
 
-const fetchPublicGuildpadData = async (guildpad: Guildpad): Promise<PublicBridgeData> => {
+const fetchPublicGuildpadData = async (guildpad: Guildpad): Promise<PublicGuildpadData> => {
   const { contractAddress } = guildpad
   const guildpadAddress = getAddress(contractAddress)
 
@@ -55,26 +57,38 @@ const fetchPublicGuildpadData = async (guildpad: Guildpad): Promise<PublicBridge
       name: 'getSoldRarity',
       params: [1]
     },
+    {
+      address: guildpadAddress,
+      name: 'getLimitPerAddressEnable',
+    },
+    {
+      address: guildpadAddress,
+      name: 'getLimitPerAddress',
+      params: [1]
+    },
   ]
 
-  const [hasStarted, hasEnded, totalSupply, boxInfo, totalSold, totalRaise, soldRarity1] =
+  const [hasStarted, hasEnded, totalSupply, boxInfo, totalSold, totalRaise, soldRarity1, buyLimitEnabled, buyLimit] =
     await multicallv2(ino, calls)
 
   const boxPrice = getBalanceAmount(new BigNumber(boxInfo.rarityPrice.toString()))
+  const percentSold =  new BigNumber(soldRarity1.toString()).div(new BigNumber(boxInfo.raritySupply.toString()))
   return {
-    hasStarted,
-    hasEnded,
+    hasStarted: hasStarted[0],
+    hasEnded: hasEnded[0],
     totalSupply: totalSupply.toString(),
     boxInfo: {
       1: {
         price: boxPrice.toString(),
         supply: boxInfo.raritySupply.toString(),
-        sold: soldRarity1['0'].toString(),
-        percentSold: soldRarity1['0'].div(boxInfo.raritySupply).mul(100).toString(),
+        sold: soldRarity1.toString(),
+        percentSold: percentSold.toString()
       }
     },
     totalSold: totalSold.toString(),
-    totalRaise: totalRaise.toString()
+    totalRaise: totalRaise.toString(),
+    buyLimitEnabled: buyLimitEnabled[0],
+    buyLimit: buyLimit.toString()
   }
 }
 

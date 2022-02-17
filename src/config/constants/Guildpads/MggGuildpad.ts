@@ -20,7 +20,7 @@ const guildpad: GuildpadConfig = {
       97: '0xE673E67bD59A7390725ED98cBead9A5928F6f51E',
       56: '0x73fbf9DF2807CDfc050276ef2EfFcA72B5BDE05A',
     },
-    buyingCoin: tokens.wbnb,
+    buyingCoin: tokens.bnb,
     sellingCoin: tokens.mgg,
     available: '100',
     hasStarted: false,
@@ -34,7 +34,9 @@ const guildpad: GuildpadConfig = {
       }
     },
     totalSold: '0',
-    totalRaise: '0'
+    totalRaise: '0',
+    buyLimitEnabled: false,
+    buyLimit: '0'
 }
 
 export default guildpad;

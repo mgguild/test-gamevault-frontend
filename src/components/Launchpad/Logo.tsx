@@ -6,6 +6,7 @@ import { SiDiscord, SiYoutube } from 'react-icons/si'
 import { Socials, Token } from 'config/constants/types'
 import tokens from 'config/constants/tokens'
 import { getAddress } from 'utils/addressHelpers'
+import { getImageUrlFromToken } from 'utils/assetFetch'
 import Anchor from './Anchor'
 import { ReactComponent as MediumIcon } from './icons/MediumIcon.svg'
 import SvgIcon from './SvgIcon'
@@ -34,11 +35,6 @@ type LogoProps = {
 
 const Logo: React.FC<LogoProps> = ({ tokenName, nameSize = 'l', primaryToken, subtitle, socMeds, socMedsSize = 16, padding = '24px' }) => {
   const theme = useContext(ThemeContext)
-
-  const getImageUrlFromToken = (token: Token) => {
-    const address = getAddress(token.symbol === 'BNB' ? tokens.wbnb.address : token.address)
-    return `/images/tokens/${address}.${token.iconExtension ?? 'svg'}`
-  }
 
   return (
     <Flex padding={padding}>
