@@ -310,7 +310,11 @@ const CardHeader: React.FC<{ status: string; background?: string; guildpad: Guil
 )
 
 // PROJECT CONTENT
-const Content: React.FC<{ guildpad: GuildpadConfig,  userDataLoaded: boolean }> = ({ guildpad, userDataLoaded }) => {
+const Content: React.FC<{ guildpad: GuildpadConfig,  userDataLoaded: boolean, rarity?: string }> = ({
+  guildpad,
+  userDataLoaded,
+  rarity = '1',
+}) => {
   const theme = useContext(ThemeContext)
   const [active, setActive] = useState(1)
 
@@ -325,7 +329,7 @@ const Content: React.FC<{ guildpad: GuildpadConfig,  userDataLoaded: boolean }> 
   }
 
   const renderSale = () => {
-    const price = `${guildpad.type === TYPE.INO ? guildpad.inoDetails.price : guildpad.idoDetails.price}`
+    const price = guildpad.boxInfo[rarity].price !== '0' ? guildpad.boxInfo[rarity].price : 'TBA'
     const ratio = guildpad.inoDetails.ratio && guildpad.inoDetails.ratio
     const boxes = guildpad.inoDetails.boxes ?? 'TBA'
     const start = guildpad.date.start ?? 'TBA'
@@ -341,7 +345,7 @@ const Content: React.FC<{ guildpad: GuildpadConfig,  userDataLoaded: boolean }> 
             <Text color="textSubtle">Sale Price</Text>
             <div style={{textAlign: 'right'}}>
               <Text>{price !== 'TBA' ? `${price} ${guildpad.buyingCoin.symbol}` : price}</Text>
-              <Text fontSize='12px'>(as of 8:00PM GMT+8 on CMC)</Text>
+              { price !== 'TBA' && <Text fontSize='12px'>(as of 8:00PM GMT+8 on CMC)</Text> }
             </div>
           </SaleRow>
           {ratio && (
