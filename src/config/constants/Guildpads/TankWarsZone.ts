@@ -17,15 +17,15 @@ const guildpad: GuildpadConfig = {
     socials,
     type: TYPE.INO,
     distribution: DISTRIBUTION.AIRDROP,
-    status: GUILDPAD_STATUS.upcoming,
+    status: GUILDPAD_STATUS.ongoing,
     contractAddress: {
       97: '0x001',
       56: '0x001',
     },
-    buyingCoin: tokens.wbnb,
+    buyingCoin: tokens.bnb,
     sellingCoin: tokens.TankWarsZone,
     inoDetails: {
-        price: 'TBA',
+        price: '0.312662398 BNB',
         boxes: '300',
     },
     date: {
