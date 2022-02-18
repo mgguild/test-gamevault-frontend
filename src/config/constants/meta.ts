@@ -24,7 +24,7 @@ export const getCustomMeta = (path: string, t: ContextApi['t']): PageMeta => {
       }
     case '/launchpad':
       return {
-        title: `${t('IGO Launchpad')} | ${t('MGG')}`,
+        title: `${t('IGO and INO Launchpad')} | ${t('MGG')}`,
       }
     case '/liquidity':
       return {
