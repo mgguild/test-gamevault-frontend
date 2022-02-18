@@ -7,14 +7,15 @@ import { isAddress } from '../../utils'
 import { getBalanceAmount } from '../../utils/formatBalance'
 
 type PublicGuildpadData = {
-  hasStarted: boolean
-  hasEnded: boolean
-  totalSupply: string
-  totalSold: string
-  totalRaise: string
-  boxInfo: any
-  buyLimitEnabled: boolean
-  buyLimit: string
+  hasStarted?: boolean
+  hasEnded?: boolean
+  totalSupply?: string
+  totalSold?: string
+  totalRaise?: string
+  boxInfo?: any
+  buyLimitEnabled?: boolean
+  buyLimit?: string
+  whitelistEnabled?: boolean
 }
 
 const fetchPublicGuildpadData = async (guildpad: Guildpad): Promise<PublicGuildpadData> => {
@@ -64,11 +65,20 @@ const fetchPublicGuildpadData = async (guildpad: Guildpad): Promise<PublicGuildp
     {
       address: guildpadAddress,
       name: 'getLimitPerAddress',
-      params: [1]
+      params: [1],
+    },
+    {
+      address: guildpadAddress,
+      name: 'getWhitelistEnable',
     },
   ]
 
-  const [hasStarted, hasEnded, totalSupply, boxInfo, totalSold, totalRaise, soldRarity1, buyLimitEnabled, buyLimit] =
+  const [
+    hasStarted, hasEnded, totalSupply,
+    boxInfo, totalSold, totalRaise,
+    soldRarity1, buyLimitEnabled, buyLimit,
+    whitelistEnabled
+  ] =
     await multicallv2(ino, calls)
 
   const boxPrice = getBalanceAmount(new BigNumber(boxInfo.rarityPrice.toString()))
@@ -82,13 +92,14 @@ const fetchPublicGuildpadData = async (guildpad: Guildpad): Promise<PublicGuildp
         price: boxPrice.toString(),
         supply: boxInfo.raritySupply.toString(),
         sold: soldRarity1.toString(),
-        percentSold: percentSold.toString()
-      }
+        percentSold: percentSold.toPrecision(4).toString(),
+      },
     },
     totalSold: totalSold.toString(),
     totalRaise: totalRaise.toString(),
     buyLimitEnabled: buyLimitEnabled[0],
-    buyLimit: buyLimit.toString()
+    buyLimit: buyLimit.toString(),
+    whitelistEnabled,
   }
 }
 

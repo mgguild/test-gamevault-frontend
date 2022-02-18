@@ -32,16 +32,6 @@ const guildpad: GuildpadConfig = {
         start: 'February 18, 2022 1PM UTC',
         end: 'February 19, 2022 1PM UTC'
     },
-    hasStarted: false,
-    hasEnded: false,
-    totalSupply: '0',
-    boxInfo: {
-      1: {
-        price: '0',
-        supply: '0',
-        sold: '0'
-      }
-    },
     boxDetails:{
       redeemInfo: 'Mystery Box can be later redeemed for Tanks after the Game Official Launch.',
       rewardList: [ // made into array in case tokens & nfts are both rewards
@@ -57,10 +47,6 @@ const guildpad: GuildpadConfig = {
         }
       ]
     },
-    totalSold: '0',
-    totalRaise: '0',
-    buyLimitEnabled: false,
-    buyLimit: '0'
 }
 
 export default guildpad
