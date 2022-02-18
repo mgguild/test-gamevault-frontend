@@ -25,7 +25,7 @@ const guildpad: GuildpadConfig = {
     buyingCoin: tokens.bnb,
     sellingCoin: tokens.TankWarsZone,
     inoDetails: {
-        price: '0.312662398 BNB',
+        price: '0.30727166699999997',
         boxes: '300',
     },
     date: {
