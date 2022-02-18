@@ -1,4 +1,5 @@
 import { TranslatableText } from 'state/types'
+import BigNumber from 'bignumber.js'
 
 export interface Address {
   97?: string
@@ -29,6 +30,22 @@ interface IfoPoolInfo {
 }
 
 export interface Ifo {
+  id: string
+  isActive: boolean
+  address: string
+  name: string
+  currency: Token
+  token: Token
+  releaseBlockNumber: number
+  articleUrl: string
+  campaignId: string
+  tokenOfferingPrice: number
+  version: number
+  [PoolIds.poolBasic]?: IfoPoolInfo
+  [PoolIds.poolUnlimited]: IfoPoolInfo
+}
+
+export interface Ino {
   id: string
   isActive: boolean
   address: string
@@ -166,11 +183,11 @@ export type PageMeta = {
   image?: string
 }
 
-export type Status = 'active' | 'upcoming' | 'completed' | null;
+export type Status = 'ongoing' | 'upcoming' | 'completed' | null;
 export type Type = 'INO' | 'IDO';
 export type Distribution = 'VESTING' | 'SELF-CLAIM' | 'AIRDROP';
-export const STATE: { active: Status; upcoming: Status; completed: Status } = {
-  active: 'active',
+export const GUILDPAD_STATUS: { ongoing: Status; upcoming: Status; completed: Status } = {
+  ongoing: 'ongoing',
   upcoming: 'upcoming',
   completed: 'completed',
 }
@@ -179,7 +196,7 @@ export const DISTRIBUTION: { VESTING: Distribution; SELF_CLAIM: Distribution; AI
   VESTING: 'VESTING',
   SELF_CLAIM: 'SELF-CLAIM',
   AIRDROP: 'AIRDROP'
-} 
+}
 
 export interface Socials {
   website?: string;
@@ -190,7 +207,7 @@ export interface Socials {
   youtube?: string;
 }
 
-type InoDetails = { 
+type InoDetails = {
   price?: string;
   ratio?: string;
   boxes?: string;
@@ -205,18 +222,37 @@ interface GuildPadInformation {
   description: string;
   distribution?: string;
   type?: Type;
-  date?: {start: string, end: string}
+  date?: {start: string, end: string};
   status: Status;
+  hasStarted?: boolean;
+  hasEnded?: boolean;
+  totalSupply?: string;
+  totalSold?: string;
+  totalRaise?: string;
+  buyLimitEnabled?: boolean,
+  whitelistEnabled?: boolean,
+  nextRoundDate?: number,
+  buyLimit?: string,
   socials?: Socials;
   inoDetails?: InoDetails;
   idoDetails?: IdoDetails;
+  boxDetails?: any;
+  epochEndDate?: number
 }
 
 
-export interface IGuildpad extends GuildPadInformation {
-  address?: string;
+export interface GuildpadConfig extends GuildPadInformation {
+  id: number,
+  contractAddress?: Address;
   FundstoRaise?: string;
   buyingCoin?: Token;
   sellingCoin?:  Token;
   available?: string;
+  boxInfo?: {
+    1: {
+      price: string,
+      supply: string,
+      sold: string
+    }
+  };
 }

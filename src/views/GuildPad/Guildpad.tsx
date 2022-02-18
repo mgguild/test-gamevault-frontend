@@ -1,30 +1,37 @@
 import React, { useMemo } from 'react'
-import { Text } from '@metagg/mgg-uikit'
-import Guildpads from 'config/constants/guildpads'
-import { STATE } from 'config/constants/types';
+import styled from 'styled-components'
+import { Element } from 'react-scroll'
+import { useGuildpadData, useGuildpads } from 'state/hooks'
+import { GUILDPAD_STATUS } from 'config/constants/types'
 import Page from 'components/layout/Page'
-import { AboutSection, ActiveSection, ApplySection, FooterSection, HomeSection, InactiveSection } from './sections';
+import { AboutSection, ActiveSection, ApplySection, FooterSection, HomeSection, InactiveSection } from './sections'
+
 
 
 
 const Guildpad: React.FC = () => {
+  const { data: Guildpads } = useGuildpads()
+  const activeGP = useMemo(() => Guildpads.filter((guildpad) => guildpad.status === GUILDPAD_STATUS.ongoing), [Guildpads])
+  const inactiveGP = useMemo(
+    () => Guildpads.filter((guildpad) => guildpad.status === GUILDPAD_STATUS.upcoming || guildpad.status === GUILDPAD_STATUS.completed),
+    [Guildpads],
+  )
+  useGuildpadData()
 
-    const activeGP = useMemo(() => Guildpads.filter((guildpad) => guildpad.status === STATE.active), [])
-    const inactiveGP = useMemo(() => Guildpads.filter((guildpad) => guildpad.status === STATE.upcoming || guildpad.status === STATE.completed), [])
-    // const completedGP = useMemo(() => Guildpads.filter((guildpad) => guildpad.status === STATE.completed), [])
-
-    return (
-        <>
-            <HomeSection />
-            <Page>
-                <ActiveSection guildpads={activeGP} />
-                <InactiveSection guildpads={inactiveGP} />
-                <AboutSection />
-                <ApplySection />
-            </Page>
-            <FooterSection />
-        </>
-    )
+  return (
+    <>
+      <HomeSection />
+      <Page>
+        <Element name="activeSection">
+          <ActiveSection guildpads={activeGP} />
+        </Element>
+        <InactiveSection guildpads={inactiveGP} />
+        <AboutSection />
+        <ApplySection />
+      </Page>
+      <FooterSection />
+    </>
+  )
 }
 
 export default Guildpad

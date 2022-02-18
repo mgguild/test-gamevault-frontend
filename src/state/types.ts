@@ -1,7 +1,7 @@
 import { ThunkAction } from 'redux-thunk'
 import { AnyAction } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
-import { CampaignType, FarmConfig, Nft, PoolConfig, Team } from 'config/constants/types'
+import { CampaignType, FarmConfig, Nft, PoolConfig, Team, GuildpadConfig } from 'config/constants/types'
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, State, unknown, AnyAction>
 
@@ -262,12 +262,26 @@ export interface PredictionsState {
   bets: BetData
 }
 
+export interface Guildpad extends GuildpadConfig {
+  userData?: {
+    boxesBought: string
+    isWhitelisted?: boolean
+  }
+}
+
+export interface GuildpadState {
+  selected?: Guildpad | null;
+  data: Guildpad[];
+  userDataLoaded: boolean
+}
+
 // Global state
 
 export interface State {
   achievements: AchievementState
   block: BlockState
   farms: FarmsState
+  guildpads: GuildpadState
   pools: PoolsState
   predictions: PredictionsState
   profile: ProfileState

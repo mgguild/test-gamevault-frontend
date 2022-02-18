@@ -2,12 +2,13 @@ import React, { useContext, useState } from 'react'
 import { Text, Flex, Button } from '@sparkpointio/sparkswap-uikit'
 import styled, { ThemeContext } from 'styled-components'
 import { ChevronUp, ChevronDown } from 'react-feather'
-import { IGuildpad, TYPE }  from 'config/constants/types'
+import { GuildpadConfig, TYPE }  from 'config/constants/types'
+import { useFetchImage } from 'utils/assetFetch'
 import useMedia from 'use-media'
 import { Header, SaleContainer, SaleRow, PostBody, PostContainer, PostHeader, TokenProperty, Details, NavOption, PadTitles, PadActions } from './styled'
 import TokenLogo from './Logo'
 
-const Content: React.FC<{guildpad: IGuildpad; }>= ({guildpad}) => {
+const Content: React.FC<{guildpad: GuildpadConfig; }>= ({guildpad}) => {
   const theme = useContext(ThemeContext)
   const [active, setActive] = useState(1)
 
@@ -23,9 +24,9 @@ const Content: React.FC<{guildpad: IGuildpad; }>= ({guildpad}) => {
 
   const renderSale = () => {
     const price = `${guildpad.type === TYPE.INO ? guildpad.inoDetails.price : guildpad.idoDetails.price}`
-    const ratio = guildpad.inoDetails.ratio && guildpad.inoDetails.ratio 
+    const ratio = guildpad.inoDetails.ratio && guildpad.inoDetails.ratio
     const boxes = guildpad.inoDetails.boxes ?? 'TBA'
-    const start = guildpad.date.start ?? 'TBA' 
+    const start = guildpad.date.start ?? 'TBA'
     const end = guildpad.date.end ?? 'TBA'
     const distribution = guildpad.distribution
     const initMarketCap = 'TBA'
@@ -54,7 +55,7 @@ const Content: React.FC<{guildpad: IGuildpad; }>= ({guildpad}) => {
           </SaleRow>
         </Flex>
         <Flex flexDirection="column">
-        {guildpad.type === TYPE.INO && (
+          {guildpad.type === TYPE.INO && (
             <SaleRow justifyContent="space-between">
               <Text color="textSubtle">Boxes for Sale</Text>
               <Text>{boxes}</Text>
@@ -100,7 +101,7 @@ const Content: React.FC<{guildpad: IGuildpad; }>= ({guildpad}) => {
   )
 }
 
-const Post: React.FC<{guildpad?: IGuildpad}> = ({guildpad}) => {
+const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
   const [toggle, setToggle] = React.useState(false)
   const sites = guildpad.socials
   const isMobile = useMedia({ maxWidth: 500 })
@@ -108,7 +109,7 @@ const Post: React.FC<{guildpad?: IGuildpad}> = ({guildpad}) => {
   const { buyingCoin, sellingCoin, description, type } = guildpad
   const pair = `${buyingCoin.symbol}/${sellingCoin.symbol}`
   const guildSymbol = sellingCoin.symbol
-  const srcs = `/images/guildpad-assets/${sellingCoin.symbol}/${sellingCoin.symbol}.png`
+  const srcs = useFetchImage(sellingCoin.symbol);
 
   return (
     <PostContainer>

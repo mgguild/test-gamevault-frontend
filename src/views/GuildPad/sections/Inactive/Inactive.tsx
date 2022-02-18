@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { Button, Flex } from '@metagg/mgg-uikit'
 import styled from 'styled-components'
 import SearchInput from 'components/SearchInput'
-import { IGuildpad } from 'config/constants/types'
+import { GuildpadConfig } from 'config/constants/types'
 import PageSection from '../Layout';
 import { BoxContainer, BoxHeader, TabContainer } from '../styled'
 import GuildBoard from '../../components/Tab/Board'
-
+import { BgContainer } from '../Home/styled'
 
 const ButtonTab = styled(Button)<{ activeIndex: boolean; borderRadius: string }>`
   border-radius: ${({ borderRadius }) => borderRadius};
@@ -21,21 +21,23 @@ const SearchBar = ({ searchFn }) => {
       </Flex>
     )
   }
-  
 
 
-const Inactive:React.FC<{guildpads?: IGuildpad[] | null}> = ({guildpads}) => {
+
+const Inactive:React.FC<{guildpads?: GuildpadConfig[] | null}> = ({guildpads}) => {
     const [ activeIndex, setActiveIndex ] = useState<number>(1)
-    
+
     return (
         <PageSection direction='column'>
-            <TabContainer>
-                <ButtonTab borderRadius="10px 0px 0px 0px" onClick={() => setActiveIndex(1)} fullWidth activeIndex={activeIndex === 1}>UPCOMING LAUNCHES</ButtonTab>
-                <ButtonTab borderRadius="0px 10px 0px 0px" onClick={() => setActiveIndex(2)} fullWidth activeIndex={activeIndex === 2}>PAST LAUNCHES</ButtonTab>
-            </TabContainer>
-            <BoxContainer>
-                <GuildBoard tab={activeIndex} guildpads={guildpads} />
-            </BoxContainer>
+            <BgContainer>
+              <TabContainer>
+                  <ButtonTab borderRadius="10px 0px 0px 0px" onClick={() => setActiveIndex(1)} fullWidth activeIndex={activeIndex === 1}>UPCOMING LAUNCHES</ButtonTab>
+                  <ButtonTab borderRadius="0px 10px 0px 0px" onClick={() => setActiveIndex(2)} fullWidth activeIndex={activeIndex === 2}>PAST LAUNCHES</ButtonTab>
+              </TabContainer>
+              <BoxContainer>
+                  <GuildBoard tab={activeIndex} guildpads={guildpads} />
+              </BoxContainer>
+            </BgContainer>
         </PageSection>
     )
 }

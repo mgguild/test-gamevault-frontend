@@ -4,9 +4,11 @@ import styled, { ThemeContext } from 'styled-components'
 import * as Scroll from 'react-scroll'
 import { ArrowDown } from 'react-feather'
 import LottieAnimation from 'lottie'
+import { TwoColumnHeader } from 'components/Column'
 import data from 'Animation/data.json'
 import { StyledContainer, HomeContainer, AnimContainer, ButtonContainer } from './styled'
 import PageSection from '../Layout'
+
 
 const StyledFlex = styled(Flex)`
   text-align: left;
@@ -23,21 +25,43 @@ const HeadingAdapt = styled(Heading)`
   }
 `
 
-const HomeContainerAdapt = styled(HomeContainer)`
-  @media screen and (min-width: 1100px) {
-    height: 74vmin;
+const HomeContainerAdapt = styled(TwoColumnHeader)`
+  @media (min-width: 2500px) {
+    min-height: 72vmin;
+  }
+  & > * {
+    margin: 0px auto;
   }
 `
 const AnimContainerAdapt = styled(AnimContainer)`
-  @media screen and (min-width: 1100px) {
+  @media (min-width: 2500px) {
+   max-height: 1080px;
+   max-width: 1080px;
+  }
+  @media screen and (max-width: 1100px) {
     max-height: 600px;
     max-width: 800px;
   }
+  @media (max-width: 320px) {
+    width: 300px;
+  }
+`
+
+const StyledLink = styled(Scroll.Link)`
+  border-radius: 50%;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: ${(({theme}) => theme.colors.MGG_container)};
+  margin: -25px auto;
 `
 
 const HomeSection: React.FC = () => {
   const theme = useContext(ThemeContext)
-  const scrollTo = () => Scroll.animateScroll.scrollTo(800);
+  const scrollTo = () => Scroll.animateScroll.scrollTo('activeSection');
   return (
     <PageSection direction='column'>
       <StyledContainer>
@@ -87,9 +111,9 @@ const HomeSection: React.FC = () => {
           </Flex>
         </HomeContainer>
       </StyledContainer>
-      <Button onClick={scrollTo} margin="-25px auto" style={{borderRadius: '50%', width: '50px', background: theme.colors.MGG_container}}>
+      <StyledLink to="activeSection" isDynamic smooth>
           <Text><ArrowDown color={theme.colors.MGG_accent2} /></Text>
-      </Button>
+      </StyledLink>
     </PageSection>
   )
 }

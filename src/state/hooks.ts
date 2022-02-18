@@ -6,7 +6,7 @@ import { useAppDispatch } from 'state'
 import { orderBy } from 'lodash'
 import { Team } from 'config/constants/types'
 import Nfts from 'config/constants/nfts'
-import { farmsConfig } from 'config/constants'
+import { farmsConfig, guildpadConfig } from 'config/constants'
 import web3NoAccount from 'utils/web3'
 import { getBalanceAmount } from 'utils/formatBalance'
 import { BIG_ZERO } from 'utils/bigNumber'
@@ -21,7 +21,17 @@ import {
   fetchPoolsUserDataAsync,
   setBlock,
 } from './actions'
-import { AchievementState, Farm, FarmsState, Pool, ProfileState, State, TeamsState } from './types'
+import {
+  AchievementState,
+  Farm,
+  FarmsState,
+  Guildpad,
+  GuildpadState,
+  Pool,
+  ProfileState,
+  State,
+  TeamsState,
+} from './types'
 import { fetchProfile } from './profile'
 import { fetchTeam, fetchTeams } from './teams'
 import { fetchAchievements } from './achievements'
@@ -30,6 +40,7 @@ import { getCanClaim } from './predictions/helpers'
 import { transformPool } from './pools/helpers'
 import { fetchPoolsStakingLimitsAsync } from './pools'
 import { fetchFarmUserDataAsync, nonArchivedFarms } from './farms'
+import { fetchGuildpadUserDataAsync, fetchPublicGuildpadDataAsync } from './guildpads'
 
 export const usePollFarmsData = (includeArchive = false) => {
   const dispatch = useAppDispatch()
@@ -466,4 +477,35 @@ export const useGetCollectibles = () => {
     tokenIds: data,
     nftsInWallet: Nfts.filter((nft) => identifiers.includes(nft.identifier)),
   }
+}
+
+
+// Launchpad or Guildpad
+
+export const useGuildpads = (): GuildpadState => {
+  const guildpads = useSelector((state: State) => state.guildpads)
+  return guildpads
+}
+
+export const useGuildpad = () => {
+  const guildpad = useSelector((state: State) => state.guildpads.selected)
+  return guildpad
+}
+
+export const useGuildpadData = () => {
+  const dispatch = useAppDispatch()
+  const { slowRefresh } = useRefresh()
+  const { account } = useWeb3React()
+
+  useEffect(() => {
+    const guildpadsToFetch = guildpadConfig
+    const ids = guildpadsToFetch.map((guildpadToFetch) => guildpadToFetch.id)
+
+    dispatch(fetchPublicGuildpadDataAsync(ids))
+
+    if (account) {
+      dispatch(
+        fetchGuildpadUserDataAsync({ account, ids }))
+    }
+  }, [dispatch, slowRefresh, account])
 }

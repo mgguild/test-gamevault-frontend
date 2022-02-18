@@ -90,3 +90,17 @@ export function getContract(address: string, ABI: any, library: Web3Provider, ac
 export function escapeRegExp(string: string): string {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // $& means the whole matched string
 }
+
+export const epochToDate = (epochTime) => {
+  const date = new Date(0); // The 0 there is the key, which sets the date to the epoch
+  date.setUTCSeconds(epochTime);
+
+  return date;
+}
+
+export const dateEnded = (endDate) => {
+  const current = new Date();
+  const end = epochToDate(endDate);
+
+  return current.getTime() > end.getTime()
+}
