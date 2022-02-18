@@ -115,7 +115,7 @@ const ProgressBar: React.FC<{ token: string, guildpad: Guildpad, rarity?: string
         <Text>Price per Box:</Text>
         <JustifyR>
           {/* <BoxImg size="1.8rem" src={`/images/tokens/${token}.svg`} alt="BNB" /> */}
-          <Text>1425 WBOND</Text>{/* Temporary fix */}
+          <Text>(1425 WBOND)</Text>{/* Temporary fix */}
           {/* <Text>{guildpad.boxInfo[rarity].price} BNB</Text> */}
         </JustifyR>
       </ColumnTwo>
