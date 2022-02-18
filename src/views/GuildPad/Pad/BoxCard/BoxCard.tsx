@@ -126,7 +126,7 @@ const ProgressBar: React.FC<{ token: string, guildpad: Guildpad, rarity?: string
           <Text>{tokenBalanceAmount.toPrecision(6)} BNB</Text>
         </JustifyR>
       </ColumnTwo>
-      <div style={{ textAlign: 'center'}}>
+      <div style={{ textAlign: 'center', padding: '1rem 0 0 0'}}>
         <Progress
           variant='round'
           primaryStep={guildpad.boxInfo[rarity].percentSold}
@@ -238,10 +238,10 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpa
             <UnlockButton fullWidth />
           ) : (
             <GridTwo>
-              <input style={{borderRadius: '0.5rem'}} placeholder="Qty." name="buyQuantity" value={buyQuantity} onChange={onChange} />
+              <input style={{borderRadius: '0.5rem 0 0 0.5rem'}} placeholder="Qty." name="buyQuantity" value={buyQuantity} onChange={onChange} />
               <JustifyR>
                 <Button disabled={buyDisabled || buyQuantity <= 0} onClick={handleBuy} fullWidth
-                        style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}>
+                        style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '0 0.5rem 0.5rem 0' }}>
                   Buy
                 </Button>
               </JustifyR>
