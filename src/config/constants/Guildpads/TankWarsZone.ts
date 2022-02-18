@@ -21,10 +21,10 @@ const guildpad: GuildpadConfig = {
     97: '0xE673E67bD59A7390725ED98cBead9A5928F6f51E',
     56: '0xf99869Fb775456e84Aa980f1fC104297694b8c47',
   },
-  buyingCoin: tokens.wbnb,
+  buyingCoin: tokens.bnb,
   sellingCoin: tokens.TankWarsZone,
   inoDetails: {
-    price: 'TBA',
+    price: '0.3073',
     boxes: '300',
   },
   date: {

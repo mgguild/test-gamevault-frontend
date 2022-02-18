@@ -16,7 +16,7 @@ import SvgIcon from 'components/Launchpad/SvgIcon'
 import { ReactComponent as MediumIcon } from 'components/Launchpad/icons/MediumIcon.svg'
 import { Card as SCard, CardHeader as SCardHeader, Text, Heading, Flex, Button } from '@metagg/mgg-uikit'
 import TokenLogo from 'components/Launchpad/Logo'
-import { PostBody, NavOption } from '../../../../components/Launchpad/styled'
+import { PostBody, NavOption, SaleContainer, SaleRow } from '../../../../components/Launchpad/styled'
 import Boxcard from '../BoxCard'
 import '../../../../css/styleFX.css'
 
@@ -310,7 +310,11 @@ const CardHeader: React.FC<{ status: string; background?: string; guildpad: Guil
 )
 
 // PROJECT CONTENT
-const Content: React.FC<{ guildpad: GuildpadConfig,  userDataLoaded: boolean }> = ({ guildpad, userDataLoaded }) => {
+const Content: React.FC<{ guildpad: GuildpadConfig,  userDataLoaded: boolean, rarity?: string }> = ({
+  guildpad,
+  userDataLoaded,
+  rarity = '1',
+}) => {
   const theme = useContext(ThemeContext)
   const [active, setActive] = useState(1)
 
@@ -325,7 +329,66 @@ const Content: React.FC<{ guildpad: GuildpadConfig,  userDataLoaded: boolean }> 
   }
 
   const renderSale = () => {
-    return <p>sale</p>
+    const price = guildpad.boxInfo[rarity].price !== '0' ? guildpad.boxInfo[rarity].price : 'TBA'
+    const ratio = guildpad.inoDetails.ratio && guildpad.inoDetails.ratio
+    const boxes = guildpad.inoDetails.boxes ?? 'TBA'
+    const start = guildpad.date.start ?? 'TBA'
+    const end = guildpad.date.end ?? 'TBA'
+    const distribution = guildpad.distribution
+    const initMarketCap = 'TBA'
+    const initTokenCirc = 'TBA'
+
+    return (
+      <SaleContainer justifyContent="space-between">
+        <Flex flexDirection="column">
+          <SaleRow justifyContent="space-between">
+            <Text color="textSubtle">Sale Price</Text>
+            <div style={{textAlign: 'right'}}>
+              <Text>{price !== 'TBA' ? `${price} ${guildpad.buyingCoin.symbol}` : price}</Text>
+              { price !== 'TBA' && <Text fontSize='12px'>(as of 8:00PM GMT+8 on CMC)</Text> }
+            </div>
+          </SaleRow>
+          {ratio && (
+            <SaleRow justifyContent="space-between">
+              <Text color="textSubtle">Ratio</Text>
+              <Text>{guildpad.inoDetails.ratio}</Text>
+            </SaleRow>
+          )}
+          <SaleRow justifyContent="space-between">
+            <Text color="textSubtle">Sale Start Time</Text>
+            <Text>{start}</Text>
+          </SaleRow>
+          <SaleRow justifyContent="space-between">
+            <Text color="textSubtle">Sale End Time</Text>
+            <Text>{end}</Text>
+          </SaleRow>
+        </Flex>
+        <Flex flexDirection="column">
+          {guildpad.type === TYPE.INO && (
+            <SaleRow justifyContent="space-between">
+              <Text color="textSubtle">Boxes for Sale</Text>
+              <Text>{boxes}</Text>
+            </SaleRow>
+          )}
+          <SaleRow justifyContent="space-between">
+            <Text color="textSubtle">{guildpad.type === TYPE.INO ? 'NFT' : 'TOKEN'} Distribution</Text>
+            <Text>{distribution}</Text>
+          </SaleRow>
+          {guildpad.type === TYPE.IDO && (
+            <>
+              <SaleRow justifyContent="space-between">
+                <Text color="textSubtle">Initial Market Cap</Text>
+                <Text>{initMarketCap}</Text>
+              </SaleRow>
+              <SaleRow justifyContent="space-between">
+                <Text color="textSubtle">Initial Token Circulation</Text>
+                <Text>{initTokenCirc}</Text>
+              </SaleRow>
+            </>
+          )}
+        </Flex>
+      </SaleContainer>
+    )
   }
 
   return (
@@ -337,6 +400,9 @@ const Content: React.FC<{ guildpad: GuildpadConfig,  userDataLoaded: boolean }> 
       >
         <NavOption onClick={() => setActive(1)} activeIndex={active === 1}>
           Project Description
+        </NavOption>
+        <NavOption onClick={() => setActive(2)} activeIndex={active === 2}>
+          {guildpad.type === TYPE.INO? 'NFT' : 'TOKEN'} Sale
         </NavOption>
       </Flex>
       {active === 1 ? renderDescription() : active === 2 && renderSale()}

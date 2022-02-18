@@ -8,7 +8,7 @@ import useMedia from 'use-media'
 import { Header, SaleContainer, SaleRow, PostBody, PostContainer, PostHeader, TokenProperty, Details, NavOption, PadTitles, PadActions } from './styled'
 import TokenLogo from './Logo'
 
-const Content: React.FC<{guildpad: GuildpadConfig; }>= ({guildpad}) => {
+const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpad, rarity = '1'}) => {
   const theme = useContext(ThemeContext)
   const [active, setActive] = useState(1)
 
@@ -23,7 +23,7 @@ const Content: React.FC<{guildpad: GuildpadConfig; }>= ({guildpad}) => {
   }
 
   const renderSale = () => {
-    const price = `${guildpad.type === TYPE.INO ? guildpad.inoDetails.price : guildpad.idoDetails.price}`
+    const price = guildpad.boxInfo[rarity].price !== '0' ? guildpad.boxInfo[rarity].price : 'TBA'
     const ratio = guildpad.inoDetails.ratio && guildpad.inoDetails.ratio
     const boxes = guildpad.inoDetails.boxes ?? 'TBA'
     const start = guildpad.date.start ?? 'TBA'
@@ -37,7 +37,10 @@ const Content: React.FC<{guildpad: GuildpadConfig; }>= ({guildpad}) => {
         <Flex flexDirection="column">
           <SaleRow justifyContent="space-between">
             <Text color="textSubtle">Sale Price</Text>
-            <Text>{price !== 'TBA' ? `${price} ${guildpad.buyingCoin.symbol}` : price}</Text>
+            <div style={{textAlign: 'right'}}>
+              <Text>{price !== 'TBA' ? `${price} ${guildpad.buyingCoin.symbol}` : price}</Text>
+              { price !== 'TBA' && <Text fontSize='12px'>(as of 8:00PM GMT+8 on CMC)</Text> }
+            </div>
           </SaleRow>
           {ratio && (
             <SaleRow justifyContent="space-between">
