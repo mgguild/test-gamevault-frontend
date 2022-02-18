@@ -253,7 +253,7 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps, userDataLoaded
           {
             account && hasRemainingSupply &&
             <GridTwo>
-              <input disabled={!guildpad.userData.isWhitelisted} style={{borderRadius: '0.5rem 0 0 0.5rem', padding: '0.5rem'}} placeholder='Qty.'
+              <input disabled={!guildpad.userData.isWhitelisted} style={{borderRadius: '0.5rem 0 0 0.5rem', padding: '0.5rem', border: 'none'}} placeholder='Qty.'
                      name='buyQuantity' value={buyQuantity} onChange={onChange} />
               <JustifyR>
                 <Button disabled={!guildpad.userData.isWhitelisted || buyDisabled || buyQuantity <= 0}
