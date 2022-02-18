@@ -37,7 +37,7 @@ const Content: React.FC<{guildpad: GuildpadConfig; }>= ({guildpad}) => {
         <Flex flexDirection="column">
           <SaleRow justifyContent="space-between">
             <Text color="textSubtle">Sale Price</Text>
-            <div>
+            <div style={{textAlign: 'right'}}>
               <Text>{price !== 'TBA' ? `${price} ${guildpad.buyingCoin.symbol}` : price}</Text>
               <Text fontSize='12px'>(as of 8:00PM GMT+8 on CMC)</Text>
             </div>
