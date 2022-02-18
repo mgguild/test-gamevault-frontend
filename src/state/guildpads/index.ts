@@ -1,23 +1,30 @@
 /* eslint-disable no-param-reassign */
-import { useSelector } from 'react-redux'
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import guildpadsConfig from 'config/constants/guildpads'
-import { AppThunk, Guildpad, GuildpadState, State } from '../types'
+import { Guildpad, GuildpadState } from '../types'
 import fetchGuildpads from './fetchGuildpads'
-import { GuildpadConfig } from '../../config/constants/types'
-import farmsConfig from '../../config/constants/farms'
-import {
-  fetchFarmUserAllowances, fetchFarmUserEarnings,
-  fetchFarmUserStakedBalances,
-  fetchFarmUserTokenBalances,
-} from '../farms/fetchFarmUser'
-import { fetchGuildpadUserBoxes } from './fetchGuildpadUser'
+import { fetchGuildpadIsUserWhitelisted, fetchGuildpadUserBoxes } from './fetchGuildpadUser'
 
 const noAccountGuildpadConfig = guildpadsConfig.map((guildpad) => ({
   ...guildpad,
+  totalSold: '0',
+  totalRaise: '0',
   userData: {
     boxesBought: '0',
-  }
+    isWhitelisted: false,
+  },
+  hasStarted: false,
+  hasEnded: false,
+  totalSupply: '0',
+  boxInfo: {
+    1: {
+      price: '0',
+      supply: '0',
+      sold: '0'
+    }
+  },
+  buyLimitEnabled: false,
+  buyLimit: '0'
 }))
 
 const initialState: GuildpadState = { data: noAccountGuildpadConfig, userDataLoaded: false }
@@ -40,28 +47,29 @@ export const fetchPublicGuildpadDataAsync = createAsyncThunk<Guildpad[], number[
 interface GuildpadUserDataResponse {
   id: number
   boxesBought: string
+  isWhitelisted?: boolean
 }
 
 export const fetchGuildpadUserDataAsync = createAsyncThunk<GuildpadUserDataResponse[], { account: string; ids: number[] }>(
   'farms/fetchGuildpadUserDataAsync',
-  async ({account, ids}) => {
+  async ({ account, ids }) => {
     const guildpadToFetch = guildpadsConfig.filter((guildpadConfig) => ids.includes(guildpadConfig.id))
     const useGuildpadBoxes = await fetchGuildpadUserBoxes(account, guildpadToFetch)
-
+    const useGuildpadIsWhitelist = await fetchGuildpadIsUserWhitelisted(account, guildpadToFetch)
     return useGuildpadBoxes.map((box, index) => {
       return {
         id: guildpadToFetch[index].id,
-        boxesBought: box
+        boxesBought: box,
+        isWhitelisted: useGuildpadIsWhitelist[index],
       }
     })
-  }
+  },
 )
 
 export const guildpadSlice = createSlice({
   name: 'Guildpads',
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     // Update guildpad with live data
     builder.addCase(fetchPublicGuildpadDataAsync.fulfilled, (state, action) => {

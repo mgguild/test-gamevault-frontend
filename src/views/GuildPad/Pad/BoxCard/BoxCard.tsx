@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { useWeb3React } from '@web3-react/core'
+import { isNaN } from 'lodash'
 import BigNumber from 'bignumber.js'
 import { TwoColumn } from 'components/Column'
-import { GuildpadConfig } from 'config/constants/types'
 import { Button, Card as SCard, Flex, Heading, Progress, Text, useModal } from '@metagg/mgg-uikit'
 import { getAddress } from 'utils/addressHelpers'
 import tokens from 'config/constants/tokens'
@@ -15,7 +15,6 @@ import { getBalanceAmount } from '../../../../utils/formatBalance'
 import { useBuyBox } from '../../../../hooks/useGuildPad'
 import { fetchGuildpadUserDataAsync, fetchPublicGuildpadDataAsync } from '../../../../state/guildpads'
 import { useAppDispatch } from '../../../../state'
-import useWeb3 from '../../../../hooks/useWeb3'
 import useEthBalance from '../../../../hooks/useEthBalance'
 import ModalWhitelist from '../Modal/ModalWhitelist'
 
@@ -97,7 +96,7 @@ const ProgressBar: React.FC<{ token: string, guildpad: Guildpad, rarity?: string
   const balance = useEthBalance()
   const tokenBalanceAmount = getBalanceAmount(balance, guildpad.buyingCoin.decimals)
 
-  let remainingText = '';
+  let remainingText = ''
   if (guildpad.buyLimitEnabled) {
     remainingText = `out of ${guildpad.buyLimit}`
   }
@@ -126,14 +125,14 @@ const ProgressBar: React.FC<{ token: string, guildpad: Guildpad, rarity?: string
           <Text>{tokenBalanceAmount.toPrecision(6)} BNB</Text>
         </JustifyR>
       </ColumnTwo>
-      <div style={{ textAlign: 'center'}}>
+      <div style={{ textAlign: 'center' }}>
         <Progress
           variant='round'
           primaryStep={guildpad.boxInfo[rarity].percentSold}
         />
         <Text>{guildpad.boxInfo[rarity].percentSold}%</Text>
       </div>
-      <div style={{ textAlign: 'center'}}>
+      <div style={{ textAlign: 'center' }}>
         <Text small color={theme.colors.textSubtle}>You own <span
           style={{ color: 'white' }}>{guildpad.userData.boxesBought}</span> boxes {remainingText}</Text>
       </div>
@@ -141,22 +140,22 @@ const ProgressBar: React.FC<{ token: string, guildpad: Guildpad, rarity?: string
   )
 }
 
-const RewardInfo: React.FC<{guildpad: Guildpad}> = ({guildpad}) => {
-  return(
+const RewardInfo: React.FC<{ guildpad: Guildpad }> = ({ guildpad }) => {
+  return (
     <>
       {
         guildpad.boxDetails.rewardList.map((reward) => {
-          return(
+          return (
             <div>
               <Text>{reward.description}</Text>
               {// If reward.rearitLevels exists
                 reward.rarityLevels &&
                 <UnorderedList>
-                {
-                  reward.rarityLevels.map((rarityLevel) => {
-                    return(<li>{rarityLevel}</li>)
-                  })
-                }
+                  {
+                    reward.rarityLevels.map((rarityLevel) => {
+                      return (<li>{rarityLevel}</li>)
+                    })
+                  }
                 </UnorderedList>
               }
             </div>
@@ -169,10 +168,11 @@ const RewardInfo: React.FC<{guildpad: Guildpad}> = ({guildpad}) => {
 }
 
 
-const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpad, imgProps }) => {
+const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps, userDataLoaded: boolean }> = ({ guildpad, imgProps, userDataLoaded }) => {
   const [rarityId, setRarityId] = useState('1') // TODO: For dynamic in case there are multiple types of boxes for sale
   const [buyQuantity, setBuyQuantity] = useState(0)
   const [buyDisabled, setBuyDisabled] = useState(false)
+  const [whitelistModalShowed, setWhitelistModalShowed] = useState(false)
   const { account } = useWeb3React()
   const theme = useContext(ThemeContext)
   const { src, size } = imgProps
@@ -189,13 +189,13 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpa
   const limitReached = (quantity) => {
     const totalOwnedToOwn = parseInt(guildpad.userData.boxesBought) + parseInt(quantity)
     if (guildpad.buyLimitEnabled && totalOwnedToOwn > parseInt(guildpad.buyLimit)) {
-      return true;
+      return true
     }
-    return false;
+    return false
   }
   const onChange = (e) => {
     const quantity = e.target.value
-    if (!quantity) {
+    if (!quantity || isNaN(parseInt(quantity))) {
       setBuyQuantity(0)
       return
     }
@@ -207,46 +207,64 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps }> = ({ guildpa
     setBuyQuantity(parseInt(quantity))
   }
   // SHOW MODAL WHITELIST REQUIRE PROP DATE: VALUE TYPE DATE
-  const [showModalWhitelist] = useModal(
-    <ModalWhitelist date={new Date('2/19/2022 13:00:00 UTC')}/>
+  const [showNotInWhitelistModal] = useModal(
+    <ModalWhitelist onDismiss={() => {
+      setWhitelistModalShowed(false)
+    }} dateInMilli={guildpad.nextRoundDate} />,
   )
+
+  useEffect(() => {
+    if (account && !guildpad.userData.isWhitelisted && !whitelistModalShowed && userDataLoaded) {
+      showNotInWhitelistModal()
+      setWhitelistModalShowed(true)
+    }
+  }, [account, guildpad, showNotInWhitelistModal, whitelistModalShowed, userDataLoaded])
+
+  const hasRemainingSupply = (guildpad.boxInfo[rarityId].supply - guildpad.boxInfo[rarityId].sold) > 0
   return (
     <GCard>
-      {/* <Button onClick={showModalWhitelist}>MODAL TEST</Button> */}
       <div style={{ padding: '1rem 2.5rem' }}>
         <Cont>
           {/* <BoxImg src={img} size={size}/> */}
           <div className='img-shadow'>
-            <SvgIcon Icon={BoxCrate}/>
+            <SvgIcon Icon={BoxCrate} />
           </div>
         </Cont>
         <Flex style={{ paddingTop: '2rem', justifyContent: 'center' }}>
-          <Heading size="lg" color={theme.colors.primary}>
+          <Heading size='lg' color={theme.colors.primary}>
             Mystery Box
           </Heading>
         </Flex>
         <Flex>
           <div style={{ padding: '1.2rem 0 2rem 0' }}>
-            {guildpad.boxDetails ? <RewardInfo guildpad={guildpad}/> : 'No boxDetails Info'}
+            {guildpad.boxDetails ? <RewardInfo guildpad={guildpad} /> : 'No boxDetails Info'}
           </div>
         </Flex>
         <Flex>
           <ProgressBar token={getAddress(tokens.wbnb.address)} guildpad={guildpad} rarity={rarityId} />
         </Flex>
         <Flex style={{ padding: '1rem 0 0 0' }}>
-          {!account ? (
-            <UnlockButton fullWidth />
-          ) : (
+          {!account && <UnlockButton fullWidth />}
+          {account && !hasRemainingSupply &&
+          <Button fullWidth
+                  style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}>
+            SOLD OUT
+          </Button>}
+          {
+            account && hasRemainingSupply &&
             <GridTwo>
-              <input style={{borderRadius: '0.5rem'}} placeholder="Qty." name="buyQuantity" value={buyQuantity} onChange={onChange} />
+              <input disabled={!guildpad.userData.isWhitelisted} style={{ borderRadius: '0.5rem' }} placeholder='Qty.'
+                     name='buyQuantity' value={buyQuantity} onChange={onChange} />
               <JustifyR>
-                <Button disabled={buyDisabled || buyQuantity <= 0} onClick={handleBuy} fullWidth
+                <Button disabled={!guildpad.userData.isWhitelisted || buyDisabled || buyQuantity <= 0}
+                        onClick={handleBuy}
+                        fullWidth
                         style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}>
                   Buy
                 </Button>
               </JustifyR>
             </GridTwo>
-          )}
+          }
         </Flex>
       </div>
     </GCard>

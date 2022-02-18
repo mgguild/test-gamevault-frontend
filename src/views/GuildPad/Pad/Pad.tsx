@@ -33,9 +33,8 @@ const BackButton = styled(Link)`
 
 const Pad: React.FC<RouteComponentProps<{ guildpadTitle?: string }>> = ({ match: { params: { guildpadTitle } } }) => {
   const theme = useContext(ThemeContext);
-  const { data: guildpads } = useGuildpads()
+  const { data: guildpads, userDataLoaded } = useGuildpads()
   useGuildpadData()
-  // console.log(guildpads)
   const activeGuildpad = guildpads.filter((gpad) => gpad.title === guildpadTitle)[0]
   const { title } = activeGuildpad
   const status = getStatus(activeGuildpad)
@@ -53,7 +52,7 @@ const Pad: React.FC<RouteComponentProps<{ guildpadTitle?: string }>> = ({ match:
           </Breadcrumbs>
         </GuildpadContainer>
           <Grid container justifyContent='center' alignItems='center'>
-            <Card guildpad={activeGuildpad} />
+            <Card guildpad={activeGuildpad} userDataLoaded={userDataLoaded} />
           </Grid>
         </PageSection>
       </Container>

@@ -224,17 +224,18 @@ interface GuildPadInformation {
   type?: Type;
   date?: {start: string, end: string};
   status: Status;
-  hasStarted: boolean;
-  hasEnded: boolean;
-  totalSupply: string;
-  totalSold: string;
-  totalRaise: string;
-  buyLimitEnabled: boolean,
-  buyLimit: string,
+  hasStarted?: boolean;
+  hasEnded?: boolean;
+  totalSupply?: string;
+  totalSold?: string;
+  totalRaise?: string;
+  buyLimitEnabled?: boolean,
+  whitelistEnabled?: boolean,
+  nextRoundDate?: number,
+  buyLimit?: string,
   socials?: Socials;
   inoDetails?: InoDetails;
   idoDetails?: IdoDetails;
-  boxInfo: any;
   boxDetails?: any;
   epochEndDate?: number
 }
@@ -247,4 +248,11 @@ export interface GuildpadConfig extends GuildPadInformation {
   buyingCoin?: Token;
   sellingCoin?:  Token;
   available?: string;
+  boxInfo?: {
+    1: {
+      price: string,
+      supply: string,
+      sold: string
+    }
+  };
 }

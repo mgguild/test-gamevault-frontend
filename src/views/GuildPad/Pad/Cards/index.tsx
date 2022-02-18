@@ -146,7 +146,7 @@ const TimeSpan = styled.div`
 const CountDown: React.FC<{start?:boolean, end?:number}> = ({start, end}) => {
   const endDate = end
   const isStart = start;
-  
+
   const Renderer = (days?: number, hours?: number, minutes?: number, seconds?: number) => {
     return(
       <div>
@@ -182,7 +182,7 @@ const CountDown: React.FC<{start?:boolean, end?:number}> = ({start, end}) => {
       </div>
     )
    }
- 
+
   return (
     <TimerContainer justifyContent="right" padding="10px">
       { isStart ? (
@@ -310,7 +310,7 @@ const CardHeader: React.FC<{ status: string; background?: string; guildpad: Guil
 )
 
 // PROJECT CONTENT
-const Content: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
+const Content: React.FC<{ guildpad: GuildpadConfig,  userDataLoaded: boolean }> = ({ guildpad, userDataLoaded }) => {
   const theme = useContext(ThemeContext)
   const [active, setActive] = useState(1)
 
@@ -344,13 +344,13 @@ const Content: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
   )
 }
 
-const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
+const Card: React.FC<{ guildpad: GuildpadConfig, userDataLoaded: boolean }> = ({ guildpad, userDataLoaded }) => {
   const { account } = useWeb3React()
   const theme = useContext(ThemeContext)
   const src = useFetchBanner(guildpad.sellingCoin.symbol)
   const bgSrc = useFetchPadBG(guildpad.sellingCoin.symbol)
   const status = getStatus(guildpad)
-  
+
   return (
     <GCard src={bgSrc}>
       <CardHeader status={status} background={src} guildpad={guildpad}/>
@@ -360,10 +360,10 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
         </Flex>
         <ContainerBoxCard>
           {/* BOX CARD */}
-          <Boxcard imgProps={{ src: 'Chest3.png', size: '15rem' }} guildpad={guildpad} />
+          <Boxcard imgProps={{ src: 'Chest3.png', size: '15rem' }} guildpad={guildpad} userDataLoaded={userDataLoaded} />
         </ContainerBoxCard>
         <ContainerProjDesc>
-          <Content guildpad={guildpad} />
+          <Content guildpad={guildpad} userDataLoaded={userDataLoaded} />
         </ContainerProjDesc>
       </Contain>
     </GCard>

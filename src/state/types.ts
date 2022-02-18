@@ -265,6 +265,7 @@ export interface PredictionsState {
 export interface Guildpad extends GuildpadConfig {
   userData?: {
     boxesBought: string
+    isWhitelisted?: boolean
   }
 }
 
