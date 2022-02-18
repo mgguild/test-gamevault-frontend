@@ -42,8 +42,8 @@ export const TwoColumn = styled(Column)`
 `
 
 export const TwoColumnHeader = styled(Column)`
-  // grid-template-columns: repeat(2, 2fr);
-  grid-template-columns: 1fr auto;
+  grid-template-columns: repeat(2, 1fr);
+  // grid-template-columns: 1fr auto;
   grid-template-rows: 1;
   width: 100%;
   // max-width: 2000px;

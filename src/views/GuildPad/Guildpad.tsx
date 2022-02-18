@@ -1,10 +1,13 @@
 import React, { useMemo } from 'react'
-import { Text } from '@metagg/mgg-uikit'
+import styled from 'styled-components'
 import { Element } from 'react-scroll'
 import { useGuildpadData, useGuildpads } from 'state/hooks'
 import { GUILDPAD_STATUS } from 'config/constants/types'
 import Page from 'components/layout/Page'
 import { AboutSection, ActiveSection, ApplySection, FooterSection, HomeSection, InactiveSection } from './sections'
+
+
+
 
 const Guildpad: React.FC = () => {
   const { data: Guildpads } = useGuildpads()
