@@ -5,10 +5,8 @@ import DemoleGuildpad from './Guildpads/Demole';
 import AcknoledgerGuildpad from './Guildpads/Acknoledger';
 
 const Guildpads: GuildpadConfig[] = [
-    MggGuildpad,
     TankWarsZoneGuildpad,
     DemoleGuildpad,
-    // AcknoledgerGuildpad,
 ]
 
 export default Guildpads
