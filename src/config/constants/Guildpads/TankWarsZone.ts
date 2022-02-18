@@ -46,7 +46,7 @@ const guildpad: GuildpadConfig = {
       }
     ]
   },
-  epochEndDate: 1645246800000,
+  epochEndDate: 1645275600000,
   nextRoundDate: 1645275600000
 }
 
