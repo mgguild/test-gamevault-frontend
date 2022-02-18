@@ -70,7 +70,7 @@ const Logo: React.FC<LogoProps> = ({ tokenName, nameSize = 'l', primaryToken, su
             )}
             {socMeds?.youtube && (
               <Anchor href={socMeds?.youtube}>
-              <SiYoutube width={socMedsSize} color={theme.colors.text} />
+              <SiYoutube size={`${socMedsSize}px`} color={theme.colors.text} />
             </Anchor>
             )}
           </Flex>
