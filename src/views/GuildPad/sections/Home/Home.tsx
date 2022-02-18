@@ -49,6 +49,7 @@ const AnimContainerAdapt = styled(AnimContainer)`
 
 const StyledLink = styled(Scroll.Link)`
   border-radius: 50%;
+  cursor: pointer;
   width: 50px;
   height: 50px;
   display: flex;
