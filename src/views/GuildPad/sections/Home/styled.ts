@@ -17,24 +17,15 @@ export const BgContainer = styled.div`
   background: ${({ theme }) => theme.isDark? `linear-gradient(0deg, rgba(43,28,0,1) 5%, rgba(16,16,16,1) 100%)` : theme.colors.modal};
 `
 
-export const HomeContainer = styled(TwoColumnHeader)``
+export const HomeContainer = styled(Flex)``
 
 export const AnimContainer = styled(Flex)`
+  margin: 24px auto;
   max-height: 500px;
   max-width: 700px;
-  margin: 24px auto;
   & > * {
     margin: 0px auto;
-  }
-  @media (max-width: 1366px) {
-    width: 550px;
-    height: 400px;
-    margin-right: 60px;
-  }
-  @media (max-width: 500px) {
-    width: auto;
-    height: auto;
-    margin: auto;
+   
   }
 `
 export const ButtonContainer = styled(Flex)`

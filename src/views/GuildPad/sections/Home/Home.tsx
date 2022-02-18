@@ -4,9 +4,11 @@ import styled, { ThemeContext } from 'styled-components'
 import * as Scroll from 'react-scroll'
 import { ArrowDown } from 'react-feather'
 import LottieAnimation from 'lottie'
+import { TwoColumnHeader } from 'components/Column'
 import data from 'Animation/data.json'
 import { StyledContainer, HomeContainer, AnimContainer, ButtonContainer } from './styled'
 import PageSection from '../Layout'
+
 
 const StyledFlex = styled(Flex)`
   text-align: left;
@@ -23,15 +25,25 @@ const HeadingAdapt = styled(Heading)`
   }
 `
 
-const HomeContainerAdapt = styled(HomeContainer)`
-  @media screen and (min-width: 1100px) {
-    height: 74vmin;
+const HomeContainerAdapt = styled(TwoColumnHeader)`
+  @media (min-width: 2500px) {
+    min-height: 72vmin;
+  }
+  & > * {
+    margin: 0px auto;
   }
 `
 const AnimContainerAdapt = styled(AnimContainer)`
-  @media screen and (min-width: 1100px) {
+  @media (min-width: 2500px) {
+   max-height: 1080px;
+   max-width: 1080px;
+  }
+  @media screen and (max-width: 1100px) {
     max-height: 600px;
     max-width: 800px;
+  }
+  @media (max-width: 320px) {
+    width: 300px;
   }
 `
 
