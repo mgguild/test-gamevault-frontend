@@ -115,7 +115,7 @@ const ProgressBar: React.FC<{ token: string, guildpad: Guildpad, rarity?: string
         <Text>Price per Box:</Text>
         <JustifyR>
           {/* <BoxImg size="1.8rem" src={`/images/tokens/${token}.svg`} alt="BNB" /> */}
-          <div>
+          <div style={{textAlign: 'right'}}>
             <Text fontSize='15px'>{guildpad.boxInfo[rarity].price} BNB (1425 WBOND)</Text>
             <Text fontSize='12px'>(as of Feb 18, 2022 8PM GMT+8)</Text>
           </div>
