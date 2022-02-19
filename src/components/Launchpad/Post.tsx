@@ -39,7 +39,7 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
             <Text color="textSubtle">Sale Price</Text>
             <div style={{textAlign: 'right'}}>
               <Text>{price !== 'TBA' ? `${price} ${guildpad.buyingCoin.symbol} (1425 WBOND)` : price}</Text>
-              { price !== 'TBA' && <Text fontSize='12px'>(as of Feb 18, 2022 8PM GMT+8)</Text> }
+              { price !== 'TBA' && <Text fontSize='12px'>(<em>as of Feb 18, 2022 8PM GMT+8</em>)</Text> }
             </div>
           </SaleRow>
           {ratio && (
