@@ -46,7 +46,6 @@ const guildpad = {
     ]
   },
   epochEndDate: 1645275600000,
-  nextRoundDate: 1645275600000
 }
 
 export default guildpad
