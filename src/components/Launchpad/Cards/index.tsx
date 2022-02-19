@@ -73,7 +73,7 @@ const InfoRow = styled(Flex)`
   width: 100%;
 `
 
-const CountDown: React.FC<{ start?: boolean; end?: number }> = ({ start, end }) => {
+const CountDown: React.FC<{ round: string, start?: boolean; end?: number }> = ({ round, start, end }) => {
   const endDate = end
   const isStart = start
 
@@ -81,7 +81,7 @@ const CountDown: React.FC<{ start?: boolean; end?: number }> = ({ start, end }) 
     return (
       <TimerContainer justifyContent="space-between" padding="10px">
         <div style={{ textAlign: 'left' }}>
-          <Heading size="l">ROUND 1</Heading>
+          <Heading size="l">ROUND {round}</Heading>
           <Text fontSize="12px"> ENDS IN</Text>
         </div>
         <TimerBox justifyContent="space-between">
@@ -168,7 +168,7 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
   return (
     <GCard>
       <CardHeader status="ONGOING" background={src} />
-      <CountDown start={status === GUILDPAD_STATUS.ongoing} end={guildpad.epochEndDate} />
+      <CountDown round={guildpad.round} start={status === GUILDPAD_STATUS.ongoing} end={guildpad.epochEndDate} />
       <TokenLogo
         tokenName={guildpad.sellingCoin.symbol}
         primaryToken={guildpad.sellingCoin}

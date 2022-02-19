@@ -143,14 +143,14 @@ const TimeSpan = styled.div`
 `
 
 // COUNTDOWN TIMER
-const CountDown: React.FC<{start?:boolean, end?:number}> = ({start, end}) => {
+const CountDown: React.FC<{ round: string, start?:boolean, end?:number}> = ({round, start, end}) => {
   const endDate = end
   const isStart = start;
 
   const Renderer = (days?: number, hours?: number, minutes?: number, seconds?: number) => {
     return(
       <div>
-        <Heading style={{textAlign: 'center', paddingTop: '0.5rem'}} size="l">ROUND 1 ENDS IN</Heading>
+        <Heading style={{textAlign: 'center', paddingTop: '0.5rem'}} size="l">ROUND {round} ENDS IN</Heading>
       <TimerContainer>
       <TimerBox>
           <Box>
@@ -422,7 +422,7 @@ const Card: React.FC<{ guildpad: GuildpadConfig, userDataLoaded: boolean }> = ({
       <CardHeader status={status} background={src} guildpad={guildpad}/>
       <Contain>
         <Flex justifyContent='center' style={{background: 'black'}}>
-        <CountDown start={status === GUILDPAD_STATUS.ongoing} end={guildpad.epochEndDate}/>
+        <CountDown round={guildpad.round} start={status === GUILDPAD_STATUS.ongoing} end={guildpad.epochEndDate}/>
         </Flex>
         <ContainerBoxCard>
           {/* BOX CARD */}

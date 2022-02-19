@@ -1,12 +1,24 @@
-import { GuildpadConfig } from "./types";
-import MggGuildpad from "./Guildpads/MggGuildpad";
-import TankWarsZoneGuildpad from './Guildpads/TankWarsZone';
-import DemoleGuildpad from './Guildpads/Demole';
-import AcknoledgerGuildpad from './Guildpads/Acknoledger';
+import { GuildpadConfig } from './types'
+import TankWarsZoneGuildpad from './Guildpads/TankWarsZone'
+import TankWarsZoneGuildpad2 from './Guildpads/TankWarsZone2'
+import DemoleGuildpad from './Guildpads/Demole'
 
 const Guildpads: GuildpadConfig[] = [
-    TankWarsZoneGuildpad,
-    DemoleGuildpad,
+  {
+    id: 1,
+    title: 'TankWars Zone',
+    ... TankWarsZoneGuildpad
+  },
+  {
+    id: 2,
+    title: 'TankWars Zone (Round 2)',
+    ... TankWarsZoneGuildpad2
+  },
+  {
+    id: 3,
+    title: 'Demole',
+    ... DemoleGuildpad
+  },
 ]
 
 export default Guildpads

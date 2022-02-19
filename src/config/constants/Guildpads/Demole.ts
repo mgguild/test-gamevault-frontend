@@ -11,12 +11,11 @@ const socials = {
     youtube: 'https://www.youtube.com/channel/UCs69Rvm26wDYf7-r3YX2Bzw'
 }
 
-const guildpad: GuildpadConfig = {
-    id: 3,
-    title: 'Demole',
+const guildpad = {
     description: 'Demole is a 3D Metaverse Game that allows players to walk through 3 different modes of the world Metaverse from Station, RPG, and MOBA.',
     socials,
     type: TYPE.INO,
+    round: '1',
     distribution: DISTRIBUTION.AIRDROP,
     status: GUILDPAD_STATUS.upcoming,
     contractAddress: {

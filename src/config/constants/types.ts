@@ -221,6 +221,7 @@ interface GuildPadInformation {
   title: string;
   description: string;
   distribution?: string;
+  round: string;
   type?: Type;
   date?: {start: string, end: string};
   status: Status;
