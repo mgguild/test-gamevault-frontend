@@ -11,7 +11,7 @@ const Guildpads: GuildpadConfig[] = [
   },
   {
     id: 2,
-    title: 'TankWars Zone',
+    title: 'TankWars Zone (Round 2)',
     ... TankWarsZoneGuildpad2
   },
   {
