@@ -45,7 +45,7 @@ const guildpad = {
       }
     ]
   },
-  epochEndDate: 1645390800000,
+  epochEndDate: 1645362000000,
 }
 
 export default guildpad
