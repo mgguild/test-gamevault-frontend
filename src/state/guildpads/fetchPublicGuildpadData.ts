@@ -99,7 +99,7 @@ const fetchPublicGuildpadData = async (guildpad: Guildpad): Promise<PublicGuildp
     totalRaise: totalRaise.toString(),
     buyLimitEnabled: buyLimitEnabled[0],
     buyLimit: buyLimit.toString(),
-    whitelistEnabled,
+    whitelistEnabled: whitelistEnabled[0],
   }
 }
 

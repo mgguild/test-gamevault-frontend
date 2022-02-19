@@ -18,7 +18,7 @@ const guildpad = {
   status: GUILDPAD_STATUS.ongoing,
   contractAddress: {
     97: '0xE673E67bD59A7390725ED98cBead9A5928F6f51E',
-    56: '0xaB9877b5188853Db15c52eC8f65D5B343F017df0',
+    56: '0x00e05c0d19eB1a3B504da862c47282C7Dc046934',
   },
   buyingCoin: tokens.bnb,
   sellingCoin: tokens.TankWarsZone,

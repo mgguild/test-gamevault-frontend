@@ -217,7 +217,7 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps, userDataLoaded
   )
 
   useEffect(() => {
-    if (account && !guildpad.userData.isWhitelisted && !whitelistModalShowed && userDataLoaded) {
+    if (account && guildpad.whitelistEnabled && !guildpad.userData.isWhitelisted && !whitelistModalShowed && userDataLoaded) {
       showNotInWhitelistModal()
       setWhitelistModalShowed(true)
     }

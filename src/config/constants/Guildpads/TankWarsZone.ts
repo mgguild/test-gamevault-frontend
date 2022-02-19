@@ -15,7 +15,7 @@ const guildpad = {
   type: TYPE.INO,
   round: '1',
   distribution: DISTRIBUTION.AIRDROP,
-  status: GUILDPAD_STATUS.ongoing,
+  status: GUILDPAD_STATUS.completed,
   contractAddress: {
     97: '0xE673E67bD59A7390725ED98cBead9A5928F6f51E',
     56: '0xf99869Fb775456e84Aa980f1fC104297694b8c47',
