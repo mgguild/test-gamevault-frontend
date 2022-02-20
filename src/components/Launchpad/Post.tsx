@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import BigNumber from 'bignumber.js'
 import { Text, Flex, Button } from '@sparkpointio/sparkswap-uikit'
 import { getBalanceAmount } from 'utils/formatBalance'
@@ -107,6 +107,7 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
 }
 
 const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
+  const [rarityId, setRarityId] = useState('1')
   const [toggle, setToggle] = React.useState(false)
   const sites = guildpad.socials
   const isMobile = useMedia({ maxWidth: 500 })
@@ -116,6 +117,7 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
   const guildSymbol = sellingCoin.symbol
   const srcs = useFetchImage(sellingCoin.symbol);
   const totalRaiseInBnb = getBalanceAmount(new BigNumber(guildpad.totalRaise), 18).toString();
+  const hasRemainingSupply = (guildpad.boxInfo[rarityId].supply - guildpad.boxInfo[rarityId].sold) > 0
 
   return (
     <PostContainer>
@@ -141,7 +143,7 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
         </PadTitles>
         <PadActions>
         <div style={{display: 'grid', gridRowGap: '0.4rem'}}>
-          {guildpad.isSoldOut &&
+          {!hasRemainingSupply && guildpad.status === GUILDPAD_STATUS.completed &&
             <TokenProperty style={{backgroundColor: '#29b213'}}>
               <Text bold>SOLD OUT</Text>
             </TokenProperty>

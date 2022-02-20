@@ -225,7 +225,6 @@ interface GuildPadInformation {
   type?: Type;
   date?: {start: string, end: string};
   status: Status;
-  isSoldOut?: boolean;
   hasStarted?: boolean;
   hasEnded?: boolean;
   totalSupply?: string;
