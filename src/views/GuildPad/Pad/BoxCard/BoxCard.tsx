@@ -17,6 +17,8 @@ import { fetchGuildpadUserDataAsync, fetchPublicGuildpadDataAsync } from '../../
 import { useAppDispatch } from '../../../../state'
 import useEthBalance from '../../../../hooks/useEthBalance'
 import ModalWhitelist from '../Modal/ModalWhitelist'
+import { getStatus } from '../../../../utils/guildpadHelpers'
+import { GUILDPAD_STATUS } from '../../../../config/constants/types'
 
 
 export interface ImgProps {
@@ -224,6 +226,8 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps, userDataLoaded
   }, [account, guildpad, showNotInWhitelistModal, whitelistModalShowed, userDataLoaded])
 
   const hasRemainingSupply = (guildpad.boxInfo[rarityId].supply - guildpad.boxInfo[rarityId].sold) > 0
+
+  const status = getStatus(guildpad)
   return (
     <GCard>
       <div style={{ padding: '1rem 1rem' }}>
@@ -256,10 +260,10 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps, userDataLoaded
           {
             account && hasRemainingSupply &&
             <GridTwo>
-              <input disabled={guildpad.whitelistEnabled && !guildpad.userData.isWhitelisted} style={{borderRadius: '0.5rem 0 0 0.5rem', padding: '0.5rem', border: 'none'}} placeholder='Qty.'
+              <input disabled={(guildpad.whitelistEnabled && !guildpad.userData.isWhitelisted) || (status === GUILDPAD_STATUS.completed)} style={{borderRadius: '0.5rem 0 0 0.5rem', padding: '0.5rem', border: 'none'}} placeholder='Qty.'
                      name='buyQuantity' value={buyQuantity} onChange={onChange} />
               <JustifyR>
-                <Button disabled={(guildpad.whitelistEnabled && !guildpad.userData.isWhitelisted) || buyDisabled || buyQuantity <= 0}
+                <Button disabled={(guildpad.whitelistEnabled && !guildpad.userData.isWhitelisted) || buyDisabled || buyQuantity <= 0 || (status === GUILDPAD_STATUS.completed)}
                         onClick={handleBuy}
                         fullWidth
                         style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '0 0.5rem 0.5rem 0' }}>
