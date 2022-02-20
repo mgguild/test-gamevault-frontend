@@ -146,11 +146,6 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
               <Text bold>SOLD OUT</Text>
             </TokenProperty>
           }
-          {guildpad.status === GUILDPAD_STATUS.completed &&
-            <TokenProperty>
-                <Text>Total BnB Collected: {totalRaiseInBnb}</Text>
-            </TokenProperty>
-          }
         </div>
         <TokenProperty>
             <Text>{type}</Text>
