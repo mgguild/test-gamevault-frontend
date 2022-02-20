@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react'
+import BigNumber from 'bignumber.js'
 import { Text, Flex, Button } from '@sparkpointio/sparkswap-uikit'
+import { getBalanceAmount } from 'utils/formatBalance'
 import styled, { ThemeContext } from 'styled-components'
 import { ChevronUp, ChevronDown } from 'react-feather'
-import { GuildpadConfig, TYPE }  from 'config/constants/types'
+import { GuildpadConfig, GUILDPAD_STATUS, TYPE }  from 'config/constants/types'
 import { useFetchImage } from 'utils/assetFetch'
 import useMedia from 'use-media'
 import { Header, SaleContainer, SaleRow, PostBody, PostContainer, PostHeader, TokenProperty, Details, NavOption, PadTitles, PadActions } from './styled'
@@ -113,6 +115,7 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
   const pair = `${buyingCoin.symbol}/${sellingCoin.symbol}`
   const guildSymbol = sellingCoin.symbol
   const srcs = useFetchImage(sellingCoin.symbol);
+  const totalRaiseInBnb = getBalanceAmount(new BigNumber(guildpad.totalRaise), 18).toString();
 
   return (
     <PostContainer>
@@ -137,9 +140,21 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
           </TokenProperty> */}
         </PadTitles>
         <PadActions>
+        <div style={{display: 'grid', gridRowGap: '0.4rem'}}>
+          {guildpad.isSoldOut &&
+            <TokenProperty style={{backgroundColor: '#29b213'}}>
+              <Text bold>SOLD OUT</Text>
+            </TokenProperty>
+          }
+          {guildpad.status === GUILDPAD_STATUS.completed &&
+            <TokenProperty>
+                <Text>Total BnB Collected: {totalRaiseInBnb}</Text>
+            </TokenProperty>
+          }
+        </div>
         <TokenProperty>
-            <Text bold>{type}</Text>
-          </TokenProperty>
+            <Text>{type}</Text>
+        </TokenProperty>
         <Details onClick={() => setToggle(!toggle)}>
           Details &nbsp; {toggle ? <ChevronUp /> : <ChevronDown />}
         </Details>
