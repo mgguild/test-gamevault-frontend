@@ -237,6 +237,7 @@ interface GuildPadInformation {
   socials?: Socials;
   inoDetails?: InoDetails;
   idoDetails?: IdoDetails;
+  boxDetails?: any;
   epochEndDate?: number
 }
 
@@ -247,10 +248,7 @@ export interface GuildpadConfig extends GuildPadInformation {
   FundstoRaise?: string;
   buyingCoin?: Token;
   sellingCoin?:  Token;
-  projectTokenEquivalent?: string;
-  asOfPriceInProjectToken?: number;
   available?: string;
-  boxDetails?: any;
   boxInfo?: {
     1: {
       price: string,
