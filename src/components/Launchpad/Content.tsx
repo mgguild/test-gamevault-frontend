@@ -23,8 +23,8 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
 
   const renderSale = () => {
     const price = guildpad.boxInfo[rarity].price !== '0' ? guildpad.boxInfo[rarity].price : 'TBA'
-    const ratio = guildpad.inoDetails.ratio && guildpad.inoDetails.ratio
-    const boxes = guildpad.inoDetails.boxes ?? 'TBA'
+    // const ratio = guildpad.inoDetails.ratio && guildpad.inoDetails.ratio
+    // const boxes = guildpad.inoDetails.boxes ?? 'TBA'
     const start = guildpad.date.start ?? 'TBA'
     const end = guildpad.date.end ?? 'TBA'
     const distribution = guildpad.distribution
@@ -48,12 +48,12 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
                 </Text> }
             </div>
           </SaleRow>
-          {ratio && (
+          {/* {ratio && (
             <SaleRow justifyContent="space-between">
               <Text color="textSubtle">Ratio</Text>
               <Text>{guildpad.inoDetails.ratio}</Text>
             </SaleRow>
-          )}
+          )} */}
           <SaleRow justifyContent="space-between">
             <Text color="textSubtle">Sale Start Time</Text>
             <Text>{start}</Text>
@@ -67,7 +67,7 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
           {guildpad.type === TYPE.INO && (
             <SaleRow justifyContent="space-between">
               <Text color="textSubtle">Boxes for Sale</Text>
-              <Text>{boxes}</Text>
+              <Text>{guildpad.boxInfo[rarity].supply}</Text>
             </SaleRow>
           )}
           <SaleRow justifyContent="space-between">
