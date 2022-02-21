@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
+import moment from 'moment'
 import BigNumber from 'bignumber.js'
 import { Text, Flex, Button } from '@sparkpointio/sparkswap-uikit'
 import { getBalanceAmount } from 'utils/formatBalance'
@@ -34,14 +35,21 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
     const initMarketCap = 'TBA'
     const initTokenCirc = 'TBA'
 
+    // Remove last 3 digits on asOfPriceInProjectToken for moment format
+    const newEpoch = (guildpad.asOfPriceInProjectToken - (guildpad.asOfPriceInProjectToken % 1000)) / 1000
+    const asOfPriceTime = moment.unix(newEpoch).format('MMM DD, YYYY h A')
+
     return (
       <SaleContainer justifyContent="space-between">
         <Flex flexDirection="column">
           <SaleRow justifyContent="space-between">
             <Text color="textSubtle">Sale Price</Text>
             <div style={{textAlign: 'right'}}>
-              <Text>{price !== 'TBA' ? `${price} ${guildpad.buyingCoin.symbol} (1425 WBOND)` : price}</Text>
-              { price !== 'TBA' && <Text fontSize='12px'>(<em>as of Feb 18, 2022 8PM GMT+8</em>)</Text> }
+              <Text>{price !== 'TBA' ? `${price} ${guildpad.buyingCoin.symbol} (${guildpad.projectTokenEquivalent})` : price}</Text>
+              { price !== 'TBA' &&
+                <Text fontSize='12px'>
+                  (<em>as of {asOfPriceTime} UTC</em>)
+                </Text> }
             </div>
           </SaleRow>
           {ratio && (
