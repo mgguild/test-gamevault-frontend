@@ -1,5 +1,6 @@
-import { DISTRIBUTION, GUILDPAD_STATUS, TYPE } from '../types'
-import tokens from '../tokens'
+import BigNumber from 'bignumber.js'
+import { GuildpadConfig, GUILDPAD_STATUS, TYPE, DISTRIBUTION } from "../types";
+import tokens from '../tokens';
 
 const socials = {
   website: 'https://www.tankwars.zone/',
@@ -44,8 +45,6 @@ const guildpad = {
       }
     ]
   },
-  projectTokenEquivalent: '1425 WBOND',
-  asOfPriceInProjectToken: 1645362000000,
   epochEndDate: 1645275600000,
   nextRoundDate: 1645275600000
 }
