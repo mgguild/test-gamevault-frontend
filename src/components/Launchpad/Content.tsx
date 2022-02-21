@@ -41,7 +41,7 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
           <SaleRow justifyContent="space-between">
             <Text color="textSubtle">Sale Price</Text>
             <div style={{textAlign: 'right'}}>
-              <Text>{price !== 'TBA' ? `${price} ${guildpad.buyingCoin.symbol} (${guildpad.projectTokenEquivalent})` : price}</Text>
+              <Text>{price !== 'TBA' ? `${price} ${guildpad.buyingCoin.symbol}` : price} {guildpad.projectTokenEquivalent && `(${guildpad.projectTokenEquivalent})`}</Text>
               { price !== 'TBA' &&
                 <Text fontSize='12px'>
                   (<em>as of {asOfPriceTime} UTC</em>)
