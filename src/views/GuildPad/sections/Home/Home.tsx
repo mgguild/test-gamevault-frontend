@@ -41,7 +41,7 @@ const AnimContainerAdapt = styled(AnimContainer)`
     max-height: 600px;
   }
   @media (max-width: 500px) {
-    height: 300px;
+    height: 500px;
   }
 `
 
