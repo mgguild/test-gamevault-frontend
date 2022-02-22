@@ -30,7 +30,7 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
     const distribution = guildpad.distribution
     const initMarketCap = 'TBA'
     const initTokenCirc = 'TBA'
-
+    const InoPrice = 'tba '
     // Remove last 3 digits on asOfPriceInProjectToken for moment format
     const newEpoch = (guildpad.asOfPriceInProjectToken - (guildpad.asOfPriceInProjectToken % 1000)) / 1000
     const asOfPriceTime = moment.unix(newEpoch).format('MMM DD, YYYY h A')
