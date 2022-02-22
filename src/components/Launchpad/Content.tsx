@@ -30,6 +30,7 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
     const distribution = guildpad.distribution
     const initMarketCap = 'TBA'
     const initTokenCirc = 'TBA'
+    const inoPrice = guildpad.inoDetails.priceFiat ?? 'TBA'
 
     // Remove last 3 digits on asOfPriceInProjectToken for moment format
     const newEpoch = (guildpad.asOfPriceInProjectToken - (guildpad.asOfPriceInProjectToken % 1000)) / 1000
@@ -73,6 +74,10 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
           <SaleRow justifyContent="space-between">
             <Text color="textSubtle">{guildpad.type === TYPE.INO ? 'NFT' : 'TOKEN'} Distribution</Text>
             <Text>{distribution}</Text>
+          </SaleRow>
+          <SaleRow justifyContent="space-between">
+            <Text color="textSubtle">INO Price</Text>
+            <Text>{inoPrice}</Text>
           </SaleRow>
           {/* <SaleRow justifyContent="space-between">
             <Text color="textSubtle">Boxes Sold</Text>
