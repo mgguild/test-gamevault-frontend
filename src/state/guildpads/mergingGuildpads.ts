@@ -14,11 +14,9 @@ const groupMergables = (guildpads: Guildpad[]) => {
 
   // Filter guildpad titles that has ended and skip if no nextRoundID
   guildpads.forEach((guildpad, index) => {
-    console.log('groupMergables ', index)
     if(guildpad.hasEnded && guildpad.nextRoundID && !GPTitles.includes(guildpad.title)){
       // Get unique titles only
       GPTitles.push(guildpad.title)
-      console.log({title: guildpad.title, startingIndex: index})
       GPsIDsToMerge.push({title: guildpad.title, startingIndex: index})
     }
     return true
@@ -49,7 +47,6 @@ const mergingGuildpads = async (guildpads: Guildpad[]): Promise<Guildpad[]> => {
     }
   })
 
-  console.log(guildpads)
   return guildpads // guildpads merged
 }
 
