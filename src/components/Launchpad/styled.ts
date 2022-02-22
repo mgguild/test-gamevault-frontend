@@ -6,7 +6,7 @@ export const Header = styled(CardHeader)<{ src?: string }>`
   padding: 20px;
   align-items: flex-start;
   position: relative;
-  height: 15vh;
+  min-height: 15vh;
   justify-content: flex-end;
   ${({ src }) =>
     src &&

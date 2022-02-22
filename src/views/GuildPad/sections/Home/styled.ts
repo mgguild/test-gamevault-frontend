@@ -21,11 +21,9 @@ export const HomeContainer = styled(Flex)``
 
 export const AnimContainer = styled(Flex)`
   margin: 24px auto;
-  max-height: 500px;
-  max-width: 700px;
+  height: 500px;
   & > * {
     margin: 0px auto;
-   
   }
 `
 export const ButtonContainer = styled(Flex)`
