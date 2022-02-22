@@ -232,6 +232,7 @@ interface GuildPadInformation {
   totalRaise?: string;
   buyLimitEnabled?: boolean,
   whitelistEnabled?: boolean,
+  nextRoundID?: number,
   nextRoundDate?: number,
   buyLimit?: string,
   socials?: Socials;
