@@ -67,17 +67,17 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
           {guildpad.type === TYPE.INO && (
             <SaleRow justifyContent="space-between">
               <Text color="textSubtle">Boxes for Sale</Text>
-              <Text>{guildpad.boxInfo[rarity].supply}</Text>
+              <Text>{guildpad.totalSupply}</Text>
             </SaleRow>
           )}
           <SaleRow justifyContent="space-between">
             <Text color="textSubtle">{guildpad.type === TYPE.INO ? 'NFT' : 'TOKEN'} Distribution</Text>
             <Text>{distribution}</Text>
           </SaleRow>
-          {/* <SaleRow justifyContent="space-between">
+          <SaleRow justifyContent="space-between">
             <Text color="textSubtle">Boxes Sold</Text>
-            <Text>{guildpad.boxInfo[rarity].supply} / {guildpad.boxInfo[rarity].sold}</Text>
-          </SaleRow> */}
+            <Text>{guildpad.totalSold} / {guildpad.totalSupply}</Text>
+          </SaleRow>
           {guildpad.type === TYPE.IDO && (
             <>
               <SaleRow justifyContent="space-between">
