@@ -8,7 +8,6 @@ const Guildpads: GuildpadConfig[] = [
   {
     id: 0,
     title: 'TankWars Zone',
-    nextRoundID: 1,
     ... TankWarsZoneGuildpad
   },
   {
@@ -16,11 +15,18 @@ const Guildpads: GuildpadConfig[] = [
     title: 'TankWars Zone',
     ... TankWarsZoneGuildpad2
   },
-  {
+  { // MERGE HOLDER
     id: 2,
+    title: 'TankWars Zone',
+    toMergeID: 1,
+    display: true,
+    ... TankWarsZoneGuildpad
+  },
+  {
+    id: 3,
     title: 'Demole',
     ... DemoleGuildpad
-  },
+  }
 ]
 
 export default Guildpads

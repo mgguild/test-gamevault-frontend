@@ -224,6 +224,7 @@ interface GuildPadInformation {
   distribution?: string;
   round: string;
   type?: Type;
+  toMergeID?: number;
   date?: {start: string, end: string};
   status: Status;
   hasStarted?: boolean;
@@ -233,7 +234,7 @@ interface GuildPadInformation {
   totalRaise?: string;
   buyLimitEnabled?: boolean,
   whitelistEnabled?: boolean,
-  nextRoundID?: number,
+  display?: boolean,
   nextRoundDate?: number,
   buyLimit?: string,
   socials?: Socials;
