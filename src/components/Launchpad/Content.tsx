@@ -26,15 +26,17 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
     // const ratio = guildpad.inoDetails.ratio && guildpad.inoDetails.ratio
     // const boxes = guildpad.inoDetails.boxes ?? 'TBA'
     const start = guildpad.date.start ?? 'TBA'
-    const end = guildpad.date.end ?? 'TBA'
     const distribution = guildpad.distribution
     const initMarketCap = 'TBA'
     const initTokenCirc = 'TBA'
     const inoPrice = guildpad.inoDetails.priceFiat ?? 'TBA'
 
     // Remove last 3 digits on asOfPriceInProjectToken for moment format
-    const newEpoch = (guildpad.asOfPriceInProjectToken - (guildpad.asOfPriceInProjectToken % 1000)) / 1000
+    let newEpoch = (guildpad.asOfPriceInProjectToken - (guildpad.asOfPriceInProjectToken % 1000)) / 1000
     const asOfPriceTime = moment.unix(newEpoch).format('MMM DD, YYYY h A')
+
+    newEpoch = guildpad.epochEndDate ? (guildpad.epochEndDate - (guildpad.epochEndDate % 1000)) / 1000 : 0
+    const end = newEpoch !== 0 ? moment.unix(newEpoch).format('LLL') : 'TBA'
 
     return (
       <SaleContainer justifyContent="space-between">
