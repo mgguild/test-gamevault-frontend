@@ -3,7 +3,6 @@ import TankWarsZoneGuildpad from './Guildpads/TankWarsZone'
 import TankWarsZoneGuildpad2 from './Guildpads/TankWarsZone2'
 import DemoleGuildpad from './Guildpads/Demole'
 
-// Made ids equal to it's index for mergingGuildpads else it wont work
 const Guildpads: GuildpadConfig[] = [
   {
     id: 0,
