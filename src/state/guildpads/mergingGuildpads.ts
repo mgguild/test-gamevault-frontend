@@ -20,7 +20,7 @@ const mergingGuildpads = async (guildpads: Guildpad[]): Promise<Guildpad[]> => {
       })
     }
   })
-  console.log(guildpads)
+
   return guildpads // guildpads merged
 }
 
