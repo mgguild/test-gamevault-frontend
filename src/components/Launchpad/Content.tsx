@@ -30,13 +30,8 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
     const initMarketCap = 'TBA'
     const initTokenCirc = 'TBA'
     const inoPrice = guildpad.inoDetails.priceFiat ?? 'TBA'
-
-    // Remove last 3 digits on asOfPriceInProjectToken for moment format
-    let newEpoch = (guildpad.asOfPriceInProjectToken - (guildpad.asOfPriceInProjectToken % 1000)) / 1000
-    const asOfPriceTime = moment.unix(newEpoch).format('MMM DD, YYYY h A')
-
-    newEpoch = guildpad.epochEndDate ? (guildpad.epochEndDate - (guildpad.epochEndDate % 1000)) / 1000 : 0
-    const end = newEpoch !== 0 ? moment.unix(newEpoch).format('LLL') : 'TBA'
+    const asOfPriceTime = guildpad.asOfPriceInProjectToken ? moment(guildpad.asOfPriceInProjectToken).format('MMM DD, YYYY h A') : null
+    const end = guildpad.epochEndDate ? moment(guildpad.epochEndDate).format('LLL') : 'TBA'
 
     return (
       <SaleContainer justifyContent="space-between">
@@ -45,7 +40,7 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
             <Text color="textSubtle">Sale Price</Text>
             <div style={{textAlign: 'right'}}>
               <Text>{price !== 'TBA' ? `${price} ${guildpad.buyingCoin.symbol}` : price} {guildpad.projectTokenEquivalent && `(${guildpad.projectTokenEquivalent})`}</Text>
-              { price !== 'TBA' &&
+              { price !== 'TBA' && asOfPriceTime &&
                 <Text fontSize='12px'>
                   (<em>as of {asOfPriceTime} UTC</em>)
                 </Text> }
