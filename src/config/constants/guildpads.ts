@@ -1,28 +1,29 @@
 import { GuildpadConfig } from './types'
+import MergingTemplate from './Guildpads/mergingTemplate'
 import TankWarsZoneGuildpad from './Guildpads/TankWarsZone'
 import TankWarsZoneGuildpad2 from './Guildpads/TankWarsZone2'
 import DemoleGuildpad from './Guildpads/Demole'
 
 const Guildpads: GuildpadConfig[] = [
   {
-    id: 0,
+    id: 1,
     title: 'TankWars Zone',
+    nextRoundID: 2,
     ... TankWarsZoneGuildpad
   },
   {
-    id: 1,
+    id: 2,
     title: 'TankWars Zone',
     ... TankWarsZoneGuildpad2
   },
   { // MERGE HOLDER
-    id: 2,
+    id: 3,
     title: 'TankWars Zone',
     toMergeID: 1,
-    display: true,
-    ... TankWarsZoneGuildpad
+    ... MergingTemplate
   },
   {
-    id: 3,
+    id: 4,
     title: 'Demole',
     ... DemoleGuildpad
   }

@@ -225,6 +225,7 @@ interface GuildPadInformation {
   round: string;
   type?: Type;
   toMergeID?: number;
+  nextRoundID?: number;
   date?: {start: string, end: string};
   status: Status;
   hasStarted?: boolean;
