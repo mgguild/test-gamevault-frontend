@@ -184,14 +184,14 @@ export type PageMeta = {
 }
 
 export type Status = 'ongoing' | 'upcoming' | 'completed' | null;
-export type Type = 'INO' | 'IDO';
+export type Type = 'INO' | 'IDO' | 'IGO';
 export type Distribution = 'VESTING' | 'SELF-CLAIM' | 'AIRDROP';
 export const GUILDPAD_STATUS: { ongoing: Status; upcoming: Status; completed: Status } = {
   ongoing: 'ongoing',
   upcoming: 'upcoming',
   completed: 'completed',
 }
-export const TYPE: { INO: Type; IDO: Type } = { INO: 'INO', IDO: 'IDO' }
+export const TYPE: { INO: Type; IDO: Type; IGO: Type } = { INO: 'INO', IDO: 'IDO', IGO: 'IGO' }
 export const DISTRIBUTION: { VESTING: Distribution; SELF_CLAIM: Distribution; AIRDROP: Distribution} = {
   VESTING: 'VESTING',
   SELF_CLAIM: 'SELF-CLAIM',
