@@ -466,7 +466,7 @@ const Farms: React.FC = () => {
     () => getFarmV2Apr(LPPrice, rewardPrice, Number(mggFarm.totalDeposits), Number(mggFarm.rewardRate)),
     [LPPrice, rewardPrice, mggFarm.totalDeposits, mggFarm.rewardRate],
   )
-  console.log(mggFarm)
+  
   const apr = farmV2Apr > 0 ? `${farmV2Apr.toFixed(2)} %` : <Oval width="20px" height="20px" />
   const totalStaked = getBalanceAmount(new BigNumber(mggFarm.totalDeposits ?? 0)).toFormat(4) ?? (
     <Oval width="20px" height="20px" />
