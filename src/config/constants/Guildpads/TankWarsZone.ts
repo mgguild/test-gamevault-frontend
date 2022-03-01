@@ -24,7 +24,7 @@ const guildpad = {
   inoDetails: {
     price: '0.3073',
     boxes: '300',
-    priceFiat: '126 USD',
+    priceFiat: '126 USD'
   },
   date: {
     start: 'February 18, 2022 1PM UTC',

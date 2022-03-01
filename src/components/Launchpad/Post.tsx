@@ -59,7 +59,7 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
             <Text>{type}</Text>
         </TokenProperty>
         <Details onClick={() => setToggle(!toggle)}>
-          Details &nbsp; {toggle ? <ChevronUp /> : <ChevronDown />}
+          <Text  bold >Details</Text> &nbsp; <Text style={{display: 'flex', alignItems: 'center'}}>{toggle ? <ChevronUp /> : <ChevronDown />}</Text>
         </Details>
         </PadActions>
       </PostHeader>
