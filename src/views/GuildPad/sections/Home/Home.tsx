@@ -35,15 +35,14 @@ const HomeContainerAdapt = styled(TwoColumnHeader)`
 `
 const AnimContainerAdapt = styled(AnimContainer)`
   @media (min-width: 2500px) {
-   max-height: 1080px;
-   max-width: 1080px;
+   height: 1080px;
   }
-  @media screen and (max-width: 1100px) {
-    max-height: 600px;
-    max-width: 800px;
+  @media (max-width: 1100px) {
+   height: 500px;
+   width: 500px;
   }
-  @media (max-width: 320px) {
-    width: 300px;
+  @media (max-width: 500px) {
+    height: 500px;
   }
 `
 
