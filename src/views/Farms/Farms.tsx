@@ -3,6 +3,7 @@ import { Route, useLocation, useRouteMatch } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { Flex, Image, RowType, Toggle } from '@pancakeswap/uikit'
+import { Oval } from 'react-loading-icons'
 import { Text } from '@sparkpointio/sparkswap-uikit'
 import styled, { ThemeContext } from 'styled-components'
 import FlexLayout from 'components/layout/Flex'
@@ -12,6 +13,7 @@ import { SvgIcon } from '@material-ui/core'
 import { useFarms, usePollFarmsData, usePriceCakeBusd } from 'state/hooks'
 import usePersistState from 'hooks/usePersistState'
 import { useFarmPrice } from 'hooks/price'
+import usePrevious from 'utils/refHelpers'
 import { Farm } from 'state/types'
 import { useTranslation } from 'contexts/Localization'
 import { getBalanceNumber, getBalanceAmount } from 'utils/formatBalance'
@@ -172,8 +174,10 @@ const Farms: React.FC = () => {
       if (query) {
         const lowercaseQuery = latinise(query.toLowerCase())
         farmsToDisplayWithAPR = farmsToDisplayWithAPR.filter((farm: FarmWithStakedValue) => {
-          return latinise(farm.lpSymbol.toLowerCase()).includes(lowercaseQuery)
-            || latinise(farm.quoteToken.symbol.toLowerCase()).includes(lowercaseQuery)
+          return (
+            latinise(farm.lpSymbol.toLowerCase()).includes(lowercaseQuery) ||
+            latinise(farm.quoteToken.symbol.toLowerCase()).includes(lowercaseQuery)
+          )
         })
       }
       return farmsToDisplayWithAPR
@@ -189,7 +193,6 @@ const Farms: React.FC = () => {
 
   const [numberOfFarmsVisible, setNumberOfFarmsVisible] = useState(NUMBER_OF_FARMS_VISIBLE)
   const [observerIsSet, setObserverIsSet] = useState(false)
-
   const farmsStakedMemoized = useMemo(() => {
     let farmsStaked = []
 
@@ -315,7 +318,6 @@ const Farms: React.FC = () => {
     return row
   })
 
-
   const renderContent = (): JSX.Element => {
     if (viewMode === ViewMode.TABLE && rowData.length) {
       const columnSchema = DesktopColumnSchema
@@ -347,24 +349,42 @@ const Farms: React.FC = () => {
     }
 
     return (
-      <div style={{marginTop: '25x', paddingTop: '25px' }}>
+      <div style={{ marginTop: '25x', paddingTop: '25px' }}>
         <FlexLayout>
           <Route exact path={`${path}`}>
             {farmsStakedMemoized.map((farm) => (
-              <FarmCard userDataReady={userDataReady} key={farm.pid} farm={farm} cakePrice={cakePrice} account={account}
-                        removed={false} />
+              <FarmCard
+                userDataReady={userDataReady}
+                key={farm.pid}
+                farm={farm}
+                cakePrice={cakePrice}
+                account={account}
+                removed={false}
+              />
             ))}
           </Route>
           <Route exact path={`${path}/history`}>
             {farmsStakedMemoized.map((farm) => (
-              <FarmCard userDataReady={userDataReady} key={farm.pid} farm={farm} cakePrice={cakePrice} account={account}
-                        removed />
+              <FarmCard
+                userDataReady={userDataReady}
+                key={farm.pid}
+                farm={farm}
+                cakePrice={cakePrice}
+                account={account}
+                removed
+              />
             ))}
           </Route>
           <Route exact path={`${path}/archived`}>
             {farmsStakedMemoized.map((farm) => (
-              <FarmCard userDataReady={userDataReady} key={farm.pid} farm={farm} cakePrice={cakePrice} account={account}
-                        removed />
+              <FarmCard
+                userDataReady={userDataReady}
+                key={farm.pid}
+                farm={farm}
+                cakePrice={cakePrice}
+                account={account}
+                removed
+              />
             ))}
           </Route>
           {/* {farmsList(activeFarms).map((farm) => ( */}
@@ -380,62 +400,131 @@ const Farms: React.FC = () => {
   }
 
   const renderInactiveContent = (): JSX.Element => {
-
     return (
       <div>
         <div style={{ margin: '20px' }}>
-          <Text fontSize='24px' bold> Inactive Liquidity Pools </Text>
+          <Text fontSize="24px" bold>
+            {' '}
+            Inactive Liquidity Pools{' '}
+          </Text>
         </div>
 
         <FlexLayout>
           {farmsList(inactiveFarms).map((farm) => (
-            <FarmCard userDataReady={userDataReady} key={farm.pid} farm={farm} cakePrice={cakePrice} account={account}
-                      removed />
+            <FarmCard
+              userDataReady={userDataReady}
+              key={farm.pid}
+              farm={farm}
+              cakePrice={cakePrice}
+              account={account}
+              removed
+            />
           ))}
         </FlexLayout>
       </div>
     )
   }
 
-  const mggFarm = farmsStakedMemoized.filter((farm) => farm.isMain)[0];
-  console.log(mggFarm.stakingAddresses[chainId])
-  const token1Balance = useTokenBalance(mggFarm.token.address[chainId], mggFarm.lpAddresses[chainId])
-  const token2Balance = useTokenBalance(mggFarm.pairToken.address[chainId], mggFarm.lpAddresses[chainId])
-  const {LPPrice, rewardPrice} = useFarmPrice(Number(mggFarm.lpTotalSupply), mggFarm.token.address[chainId], mggFarm.pairToken.address[chainId], mggFarm.quoteToken.address[chainId], mggFarm.stakingAddresses[chainId], token1Balance.balance, token2Balance.balance)
-  const apr = getFarmV2Apr(LPPrice, rewardPrice, Number(mggFarm.totalDeposits), Number(mggFarm.rewardRate))
-  const totalStaked = getBalanceAmount(new BigNumber(mggFarm.totalDeposits ?? 0)).toFormat(4)
+  const [ isFetchData, setFetchData] = useState<boolean | null>(true); 
+  const mggFarm = farmsStakedMemoized.filter((farm) => farm.isMain)[0]
+
+  // const token1Balance = useTokenBalance(mggFarm.token.address[chainId], mggFarm.lpAddresses[chainId])
+  // const token2Balance = useTokenBalance(mggFarm.pairToken.address[chainId], mggFarm.lpAddresses[chainId])
+  const { LPPrice, rewardPrice } = useFarmPrice(
+    Number(mggFarm.lpTotalSupply),
+    mggFarm.token.address[56],
+    mggFarm.pairToken.address[56],
+    mggFarm.quoteToken.address[56],
+    mggFarm.lpAddresses[56],
+    isFetchData
+  )
+
+  const prevLPPrice = usePrevious(LPPrice);
+  const prevRewardPrice = usePrevious(rewardPrice);
+  useEffect(() => {
+    if ((LPPrice > 0) || (rewardPrice > 0)) {
+      setFetchData(false);
+    }   
+    setTimeout(() => {
+      setFetchData(true);
+      if ((LPPrice !== prevLPPrice) || (rewardPrice !== prevRewardPrice)) {
+        setFetchData(true);
+      } else {
+        setFetchData(false);
+      }
+    }, 60000);
+    if ((prevLPPrice === LPPrice) || (prevRewardPrice === rewardPrice)) {
+      setFetchData(false);
+    }
+    
+  }, [LPPrice, rewardPrice, setFetchData, prevLPPrice, prevRewardPrice])
+
+  useEffect(() => {
+    return setFetchData(null)
+  }, [])
+  const farmV2Apr = useMemo(
+    () => getFarmV2Apr(LPPrice, rewardPrice, Number(mggFarm.totalDeposits), Number(mggFarm.rewardRate)),
+    [LPPrice, rewardPrice, mggFarm.totalDeposits, mggFarm.rewardRate],
+  )
+  console.log(mggFarm)
+  const apr = farmV2Apr > 0 ? `${farmV2Apr.toFixed(2)} %` : <Oval width="20px" height="20px" />
+  const totalStaked = getBalanceAmount(new BigNumber(mggFarm.totalDeposits ?? 0)).toFormat(4) ?? (
+    <Oval width="20px" height="20px" />
+  )
+  const tvr = useMemo(
+    () => new BigNumber(mggFarm.lpTotalSupply).times(LPPrice).toFixed(4),
+    [mggFarm.lpTotalSupply, LPPrice],
+  )
+
   return (
     <>
       <PageHeader>
-        <Flex alignItems='center' justifyContent='space-around' flexDirection={['column', null, 'row']}
-              style={isMobile ? { flexDirection: 'column-reverse' } : { minHeight: '20vh', marginLeft: '-16px' }}
-              padding='24px'>
-
-        <Flex flexDirection='column' flex="2">
-          <Flex justifyContent='space-around' flexDirection='column' padding="25px 25px 25px 0px" mr={['8px', 0]} style={{borderBottom: `1px solid ${theme.colors.MGG_active}`}}>
-            <Text color={theme.colors.primary} fontSize='60px' bold>
-              Liquidity Staking
-            </Text>
-            <Text color='text' bold style={isMobile ? { fontSize: '17px' } : { fontSize: '27px' }}>
-              Earn MGG with your LP tokens!
-            </Text>
-          </Flex>
-          <InfoBox style={{width: '100%'}} margin="20px 0px 0px 0px" justifyContent="space-between">
-           <Flex flexDirection="column">
-             <Text fontSize='17px' bold color={theme.colors.MGG_accent2}>Total Tokens Staked</Text>
-             <Text fontSize='20px'> {totalStaked} {mggFarm.lpSymbol}</Text>
-           </Flex>
-           {/* <Flex flexDirection="column">
-             <Text fontSize='17px' bold color={theme.colors.MGG_accent2}>Total Value Locked</Text>
-             <Text fontSize='20px'>- USD</Text>
-           </Flex>
-            */}
-            <Flex flexDirection="column">
-              <Text fontSize='17px' bold color={theme.colors.MGG_accent2}>APR</Text>
-              <Text fontSize='20px'>{apr} % </Text>
+        <Flex
+          alignItems="center"
+          justifyContent="space-around"
+          flexDirection={['column', null, 'row']}
+          style={isMobile ? { flexDirection: 'column-reverse' } : { minHeight: '20vh', marginLeft: '-16px' }}
+          padding="24px"
+        >
+          <Flex flexDirection="column" flex="2">
+            <Flex
+              justifyContent="space-around"
+              flexDirection="column"
+              padding="25px 25px 25px 0px"
+              mr={['8px', 0]}
+              style={{ borderBottom: `1px solid ${theme.colors.MGG_active}` }}
+            >
+              <Text color={theme.colors.primary} fontSize="60px" bold>
+                Liquidity Staking
+              </Text>
+              <Text color="text" bold style={isMobile ? { fontSize: '17px' } : { fontSize: '27px' }}>
+                Earn MGG with your LP tokens!
+              </Text>
             </Flex>
-        </InfoBox>
-        </Flex>
+            <InfoBox style={{ width: '100%' }} margin="20px 0px 0px 0px" justifyContent="space-between">
+              <Flex flexDirection="column">
+                <Text fontSize="17px" bold color={theme.colors.MGG_accent2}>
+                  Total Tokens Staked
+                </Text>
+                <Text fontSize="20px">
+                  {' '}
+                  {totalStaked} {mggFarm.lpSymbol}
+                </Text>
+              </Flex>
+              <Flex flexDirection="column">
+                <Text fontSize="17px" bold color={theme.colors.MGG_accent2}>
+                  Total Value Locked
+                </Text>
+                <Text fontSize="20px">{Number(tvr) > 0 ? `${tvr} USD` : <Oval width="20px" height="20px" />}</Text>
+              </Flex>
+              <Flex flexDirection="column">
+                <Text fontSize="17px" bold color={theme.colors.MGG_accent2}>
+                  APR
+                </Text>
+                <Text fontSize="20px">{apr}</Text>
+              </Flex>
+            </InfoBox>
+          </Flex>
           {/* <Flex style={isMobile ? {
             fontSize: '150px',
             margin: 'auto',
@@ -448,7 +537,7 @@ const Farms: React.FC = () => {
         </Flex>
       </PageHeader>
       <Page>
-        { /* <ControlContainer>
+        {/* <ControlContainer>
           <ViewControls>
             <ToggleView viewMode={viewMode} onToggle={(mode: ViewMode) => setViewMode(mode)} />
             <ToggleWrapper>
