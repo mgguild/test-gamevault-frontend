@@ -430,15 +430,15 @@ const Farms: React.FC = () => {
 
   // const token1Balance = useTokenBalance(mggFarm.token.address[chainId], mggFarm.lpAddresses[chainId])
   // const token2Balance = useTokenBalance(mggFarm.pairToken.address[chainId], mggFarm.lpAddresses[chainId])
+  const lpTotalSupply = getBalanceNumber(new BigNumber(mggFarm.totalDeposits ?? 0))
   const { LPPrice, rewardPrice } = useFarmPrice(
-    Number(mggFarm.lpTotalSupply),
+    Number(lpTotalSupply),
     mggFarm.token.address[56],
     mggFarm.pairToken.address[56],
     mggFarm.quoteToken.address[56],
     mggFarm.lpAddresses[56],
     isFetchData
   )
-
   const prevLPPrice = usePrevious(LPPrice);
   const prevRewardPrice = usePrevious(rewardPrice);
   useEffect(() => {
@@ -458,7 +458,6 @@ const Farms: React.FC = () => {
     }
     
   }, [LPPrice, rewardPrice, setFetchData, prevLPPrice, prevRewardPrice])
-
   useEffect(() => {
     return setFetchData(null)
   }, [])
@@ -472,7 +471,7 @@ const Farms: React.FC = () => {
     <Oval width="20px" height="20px" />
   )
   const tvr = useMemo(
-    () => new BigNumber(mggFarm.lpTotalSupply).times(LPPrice).toFixed(4),
+    () => getBalanceAmount(new BigNumber(mggFarm.lpTotalSupply)).times(LPPrice).toFixed(4),
     [mggFarm.lpTotalSupply, LPPrice],
   )
 
