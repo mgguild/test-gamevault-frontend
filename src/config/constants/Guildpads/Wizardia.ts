@@ -21,7 +21,7 @@ const guildpad = {
   buyingCoin: tokens.busd,
   sellingCoin: tokens.Wizardia,
   inoDetails: {
-    pricaeFiat: '$0.08'
+    price: '$0.08'
   },
   date: {
     start: 'March 9, 2022 9PM UTC',
