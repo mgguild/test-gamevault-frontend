@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Flex } from '@metagg/mgg-uikit'
+import { Button, Flex, Heading } from '@metagg/mgg-uikit'
 import styled from 'styled-components'
 import SearchInput from 'components/SearchInput'
 import { GuildpadConfig } from 'config/constants/types'
@@ -31,8 +31,8 @@ const Inactive:React.FC<{guildpads?: GuildpadConfig[] | null}> = ({guildpads}) =
         <PageSection direction='column'>
             <BgContainer>
               <TabContainer>
-                  <ButtonTab borderRadius="10px 0px 0px 0px" onClick={() => setActiveIndex(1)} fullWidth activeIndex={activeIndex === 1}>UPCOMING LAUNCHES</ButtonTab>
-                  <ButtonTab borderRadius="0px 10px 0px 0px" onClick={() => setActiveIndex(2)} fullWidth activeIndex={activeIndex === 2}>PAST LAUNCHES</ButtonTab>
+                  <ButtonTab borderRadius="10px 0px 0px 0px" onClick={() => setActiveIndex(1)} fullWidth activeIndex={activeIndex === 1}><Heading>UPCOMING LAUNCHES</Heading></ButtonTab>
+                  <ButtonTab borderRadius="0px 10px 0px 0px" onClick={() => setActiveIndex(2)} fullWidth activeIndex={activeIndex === 2}><Heading>PAST LAUNCHES</Heading></ButtonTab>
               </TabContainer>
               <BoxContainer>
                   <GuildBoard tab={activeIndex} guildpads={guildpads} />

@@ -211,6 +211,7 @@ type InoDetails = {
   price?: string;
   ratio?: string;
   boxes?: string;
+  priceFiat?: string;
 }
 
 type IdoDetails = {
