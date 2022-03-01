@@ -98,7 +98,7 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
             </SaleRow>
           }
           <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">{guildpad.type === TYPE.INO ? 'NFT' : 'TOKEN'} Distribution</Text>
+            <Text color="textSubtle">{guildpad.type === TYPE.INO ? 'NFT' : 'Token'} Distribution</Text>
             <div style={{textAlign: 'right'}}>
               <Text>{distribution}</Text>
               { guildpad.distributionDesc &&
@@ -146,7 +146,7 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
           Description
         </NavOption>
         <NavOption onClick={() => setActive(2)} activeIndex={active === 2}>
-          {guildpad.type === TYPE.INO? 'NFT' : 'TOKEN'} Sale
+          {guildpad.type === TYPE.INO? 'NFT' : 'Token'} Sale
         </NavOption>
       </Flex>
       {active === 1 ? renderDescription() : active === 2 && renderSale()}
