@@ -43,8 +43,8 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
     const initMarketCap = 'TBA'
     const initTokenCirc = 'TBA'
     const inoPrice = guildpad.inoDetails ? guildpad.inoDetails.priceFiat : 'TBA'
-    const asOfPriceTime = guildpad.asOfPriceInProjectToken ? moment(guildpad.asOfPriceInProjectToken).format('MMM DD, YYYY h A') : null
-    const end = guildpad.epochEndDate ? moment(guildpad.epochEndDate).format('LLL') : 'TBA'
+    const asOfPriceTime = guildpad.asOfPriceInProjectToken ? moment(guildpad.asOfPriceInProjectToken).utc().format('MMM DD, YYYY h A') : null
+    const end = guildpad.epochEndDate ? moment(guildpad.epochEndDate).utc().format('LLL') : 'TBA'
 
     return (
       <SaleContainer justifyContent="space-between">
@@ -74,7 +74,7 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
           </SaleRow>
           <SaleRow justifyContent="space-between">
             <Text color="textSubtle">Sale End Time</Text>
-            <Text>{end}</Text>
+            <Text>{end} UTC</Text>
           </SaleRow>
         </Flex>
         <Flex flexDirection="column">
@@ -116,7 +116,7 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
           { guildpad.type === TYPE.INO &&
             <SaleRow justifyContent="space-between">
               <Text color="textSubtle">Boxes Sold</Text>
-              <Text>{guildpad.boxInfo[rarity].supply} / {guildpad.boxInfo[rarity].sold}</Text>
+              <Text>{guildpad.totalSold} / {guildpad.totalSupply}</Text>
             </SaleRow>
           }
           {guildpad.type === TYPE.IDO && (

@@ -26,8 +26,8 @@ const guildpad = {
     fundsTarget: '60,000 USD',
   },
   date: {
-    start: 'March 9, 2022 9PM UTC',
-    end: 'March 10, 2022 9PM UTC'
+    start: 'March 9, 2022 9:00 PM UTC',
+    end: 'March 10, 2022 9:00 PM UTC'
   },
   // projectTokenEquivalent: '1425 WBOND',
   // asOfPriceInProjectToken: 1645362000000,
