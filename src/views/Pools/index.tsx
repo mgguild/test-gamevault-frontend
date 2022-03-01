@@ -313,7 +313,7 @@ const Pools: React.FC = () => {
                 <Text fontSize="17px" bold color={theme.colors.MGG_accent2}>
                   APR
                 </Text>
-                <Text fontSize="20px"> {apr} % </Text>
+                <Text fontSize="20px"> {apr} </Text>
               </Flex>
             </InfoBox>
           </Flex>
