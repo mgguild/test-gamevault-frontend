@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Countdown, { calcTimeDelta} from 'react-countdown'
-import { Text } from '@metagg/mgg-uikit'
+import '../../../css/styleFX.css'
+import { Text, Flex, Heading, } from '@metagg/mgg-uikit'
+import styled, { ThemeContext } from 'styled-components'
 
 type dateSettingsProps = {
     isStart?: any;
@@ -14,6 +16,7 @@ type TimerProps = {
 
 const Timer: React.FC<TimerProps> = ({Renderer, dateSettings}) => {
     const { isStart, end } = dateSettings
+    const theme = useContext(ThemeContext)
     return (
         <Countdown
         date={end}
@@ -25,7 +28,24 @@ const Timer: React.FC<TimerProps> = ({Renderer, dateSettings}) => {
                 return Renderer(days,hours,minutes,seconds)
             }
           if (completed) {
-            return <Text>Round Ended</Text>
+            return (
+              <>
+                <div style={{position: 'relative'}}>
+                  <Flex style={{
+                    backgroundColor: theme.colors.MGG_container,
+                    margin: '1rem 0rem',
+                    padding: '1rem',
+                    justifyContent: 'center'
+                  }}
+                    className='crt inset-shadow'
+                  >
+                    <Heading className='puff-in-center' size='lg' textTransform='uppercase' style={{whiteSpace: 'nowrap', letterSpacing: ' 0.2rem'}}>
+                      「 Round Ended 」
+                    </Heading>
+                  </Flex>
+                </div>
+              </>
+            )
           }
           return ''
         }}

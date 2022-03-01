@@ -34,7 +34,7 @@ const Active: React.FC<{ guildpads?: GuildpadConfig[] }> = ({ guildpads }) => {
       <PageSection direction="column">
         <BgContainer>
           <BoxHeader>
-            <Heading size="l"> ONGOING LAUNCHES</Heading>
+            <Heading> ONGOING LAUNCHES</Heading>
           </BoxHeader>
           <BoxContainer borderColor={theme.colors.primary}>
             <CardGroup guildpads={guildpads} />
