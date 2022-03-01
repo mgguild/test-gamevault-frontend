@@ -514,7 +514,7 @@ const Farms: React.FC = () => {
                 <Text fontSize="17px" bold color={theme.colors.MGG_accent2}>
                   Total Value Locked
                 </Text>
-                <Text fontSize="20px">{Number(tvr) > 0 ? `${tvr} USD` : <Oval width="20px" height="20px" />}</Text>
+                <Text fontSize="20px">{Number(tvr) > 0 && Number(tvr) !== Infinity? `${tvr} USD` : <Oval width="20px" height="20px" />}</Text>
               </Flex>
               <Flex flexDirection="column">
                 <Text fontSize="17px" bold color={theme.colors.MGG_accent2}>
