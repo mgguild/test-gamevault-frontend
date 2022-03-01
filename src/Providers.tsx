@@ -3,6 +3,7 @@ import { ModalProvider } from '@metagg/mgg-uikit'
 import { Web3ReactProvider } from '@web3-react/core'
 import { HelmetProvider } from 'react-helmet-async'
 import { Provider } from 'react-redux'
+import { MoralisProvider } from 'react-moralis'
 import { getLibrary } from 'utils/web3React'
 import { ThemeContextProvider } from 'contexts/ThemeContext'
 import { LanguageProvider } from 'contexts/Localization'
@@ -14,6 +15,7 @@ const Providers: React.FC = ({ children }) => {
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
       <Provider store={store}>
+        <MoralisProvider appId={process.env.REACT_APP_MORALIS_APP_ID} serverUrl={process.env.REACT_APP_MORALIS_SERVER_URL}>
         <ToastsProvider>
           <HelmetProvider>
             <ThemeContextProvider>
@@ -25,6 +27,7 @@ const Providers: React.FC = ({ children }) => {
             </ThemeContextProvider>
           </HelmetProvider>
         </ToastsProvider>
+        </MoralisProvider>
       </Provider>
     </Web3ReactProvider>
   )

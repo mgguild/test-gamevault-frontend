@@ -105,12 +105,11 @@ const FarmCard: React.FC<FarmCardProps> = ({ userDataReady, farm, removed, cakeP
   const isPromotedFarm = farm.token.symbol === 'CAKE'
   const theme = useContext(ThemeContext)
 
-  const token1Balance = useTokenBalance(farm.token.address[56], farm.lpAddresses[56])
-  const token2Balance = useTokenBalance(farm.pairToken.address[56], farm.lpAddresses[56])
-  const {LPPrice, rewardPrice} = useFarmPrice(Number(farm.lpTotalSupply), farm.token.address[56], farm.pairToken.address[56], farm.quoteToken.address[56], farm.stakingAddresses[56], token1Balance.balance , token1Balance.balance)
-
+  // const token1Balance = useTokenBalance(farm.token.address[56], farm.lpAddresses[56])
+  // const token2Balance = useTokenBalance(farm.pairToken.address[56], farm.lpAddresses[56])
+  // const {LPPrice, rewardPrice} = useFarmPrice(Number(farm.lpTotalSupply), farm.token.address[56], farm.pairToken.address[56], farm.quoteToken.address[56], farm.lpAddresses[56])
   const aprBlackList = ["0x9f6b80e3867ab402081574e9e0a3be6fdf4ae95b"]
-  const apr = (aprBlackList.includes(farm.lpAddresses[56]) ? null : getFarmV2Apr(LPPrice, rewardPrice, Number(farm.totalDeposits), Number(farm.rewardRate)) )
+  // const apr = (aprBlackList.includes(farm.lpAddresses[56]) ? null : getFarmV2Apr(LPPrice, rewardPrice, Number(farm.totalDeposits), Number(farm.rewardRate)) )
 
   return (
     <FCard isPromotedFarm={isPromotedFarm}>
