@@ -212,6 +212,12 @@ type InoDetails = {
   ratio?: string;
   boxes?: string;
   priceFiat?: string;
+
+}
+
+type IgoDetails = {
+  price?: string;
+  fundsTarget?: string;
 }
 
 type IdoDetails = {
@@ -222,6 +228,7 @@ interface GuildPadInformation {
   title: string;
   description: string;
   distribution?: string;
+  distributionDesc?: string;
   round: string;
   type?: Type;
   date?: {start: string, end: string};
@@ -238,6 +245,7 @@ interface GuildPadInformation {
   socials?: Socials;
   inoDetails?: InoDetails;
   idoDetails?: IdoDetails;
+  igoDetails?: IgoDetails;
   epochEndDate?: number
 }
 

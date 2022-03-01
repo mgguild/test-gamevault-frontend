@@ -21,8 +21,21 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
     )
   }
 
+  const guildpadPrice = () => {
+    let price = 'TBA'
+
+    if(guildpad.type === TYPE.INO){
+      price = guildpad.boxInfo[rarity].price !== '0' ? guildpad.boxInfo[rarity].price : guildpad.inoDetails.price
+      price = price !== 'TBA' ? `${price} ${guildpad.buyingCoin.symbol}` : price
+    }
+    if(guildpad.type === TYPE.IGO){
+      price = guildpad.igoDetails.price
+    }
+    return(price)
+  }
+
   const renderSale = () => {
-    const price = guildpad.boxInfo[rarity].price !== '0' ? guildpad.boxInfo[rarity].price : 'TBA'
+    // const price = guildpad.boxInfo[rarity].price !== '0' ? guildpad.boxInfo[rarity].price : guildpad.inoDetails.price
     // const ratio = guildpad.inoDetails.ratio && guildpad.inoDetails.ratio
     // const boxes = guildpad.inoDetails.boxes ?? 'TBA'
     const start = guildpad.date.start ?? 'TBA'
@@ -30,11 +43,9 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
     const distribution = guildpad.distribution
     const initMarketCap = 'TBA'
     const initTokenCirc = 'TBA'
-    const inoPrice = guildpad.inoDetails.priceFiat ?? 'TBA'
+    const inoPrice = guildpad.inoDetails ? guildpad.inoDetails.priceFiat : 'TBA'
 
-    // Remove last 3 digits on asOfPriceInProjectToken for moment format
-    const newEpoch = (guildpad.asOfPriceInProjectToken - (guildpad.asOfPriceInProjectToken % 1000)) / 1000
-    const asOfPriceTime = moment.unix(newEpoch).format('MMM DD, YYYY h A')
+    const asOfPriceTime = guildpad.asOfPriceInProjectToken ? moment(guildpad.asOfPriceInProjectToken).format('MMM DD, YYYY h A') : null
 
     return (
       <SaleContainer justifyContent="space-between">
@@ -42,8 +53,11 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
           <SaleRow justifyContent="space-between">
             <Text color="textSubtle">Sale Price</Text>
             <div style={{textAlign: 'right'}}>
-              <Text>{price !== 'TBA' ? `${price} ${guildpad.buyingCoin.symbol}` : price} {guildpad.projectTokenEquivalent && `(${guildpad.projectTokenEquivalent})`}</Text>
-              { price !== 'TBA' &&
+              <Text>
+                {guildpadPrice()}
+                {guildpad.projectTokenEquivalent && `(${guildpad.projectTokenEquivalent})`}
+              </Text>
+              { asOfPriceTime &&
                 <Text fontSize='12px'>
                   (<em>as of {asOfPriceTime} UTC</em>)
                 </Text> }
@@ -71,14 +85,35 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
               <Text>{guildpad.boxInfo[rarity].supply}</Text>
             </SaleRow>
           )}
+          {guildpad.type === TYPE.IGO &&
+            <SaleRow justifyContent="space-between">
+              <Text color="textSubtle">Buying Coin</Text>
+              <Text>{guildpad.buyingCoin.symbol}</Text>
+            </SaleRow>
+          }
+          { guildpad.type === TYPE.IGO && guildpad.igoDetails.fundsTarget &&
+            <SaleRow justifyContent="space-between">
+              <Text color="textSubtle">Funds to be raised</Text>
+              <Text>{guildpad.igoDetails.fundsTarget}</Text>
+            </SaleRow>
+          }
           <SaleRow justifyContent="space-between">
             <Text color="textSubtle">{guildpad.type === TYPE.INO ? 'NFT' : 'TOKEN'} Distribution</Text>
-            <Text>{distribution}</Text>
+            <div style={{textAlign: 'right'}}>
+              <Text>{distribution}</Text>
+              { guildpad.distributionDesc &&
+                <Text fontSize='12px'>
+                  (<em>{guildpad.distributionDesc}</em>)
+                </Text>
+              }
+            </div>
           </SaleRow>
-          <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">INO Price</Text>
-            <Text>{inoPrice}</Text>
-          </SaleRow>
+          {guildpad.type === TYPE.INO &&
+            <SaleRow justifyContent="space-between">
+              <Text color="textSubtle">INO Price</Text>
+              <Text>{inoPrice}</Text>
+            </SaleRow>
+          }
           {/* <SaleRow justifyContent="space-between">
             <Text color="textSubtle">Boxes Sold</Text>
             <Text>{guildpad.boxInfo[rarity].supply} / {guildpad.boxInfo[rarity].sold}</Text>

@@ -13,6 +13,7 @@ const guildpad = {
   type: TYPE.IGO,
   round: '1',
   distribution: DISTRIBUTION.VESTING,
+  distributionDesc: '20% TGE and 20% per month for next 4 months',
   status: GUILDPAD_STATUS.upcoming,
   contractAddress: {
     97: '0x002',
@@ -20,28 +21,14 @@ const guildpad = {
   },
   buyingCoin: tokens.busd,
   sellingCoin: tokens.Wizardia,
-  inoDetails: {
-    price: '$0.08'
+  igoDetails: {
+    price: '0.08 USD',
+    fundsTarget: '60,000 USD',
   },
   date: {
     start: 'March 9, 2022 9PM UTC',
     end: 'March 10, 2022 9PM UTC'
   },
-  // boxDetails:{
-  //   redeemInfo: 'Mystery Box can be later redeemed for Tanks after the Game Official Launch.',
-  //   rewardList: [ // made into array in case tokens & nfts are both rewards
-  //     {
-  //       description: 'There are 5 different tank rarity levels:',
-  //       rarityLevels: [
-  //         '5923 Common Tanks',
-  //         '2200 Uncommon Tanks',
-  //         '1100 Rare Tanks',
-  //         '555 Epic Tanks',
-  //         '222 Legendary Tanks',
-  //       ]
-  //     }
-  //   ]
-  // },
   // projectTokenEquivalent: '1425 WBOND',
   // asOfPriceInProjectToken: 1645362000000,
   epochEndDate: 1646946000000,
