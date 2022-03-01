@@ -184,14 +184,14 @@ export type PageMeta = {
 }
 
 export type Status = 'ongoing' | 'upcoming' | 'completed' | null;
-export type Type = 'INO' | 'IDO';
+export type Type = 'INO' | 'IDO' | 'IGO';
 export type Distribution = 'VESTING' | 'SELF-CLAIM' | 'AIRDROP';
 export const GUILDPAD_STATUS: { ongoing: Status; upcoming: Status; completed: Status } = {
   ongoing: 'ongoing',
   upcoming: 'upcoming',
   completed: 'completed',
 }
-export const TYPE: { INO: Type; IDO: Type } = { INO: 'INO', IDO: 'IDO' }
+export const TYPE: { INO: Type; IDO: Type; IGO: Type } = { INO: 'INO', IDO: 'IDO', IGO: 'IGO' }
 export const DISTRIBUTION: { VESTING: Distribution; SELF_CLAIM: Distribution; AIRDROP: Distribution} = {
   VESTING: 'VESTING',
   SELF_CLAIM: 'SELF-CLAIM',
@@ -212,6 +212,12 @@ type InoDetails = {
   ratio?: string;
   boxes?: string;
   priceFiat?: string;
+
+}
+
+type IgoDetails = {
+  price?: string;
+  fundsTarget?: string;
 }
 
 type IdoDetails = {
@@ -222,6 +228,7 @@ interface GuildPadInformation {
   title: string;
   description: string;
   distribution?: string;
+  distributionDesc?: string;
   round: string;
   type?: Type;
   toMergeID?: number;
@@ -241,6 +248,7 @@ interface GuildPadInformation {
   socials?: Socials;
   inoDetails?: InoDetails;
   idoDetails?: IdoDetails;
+  igoDetails?: IgoDetails;
   epochEndDate?: number
 }
 

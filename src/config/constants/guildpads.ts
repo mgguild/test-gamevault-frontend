@@ -2,6 +2,7 @@ import { GuildpadConfig, GUILDPAD_STATUS } from './types'
 import TankWarsZoneGuildpad from './Guildpads/TankWarsZone'
 import TankWarsZoneGuildpad2 from './Guildpads/TankWarsZone2'
 import DemoleGuildpad from './Guildpads/Demole'
+import WizardiaGuildpad from './Guildpads/Wizardia'
 
 const Guildpads: GuildpadConfig[] = [
   {
@@ -32,6 +33,11 @@ const Guildpads: GuildpadConfig[] = [
     id: 4,
     title: 'Demole',
     ... DemoleGuildpad
+  },
+  {
+    id: 5,
+    title: 'Wizardia',
+    ... WizardiaGuildpad
   }
 ]
 
