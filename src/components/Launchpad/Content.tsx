@@ -113,10 +113,12 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
               <Text>{inoPrice}</Text>
             </SaleRow>
           }
-          {/* <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Boxes Sold</Text>
-            <Text>{guildpad.boxInfo[rarity].supply} / {guildpad.boxInfo[rarity].sold}</Text>
-          </SaleRow> */}
+          { guildpad.type === TYPE.INO &&
+            <SaleRow justifyContent="space-between">
+              <Text color="textSubtle">Boxes Sold</Text>
+              <Text>{guildpad.boxInfo[rarity].supply} / {guildpad.boxInfo[rarity].sold}</Text>
+            </SaleRow>
+          }
           {guildpad.type === TYPE.IDO && (
             <>
               <SaleRow justifyContent="space-between">
