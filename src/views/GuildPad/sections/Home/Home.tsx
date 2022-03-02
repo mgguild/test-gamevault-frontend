@@ -79,10 +79,13 @@ const HomeSection: React.FC = () => {
                 BUY MGG
               </Button>
               </form>
-              <form action="https://docs.google.com/forms/d/1BqJHkJYQSuKScdyLKrtMqMkhi5SHe8srOQnQxjcEQ8k" style={{width: '100%'}}>
-              <Button type="submit" disabled fullWidth style={{ backgroundColor: theme.colors.backgroundDisabled, borderRadius: '4px' }}>
+              <form action="https://verify-with.blockpass.org/?clientId=dao_gaming_guild_limited_45e18&serviceName=DAO%20GAMING%20GUILD%20LIMITED&env=prod" style={{width: '100%'}}>
+              <Button type="submit" fullWidth style={{ backgroundColor: theme.colors.MGG_accent2, borderRadius: '4px' }}>
                 Apply KYC
               </Button>
+              <Text fontSize='12px'>
+                  ( <em>Only MGG holders under lowest tier should undergo KYC to participate in our IGO.</em> )
+                </Text>
               </form>
             </ButtonContainer>
           </StyledFlex>
