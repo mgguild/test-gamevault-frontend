@@ -22,7 +22,7 @@ const guildpad = {
   buyingCoin: tokens.busd,
   sellingCoin: tokens.Wizardia,
   igoDetails: {
-    price: '0.08 USD',
+    price: '0.12 USD',
     fundsTarget: '60,000 USD',
   },
   date: {
