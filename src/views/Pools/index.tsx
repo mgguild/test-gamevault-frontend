@@ -301,7 +301,7 @@ const Pools: React.FC = () => {
                 <Text fontSize="17px" bold color={theme.colors.MGG_accent2}>
                   Total MGG Staked
                 </Text>
-                <Text fontSize="20px"> {totalStaked} MGG</Text>
+                <Text fontSize="20px"> {totalStaked ? `${totalStaked} MGG` : <Oval width="20px" height="20px" />} </Text>
               </Flex>
               <Flex flexDirection="column">
                 <Text fontSize="17px" bold color={theme.colors.MGG_accent2}>

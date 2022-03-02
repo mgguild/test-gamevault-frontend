@@ -467,7 +467,7 @@ const Farms: React.FC = () => {
   )
   
   const apr = farmV2Apr > 0 ? `${farmV2Apr.toFixed(2)} %` : <Oval width="20px" height="20px" />
-  const totalStaked = getBalanceAmount(new BigNumber(mggFarm.totalDeposits ?? 0)).toFormat(4) ?? (
+  const totalStaked = getBalanceNumber(new BigNumber(mggFarm.totalDeposits)) > 0? `${getBalanceAmount(new BigNumber(mggFarm.totalDeposits)).toFormat(4)} ${mggFarm.lpSymbol}` : (
     <Oval width="20px" height="20px" />
   )
   const tvr = useMemo(
@@ -507,7 +507,7 @@ const Farms: React.FC = () => {
                 </Text>
                 <Text fontSize="20px">
                   {' '}
-                  {totalStaked} {mggFarm.lpSymbol}
+                  {totalStaked}
                 </Text>
               </Flex>
               <Flex flexDirection="column">
