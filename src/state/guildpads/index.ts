@@ -1,9 +1,11 @@
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import BigNumber from 'bignumber.js'
 import guildpadsConfig from 'config/constants/guildpads'
 import { Guildpad, GuildpadState } from '../types'
 import fetchGuildpads from './fetchGuildpads'
 import { fetchGuildpadIsUserWhitelisted, fetchGuildpadUserBoxes } from './fetchGuildpadUser'
+import  mergingGuildpads from './mergingGuildpads';
 
 const noAccountGuildpadConfig = guildpadsConfig.map((guildpad) => ({
   ...guildpad,
@@ -36,7 +38,8 @@ export const fetchPublicGuildpadDataAsync = createAsyncThunk<Guildpad[], number[
     const guildpadToFetch = guildpadsConfig.filter((guildpadConfig) => ids.includes(guildpadConfig.id))
     const guildpads = await fetchGuildpads(guildpadToFetch)
 
-    return guildpads
+    const guildpadsMerged = await mergingGuildpads(guildpads)
+    return guildpadsMerged
   },
 )
 
