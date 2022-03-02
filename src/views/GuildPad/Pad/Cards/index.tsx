@@ -337,6 +337,9 @@ const Card: React.FC<{ guildpad: GuildpadConfig, userDataLoaded: boolean }> = ({
         return (
           <>
             <IdoCard guildpad={guildpad} userDataLoaded={userDataLoaded} />
+            <ContainerProjDesc>
+              <Content guildpad={guildpad} />
+            </ContainerProjDesc>
           </>
         )
       default:
