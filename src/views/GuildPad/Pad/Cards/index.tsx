@@ -334,7 +334,11 @@ const Card: React.FC<{ guildpad: GuildpadConfig, userDataLoaded: boolean }> = ({
           </>
         )
       case TYPE.IDO:
-        return <IdoCard guildpad={guildpad} userDataLoaded={userDataLoaded} />
+        return (
+          <>
+            <IdoCard guildpad={guildpad} userDataLoaded={userDataLoaded} />
+          </>
+        )
       default:
         return <Text>Please Wait</Text>
     }
