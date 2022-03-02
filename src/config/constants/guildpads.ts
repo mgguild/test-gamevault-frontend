@@ -18,14 +18,14 @@ const Guildpads: GuildpadConfig[] = [
   },
   {
     id: 4,
-    title: 'Demole',
-    ... DemoleGuildpad
+    title: 'Wizardia',
+    ... WizardiaGuildpad
   },
   {
     id: 5,
-    title: 'Wizardia',
-    ... WizardiaGuildpad
-  }
+    title: 'Demole',
+    ... DemoleGuildpad
+  },
 ]
 
 export default Guildpads
