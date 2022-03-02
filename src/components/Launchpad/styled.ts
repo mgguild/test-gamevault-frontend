@@ -100,6 +100,9 @@ export const PostBody = styled(Flex)`
   padding: 20px 30px;
   background-color: ${({ theme }) => theme.card.background};
   flex-direction: column;
+  & > * {
+    z-index: 1;
+  }
 `
 export const PostContainer = styled.div`
   width: 100%;

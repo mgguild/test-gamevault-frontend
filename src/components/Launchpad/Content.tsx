@@ -140,7 +140,7 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
       <Flex
         alignItems="center"
         margin="10px 0px 20px 0px"
-        style={{ borderBottom: `0.5px solid ${theme.colors.primary}`, width: '100%' }}
+        style={{ borderBottom: `0.5px solid ${theme.colors.primary}`, width: '100%'}}
       >
         <NavOption onClick={() => setActive(1)} activeIndex={active === 1}>
           Description
