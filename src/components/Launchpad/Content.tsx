@@ -9,7 +9,6 @@ import { SaleContainer, SaleRow, PostBody, NavOption } from './styled'
 
 const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpad, rarity = '1'}) => {
   const theme = useContext(ThemeContext)
-  console.log('theme: ', theme);
   const [active, setActive] = useState(1)
 
   const renderDescription = () => {
