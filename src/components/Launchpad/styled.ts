@@ -70,7 +70,8 @@ export const PostHeader = styled(Header)<{background?:string}>`
   // background-repeat: no-repeat;
   border-top: 3px solid ${(({theme}) => theme.colors.MGG_active)};
   border-bottom: 3px solid ${(({theme}) => theme.colors.MGG_active)};
-  ${({ background }) =>
+  background: #101010;
+  ${({ background, theme }) =>
   background &&
   `
       &:before {
@@ -79,7 +80,7 @@ export const PostHeader = styled(Header)<{background?:string}>`
           position: absolute;
           left: 0;
           top: 0;
-          opacity: 0.2;
+          opacity: ${theme.isDark ? 0.2 : 0.5};
           width: 100%;
           height: 100%;
           z-index: 1;
