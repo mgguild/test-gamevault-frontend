@@ -6,20 +6,26 @@ import WizardiaGuildpad from './Guildpads/Wizardia'
 
 const Guildpads: GuildpadConfig[] = [
   {
-    id: 3,
-    title: 'Wizardia',
-    ... WizardiaGuildpad
+    id: 1,
+    title: 'TankWars Zone',
+    nextRoundID: 2,
+    ... TankWarsZoneGuildpad
   },
   {
     id: 2,
+    title: 'TankWars Zone (Round 2)',
+    ... TankWarsZoneGuildpad2
+  },
+  {
+    id: 4,
     title: 'Demole',
     ... DemoleGuildpad
   },
   {
-    id: 1,
-    title: 'TankWars Zone',
-    ... TankWarsZoneGuildpad
-  },
+    id: 5,
+    title: 'Wizardia',
+    ... WizardiaGuildpad
+  }
 ]
 
 export default Guildpads

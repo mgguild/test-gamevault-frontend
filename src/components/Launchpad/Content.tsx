@@ -39,13 +39,12 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
     // const ratio = guildpad.inoDetails.ratio && guildpad.inoDetails.ratio
     // const boxes = guildpad.inoDetails.boxes ?? 'TBA'
     const start = guildpad.date.start ?? 'TBA'
-    const end = guildpad.date.end ?? 'TBA'
     const distribution = guildpad.distribution
     const initMarketCap = 'TBA'
     const initTokenCirc = 'TBA'
     const inoPrice = guildpad.inoDetails ? guildpad.inoDetails.priceFiat : 'TBA'
-
-    const asOfPriceTime = guildpad.asOfPriceInProjectToken ? moment(guildpad.asOfPriceInProjectToken).format('MMM DD, YYYY h A') : null
+    const asOfPriceTime = guildpad.asOfPriceInProjectToken ? moment(guildpad.asOfPriceInProjectToken).utc().format('MMM DD, YYYY h A') : null
+    const end = guildpad.epochEndDate ? moment(guildpad.epochEndDate).utc().format('LLL') : 'TBA'
 
     return (
       <SaleContainer justifyContent="space-between">
@@ -75,14 +74,14 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
           </SaleRow>
           <SaleRow justifyContent="space-between">
             <Text color="textSubtle">Sale End Time</Text>
-            <Text>{end}</Text>
+            <Text>{end} UTC</Text>
           </SaleRow>
         </Flex>
         <Flex flexDirection="column">
           {guildpad.type === TYPE.INO && (
             <SaleRow justifyContent="space-between">
               <Text color="textSubtle">Boxes for Sale</Text>
-              <Text>{guildpad.boxInfo[rarity].supply}</Text>
+              <Text>{guildpad.totalSupply}</Text>
             </SaleRow>
           )}
           {guildpad.type === TYPE.IGO &&
@@ -114,10 +113,12 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
               <Text>{inoPrice}</Text>
             </SaleRow>
           }
-          {/* <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Boxes Sold</Text>
-            <Text>{guildpad.boxInfo[rarity].supply} / {guildpad.boxInfo[rarity].sold}</Text>
-          </SaleRow> */}
+          { guildpad.type === TYPE.INO &&
+            <SaleRow justifyContent="space-between">
+              <Text color="textSubtle">Boxes Sold</Text>
+              <Text>{guildpad.totalSold} / {guildpad.totalSupply}</Text>
+            </SaleRow>
+          }
           {guildpad.type === TYPE.IDO && (
             <>
               <SaleRow justifyContent="space-between">

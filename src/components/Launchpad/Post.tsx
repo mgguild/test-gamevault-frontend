@@ -23,7 +23,7 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
   const guildSymbol = sellingCoin.symbol
   const srcs = useFetchImage(sellingCoin.symbol);
   const totalRaiseInBnb = getBalanceAmount(new BigNumber(guildpad.totalRaise), 18).toString();
-  const hasRemainingSupply = (guildpad.boxInfo[rarityId].supply - guildpad.boxInfo[rarityId].sold) > 0
+  const hasRemainingSupply = new BigNumber(new BigNumber(guildpad.totalSupply).minus(new BigNumber(guildpad.totalSold))).isGreaterThan(0)
 
   return (
     <PostContainer>
