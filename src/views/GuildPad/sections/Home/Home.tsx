@@ -83,8 +83,8 @@ const HomeSection: React.FC = () => {
               <Button type="submit" fullWidth style={{ backgroundColor: theme.colors.MGG_accent2, borderRadius: '4px' }}>
                 Apply KYC
               </Button>
-              <Text fontSize='12px'>
-                  ( <em>Only MGG holders under lowest tier should undergo KYC to participate in our IGO.</em> )
+              <Text fontSize='10px'>
+                  * <em>Only MGG holders under lowest tier should undergo KYC to participate in our IGO.</em> *
                 </Text>
               </form>
             </ButtonContainer>
