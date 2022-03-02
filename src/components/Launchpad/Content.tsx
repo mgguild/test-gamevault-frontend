@@ -44,7 +44,7 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
     const initTokenCirc = 'TBA'
     const inoPrice = guildpad.inoDetails ? guildpad.inoDetails.priceFiat : 'TBA'
     const asOfPriceTime = guildpad.asOfPriceInProjectToken ? moment(guildpad.asOfPriceInProjectToken).utc().format('MMM DD, YYYY h A') : null
-    const end = guildpad.epochEndDate ? moment(guildpad.epochEndDate).utc().format('LLL') : 'TBA'
+    const end = guildpad.epochEndDate ? `${moment(guildpad.epochEndDate).utc().format('LLL')} UTC` : 'TBA'
 
     return (
       <SaleContainer justifyContent="space-between">
@@ -74,7 +74,7 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
           </SaleRow>
           <SaleRow justifyContent="space-between">
             <Text color="textSubtle">Sale End Time</Text>
-            <Text>{end} UTC</Text>
+            <Text>{end}</Text>
           </SaleRow>
         </Flex>
         <Flex flexDirection="column">
@@ -107,7 +107,7 @@ const Content: React.FC<{guildpad: GuildpadConfig, rarity?: string }>= ({guildpa
               }
             </div>
           </SaleRow>
-          {guildpad.type === TYPE.INO &&
+          {guildpad.type === TYPE.INO && inoPrice &&
             <SaleRow justifyContent="space-between">
               <Text color="textSubtle">INO Price</Text>
               <Text>{inoPrice}</Text>

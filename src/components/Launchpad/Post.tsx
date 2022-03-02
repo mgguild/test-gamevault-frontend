@@ -39,6 +39,7 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
            padding="0px"
            socMeds={sites}
            socMedsSize={22}
+           color="white"
           />
           {/* <TokenProperty>
             <Text bold>{pair}</Text>
