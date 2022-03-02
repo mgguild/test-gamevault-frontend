@@ -74,19 +74,21 @@ const HomeSection: React.FC = () => {
             </Text>
             <hr  style={{width: '100%', border: 'none', borderBottom: `1px solid ${theme.colors.primary}`}}/>
             <ButtonContainer>
-              <form action="https://coinmarketcap.com/currencies/metagaming-guild/" style={{width: '100%'}}>
-              <Button type="submit"fullWidth style={{ borderRadius: '4px' }}>
-                BUY MGG
+              <Button href="https://coinmarketcap.com/currencies/metagaming-guild/"
+                      external
+                      fullWidth as='a'  style={{ borderRadius: '4px' }}>
+                Buy MGG
               </Button>
-              </form>
-              <form action="https://verify-with.blockpass.org/?clientId=dao_gaming_guild_limited_45e18&serviceName=DAO%20GAMING%20GUILD%20LIMITED&env=prod" style={{width: '100%'}}>
-              <Button type="submit" fullWidth style={{ backgroundColor: theme.colors.MGG_accent2, borderRadius: '4px' }}>
-                Apply KYC
-              </Button>
-              <Text fontSize='10px'>
+              <div>
+                <Button href="https://verify-with.blockpass.org/?clientId=dao_gaming_guild_limited_45e18&serviceName=DAO%20GAMING%20GUILD%20LIMITED&env=prod"
+                        external
+                        fullWidth as='a' style={{ backgroundColor: theme.colors.MGG_accent2, borderRadius: '4px' }}>
+                  Apply KYC
+                </Button>
+                <Text fontSize='10px'>
                   * <em>Only MGG holders under lowest tier should undergo KYC to participate in our IGO.</em> *
                 </Text>
-              </form>
+              </div>
             </ButtonContainer>
           </StyledFlex>
           <AnimContainerAdapt>
