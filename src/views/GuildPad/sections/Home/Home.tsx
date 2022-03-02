@@ -75,16 +75,12 @@ const HomeSection: React.FC = () => {
             <hr  style={{width: '100%', border: 'none', borderBottom: `1px solid ${theme.colors.primary}`}}/>
             <ButtonContainer>
               <div style={{width: '100%'}}>
-              <Button href="https://coinmarketcap.com/currencies/metagaming-guild/"
-                      external
-                      fullWidth as='a'  style={{ borderRadius: '4px' }}>
+              <Button href="https://coinmarketcap.com/currencies/metagaming-guild/" external fullWidth as='a'  style={{ borderRadius: '4px' }}>
                 Buy MGG
               </Button>
               </div>
               <div style={{width: '100%'}}>
-                <Button href="https://verify-with.blockpass.org/?clientId=dao_gaming_guild_limited_45e18&serviceName=DAO%20GAMING%20GUILD%20LIMITED&env=prod"
-                        external
-                        fullWidth as='a' style={{ backgroundColor: theme.colors.MGG_accent2, borderRadius: '4px' }}>
+                <Button href="https://verify-with.blockpass.org/?clientId=dao_gaming_guild_limited_45e18&serviceName=DAO%20GAMING%20GUILD%20LIMITED&env=prod" external fullWidth as='a' style={{ backgroundColor: theme.colors.MGG_accent2, borderRadius: '4px' }}>
                   Apply KYC
                 </Button>
                 <Text fontSize='10px'>
