@@ -24,7 +24,8 @@ const TokenLogo = styled.img<{ size?: string }>`
 `
 
 type LogoProps = {
-  tokenName: string
+  tokenName?: string
+  tokenSize?: string
   nameSize?: string
   primaryToken: Token
   subtitle?: string
@@ -33,12 +34,12 @@ type LogoProps = {
   padding?: string
 }
 
-const Logo: React.FC<LogoProps> = ({ tokenName, nameSize = 'l', primaryToken, subtitle, socMeds, socMedsSize = 16, padding = '24px' }) => {
+const Logo: React.FC<LogoProps> = ({ tokenSize, tokenName, nameSize = 'l', primaryToken, subtitle, socMeds, socMedsSize = 16, padding = '24px' }) => {
   const theme = useContext(ThemeContext)
 
   return (
     <Flex padding={padding}>
-      <TokenLogo src={getImageUrlFromToken(primaryToken)} />
+      <TokenLogo size={tokenSize} src={getImageUrlFromToken(primaryToken)} />
       <Flex flexDirection="column" justifyContent="center" alignItems="flex-start">
         <Heading size={nameSize}>{tokenName}</Heading>
         {socMeds ? (
