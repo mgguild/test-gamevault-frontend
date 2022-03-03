@@ -6,12 +6,18 @@ export const ContainerBoxCard = styled(Flex)`
   margin: 4rem 5rem;
   align-items: center;
   justify-content: center;
+  ${({theme}) => !theme.isDark && `
+    & > * { 
+      z-index: 1;
+     }
+  `}
 `
 
 export const MarketCard = styled(Flex)`
     background-color: ${(({theme}) => theme.colors.MGG_container)};
     padding: 10px;
     flex-direction: column;
+    
 `
 
 const MarketCardSection = styled(Flex)`
