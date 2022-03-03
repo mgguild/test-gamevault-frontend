@@ -84,7 +84,7 @@ const HomeSection: React.FC = () => {
                   Apply KYC
                 </Button>
                 <Text fontSize='10px'>
-                  * <em>MGG holders who are qualified to participate based on IGO Tier List are required to undergo KYC.</em> *
+                  <em>MGG holders who are qualified to participate based on IGO Tier List are required to undergo KYC.</em>
                 </Text>
               </div>
             </ButtonContainer>
