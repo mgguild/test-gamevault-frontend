@@ -17,12 +17,12 @@ const Guildpads: GuildpadConfig[] = [
     ... TankWarsZoneGuildpad2
   },
   {
-    id: 4,
+    id: 3,
     title: 'Wizardia',
     ... WizardiaGuildpad
   },
   {
-    id: 5,
+    id: 4,
     title: 'Demole',
     ... DemoleGuildpad
   },
