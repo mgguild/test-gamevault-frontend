@@ -27,17 +27,18 @@ const GCard = styled(SCard)<{ src?: string }>`
   border-radius: 5px;
   width: 100%;
   margin: 0 8rem;
+  background: #101010;
   @media screen and (max-width: 925px) {
     margin: 0px auto;
   }
-  ${({ src }) =>
+  ${({ src, theme }) =>
     src &&
     `&:before {
       content: '';
       position: absolute;
       left: 0;
       top: 0;
-      opacity: 0.1;
+      opacity: ${theme.isDark ? 0.1 : 0.4};
       width: 100%;
       height: 100%;
       z-index: 0;
@@ -56,7 +57,8 @@ const Header = styled(SCardHeader)<{ src?: string }>`
   position: relative;
   height: 10vh;
   justify-content: flex-start;
-  ${({ src }) =>
+  background: #101010;
+  ${({ src, theme }) =>
     src &&
     `
         &:before {
@@ -65,7 +67,7 @@ const Header = styled(SCardHeader)<{ src?: string }>`
             position: absolute;
             left: 0;
             top: 0;
-            opacity: 0.3;
+            opacity: ${theme.isDark ? 0.3 : 0.6};
             width: 100%;
             height: 100%;
             z-index: 0;
@@ -79,6 +81,7 @@ const Header = styled(SCardHeader)<{ src?: string }>`
 `
 const TimerBox = styled(Flex)`
   display: grid;
+  position: relative;
   grid-template-columns: 0.5fr 0.5fr 0.5fr 0.5fr;
   align-items: center;
   text-align: center;
@@ -124,6 +127,7 @@ const ContainerBoxCard = styled(Flex)`
 const ContainerProjDesc = styled(Flex)`
   background-color: ${({ theme }) => theme.colors.MGG_container};
   z-index: 1;
+  position: relative;
   margin: 1.5rem;
 `
 const Box = styled.div`
@@ -151,32 +155,32 @@ const CountDown: React.FC<{ round: string, start?:boolean, end?:number}> = ({rou
   const Renderer = (days?: number, hours?: number, minutes?: number, seconds?: number) => {
     return(
       <div>
-        <Heading style={{textAlign: 'center', paddingTop: '0.5rem'}} size="l">ROUND {round} ENDS IN</Heading>
+      <Heading color='white' style={{textAlign: 'center', paddingTop: '0.5rem'}} size="l">ROUND {round} ENDS IN</Heading>
       <TimerContainer>
       <TimerBox>
           <Box>
             <TimeSpan>
               <HOrbitron size="xl" className='glow'>{days}</HOrbitron>
             </TimeSpan>
-            <Text fontSize="1rem"> DAYS </Text>
+            <Text color='white' fontSize="1rem"> DAYS </Text>
           </Box>
           <Box>
             <TimeSpan>
               <HOrbitron size="xl" className='glow'>{hours}</HOrbitron>
             </TimeSpan>
-            <Text fontSize="1rem"> HOURS </Text>
+            <Text color='white' fontSize="1rem"> HOURS </Text>
           </Box>
           <Box>
             <TimeSpan>
               <HOrbitron size="xl" className='glow'>{minutes}</HOrbitron>
             </TimeSpan>
-            <Text fontSize="1rem"> MINUTES</Text>
+            <Text color='white' fontSize="1rem"> MINUTES</Text>
           </Box>
           <Box>
             <TimeSpan>
               <HOrbitron size="xl" className='glow'>{seconds}</HOrbitron>
             </TimeSpan>
-            <Text fontSize="1rem"> SECONDS</Text>
+            <Text color='white' fontSize="1rem"> SECONDS</Text>
           </Box>
         </TimerBox>
       </TimerContainer>
@@ -192,7 +196,9 @@ const CountDown: React.FC<{ round: string, start?:boolean, end?:number}> = ({rou
         Renderer={Renderer}
       />
       ) : (
-        ''
+        <Heading className='glow' size='xl' color='white' textTransform='uppercase' style={{whiteSpace: 'nowrap', letterSpacing: ' 0.2rem'}}>
+          「 Round Ended 」
+        </Heading>
       )}
     </TimerContainer>
   )
@@ -297,6 +303,7 @@ const CardHeader: React.FC<{ status: string; background?: string; guildpad: Guil
           primaryToken={guildpad.sellingCoin}
           padding="0"
           socMeds={guildpad.socials}
+          color="white"
         />
         <Flex justifyContent='right'>
           <div>
@@ -322,15 +329,24 @@ const Card: React.FC<{ guildpad: GuildpadConfig, userDataLoaded: boolean }> = ({
     <GCard src={bgSrc}>
       <CardHeader status={status} background={src} guildpad={guildpad}/>
       <Contain>
-        <Flex justifyContent='center' style={{background: 'black'}}>
-        <CountDown round={guildpad.round} start={status === GUILDPAD_STATUS.ongoing} end={guildpad.epochEndDate}/>
+        <Flex
+          className='crt'
+          style={{
+            position: 'relative',
+            background: 'black',
+            minHeight: '6rem',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
+          <CountDown round={guildpad.round} start={status === GUILDPAD_STATUS.ongoing} end={guildpad.epochEndDate}/>
         </Flex>
         <ContainerBoxCard>
           {/* BOX CARD */}
           <Boxcard imgProps={{ src: 'Chest3.png', size: '15rem' }} guildpad={guildpad} userDataLoaded={userDataLoaded} />
         </ContainerBoxCard>
         <ContainerProjDesc>
-          <Content guildpad={guildpad} />
+          <Content guildpad={guildpad}/>
         </ContainerProjDesc>
       </Contain>
     </GCard>
