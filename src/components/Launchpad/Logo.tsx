@@ -32,46 +32,47 @@ type LogoProps = {
   socMeds?: Socials
   socMedsSize?: number
   padding?: string
+  color?: string
 }
 
-const Logo: React.FC<LogoProps> = ({ tokenSize, tokenName, nameSize = 'l', primaryToken, subtitle, socMeds, socMedsSize = 16, padding = '24px' }) => {
+const Logo: React.FC<LogoProps> = ({tokenSize, tokenName, nameSize = 'l', primaryToken, subtitle, socMeds, socMedsSize = 16, padding = '24px', color = null}) => {
   const theme = useContext(ThemeContext)
-
+  const colour = color ?? theme.colors.text;
   return (
     <Flex padding={padding}>
       <TokenLogo size={tokenSize} src={getImageUrlFromToken(primaryToken)} />
       <Flex flexDirection="column" justifyContent="center" alignItems="flex-start">
-        <Heading size={nameSize}>{tokenName}</Heading>
+        <Heading color={colour} size={nameSize}>{tokenName}</Heading>
         {socMeds ? (
           <Flex>
             {socMeds?.website && (
               <Anchor href={socMeds?.website}>
-                <Globe size={`${socMedsSize}px`} color={theme.colors.text} />
+                <Globe size={`${socMedsSize}px`} color={colour} />
               </Anchor>
             )}
             {socMeds?.twitter && (
               <Anchor href={socMeds?.twitter}>
-                <Twitter size={`${socMedsSize}px`} color={theme.colors.text} />
+                <Twitter size={`${socMedsSize}px`} color={colour} />
               </Anchor>
             )}
             {socMeds?.telegram && (
               <Anchor href={socMeds?.telegram}>
-                <Send size={`${socMedsSize}px`}  color={theme.colors.text} />
+                <Send size={`${socMedsSize}px`}  color={colour} />
               </Anchor>
             )}
             {socMeds?.discord && (
               <Anchor href={socMeds?.discord}>
-                <SiDiscord size={`${socMedsSize}px`} color={theme.colors.text} />
+                <SiDiscord size={`${socMedsSize}px`} color={colour} />
               </Anchor>
             )}
             {socMeds?.medium && (
               <Anchor href={socMeds?.medium}>
-                <SvgIcon width={socMedsSize} Icon={MediumIcon} />
+                <SvgIcon width={socMedsSize} Icon={MediumIcon} fill={colour}/>
               </Anchor>
             )}
             {socMeds?.youtube && (
               <Anchor href={socMeds?.youtube}>
-              <SiYoutube size={`${socMedsSize}px`} color={theme.colors.text} />
+              <SiYoutube size={`${socMedsSize}px`} color={colour} />
             </Anchor>
             )}
           </Flex>

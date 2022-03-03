@@ -1,5 +1,5 @@
 .glow {
-  -webkit-box-reflect: below 1px linear-gradient(transparent 20%, #0008);
+  -webkit-box-reflect: below 1px linear-gradient(transparent 35%, #0008);
   outline: none;
   animation: glow 1s ease-in-out infinite alternate;
 }

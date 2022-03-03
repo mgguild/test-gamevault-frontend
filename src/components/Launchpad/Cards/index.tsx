@@ -27,7 +27,8 @@ const Header = styled(SCardHeader)<{ src?: string }>`
   position: relative;
   height: 20vh;
   justify-content: flex-end;
-  ${({ src }) =>
+  background: #101010;
+  ${({ src, theme }) =>
     src &&
     `
         &:before {
@@ -36,7 +37,7 @@ const Header = styled(SCardHeader)<{ src?: string }>`
             position: absolute;
             left: 0;
             top: 0;
-            opacity: 0.2;
+            opacity: ${theme.isDark ? 0.2 : 0.5};
             width: 100%;
             height: 100%;
             z-index: 1;
