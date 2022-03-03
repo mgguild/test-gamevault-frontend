@@ -1,11 +1,11 @@
 /* eslint-disable no-param-reassign */
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
 import guildpadsConfig from 'config/constants/guildpads'
+import { GUILDPAD_STATUS } from 'config/constants/types'
 import { Guildpad, GuildpadState } from '../types'
 import fetchGuildpads from './fetchGuildpads'
 import { fetchGuildpadIsUserWhitelisted, fetchGuildpadUserBoxes } from './fetchGuildpadUser'
-import  mergingGuildpads from './mergingGuildpads';
 
 const noAccountGuildpadConfig = guildpadsConfig.map((guildpad) => ({
   ...guildpad,
@@ -38,8 +38,8 @@ export const fetchPublicGuildpadDataAsync = createAsyncThunk<Guildpad[], number[
     const guildpadToFetch = guildpadsConfig.filter((guildpadConfig) => ids.includes(guildpadConfig.id))
     const guildpads = await fetchGuildpads(guildpadToFetch)
 
-    const guildpadsMerged = await mergingGuildpads(guildpads)
-    return guildpadsMerged
+    await mergingGuildpads(guildpads)
+    return guildpads
   },
 )
 
@@ -69,10 +69,46 @@ export const fetchGuildpadUserDataAsync = createAsyncThunk<GuildpadUserDataRespo
   },
 )
 
+// Merging guildpads
+const mergingGuildpads = async (guildpads: Guildpad[]) => {
+  guildpads.forEach((guildpad, index) => {
+    // Find toMergeID property exists and check if ended and completed
+    if(guildpad.nextRoundID && guildpad.hasEnded && guildpad.status === GUILDPAD_STATUS.completed){
+      // copy all first round values
+      const mergedGP = guildpads[index]
+
+      // Get next round GP
+      const toMergeGP = guildpads.filter((gp) => gp.id === guildpad.nextRoundID)[0]
+
+      if(toMergeGP && toMergeGP.hasEnded && toMergeGP.status === GUILDPAD_STATUS.completed){
+        Object.keys(guildpads[index]).forEach((key) => {
+          if(key === 'totalSold' || key === 'totalRaise'){
+            // Sum of totalSold and totalsRaise of from rounds
+            mergedGP[key] = new BigNumber(guildpads[index][key]).plus(new BigNumber(toMergeGP[key])).toString()
+          }
+          if(key === 'epochEndDate'){
+            // get latest round epochEndDate
+            mergedGP[key] = toMergeGP[key]
+          }
+        })
+        mergedGP.round = `MERGED ${mergedGP.title}`
+        mergedGP.display = true
+
+        guildpadSlice.actions.addGuildpad(mergedGP)
+      }
+    }
+  })
+}
+
 export const guildpadSlice = createSlice({
   name: 'Guildpads',
   initialState,
-  reducers: {},
+  reducers: {
+    addGuildpad(state, action: PayloadAction<Guildpad>) {
+      console.log('gpNewEmpty Bruh', action)
+      state.data.push(action.payload)
+    }
+  },
   extraReducers: (builder) => {
     // Update guildpad with live data
     builder.addCase(fetchPublicGuildpadDataAsync.fulfilled, (state, action) => {
