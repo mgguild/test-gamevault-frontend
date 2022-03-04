@@ -231,7 +231,7 @@ interface GuildPadInformation {
   distributionDesc?: string;
   round: string;
   type?: Type;
-  toMergeID?: number;
+  merged?: boolean;
   nextRoundID?: number;
   date?: {start: string, end: string};
   status: Status;
