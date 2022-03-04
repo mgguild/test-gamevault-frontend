@@ -17,14 +17,15 @@ const mergingGuildpads = (guildpads: Guildpad[]): Guildpad[] => {
       round: `MERGED ${guildpad.title}`,
       status: GUILDPAD_STATUS.completed,
     }
-    // Find toMergeID property exists and check if ended and completed
+    // Find nextRoundID property exists and check if ended and completed
     if(!guildpad.merged && guildpad.nextRoundID && guildpad.hasEnded && guildpad.status === GUILDPAD_STATUS.completed){
       // copy all first round values
       merging = {...guildpads[index], ...merging}
       // Get next round GP
       const toMergeGP = guildpads.filter((gp) => gp.id === guildpad.nextRoundID)[0]
 
-      if(toMergeGP && toMergeGP.hasEnded && toMergeGP.status === GUILDPAD_STATUS.completed){
+      // Checks if toMergeGP exists, is round 2, has ended, and completed
+      if(toMergeGP && toMergeGP.round === '2' && toMergeGP.hasEnded && toMergeGP.status === GUILDPAD_STATUS.completed){
         guildpads[index].nextRoundID = 0
         Object.keys(guildpads[index]).forEach((key) => {
           if(key === 'totalSold' || key === 'totalRaise'){
