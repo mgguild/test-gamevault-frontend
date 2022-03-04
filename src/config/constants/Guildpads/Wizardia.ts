@@ -2,7 +2,7 @@ import { DISTRIBUTION, GUILDPAD_STATUS, TYPE } from '../types'
 import tokens from '../tokens'
 
 const socials = {
-  website: 'https://wizardia.io/',
+  website: 'https://wizardia.co/35ObEcS',
   twitter: 'https://twitter.com/PlayWizardia',
   telegram: 'https://t.me/Wizardia',
   medium: 'https://medium.com/@wizardia'
