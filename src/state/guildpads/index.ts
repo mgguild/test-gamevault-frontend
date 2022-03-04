@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import BigNumber from 'bignumber.js'
 import guildpadsConfig from 'config/constants/guildpads'
 import { Guildpad, GuildpadState } from '../types'
 import fetchGuildpads from './fetchGuildpads'
@@ -38,8 +37,7 @@ export const fetchPublicGuildpadDataAsync = createAsyncThunk<Guildpad[], number[
     const guildpadToFetch = guildpadsConfig.filter((guildpadConfig) => ids.includes(guildpadConfig.id))
     const guildpads = await fetchGuildpads(guildpadToFetch)
 
-    const guildpadsMerged = await mergingGuildpads(guildpads)
-    return guildpadsMerged
+    return guildpads
   },
 )
 
@@ -80,6 +78,12 @@ export const guildpadSlice = createSlice({
         const liveGuildpadData = action.payload.find((guildpadData) => guildpadData.id === guildpad.id)
         return { ...guildpad, ...liveGuildpadData }
       })
+
+      // Merging Here
+      const merges = mergingGuildpads(state.data)
+      if(merges && merges.length){
+        state.data = [...state.data, ...merges]
+      }
     })
 
     // Update guildpad with user data
