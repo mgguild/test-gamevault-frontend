@@ -56,6 +56,9 @@ const StyledLink = styled(Scroll.Link)`
   justify-content: center;
   background: ${(({theme}) => theme.colors.MGG_container)};
   margin: -25px auto;
+  ${({theme}) => !theme.isDark && `
+  border: 1px solid ${theme.colors.primary};
+  `}
 `
 
 const HomeSection: React.FC = () => {
@@ -94,7 +97,7 @@ const HomeSection: React.FC = () => {
           </AnimContainerAdapt>
         </HomeContainerAdapt>
         <HomeContainer>
-          <Flex style={{margin: '10px auto'}} padding="25px" flexDirection='column' alignItems='center'>
+          <Flex style={{margin: '10px auto',}} padding="25px" flexDirection='column' alignItems='center'>
           <Text color="textSubtle" style={{ margin: '10px', fontSize: '20px' }}>
             EXCLUSIVELY ON MULTIPLE CHAINS
           </Text>
@@ -107,7 +110,7 @@ const HomeSection: React.FC = () => {
             <img
               src="./images/icons/exclusive_eth.png"
               alt="ex-binance"
-              style={{ verticalAlign: 'middle' }}
+              style={{ verticalAlign: 'middle'}}
             />
             </Flex>
           </Flex>
