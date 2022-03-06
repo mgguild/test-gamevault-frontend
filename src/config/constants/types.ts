@@ -222,6 +222,11 @@ type IgoDetails = {
 
 type IdoDetails = {
   price?: string;
+  startTime?: string;
+  tokenRate?: string;
+  expectedSales?: string;
+  totalParticipants?: string;
+  percentage?: string;
 }
 
 interface GuildPadInformation {
