@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import Countdown from 'react-countdown'
+// import Countdown from 'react-countdown'
 import styled, { ThemeContext } from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
@@ -20,7 +20,7 @@ import { PostBody, NavOption, SaleContainer, SaleRow } from '../../../../compone
 import Boxcard from '../BoxCard'
 import '../../../../css/styleFX.css'
 import Content from '../../../../components/Launchpad/Content'
-
+import IdoCard from './Ido'
 
 const GCard = styled(SCard)<{ src?: string }>`
   border: 2px solid ${({ theme }) => theme.colors.MGG_active};
@@ -189,12 +189,12 @@ const CountDown: React.FC<{ round: string, start?:boolean, end?:number}> = ({rou
    }
 
   return (
-    <TimerContainer justifyContent="right" padding="10px">
+    <TimerContainer justifyContent="right" padding={isStart? '10px':'0px'}>
       { isStart ? (
         <Timer
         dateSettings={{ isStart, end: endDate }}
         Renderer={Renderer}
-      />
+       />
       ) : (
         <Heading className='glow' size='xl' color='white' textTransform='uppercase' style={{whiteSpace: 'nowrap', letterSpacing: ' 0.2rem'}}>
           「 Round Ended 」
@@ -325,11 +325,12 @@ const Card: React.FC<{ guildpad: GuildpadConfig, userDataLoaded: boolean }> = ({
   const bgSrc = useFetchPadBG(guildpad.sellingCoin.symbol)
   const status = getStatus(guildpad)
 
-  return (
-    <GCard src={bgSrc}>
-      <CardHeader status={status} background={src} guildpad={guildpad}/>
-      <Contain>
-        <Flex
+  const renderType = (type:string) => {
+    switch(type){
+      case TYPE.INO:
+        return (
+          <>
+            <Flex
           className='crt'
           style={{
             position: 'relative',
@@ -348,6 +349,29 @@ const Card: React.FC<{ guildpad: GuildpadConfig, userDataLoaded: boolean }> = ({
         <ContainerProjDesc>
           <Content guildpad={guildpad}/>
         </ContainerProjDesc>
+          </>
+        )
+      case TYPE.IDO:
+        return (
+          <>
+            <IdoCard guildpad={guildpad} userDataLoaded={userDataLoaded} />
+            <ContainerProjDesc>
+              <Content guildpad={guildpad} />
+            </ContainerProjDesc>
+          </>
+        )
+      default:
+        return <Text>Please Wait</Text>
+    }
+  }
+
+ 
+  return (
+    <GCard src={bgSrc}>
+      <CardHeader status={status} background={src} guildpad={guildpad}/>
+      <Contain>
+      { renderType(guildpad.type) }
+        
       </Contain>
     </GCard>
   )
