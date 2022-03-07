@@ -33,7 +33,7 @@ const Content: React.FC<{ guildpad: GuildpadConfig; rarity?: string }> = ({ guil
       price = price !== 'TBA' ? `${price} ${guildpad.buyingCoin.symbol}` : price
     }
     if (guildpad.type === TYPE.IDO) {
-      price = guildpad.igoDetails.price ?? 'TBA'
+      price = guildpad.igoDetails ? guildpad.igoDetails.price : 'TBA'
     }
     return price
   }
@@ -82,14 +82,14 @@ const Content: React.FC<{ guildpad: GuildpadConfig; rarity?: string }> = ({ guil
               <Text>{guildpad.totalSupply}</Text>
             </SaleRow>
           )}
-          {guildpad.type === TYPE.IGO && (
+          {guildpad.type === TYPE.IDO && (
             <SaleRow justifyContent="space-between">
               <Text color="textSubtle">Buying Coin</Text>
               <Text>{guildpad.buyingCoin.symbol}</Text>
             </SaleRow>
           )}
           <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Token Distribution</Text>
+            <Text color="textSubtle">NFT Distribution</Text>
             <div style={{ textAlign: 'right' }}>
               <Text>{distribution}</Text>
               {guildpad.distributionDesc && (
