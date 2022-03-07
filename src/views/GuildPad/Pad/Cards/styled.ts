@@ -56,7 +56,8 @@ export const ActionSection = styled(MarketCard)`
     z-index: 1;
 `
 
-export const TimerContainer = styled(Flex)`
-  background-color: #5C9E04;
+export const TimerContainer = styled(Flex)<{isStart?:boolean}>`
+  background-color: ${(({isStart}) => isStart? '#5C9E04' : 'transparent' )};
   margin-bottom: 10px;
+  justify-content: center;
 `
