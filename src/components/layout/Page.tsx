@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link, RouteComponentProps } from 'react-router-dom'
 import { useTranslation } from 'contexts/Localization'
 import { Helmet } from 'react-helmet-async'
 import { useLocation } from 'react-router'
@@ -25,6 +26,7 @@ const StyledPage = styled(Container)`
 const PageMeta = () => {
   const { t } = useTranslation()
   const { pathname } = useLocation()
+
   // const cakePriceUsd = usePriceCakeBusd()
   // const cakePriceUsdDisplay = cakePriceUsd.gt(0)
   //   ? `$${cakePriceUsd.toNumber().toLocaleString(undefined, {
@@ -32,7 +34,7 @@ const PageMeta = () => {
   //       maximumFractionDigits: 3,
   //     })}`
   //   : ''
-
+  
   const pageMeta = getCustomMeta(pathname, t) || {}
   const { title, description, image } = { ...DEFAULT_META, ...pageMeta }
   // const pageTitle = cakePriceUsdDisplay ? [title, cakePriceUsdDisplay].join(' - ') : title
@@ -46,6 +48,8 @@ const PageMeta = () => {
     </Helmet>
   )
 }
+
+
 
 const Page: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ children, ...props }) => {
   return (

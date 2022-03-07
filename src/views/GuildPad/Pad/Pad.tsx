@@ -1,5 +1,8 @@
 import React, { useContext } from 'react'
 import { Link, RouteComponentProps } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
+import { useLocation } from 'react-router'
+import { DEFAULT_META, getCustomMeta, getPadCustomMeta } from 'config/constants/meta'
 import styled, {ThemeContext} from 'styled-components'
 import { ChevronRight } from 'react-feather'
 import { GUILDPAD_STATUS, TYPE} from 'config/constants/types'
@@ -31,6 +34,31 @@ const BackButton = styled(Link)`
   color: ${({ theme }) => theme.colors.text};
 `
 
+
+const PageMeta = ({guildpadTitle}) => {
+  const { pathname } = useLocation()
+  // const cakePriceUsd = usePriceCakeBusd()
+  // const cakePriceUsdDisplay = cakePriceUsd.gt(0)
+  //   ? `$${cakePriceUsd.toNumber().toLocaleString(undefined, {
+  //       minimumFractionDigits: 3,
+  //       maximumFractionDigits: 3,
+  //     })}`
+  //   : ''
+  const pageMeta = getPadCustomMeta(pathname, guildpadTitle);
+  const { title, description, image } = { ...DEFAULT_META, ...pageMeta }
+  // const pageTitle = cakePriceUsdDisplay ? [title, cakePriceUsdDisplay].join(' - ') : title
+
+  return (
+    <Helmet>
+      <title>{title}</title>
+      <meta property='og:title' content={title} />
+      <meta property='og:description' content={description} />
+      <meta property='og:image' content={image} />
+    </Helmet>
+  )
+}
+
+
 const Pad: React.FC<RouteComponentProps<{ guildpadTitle?: string }>> = ({ match: { params: { guildpadTitle } } }) => {
   const theme = useContext(ThemeContext);
   const { data: guildpads, userDataLoaded } = useGuildpads()
@@ -38,8 +66,10 @@ const Pad: React.FC<RouteComponentProps<{ guildpadTitle?: string }>> = ({ match:
   const activeGuildpad = guildpads.filter((gpad) => gpad.title === guildpadTitle)[0]
   const { title } = activeGuildpad
   const status = getStatus(activeGuildpad)
+
   return (
     <>
+      <PageMeta guildpadTitle={guildpadTitle} />
       <Container>
       <PageSection direction='column'>
         <GuildpadContainer>

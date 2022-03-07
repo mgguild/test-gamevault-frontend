@@ -24,7 +24,7 @@ export const getCustomMeta = (path: string, t: ContextApi['t']): PageMeta => {
       }
     case '/launchpad':
       return {
-        title: `${t('IGO and INO Launchpad')} | ${t('MGG')}`,
+        title: `${t('MGG Launchpad')} | ${t('MGG')}`,
       }
     case '/liquidity':
       return {
@@ -56,5 +56,15 @@ export const getCustomMeta = (path: string, t: ContextApi['t']): PageMeta => {
       }
     default:
       return null
+  }
+}
+
+export const getPadCustomMeta = (path: string, launchpad: string):PageMeta => {
+  switch(path) {
+    case '/launchpad':
+    default:
+      return {
+        title: `MGG Guildpad | ${launchpad}`
+      }
   }
 }
