@@ -90,9 +90,6 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
 
   // total reward rate
   const totalRewardRate = new BigNumber(rewardRate).times(60 * 60 * 24 * 7)
-
-  // console.log(totalRewardRate)
-
   const endDate = (new Date(0)).setUTCSeconds(periodFinish)
   const hasEnded = endDate < now()
   const remainingDays = (Math.max(0, Math.ceil(((((endDate - now()) / 1000) / 60) / 60) / 24))).toString()

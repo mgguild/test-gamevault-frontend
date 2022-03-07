@@ -165,7 +165,6 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
   const theme = useContext(ThemeContext)
   const src = useFetchBanner(guildpad.sellingCoin.symbol)
   const status = getStatus(guildpad)
-  const totalRaise = getBalanceAmount(new BigNumber(guildpad.totalRaise), guildpad.buyingCoin.decimals);
 
   return (
     <GCard>
@@ -177,7 +176,7 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
         subtitle={guildpad.title}
       />
       <TokenInformation
-        totalRaise={totalRaise.toString()}
+        totalRaise={guildpad.totalRaise}
         boxesForSale={guildpad.totalSupply.toString()}
         buyingCoin={guildpad.buyingCoin.symbol}
         type={guildpad.distribution}

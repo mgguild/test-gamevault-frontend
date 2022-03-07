@@ -1,9 +1,8 @@
-import BigNumber from 'bignumber.js'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useWeb3React } from '@web3-react/core'
-import { getBalanceNumber } from 'utils/formatBalance'
+import { toNumber } from 'lodash'
 import { Guildpad } from 'state/types'
-import { Text, Heading, Progress, Flex, Button, useModal } from '@metagg/mgg-uikit'
+import { Button, Flex, Heading, Progress, Text, useModal } from '@metagg/mgg-uikit'
 import { Grid } from '@mui/material'
 import Logo from 'components/Launchpad/Logo'
 import UnlockButton from 'components/UnlockButton'
@@ -19,11 +18,6 @@ import {
   ProgressSection,
   TimerContainer,
 } from './styled'
-import { useAppDispatch } from '../../../../state'
-import { useBuyBox } from '../../../../hooks/useGuildPad'
-import { getAddress } from '../../../../utils/addressHelpers'
-import { fetchGuildpadUserDataAsync, fetchPublicGuildpadDataAsync } from '../../../../state/guildpads'
-import { useGuildpadData } from '../../../../state/hooks'
 
 
 const CountDown: React.FC<{ round: string; start?: boolean; end?: number }> = ({ round, start, end }) => {
@@ -68,66 +62,52 @@ const CountDown: React.FC<{ round: string; start?: boolean; end?: number }> = ({
 
 const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ guildpad, userDataLoaded }) => {
   const { account } = useWeb3React()
-  const [showModal, setShowModal] = useState(false)
   const [useBuyIDOModal] = useModal(<BuyIdoModal guildpad={guildpad}/>)
   const details = guildpad.description
-  const percent = 81 // Rate
-  const progress = `118 / 150 BNB`
-
-  // Guildpad details:
-  const price = `0.001 ${guildpad.buyingCoin.symbol}`
-  const sold = `${guildpad.totalSold}`
-  const totalRaised = getBalanceNumber(new BigNumber(guildpad.totalRaise))
-  const userAllocation = `NaN ${guildpad.sellingCoin.symbol}`
-  const maxSwap = `N/A ${guildpad.buyingCoin.symbol}`
 
   return (
     <ContainerBoxCard>
       <Grid container spacing={2}>
         <Grid item xs={4} md={6}>
-          <CountDown round="1" start end={1646351540000} />
+          <CountDown round="1" start end={guildpad.epochEndDate} />
           <Text color="rgba(216, 209, 232, 1)" fontSize="17px" padding='10px 0px 0px 0px' margin='10px 0px 0px 0px'>{details}</Text>
         </Grid>
         <Grid item md={6}>
           <MarketCard>
             <ProgressSection>
               <Heading>
-                {`${percent}%`} {guildpad.sellingCoin.symbol} SOLD
+                {`${guildpad.percentage}%`} {guildpad.sellingCoin.symbol} SOLD
               </Heading>
               <div>
-                <Progress variant="flat" primaryStep={percent} />
+                <Progress variant="flat" primaryStep={toNumber(guildpad.percentage)} />
                 <Flex justifyContent="space-between">
-                  <Text fontSize="12px">{percent}%</Text>
-                  <Text fontSize="12px">{progress}</Text>
+                  <Text fontSize="12px">{guildpad.percentage}%</Text>
+                  <Text fontSize="12px">{guildpad.totalSold} / {guildpad.totalSupply}</Text>
                 </Flex>
               </div>
             </ProgressSection>
             <DetailSection>
               <DataRow>
+                <Text>Total Raise</Text>
+                <Text>{guildpad.totalRaise} {guildpad.buyingCoin.symbol}</Text>
+              </DataRow>
+              <DataRow>
                 <Text>{guildpad.sellingCoin.symbol} Price</Text>
-                <Text>{price}</Text>
+                <Text>{guildpad.tokenRate}</Text>
               </DataRow>
               <DataRow>
                 <Text>{guildpad.sellingCoin.symbol} Sold</Text>
-                <Text>{sold}</Text>
-              </DataRow>
-              <DataRow>
-                <Text>Total Raise</Text>
-                <Text>{totalRaised} {guildpad.buyingCoin.symbol}</Text>
+                <Text>{guildpad.totalSold}</Text>
               </DataRow>
               <DataRow modify>
-                <Text>My Allocation</Text>
-                <Text>{userAllocation}</Text>
-              </DataRow>
-              <DataRow modify>
-                <Text>Max BNB Swap</Text>
-                <Text>{maxSwap}</Text>
+                <Text>Max Allocation</Text>
+                <Text>{guildpad.userData.details.maxPayableAmount?? '0'} {guildpad.sellingCoin.symbol}</Text>
               </DataRow>
             </DetailSection>
             <AllocSection>
               <Text>My Allocation</Text>
               <div>
-                <Logo tokenName={guildpad.sellingCoin.symbol} primaryToken={guildpad.sellingCoin} padding="0px" />
+                <Logo tokenSize='35px' tokenName={`${guildpad.userData.details.rewardedAmount ?? '0'} ${guildpad.sellingCoin.symbol}`} primaryToken={guildpad.sellingCoin} padding="0px" />
               </div>
             </AllocSection>
             <ActionSection>

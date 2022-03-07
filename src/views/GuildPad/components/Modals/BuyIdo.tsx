@@ -22,7 +22,6 @@ interface ModalProps {
 }
 
 const ModalComponent: React.FC<ModalProps> = ({ onDismiss, guildpad }) => {
-  console.log(guildpad)
   const { account } = useWeb3React()
   const [input, setInput] = useState<string>('')
   const [output, setOutput] = useState<string>('')

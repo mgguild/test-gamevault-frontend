@@ -46,9 +46,7 @@ export const useBuyIgo = (contractAddress: string) => {
 
   const handleBuyIgo = useCallback(
     async (quantity, contract?: Contract) => {
-      console.info(quantity)
       const txHash = await buyIgo(contract?? igoContract, account, quantity)
-      console.info(txHash)
     },
     [account, igoContract],
   )
