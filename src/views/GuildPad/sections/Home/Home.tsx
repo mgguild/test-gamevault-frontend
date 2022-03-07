@@ -56,6 +56,9 @@ const StyledLink = styled(Scroll.Link)`
   justify-content: center;
   background: ${(({theme}) => theme.colors.MGG_container)};
   margin: -25px auto;
+  ${({theme}) => !theme.isDark && `
+  border: 1px solid ${theme.colors.primary};
+  `}
 `
 
 const HomeSection: React.FC = () => {
@@ -74,16 +77,19 @@ const HomeSection: React.FC = () => {
             </Text>
             <hr  style={{width: '100%', border: 'none', borderBottom: `1px solid ${theme.colors.primary}`}}/>
             <ButtonContainer>
-              <form action="https://coinmarketcap.com/currencies/metagaming-guild/" style={{width: '100%'}}>
-              <Button type="submit"fullWidth style={{ borderRadius: '4px' }}>
-                BUY MGG
+              <div style={{width: '100%'}}>
+              <Button href="https://coinmarketcap.com/currencies/metagaming-guild/" external fullWidth as='a'  style={{ borderRadius: '4px' }}>
+                Buy MGG
               </Button>
-              </form>
-              <form action="https://docs.google.com/forms/d/1BqJHkJYQSuKScdyLKrtMqMkhi5SHe8srOQnQxjcEQ8k" style={{width: '100%'}}>
-              <Button type="submit" disabled fullWidth style={{ backgroundColor: theme.colors.backgroundDisabled, borderRadius: '4px' }}>
-                Apply KYC
-              </Button>
-              </form>
+              </div>
+              <div style={{width: '100%'}}>
+                <Button href="https://verify-with.blockpass.org/?clientId=dao_gaming_guild_limited_45e18&serviceName=DAO%20GAMING%20GUILD%20LIMITED&env=prod" external fullWidth as='a' style={{ backgroundColor: theme.colors.MGG_accent2, borderRadius: '4px' }}>
+                  Apply KYC
+                </Button>
+                <Text fontSize='10px'>
+                  <em>MGG holders who are qualified to participate based on IGO Tier List are required to undergo KYC.</em>
+                </Text>
+              </div>
             </ButtonContainer>
           </StyledFlex>
           <AnimContainerAdapt>
@@ -91,7 +97,7 @@ const HomeSection: React.FC = () => {
           </AnimContainerAdapt>
         </HomeContainerAdapt>
         <HomeContainer>
-          <Flex style={{margin: '10px auto'}} padding="25px" flexDirection='column' alignItems='center'>
+          <Flex style={{margin: '10px auto',}} padding="25px" flexDirection='column' alignItems='center'>
           <Text color="textSubtle" style={{ margin: '10px', fontSize: '20px' }}>
             EXCLUSIVELY ON MULTIPLE CHAINS
           </Text>
@@ -104,7 +110,7 @@ const HomeSection: React.FC = () => {
             <img
               src="./images/icons/exclusive_eth.png"
               alt="ex-binance"
-              style={{ verticalAlign: 'middle' }}
+              style={{ verticalAlign: 'middle'}}
             />
             </Flex>
           </Flex>

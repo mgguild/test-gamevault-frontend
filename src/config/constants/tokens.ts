@@ -28,6 +28,16 @@ const guildpadTokens = {
     iconExtension: 'png',
     decimals: 18,
     projectLink: 'https://acknoledger.com/'
+  },
+  Wizardia: {
+    symbol: 'WZRD',
+    address: {
+      56: 'Wizardia',
+      96: 'Wizardia',
+    },
+    iconExtension: 'png',
+    decimals: 18,
+    projectLink: 'https://wizardia.io//'
   }
 }
 

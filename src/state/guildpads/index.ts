@@ -4,6 +4,7 @@ import guildpadsConfig from 'config/constants/guildpads'
 import { Guildpad, GuildpadState } from '../types'
 import fetchGuildpads from './fetchGuildpads'
 import { fetchGuildpadIsUserWhitelisted, fetchGuildpadUserBoxes } from './fetchGuildpadUser'
+import  mergingGuildpads from './mergingGuildpads';
 
 const noAccountGuildpadConfig = guildpadsConfig.map((guildpad) => ({
   ...guildpad,
@@ -77,6 +78,12 @@ export const guildpadSlice = createSlice({
         const liveGuildpadData = action.payload.find((guildpadData) => guildpadData.id === guildpad.id)
         return { ...guildpad, ...liveGuildpadData }
       })
+
+      // Merging Here
+      const merges = mergingGuildpads(state.data)
+      if(merges && merges.length){
+        state.data = [...state.data, ...merges]
+      }
     })
 
     // Update guildpad with user data

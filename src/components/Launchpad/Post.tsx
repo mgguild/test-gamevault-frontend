@@ -23,7 +23,7 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
   const guildSymbol = sellingCoin.symbol
   const srcs = useFetchImage(sellingCoin.symbol);
   const totalRaiseInBnb = getBalanceAmount(new BigNumber(guildpad.totalRaise), 18).toString();
-  const hasRemainingSupply = (guildpad.boxInfo[rarityId].supply - guildpad.boxInfo[rarityId].sold) > 0
+  const hasRemainingSupply = new BigNumber(new BigNumber(guildpad.totalSupply).minus(new BigNumber(guildpad.totalSold))).isGreaterThan(0)
 
   return (
     <PostContainer>
@@ -39,6 +39,7 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
            padding="0px"
            socMeds={sites}
            socMedsSize={22}
+           color="white"
           />
           {/* <TokenProperty>
             <Text bold>{pair}</Text>
@@ -59,7 +60,7 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
             <Text>{type}</Text>
         </TokenProperty>
         <Details onClick={() => setToggle(!toggle)}>
-          Details &nbsp; {toggle ? <ChevronUp /> : <ChevronDown />}
+          <Text  bold >Details</Text> &nbsp; <Text style={{display: 'flex', alignItems: 'center'}}>{toggle ? <ChevronUp /> : <ChevronDown />}</Text>
         </Details>
         </PadActions>
       </PostHeader>

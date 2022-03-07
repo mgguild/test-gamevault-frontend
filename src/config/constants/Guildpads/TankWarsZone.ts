@@ -24,10 +24,11 @@ const guildpad = {
   inoDetails: {
     price: '0.3073',
     boxes: '300',
+    priceFiat: '126 USD'
   },
   date: {
-    start: 'February 18, 2022 1PM UTC',
-    end: 'February 19, 2022 1PM UTC'
+    start: 'February 18, 2022 1:00 PM UTC',
+    end: 'February 19, 2022 1:00 PM UTC'
   },
   boxDetails:{
     redeemInfo: 'Mystery Box can be later redeemed for Tanks after the Game Official Launch.',
