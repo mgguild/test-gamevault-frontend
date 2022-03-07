@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { toNumber } from 'lodash'
 import { Guildpad } from 'state/types'
@@ -18,6 +18,8 @@ import {
   ProgressSection,
   TimerContainer,
 } from './styled'
+import ModalWhitelist from '../Modal'
+import useToast from '../../../../hooks/useToast'
 
 
 const CountDown: React.FC<{ round: string; start?: boolean; end?: number }> = ({ round, start, end }) => {
@@ -64,6 +66,20 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
   const { account } = useWeb3React()
   const [useBuyIDOModal] = useModal(<BuyIdoModal guildpad={guildpad}/>)
   const details = guildpad.description
+  const [whitelistModalShowed, setWhitelistModalShowed] = useState(false)
+
+  const [showNotInWhitelistModal] = useModal(
+    <ModalWhitelist onDismiss={() => {
+      setWhitelistModalShowed(false)
+    }} />,
+  )
+
+  useEffect(() => {
+    if (account && !guildpad.userData.details.whitelist && !whitelistModalShowed && userDataLoaded) {
+      showNotInWhitelistModal()
+      setWhitelistModalShowed(true)
+    }
+  }, [account, guildpad, showNotInWhitelistModal, whitelistModalShowed, userDataLoaded])
 
   return (
     <ContainerBoxCard>
@@ -114,7 +130,7 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
               {!account ? (
                 <UnlockButton customTitle="CONNECT WALLET TO PARTICIPATE" />
               ) : (
-                <Button onClick={useBuyIDOModal}  fullWidth> PURCHASE {guildpad.sellingCoin.symbol}</Button>
+                <Button onClick={useBuyIDOModal} disabled={!guildpad.userData.details.whitelist} fullWidth> PURCHASE {guildpad.sellingCoin.symbol}</Button>
               )}
             </ActionSection>
           </MarketCard>

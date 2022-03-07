@@ -14,6 +14,8 @@ import useTokenBalance, { useTokenAllowance } from '../../../../hooks/useTokenBa
 import { useApproveGuildpad } from '../../../../hooks/useApprove'
 import { fetchFarmUserDataAsync } from '../../../../state/farms'
 import { useGuildpadApproval } from '../../../../hooks/useApproval'
+import useToast from '../../../../hooks/useToast'
+import { useTranslation } from '../../../../contexts/Localization'
 
 
 interface ModalProps {
@@ -23,6 +25,9 @@ interface ModalProps {
 
 const ModalComponent: React.FC<ModalProps> = ({ onDismiss, guildpad }) => {
   const { account } = useWeb3React()
+  const { toastSuccess, toastError } = useToast()
+  const { t } = useTranslation()
+
   const [input, setInput] = useState<string>('')
   const [output, setOutput] = useState<string>('')
   const [swapDisabled, setSwapDisabled] = useState<boolean>(true)
@@ -45,11 +50,16 @@ const ModalComponent: React.FC<ModalProps> = ({ onDismiss, guildpad }) => {
   const handleBuy = async () => {
     const ids = [guildpad.id]
     setBuyInitiated(true)
-    await onBuyIgo(input)
-    setBuyInitiated(false)
-    dispatch(fetchPublicGuildpadDataAsync([guildpad.id]))
-    dispatch(fetchGuildpadUserDataAsync({ account, ids }))
-    onDismiss()
+    try {
+      await onBuyIgo(input)
+      toastSuccess(`Successfully Bought!`)
+      setBuyInitiated(false)
+      dispatch(fetchPublicGuildpadDataAsync([guildpad.id]))
+      dispatch(fetchGuildpadUserDataAsync({ account, ids }))
+      onDismiss()
+    } catch (e) {
+      toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas'))
+    }
   }
 
   const toggleSwap = (value, type = 'input') => {

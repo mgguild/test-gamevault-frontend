@@ -6,7 +6,7 @@ import { Flex, Heading, Text, Modal, Button } from '@metagg/mgg-uikit'
 interface ModalWhitelistProps{
   onDismiss?: () => void
   onBack?: () => void
-  dateInMilli: number
+  dateInMilli?: number
 }
 
 const Content = styled.div`
