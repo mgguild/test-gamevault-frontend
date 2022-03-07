@@ -59,7 +59,7 @@ export const getCustomMeta = (path: string, t: ContextApi['t']): PageMeta => {
   }
 }
 
-export const getPadCustomMeta = (path: string, launchpad: string):PageMeta => {
+export const getPadCustomMeta = (launchpad: string):PageMeta => {
   return {
     title: `MGG Guildpad > ${launchpad}`
   }
