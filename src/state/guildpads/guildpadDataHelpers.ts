@@ -154,6 +154,7 @@ export const fetchIDODetails = async (guildpad: Guildpad) => {
     totalParticipants: totalParticipant[0].toString(),
     expectedSales: expectedSales.toPrecision(),
     totalSupply: totalSupply.toPrecision(),
+    remainingSupply: totalSupply.minus(soldAmount).toString(),
     tokenRate: tokenRate.toPrecision(),
     totalRaise: totalRaise.toPrecision(),
     percentage: percentage.toString(),

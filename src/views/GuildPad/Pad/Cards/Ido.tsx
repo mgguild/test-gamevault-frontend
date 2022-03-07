@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { getBalanceNumber } from 'utils/formatBalance'
 import { Guildpad } from 'state/types'
@@ -19,6 +19,11 @@ import {
   ProgressSection,
   TimerContainer,
 } from './styled'
+import { useAppDispatch } from '../../../../state'
+import { useBuyBox } from '../../../../hooks/useGuildPad'
+import { getAddress } from '../../../../utils/addressHelpers'
+import { fetchGuildpadUserDataAsync, fetchPublicGuildpadDataAsync } from '../../../../state/guildpads'
+import { useGuildpadData } from '../../../../state/hooks'
 
 
 const CountDown: React.FC<{ round: string; start?: boolean; end?: number }> = ({ round, start, end }) => {
@@ -63,8 +68,8 @@ const CountDown: React.FC<{ round: string; start?: boolean; end?: number }> = ({
 
 const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ guildpad, userDataLoaded }) => {
   const { account } = useWeb3React()
+  const [showModal, setShowModal] = useState(false)
   const [useBuyIDOModal] = useModal(<BuyIdoModal guildpad={guildpad}/>)
-
   const details = guildpad.description
   const percent = 81 // Rate
   const progress = `118 / 150 BNB`

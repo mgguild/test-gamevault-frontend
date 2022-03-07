@@ -5,9 +5,9 @@ import { ethers } from 'ethers'
 import BigNumber from 'bignumber.js'
 import { useAppDispatch } from 'state'
 import { updateUserAllowance } from 'state/actions'
-import { approve, approveWithAmount } from 'utils/callHelpers'
+import { approve, approveContract, approveWithAmount } from 'utils/callHelpers'
 import { useTranslation } from 'contexts/Localization'
-import { useCake, useCakeVaultContract, useLottery, useSousChef } from './useContract'
+import { useCake, useCakeVaultContract, useERC20, useLottery, useSousChef } from './useContract'
 import useToast from './useToast'
 import useLastUpdated from './useLastUpdated'
 
@@ -21,6 +21,21 @@ export const useApprove = (lpContract: Contract, contractAddress: Contract) => {
       return false
     }
   }, [account, lpContract, contractAddress])
+
+  return { onApprove: handleApprove }
+}
+
+// Approve a Guildpad
+export const useApproveGuildpad = (tokenContractAddress: string, contractAddress: string) => {
+  const { account } = useWeb3React()
+  const tokenContract = useERC20(tokenContractAddress)
+  const handleApprove = useCallback(async () => {
+    try {
+      return await approveContract(tokenContract, contractAddress, account)
+    } catch (e) {
+      return false
+    }
+  }, [account, tokenContract, contractAddress])
 
   return { onApprove: handleApprove }
 }

@@ -115,7 +115,8 @@ const TokenInformation: React.FC<{
   buyingCoin: string
   type: string
   sellingCoin: string
-}> = ({ totalRaise, boxesForSale, buyingCoin, type, sellingCoin }) => {
+  gpadType?: string
+}> = ({ totalRaise, boxesForSale, buyingCoin, type, sellingCoin , gpadType = 'INO'}) => {
   return (
     <InfoBox flexDirection="column" padding="0px 24px 12px 24px">
       <InfoRow justifyContent="space-between">
@@ -125,7 +126,7 @@ const TokenInformation: React.FC<{
         </Text>
       </InfoRow>
       <InfoRow justifyContent="space-between">
-        <Text>Boxes for Sale</Text>
+        <Text>{gpadType === 'INO' ? 'Boxes' : 'Tokens'} for Sale</Text>
         <Text bold>{boxesForSale}</Text>
       </InfoRow>
       <InfoRow justifyContent="space-between">
@@ -164,7 +165,7 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
   const theme = useContext(ThemeContext)
   const src = useFetchBanner(guildpad.sellingCoin.symbol)
   const status = getStatus(guildpad)
-  const totalRaiseInBnb = getBalanceAmount(new BigNumber(guildpad.totalRaise), 18);
+  const totalRaise = getBalanceAmount(new BigNumber(guildpad.totalRaise), guildpad.buyingCoin.decimals);
 
   return (
     <GCard>
@@ -176,11 +177,12 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
         subtitle={guildpad.title}
       />
       <TokenInformation
-        totalRaise={totalRaiseInBnb.toString()}
+        totalRaise={totalRaise.toString()}
         boxesForSale={guildpad.totalSupply.toString()}
         buyingCoin={guildpad.buyingCoin.symbol}
         type={guildpad.distribution}
         sellingCoin={guildpad.sellingCoin.symbol}
+        gpadType={guildpad.type}
       />
       <Flex padding="24px">
         {!account ? (

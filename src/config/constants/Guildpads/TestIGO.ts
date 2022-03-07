@@ -17,9 +17,9 @@ const guildpad = {
   status: GUILDPAD_STATUS.ongoing,
   contractAddress: {
     97: '0x002',
-    56: '0x04Ad92118efB7bC8B0F7d45fd5d9D49F75881D3D',
+    56: '0xf2c21C420421bbb2A805A6e54227EDFBBFe908f8',
   },
-  buyingCoin: tokens.wbnb,
+  buyingCoin: tokens.busd,
   sellingCoin: tokens.test,
   igoDetails: {
     price: '0.12 USD',

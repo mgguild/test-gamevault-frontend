@@ -3,19 +3,8 @@ import { Guildpad } from '../types'
 import { isAddress } from '../../utils'
 import fetchINODetails, { fetchIDODetails } from './guildpadDataHelpers'
 
-type PublicGuildpadData = {
-  hasStarted?: boolean
-  hasEnded?: boolean
-  totalSupply?: string
-  totalSold?: string
-  totalRaise?: string
-  boxInfo?: any
-  buyLimitEnabled?: boolean
-  buyLimit?: string
-  whitelistEnabled?: boolean
-}
 
-const fetchPublicGuildpadData = async (guildpad: Guildpad): Promise<PublicGuildpadData> => {
+const fetchPublicGuildpadData = async (guildpad: Guildpad) => {
   const { contractAddress } = guildpad
   const guildpadAddress = getAddress(contractAddress)
 

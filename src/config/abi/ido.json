@@ -46,7 +46,7 @@
           }
         ],
         "indexed": false,
-        "internalType": "struct SparkLaunch_rev1.WhitelistInput[]",
+        "internalType": "struct SparkLaunch_rev2.WhitelistInput[]",
         "name": "_addresses",
         "type": "tuple[]"
       }
@@ -240,6 +240,19 @@
     "inputs": [
       {
         "indexed": false,
+        "internalType": "address",
+        "name": "buyingToken",
+        "type": "address"
+      }
+    ],
+    "name": "ESetBuyingToken",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
         "internalType": "string",
         "name": "_name",
         "type": "string"
@@ -368,7 +381,7 @@
             "type": "uint256"
           }
         ],
-        "internalType": "struct SparkLaunch_rev1.WhitelistInput[]",
+        "internalType": "struct SparkLaunch_rev2.WhitelistInput[]",
         "name": "inputs",
         "type": "tuple[]"
       }
@@ -379,10 +392,29 @@
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
     "name": "buyTokens",
     "outputs": [],
-    "stateMutability": "payable",
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "buyingToken",
+    "outputs": [
+      {
+        "internalType": "contract IERC20",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -466,22 +498,9 @@
             "type": "uint256"
           }
         ],
-        "internalType": "struct SparkLaunch_rev1.RewardedData[]",
+        "internalType": "struct SparkLaunch_rev2.RewardedData[]",
         "name": "",
         "type": "tuple[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getTokenAddress",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "tokenAddress",
-        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -676,12 +695,12 @@
   {
     "inputs": [
       {
-        "internalType": "contract IERC20",
-        "name": "token",
+        "internalType": "address",
+        "name": "_buyingToken",
         "type": "address"
       }
     ],
-    "name": "setTokenAddress",
+    "name": "setBuyingToken",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -819,13 +838,6 @@
   {
     "inputs": [],
     "name": "withdrawBNBBalance",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "withdrawRemainingTokens",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

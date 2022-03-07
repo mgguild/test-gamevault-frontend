@@ -66,6 +66,7 @@ export const fetchGuildpadUserDataAsync = createAsyncThunk<GuildpadUserDataRespo
     const useGuildpadIgoUserDetails = await fetchGuildpadIgoUserDetails(account, guildpadToFetch)
     return guildpadToFetch.map((gpad, index) => {
       const details = useGuildpadIgoUserDetails.filter((data) => { return data.id === gpad.id})[0]
+      console.log(details)
       return {
         id: gpad.id,
         boxesBought: useGuildpadBoxes[index] ?? '0',
