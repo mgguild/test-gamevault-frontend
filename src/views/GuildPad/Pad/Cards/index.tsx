@@ -28,7 +28,7 @@ const GCard = styled(SCard)<{ src?: string }>`
   width: 100%;
   margin: 0 8rem;
   background: #101010;
-  @media screen and (max-width: 925px) {
+  @media screen and (max-width: 1024px) {
     margin: 0px auto;
   }
   ${({ src, theme }) =>
