@@ -351,7 +351,7 @@ const Card: React.FC<{ guildpad: GuildpadConfig, userDataLoaded: boolean }> = ({
         </ContainerProjDesc>
           </>
         )
-      case TYPE.IDO:
+      case TYPE.IGO:
         return (
           <>
             <IdoCard guildpad={guildpad} userDataLoaded={userDataLoaded} />
@@ -371,7 +371,6 @@ const Card: React.FC<{ guildpad: GuildpadConfig, userDataLoaded: boolean }> = ({
       <CardHeader status={status} background={src} guildpad={guildpad}/>
       <Contain>
       { renderType(guildpad.type) }
-        
       </Contain>
     </GCard>
   )
