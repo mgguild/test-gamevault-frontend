@@ -305,7 +305,7 @@ const CardHeader: React.FC<{ status: string; background?: string; guildpad: Guil
           socMeds={guildpad.socials}
           color="white"
         />
-        <Flex justifyContent='right'>
+        <Flex justifyContent='right' alignItems='center'>
           <div>
             <StatusBox status={status.toLowerCase()} padding="10px">
               {status.toUpperCase()}

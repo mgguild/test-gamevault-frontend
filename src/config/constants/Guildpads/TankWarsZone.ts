@@ -11,10 +11,10 @@ const socials = {
 const guildpad = {
   description: 'Tank wars zone is a metaverse-ready exciting and visually refreshing action game built on blockchain technology. Being the first blockchain game on Fantom & invested by the Fantom Foundation, the game will have very low transactions fees, the lowest time confirmations, and supportive communities for players. With various gameplays, you can play solo, or gather your friends, form a team, and battle with others while being able to earn money just by playing or staking your NFTs.',
   socials,
-  type: TYPE.INO,
+  type: TYPE.IDO,
   round: '1',
   distribution: DISTRIBUTION.AIRDROP,
-  status: GUILDPAD_STATUS.completed,
+  status: GUILDPAD_STATUS.ongoing,
   contractAddress: {
     97: '0xE673E67bD59A7390725ED98cBead9A5928F6f51E',
     56: '0xf99869Fb775456e84Aa980f1fC104297694b8c47',
