@@ -74,7 +74,7 @@ const CountDown: React.FC<{ round: string; start?: boolean; end?: number }> = ({
     <TimerContainer isStart={isStart} justifyContent="right" padding={isStart ? '10px' : '0px'}>
       <Timer dateSettings={{ isStart, end: endDate }} Renderer={Renderer} />
     </TimerContainer>
-  ) 
+  )
 }
 
 const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ guildpad, userDataLoaded }) => {
@@ -124,7 +124,7 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
               </DataRow>
               <DataRow>
                 <Text>{guildpad.sellingCoin.symbol} Price</Text>
-                <Text>{guildpad.tokenRate}</Text>
+                <Text>{guildpad.tokenRate} {guildpad.buyingCoin.symbol}</Text>
               </DataRow>
               <DataRow>
                 <Text>{guildpad.sellingCoin.symbol} Sold</Text>

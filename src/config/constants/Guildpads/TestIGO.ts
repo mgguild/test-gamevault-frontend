@@ -17,22 +17,22 @@ const guildpad = {
   status: GUILDPAD_STATUS.ongoing,
   contractAddress: {
     97: '0x002',
-    56: '0xf2c21C420421bbb2A805A6e54227EDFBBFe908f8',
+    56: '0x6CBa3730607806eB281ba01579Bc39bb4f539d62',
   },
   buyingCoin: tokens.busd,
-  sellingCoin: tokens.test,
+  sellingCoin: tokens.Wizardia,
   igoDetails: {
     price: '0.12 USD',
     fundsTarget: '60,000 USD',
   },
   date: {
-    start: 'March 9, 2022 9:00 PM UTC',
-    end: 'March 10, 2022 9:00 PM UTC'
+    start: 'March 9, 2022 1:00 PM UTC',
+    end: 'March 10, 2022 1:00 PM UTC'
   },
   // projectTokenEquivalent: '1425 WBOND',
   // asOfPriceInProjectToken: 1645362000000,
-  epochEndDate: 1646946000000,
-  nextRoundDate: 1646946000000
+  epochEndDate: 1646917200000,
+  nextRoundDate: 1646917200000
 }
 
 export default guildpad

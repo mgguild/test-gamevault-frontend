@@ -58,6 +58,7 @@ const ModalComponent: React.FC<ModalProps> = ({ onDismiss, guildpad }) => {
       dispatch(fetchGuildpadUserDataAsync({ account, ids }))
       onDismiss()
     } catch (e) {
+      setBuyInitiated(false)
       toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas'))
     }
   }
@@ -115,7 +116,7 @@ const ModalComponent: React.FC<ModalProps> = ({ onDismiss, guildpad }) => {
       <ContentContainer>
         <HeaderSection flexDirection='column'>
           <Heading size='xl'>Swap Coins</Heading>
-          <Text color='textSubtle' fontSize='10px'>Max. Allocation is {maxPayableAmount.toString()} {guildpad.sellingCoin.symbol}</Text>
+          <Text color='textSubtle' fontSize='1.1em'>Max. Allocation is {maxPayableAmount.toString()} {guildpad.sellingCoin.symbol}</Text>
         </HeaderSection>
         <SwapSection>
           <CurrencyInputPanel
@@ -126,6 +127,7 @@ const ModalComponent: React.FC<ModalProps> = ({ onDismiss, guildpad }) => {
             currency={guildpad.buyingCoin}
             showMaxButton
             onMax={handleMaxInput}
+            disabled={allowance.isZero()}
             remainingSupply={expendable.toString()}
           />
           <CurrencyInputPanel
@@ -136,6 +138,7 @@ const ModalComponent: React.FC<ModalProps> = ({ onDismiss, guildpad }) => {
             currency={guildpad.sellingCoin}
             showMaxButton
             onMax={handleMaxOuput}
+            disabled={allowance.isZero()}
             remainingSupply={purchasable.toString()}
           />
           <Text>Price: {`${guildpad.tokenRate} ${guildpad.sellingCoin.symbol} per ${guildpad.buyingCoin.symbol}`}</Text>
@@ -147,7 +150,7 @@ const ModalComponent: React.FC<ModalProps> = ({ onDismiss, guildpad }) => {
         <AllocSection>
           <Text fontSize='14px'>My Allocation</Text>
           <Flex alignItems='center'>
-            <Logo primaryToken={guildpad.sellingCoin} padding='0px' />
+            <Logo tokenSize='35px' primaryToken={guildpad.sellingCoin} padding='0px' />
             <Text>{rewardedAmount.toString()} {guildpad.sellingCoin.symbol}</Text>
           </Flex>
         </AllocSection>

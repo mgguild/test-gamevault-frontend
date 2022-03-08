@@ -27,6 +27,7 @@ type LogoProps = {
   tokenName?: string
   tokenSize?: string
   nameSize?: string
+  subSize?: string
   primaryToken: Token
   subtitle?: string
   socMeds?: Socials
@@ -35,7 +36,7 @@ type LogoProps = {
   color?: string
 }
 
-const Logo: React.FC<LogoProps> = ({tokenSize, tokenName, nameSize = 'l', primaryToken, subtitle, socMeds, socMedsSize = 16, padding = '24px', color = null}) => {
+const Logo: React.FC<LogoProps> = ({tokenSize, tokenName, nameSize = 'l', subSize = '12px', primaryToken, subtitle, socMeds, socMedsSize = 16, padding = '24px', color = null}) => {
   const theme = useContext(ThemeContext)
   const colour = color ?? theme.colors.text;
   return (
@@ -77,7 +78,7 @@ const Logo: React.FC<LogoProps> = ({tokenSize, tokenName, nameSize = 'l', primar
             )}
           </Flex>
         ) : (
-          <Text fontSize="12px" color="textSubtle">
+          <Text fontSize={subSize} color="textSubtle">
             {subtitle}
           </Text>
         )}
