@@ -58,6 +58,7 @@ const ModalComponent: React.FC<ModalProps> = ({ onDismiss, guildpad }) => {
       dispatch(fetchGuildpadUserDataAsync({ account, ids }))
       onDismiss()
     } catch (e) {
+      setBuyInitiated(false)
       toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas'))
     }
   }
