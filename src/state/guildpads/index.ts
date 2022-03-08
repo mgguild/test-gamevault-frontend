@@ -3,8 +3,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import guildpadsConfig from 'config/constants/guildpads'
 import { Guildpad, GuildpadState } from '../types'
 import fetchGuildpads from './fetchGuildpads'
-import { fetchGuildpadIsUserWhitelisted, fetchGuildpadUserBoxes } from './fetchGuildpadUser'
-import  mergingGuildpads from './mergingGuildpads';
+import {
+  fetchGuildpadIgoUserDetails,
+  fetchGuildpadIsUserWhitelisted,
+  fetchGuildpadUserBoxes,
+} from './fetchGuildpadUser'
+import mergingGuildpads from './mergingGuildpads'
 
 const noAccountGuildpadConfig = guildpadsConfig.map((guildpad) => ({
   ...guildpad,
@@ -13,6 +17,7 @@ const noAccountGuildpadConfig = guildpadsConfig.map((guildpad) => ({
   userData: {
     boxesBought: '0',
     isWhitelisted: false,
+    details: {},
   },
   hasStarted: false,
   hasEnded: false,
@@ -21,11 +26,11 @@ const noAccountGuildpadConfig = guildpadsConfig.map((guildpad) => ({
     1: {
       price: '0',
       supply: '0',
-      sold: '0'
-    }
+      sold: '0',
+    },
   },
   buyLimitEnabled: false,
-  buyLimit: '0'
+  buyLimit: '0',
 }))
 
 const initialState: GuildpadState = { data: noAccountGuildpadConfig, userDataLoaded: false }
@@ -47,8 +52,9 @@ export const fetchPublicGuildpadDataAsync = createAsyncThunk<Guildpad[], number[
 
 interface GuildpadUserDataResponse {
   id: number
-  boxesBought: string
+  boxesBought?: string
   isWhitelisted?: boolean
+  details?: any
 }
 
 export const fetchGuildpadUserDataAsync = createAsyncThunk<GuildpadUserDataResponse[], { account: string; ids: number[] }>(
@@ -57,11 +63,14 @@ export const fetchGuildpadUserDataAsync = createAsyncThunk<GuildpadUserDataRespo
     const guildpadToFetch = guildpadsConfig.filter((guildpadConfig) => ids.includes(guildpadConfig.id))
     const useGuildpadBoxes = await fetchGuildpadUserBoxes(account, guildpadToFetch)
     const useGuildpadIsWhitelist = await fetchGuildpadIsUserWhitelisted(account, guildpadToFetch)
-    return useGuildpadBoxes.map((box, index) => {
+    const useGuildpadIgoUserDetails = await fetchGuildpadIgoUserDetails(account, guildpadToFetch)
+    return guildpadToFetch.map((gpad, index) => {
+      const details = useGuildpadIgoUserDetails.filter((data) => { return data.id === gpad.id})[0]
       return {
-        id: guildpadToFetch[index].id,
-        boxesBought: box,
-        isWhitelisted: useGuildpadIsWhitelist[index],
+        id: gpad.id,
+        boxesBought: useGuildpadBoxes[index] ?? '0',
+        isWhitelisted: useGuildpadIsWhitelist[index] ?? false,
+        details: details?.details ?? {},
       }
     })
   },
@@ -81,7 +90,7 @@ export const guildpadSlice = createSlice({
 
       // Merging Here
       const merges = mergingGuildpads(state.data)
-      if(merges && merges.length){
+      if (merges && merges.length) {
         state.data = [...state.data, ...merges]
       }
     })

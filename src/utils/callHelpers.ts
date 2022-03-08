@@ -10,6 +10,7 @@ import tokens from 'config/constants/tokens'
 import { web3WithArchivedNodeProvider } from './web3'
 import { getBalanceAmount, getDecimalAmount } from './formatBalance'
 import { BIG_TEN, BIG_ZERO } from './bigNumber'
+import { useERC20 } from '../hooks/useContract'
 
 export const approve = async (lpContract, masterChefContract, account) => {
   return lpContract.methods
@@ -17,10 +18,22 @@ export const approve = async (lpContract, masterChefContract, account) => {
     .send({ from: account })
 }
 
+export const approveContract = async (tokenContract: Contract, spender: string, account) => {
+  return tokenContract.methods
+    .approve(spender, ethers.constants.MaxUint256)
+    .send({ from: account })
+}
+
 export const buyBox = async (inoContract, rarity, account, amount) => {
   return inoContract.methods
     .buy(rarity)
     .send({ from: account, value: getDecimalAmount(amount) }) // to fix
+}
+
+export const buyIgo = async (igoContract, account, amount) => {
+  return igoContract.methods
+    .buyTokens(getDecimalAmount(amount).toString())
+    .send({ from: account}) // to fix
 }
 
 export const approveWithAmount = async (lpContract, masterChefContract, account, amount) => {

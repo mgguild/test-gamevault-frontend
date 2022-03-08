@@ -19,10 +19,7 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
   const isMobile = useMedia({ maxWidth: 500 })
 
   const { buyingCoin, sellingCoin, description, type } = guildpad
-  const pair = `${buyingCoin.symbol}/${sellingCoin.symbol}`
-  const guildSymbol = sellingCoin.symbol
   const srcs = useFetchImage(sellingCoin.symbol);
-  const totalRaiseInBnb = getBalanceAmount(new BigNumber(guildpad.totalRaise), 18).toString();
   const hasRemainingSupply = new BigNumber(new BigNumber(guildpad.totalSupply).minus(new BigNumber(guildpad.totalSold))).isGreaterThan(0)
 
   return (
