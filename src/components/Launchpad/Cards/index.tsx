@@ -4,7 +4,7 @@ import styled, { ThemeContext } from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
 import Timer from 'views/GuildPad/components/Timer'
-import { GuildpadConfig, GUILDPAD_STATUS } from 'config/constants/types'
+import { GuildpadConfig, GUILDPAD_STATUS, TYPE } from 'config/constants/types'
 import { useFetchBanner } from 'utils/assetFetch'
 import { Button, Card as SCard, CardHeader as SCardHeader, Flex, Heading, Text } from '@metagg/mgg-uikit'
 import TokenLogo from 'components/Launchpad/Logo'
@@ -126,7 +126,7 @@ const TokenInformation: React.FC<{
         </Text>
       </InfoRow>
       <InfoRow justifyContent="space-between">
-        <Text>{sellingCoin} for Sale</Text>
+        <Text>{gpadType === TYPE.INO ? 'Boxes' : sellingCoin} for Sale</Text>
         <Text bold>{boxesForSale}</Text>
       </InfoRow>
       <InfoRow justifyContent="space-between">
