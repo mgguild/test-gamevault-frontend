@@ -1,15 +1,14 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 import moment from 'moment'
 import { useWeb3React } from '@web3-react/core'
-import { Button, useWalletModal, Text, Flex } from '@metagg/mgg-uikit'
+import { Flex, Text, useWalletModal } from '@metagg/mgg-uikit'
 import useAuth from 'hooks/useAuth'
-import BigNumber from 'bignumber.js'
-import { getBalanceAmount } from 'utils/formatBalance'
-import styled, { ThemeContext } from 'styled-components'
-import { GuildpadConfig, GUILDPAD_STATUS, TYPE } from 'config/constants/types'
-import { SaleContainer, SaleRow, PostBody, NavOption } from './styled'
+import { ThemeContext } from 'styled-components'
+import { TYPE } from 'config/constants/types'
+import { NavOption, PostBody, SaleContainer, SaleRow } from './styled'
+import { Guildpad } from '../../state/types'
 
-const Content: React.FC<{ guildpad: GuildpadConfig; rarity?: string }> = ({ guildpad, rarity = '1' }) => {
+const Content: React.FC<{ guildpad: Guildpad; rarity?: string }> = ({ guildpad, rarity = '1' }) => {
   const theme = useContext(ThemeContext)
   const [active, setActive] = useState(1)
   const { account } = useWeb3React()
@@ -19,7 +18,7 @@ const Content: React.FC<{ guildpad: GuildpadConfig; rarity?: string }> = ({ guil
     const description = guildpad.description !== '' ? guildpad.description : 'No description'
 
     return (
-      <Text color="textSubtle" margin="10px 0px" style={{ lineHeight: '2em' }}>
+      <Text color='textSubtle' margin='10px 0px' style={{ lineHeight: '2em' }}>
         {description}
       </Text>
     )
@@ -33,7 +32,7 @@ const Content: React.FC<{ guildpad: GuildpadConfig; rarity?: string }> = ({ guil
       price = price !== 'TBA' ? `${price} ${guildpad.buyingCoin.symbol}` : price
     }
     if (guildpad.type === TYPE.IDO) {
-      price = guildpad.igoDetails ? guildpad.igoDetails.price : 'TBA'
+      price = guildpad.tokenRate ?? (guildpad.igoDetails ? guildpad.igoDetails.price : 'TBA')
     }
     return price
   }
@@ -50,64 +49,64 @@ const Content: React.FC<{ guildpad: GuildpadConfig; rarity?: string }> = ({ guil
     const end = guildpad.epochEndDate ? `${moment(guildpad.epochEndDate).utc().format('LLL')} UTC` : 'TBA'
 
     return guildpad.type === TYPE.INO ? (
-      <SaleContainer justifyContent="space-between">
-        <Flex flexDirection="column">
-          <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Sale Price</Text>
+      <SaleContainer justifyContent='space-between'>
+        <Flex flexDirection='column'>
+          <SaleRow justifyContent='space-between'>
+            <Text color='textSubtle'>Sale Price</Text>
             <div style={{ textAlign: 'right' }}>
               <Text>
-                {guildpadPrice()}
+                {guildpadPrice()} {guildpad.buyingCoin.symbol}
                 {guildpadPrice() !== 'TBA' && guildpad.projectTokenEquivalent && `(${guildpad.projectTokenEquivalent})`}
               </Text>
               {asOfPriceTime && (
-                <Text fontSize="12px">
+                <Text fontSize='12px'>
                   (<em>as of {asOfPriceTime} UTC</em>)
                 </Text>
               )}
             </div>
           </SaleRow>
-          <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Sale Start Time</Text>
+          <SaleRow justifyContent='space-between'>
+            <Text color='textSubtle'>Sale Start Time</Text>
             <Text>{start}</Text>
           </SaleRow>
-          <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Sale End Time</Text>
+          <SaleRow justifyContent='space-between'>
+            <Text color='textSubtle'>Sale End Time</Text>
             <Text>{end}</Text>
           </SaleRow>
         </Flex>
-        <Flex flexDirection="column">
+        <Flex flexDirection='column'>
           {guildpad.type === TYPE.INO && (
-            <SaleRow justifyContent="space-between">
-              <Text color="textSubtle">Boxes for Sale</Text>
+            <SaleRow justifyContent='space-between'>
+              <Text color='textSubtle'>Boxes for Sale</Text>
               <Text>{guildpad.totalSupply}</Text>
             </SaleRow>
           )}
           {guildpad.type === TYPE.IDO && (
-            <SaleRow justifyContent="space-between">
-              <Text color="textSubtle">Buying Coin</Text>
+            <SaleRow justifyContent='space-between'>
+              <Text color='textSubtle'>Buying Coin</Text>
               <Text>{guildpad.buyingCoin.symbol}</Text>
             </SaleRow>
           )}
-          <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">NFT Distribution</Text>
+          <SaleRow justifyContent='space-between'>
+            <Text color='textSubtle'>NFT Distribution</Text>
             <div style={{ textAlign: 'right' }}>
               <Text>{distribution}</Text>
               {guildpad.distributionDesc && (
-                <Text fontSize="12px">
+                <Text fontSize='12px'>
                   (<em>{guildpad.distributionDesc}</em>)
                 </Text>
               )}
             </div>
           </SaleRow>
           {guildpad.type === TYPE.INO && inoPrice && (
-            <SaleRow justifyContent="space-between">
-              <Text color="textSubtle">INO Price</Text>
+            <SaleRow justifyContent='space-between'>
+              <Text color='textSubtle'>INO Price</Text>
               <Text>{inoPrice}</Text>
             </SaleRow>
           )}
           {guildpad.type === TYPE.INO && (
-            <SaleRow justifyContent="space-between">
-              <Text color="textSubtle">Boxes Sold</Text>
+            <SaleRow justifyContent='space-between'>
+              <Text color='textSubtle'>Boxes Sold</Text>
               <Text>
                 {guildpad.totalSold} / {guildpad.totalSupply}
               </Text>
@@ -116,42 +115,42 @@ const Content: React.FC<{ guildpad: GuildpadConfig; rarity?: string }> = ({ guil
         </Flex>
       </SaleContainer>
     ) : (
-      <SaleContainer justifyContent="space-between">
-        <Flex flexDirection="column">
-          <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Token Name</Text>
+      <SaleContainer justifyContent='space-between'>
+        <Flex flexDirection='column'>
+          <SaleRow justifyContent='space-between'>
+            <Text color='textSubtle'>Token Name</Text>
             <Text>{guildpad.title}</Text>
           </SaleRow>
-          <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Ticker</Text>
+          <SaleRow justifyContent='space-between'>
+            <Text color='textSubtle'>Ticker</Text>
             <Text>{guildpad.sellingCoin.symbol}</Text>
           </SaleRow>
-          <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Sale Price</Text>
+          <SaleRow justifyContent='space-between'>
+            <Text color='textSubtle'>Sale Price</Text>
             <div style={{ textAlign: 'right' }}>
               <Text>
-                {guildpadPrice()}
+                {guildpadPrice()} {guildpad.buyingCoin.symbol}
                 {guildpadPrice() !== 'TBA' && guildpad.projectTokenEquivalent && `(${guildpad.projectTokenEquivalent})`}
               </Text>
               {asOfPriceTime && (
-                <Text fontSize="12px">
+                <Text fontSize='12px'>
                   (<em>as of {asOfPriceTime} UTC</em>)
                 </Text>
               )}
             </div>
           </SaleRow>
         </Flex>
-        <Flex flexDirection="column">
-          <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Buying Coin</Text>
+        <Flex flexDirection='column'>
+          <SaleRow justifyContent='space-between'>
+            <Text color='textSubtle'>Buying Coin</Text>
             <Text>{guildpad.buyingCoin.symbol}</Text>
           </SaleRow>
-          <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Funds to be Raised</Text>
-            <Text>{guildpad.FundstoRaise ?? 'TBA'}</Text>
+          <SaleRow justifyContent='space-between'>
+            <Text color='textSubtle'>Funds to be Raised</Text>
+            <Text>{guildpad.FundstoRaise ?? (guildpad.expectedSales ?? 'TBA')} {guildpad.buyingCoin.symbol}</Text>
           </SaleRow>
-          <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Token Distribution</Text>
+          <SaleRow justifyContent='space-between'>
+            <Text color='textSubtle'>Token Distribution</Text>
             <Text>{guildpad.distribution}</Text>
           </SaleRow>
         </Flex>
@@ -161,15 +160,15 @@ const Content: React.FC<{ guildpad: GuildpadConfig; rarity?: string }> = ({ guil
 
   const renderSchedule = () => {
     return (
-      <SaleContainer justifyContent="space-between">
-        <Flex flexDirection="column">
-          <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Sale Start Time</Text>
-            <Text>TBA</Text>
+      <SaleContainer justifyContent='space-between'>
+        <Flex flexDirection='column'>
+          <SaleRow justifyContent='space-between'>
+            <Text color='textSubtle'>Sale Start Time</Text>
+            <Text>{guildpad.date.start}</Text>
           </SaleRow>
-          <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Sale End Time</Text>
-            <Text>TBA</Text>
+          <SaleRow justifyContent='space-between'>
+            <Text color='textSubtle'>Sale End Time</Text>
+            <Text>{guildpad.date.end}</Text>
           </SaleRow>
         </Flex>
       </SaleContainer>
@@ -178,10 +177,10 @@ const Content: React.FC<{ guildpad: GuildpadConfig; rarity?: string }> = ({ guil
 
   const renderAllocation = () => {
     return (
-      <SaleContainer justifyContent="space-between">
-        <Flex flexDirection="column">
-          <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Wallet Address:</Text>
+      <SaleContainer justifyContent='space-between'>
+        <Flex flexDirection='column'>
+          <SaleRow justifyContent='space-between'>
+            <Text color='textSubtle'>Wallet Address:</Text>
             <Text
               color={theme.colors.primary}
               onClick={!account && onPresentConnectModal}
@@ -190,12 +189,12 @@ const Content: React.FC<{ guildpad: GuildpadConfig; rarity?: string }> = ({ guil
               {account ?? 'Please connect wallet.'}
             </Text>
           </SaleRow>
-          <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Allocation</Text>
-            <Text>TBA</Text>
+          <SaleRow justifyContent='space-between'>
+            <Text color='textSubtle'>Allocation</Text>
+            <Text>{guildpad.userData.details.rewardedAmount}</Text>
           </SaleRow>
-          <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Distribution Mode</Text>
+          <SaleRow justifyContent='space-between'>
+            <Text color='textSubtle'>Distribution Mode</Text>
             <Text>{guildpad.distribution}</Text>
           </SaleRow>
         </Flex>
@@ -214,7 +213,7 @@ const Content: React.FC<{ guildpad: GuildpadConfig; rarity?: string }> = ({ guil
       default:
         return (
           <Flex>
-            <Text margin="0px auto">Coming Soon</Text>
+            <Text margin='0px auto'>Coming Soon</Text>
           </Flex>
         )
     }
@@ -225,8 +224,8 @@ const Content: React.FC<{ guildpad: GuildpadConfig; rarity?: string }> = ({ guil
       {guildpad.type === TYPE.INO ? (
         <>
           <Flex
-            alignItems="center"
-            margin="10px 0px 20px 0px"
+            alignItems='center'
+            margin='10px 0px 20px 0px'
             style={{ borderBottom: `0.5px solid ${theme.colors.primary}`, width: '100%' }}
           >
             <NavOption onClick={() => setActive(1)} activeIndex={active === 1}>
@@ -241,8 +240,8 @@ const Content: React.FC<{ guildpad: GuildpadConfig; rarity?: string }> = ({ guil
       ) : (
         <>
           <Flex
-            alignItems="center"
-            margin="10px 0px 20px 0px"
+            alignItems='center'
+            margin='10px 0px 20px 0px'
             style={{ borderBottom: `0.5px solid ${theme.colors.primary}`, width: '100%' }}
           >
             <NavOption onClick={() => setActive(1)} activeIndex={active === 1}>
