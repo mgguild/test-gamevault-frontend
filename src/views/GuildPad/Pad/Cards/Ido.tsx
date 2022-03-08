@@ -84,7 +84,7 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
   return (
     <ContainerBoxCard>
       <Grid container spacing={2}>
-        <Grid item xs={4} md={6}>
+        <Grid item xs={12} md={6}>
           <CountDown round="1" start end={guildpad.epochEndDate} />
           <Text color="rgba(216, 209, 232, 1)" fontSize="17px" padding='10px 0px 0px 0px' margin='10px 0px 0px 0px'>{details}</Text>
         </Grid>
