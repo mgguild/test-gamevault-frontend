@@ -56,10 +56,10 @@ const CountDown: React.FC<{ round: string; start?: boolean; end?: number }> = ({
   }
 
   return (
-    <TimerContainer justifyContent="right" padding={isStart ? '10px' : '0px'}>
-      {isStart && <Timer dateSettings={{ isStart, end: endDate }} Renderer={Renderer} />}
+    <TimerContainer isStart={isStart} justifyContent="right" padding={isStart ? '10px' : '0px'}>
+      <Timer dateSettings={{ isStart, end: endDate }} Renderer={Renderer} />
     </TimerContainer>
-  )
+  ) 
 }
 
 const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ guildpad, userDataLoaded }) => {
@@ -88,7 +88,7 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
           <CountDown round="1" start end={guildpad.epochEndDate} />
           <Text color="rgba(216, 209, 232, 1)" fontSize="17px" padding='10px 0px 0px 0px' margin='10px 0px 0px 0px'>{details}</Text>
         </Grid>
-        <Grid item md={6}>
+        <Grid item xs={12} md={6}>
           <MarketCard>
             <ProgressSection>
               <Heading>

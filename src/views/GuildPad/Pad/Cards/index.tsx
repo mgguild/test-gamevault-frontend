@@ -28,7 +28,7 @@ const GCard = styled(SCard)<{ src?: string }>`
   width: 100%;
   margin: 0 8rem;
   background: #101010;
-  @media screen and (max-width: 925px) {
+  @media screen and (max-width: 1024px) {
     margin: 0px auto;
   }
   ${({ src, theme }) =>
@@ -305,7 +305,7 @@ const CardHeader: React.FC<{ status: string; background?: string; guildpad: Guil
           socMeds={guildpad.socials}
           color="white"
         />
-        <Flex justifyContent='right'>
+        <Flex justifyContent='right' alignItems='center'>
           <div>
             <StatusBox status={status.toLowerCase()} padding="10px">
               {status.toUpperCase()}
@@ -371,7 +371,6 @@ const Card: React.FC<{ guildpad: GuildpadConfig, userDataLoaded: boolean }> = ({
       <CardHeader status={status} background={src} guildpad={guildpad}/>
       <Contain>
       { renderType(guildpad.type) }
-        
       </Contain>
     </GCard>
   )

@@ -4,10 +4,12 @@ import tokens from 'config/constants/tokens';
 import { Token } from 'config/constants/types';
 import { getAddress } from './addressHelpers';
 
+// use this for Header Banners 
 export const useFetchBanner = (symbol:string) => {
     return `/images/guildpad-assets/${symbol}Banner.png`
 }
 
+// use this for pad backgrounds
 export const useFetchPadBG = (symbol:string) => {
     return `/images/guildpad-assets/${symbol}PadBG.png`
 }

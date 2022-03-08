@@ -6,7 +6,7 @@ import { getBalanceAmount } from 'utils/formatBalance'
 import styled, { ThemeContext } from 'styled-components'
 import { ChevronUp, ChevronDown } from 'react-feather'
 import { GuildpadConfig, GUILDPAD_STATUS, TYPE }  from 'config/constants/types'
-import { useFetchImage } from 'utils/assetFetch'
+import { useFetchBanner} from 'utils/assetFetch'
 import useMedia from 'use-media'
 import { Header, SaleContainer, SaleRow, PostBody, PostContainer, PostHeader, TokenProperty, Details, NavOption, PadTitles, PadActions } from './styled'
 import TokenLogo from './Logo'
@@ -19,7 +19,7 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
   const isMobile = useMedia({ maxWidth: 500 })
 
   const { buyingCoin, sellingCoin, description, type } = guildpad
-  const srcs = useFetchImage(sellingCoin.symbol);
+  const srcs = useFetchBanner(sellingCoin.symbol);
   const hasRemainingSupply = new BigNumber(new BigNumber(guildpad.totalSupply).minus(new BigNumber(guildpad.totalSold))).isGreaterThan(0)
 
   return (
