@@ -56,7 +56,7 @@ const CountDown: React.FC<{ round: string; start?: boolean; end?: number }> = ({
   }
 
   return (
-    <TimerContainer isStart={false} justifyContent="right" padding={isStart ? '10px' : '0px'}>
+    <TimerContainer isStart={isStart} justifyContent="right" padding={isStart ? '10px' : '0px'}>
       <Timer dateSettings={{ isStart, end: endDate }} Renderer={Renderer} />
     </TimerContainer>
   ) 
