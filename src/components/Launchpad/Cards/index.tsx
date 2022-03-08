@@ -126,7 +126,7 @@ const TokenInformation: React.FC<{
         </Text>
       </InfoRow>
       <InfoRow justifyContent="space-between">
-        <Text>{gpadType === 'INO' ? 'Boxes' : 'Tokens'} for Sale</Text>
+        <Text>{sellingCoin} for Sale</Text>
         <Text bold>{boxesForSale}</Text>
       </InfoRow>
       <InfoRow justifyContent="space-between">
