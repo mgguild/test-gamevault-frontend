@@ -21,6 +21,7 @@ import Boxcard from '../BoxCard'
 import '../../../../css/styleFX.css'
 import Content from '../../../../components/Launchpad/Content'
 import IdoCard from './Ido'
+import CountDown from '../../../../components/Timer/Countdown'
 
 const GCard = styled(SCard)<{ src?: string }>`
   border: 2px solid ${({ theme }) => theme.colors.MGG_active};
@@ -146,63 +147,6 @@ const HOrbitron = styled(Heading)`
 const TimeSpan = styled.div`
   margin: 1rem 0 1.5rem 0;
 `
-
-// COUNTDOWN TIMER
-const CountDown: React.FC<{ round: string, start?:boolean, end?:number}> = ({round, start, end}) => {
-  const endDate = end
-  const isStart = start;
-
-  const Renderer = (days?: number, hours?: number, minutes?: number, seconds?: number) => {
-    return(
-      <div>
-      <Heading color='white' style={{textAlign: 'center', paddingTop: '0.5rem'}} size="l">ROUND {round} ENDS IN</Heading>
-      <TimerContainer>
-      <TimerBox>
-          <Box>
-            <TimeSpan>
-              <HOrbitron size="xl" className='glow'>{days}</HOrbitron>
-            </TimeSpan>
-            <Text color='white' fontSize="1rem"> DAYS </Text>
-          </Box>
-          <Box>
-            <TimeSpan>
-              <HOrbitron size="xl" className='glow'>{hours}</HOrbitron>
-            </TimeSpan>
-            <Text color='white' fontSize="1rem"> HOURS </Text>
-          </Box>
-          <Box>
-            <TimeSpan>
-              <HOrbitron size="xl" className='glow'>{minutes}</HOrbitron>
-            </TimeSpan>
-            <Text color='white' fontSize="1rem"> MINUTES</Text>
-          </Box>
-          <Box>
-            <TimeSpan>
-              <HOrbitron size="xl" className='glow'>{seconds}</HOrbitron>
-            </TimeSpan>
-            <Text color='white' fontSize="1rem"> SECONDS</Text>
-          </Box>
-        </TimerBox>
-      </TimerContainer>
-      </div>
-    )
-   }
-
-  return (
-    <TimerContainer justifyContent="right" padding={isStart? '10px':'0px'}>
-      { isStart ? (
-        <Timer
-        dateSettings={{ isStart, end: endDate }}
-        Renderer={Renderer}
-       />
-      ) : (
-        <Heading className='glow' size='xl' color='white' textTransform='uppercase' style={{whiteSpace: 'nowrap', letterSpacing: ' 0.2rem'}}>
-          「 Round Ended 」
-        </Heading>
-      )}
-    </TimerContainer>
-  )
-}
 
 // SOCIALS LINKS IN HEADER
 const SocMeds: React.FC<{ socials: Socials; status: string }> = ({ socials, status }) => {
@@ -365,7 +309,7 @@ const Card: React.FC<{ guildpad: GuildpadConfig, userDataLoaded: boolean }> = ({
     }
   }
 
- 
+
   return (
     <GCard src={bgSrc}>
       <CardHeader status={status} background={src} guildpad={guildpad}/>
