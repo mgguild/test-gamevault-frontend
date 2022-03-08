@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { toNumber } from 'lodash'
 import { Guildpad } from 'state/types'
+import styled from 'styled-components'
 import { Button, Flex, Heading, Progress, Text, useModal } from '@metagg/mgg-uikit'
 import { Grid } from '@mui/material'
 import Logo from 'components/Launchpad/Logo'
@@ -22,6 +23,20 @@ import ModalWhitelist from '../Modal'
 import useToast from '../../../../hooks/useToast'
 
 
+const TimerRows = styled(Flex)`
+  text-align: center;
+  & > * {
+    flex: 1;
+  }
+  & :first-child { 
+    font-size: 3vw;
+  }
+  & :nth-child(2){
+    font-size: 1vw;
+  }
+  
+`
+
 const CountDown: React.FC<{ round: string; start?: boolean; end?: number }> = ({ round, start, end }) => {
   const endDate = end
   const isStart = start
@@ -29,27 +44,27 @@ const CountDown: React.FC<{ round: string; start?: boolean; end?: number }> = ({
   const Renderer = (days?: number, hours?: number, minutes?: number, seconds?: number) => {
     return (
       <Flex justifyContent="space-between" style={{ width: '100%', padding: '5px'}}>
-        <Flex flexDirection="column" flex='1'>
+        <TimerRows flexDirection="column" flex='1'>
           <Heading size="xl">Round 1</Heading>
           <Text>Ends in</Text>
-        </Flex>
+        </TimerRows>
         <Flex justifyContent='space-evenly' flex='1'>
-          <Flex flexDirection='column'>
+          <TimerRows flexDirection='column'>
             <Heading size='xl'>{days}</Heading>
-            <Text>DAYS</Text>
-          </Flex>
-          <Flex flexDirection='column'>
+            <Text >DAYS</Text>
+          </TimerRows>
+          <TimerRows flexDirection='column'>
               <Heading size='xl'>{hours}</Heading>
-              <Text>HOURS</Text>
-          </Flex>
-          <Flex flexDirection='column'>
+              <Text >HOURS</Text>
+          </TimerRows>
+          <TimerRows flexDirection='column'>
               <Heading size='xl'>{minutes}</Heading>
-              <Text>MINUTES</Text>
-          </Flex>
-          <Flex flexDirection='column'>
+              <Text >MINUTES</Text>
+          </TimerRows>
+          <TimerRows flexDirection='column'>
               <Heading size='xl'>{seconds}</Heading>
               <Text>SECONDS</Text>
-          </Flex>
+          </TimerRows>
         </Flex>
       </Flex>
     )
@@ -84,7 +99,7 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
   return (
     <ContainerBoxCard>
       <Grid container spacing={2}>
-        <Grid item xs={4} md={6}>
+        <Grid item xs={12} md={6}>
           <CountDown round="1" start end={guildpad.epochEndDate} />
           <Text color="rgba(216, 209, 232, 1)" fontSize="17px" padding='10px 0px 0px 0px' margin='10px 0px 0px 0px'>{details}</Text>
         </Grid>
