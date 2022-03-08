@@ -4,6 +4,7 @@ import web3NoAccount from 'utils/web3'
 import { poolsConfig } from 'config/constants'
 import { PoolCategory } from 'config/constants/types'
 import inoAbi from 'config/abi/ino.json'
+import igoAbi from 'config/abi/ido.json'
 
 // Addresses
 import {
@@ -91,6 +92,9 @@ export const getIfoV1Contract = (address: string, web3?: Web3) => {
 }
 export const getInoContract = (address: string, web3?: Web3) => {
   return getContract(inoAbi, address, web3)
+}
+export const getIgoContract = (address: string, web3?: Web3) => {
+  return getContract(igoAbi, address, web3)
 }
 export const getIfoV2Contract = (address: string, web3?: Web3) => {
   return getContract(ifoV2Abi, address, web3)

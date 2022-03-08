@@ -1,24 +1,10 @@
-import ino from 'config/abi/ino.json'
-import BigNumber from 'bignumber.js'
 import { getAddress } from 'utils/addressHelpers'
-import { multicallv2 } from 'utils/multicall'
 import { Guildpad } from '../types'
 import { isAddress } from '../../utils'
-import { getBalanceAmount } from '../../utils/formatBalance'
+import fetchINODetails, { fetchIDODetails } from './guildpadDataHelpers'
 
-type PublicGuildpadData = {
-  hasStarted?: boolean
-  hasEnded?: boolean
-  totalSupply?: string
-  totalSold?: string
-  totalRaise?: string
-  boxInfo?: any
-  buyLimitEnabled?: boolean
-  buyLimit?: string
-  whitelistEnabled?: boolean
-}
 
-const fetchPublicGuildpadData = async (guildpad: Guildpad): Promise<PublicGuildpadData> => {
+const fetchPublicGuildpadData = async (guildpad: Guildpad) => {
   const { contractAddress } = guildpad
   const guildpadAddress = getAddress(contractAddress)
 
@@ -26,80 +12,20 @@ const fetchPublicGuildpadData = async (guildpad: Guildpad): Promise<PublicGuildp
     return guildpad
   }
 
-  const calls = [
-    // check if guildpad already started
-    {
-      address: guildpadAddress,
-      name: 'isStart',
-    },
-    {
-      address: guildpadAddress,
-      name: 'getIsFinished',
-    },
-    {
-      address: guildpadAddress,
-      name: 'getTotalRaritySupply',
-    },
-    {
-      address: guildpadAddress,
-      name: 'getRarity',
-      params: [1]
-    },
-    {
-      address: guildpadAddress,
-      name: 'getTotalRaritySold',
-    },
-    {
-      address: guildpadAddress,
-      name: 'getTotalRaised',
-    },
-    {
-      address: guildpadAddress,
-      name: 'getSoldRarity',
-      params: [1]
-    },
-    {
-      address: guildpadAddress,
-      name: 'getLimitPerAddressEnable',
-    },
-    {
-      address: guildpadAddress,
-      name: 'getLimitPerAddress',
-      params: [1],
-    },
-    {
-      address: guildpadAddress,
-      name: 'getWhitelistEnable',
-    },
-  ]
+  let data = {}
 
-  const [
-    hasStarted, hasEnded, totalSupply,
-    boxInfo, totalSold, totalRaise,
-    soldRarity1, buyLimitEnabled, buyLimit,
-    whitelistEnabled
-  ] =
-    await multicallv2(ino, calls)
-
-  const boxPrice = getBalanceAmount(new BigNumber(boxInfo.rarityPrice.toString()))
-  const percentSold =  new BigNumber(new BigNumber(soldRarity1.toString()).div(new BigNumber(boxInfo.raritySupply.toString())).toString()).multipliedBy(new BigNumber(100).toString())
+  switch (guildpad.type) {
+    case 'IDO':
+      data = await fetchIDODetails(guildpad)
+      break
+    case 'IGO':
+      return guildpad
+      break
+    default:
+      data = await fetchINODetails(guildpad)
+  }
   return {
-    hasStarted: hasStarted[0],
-    hasEnded: hasEnded[0],
-    totalSupply: totalSupply.toString(),
-    boxInfo: {
-      1: {
-        price: boxPrice.toString(),
-        supply: boxInfo.raritySupply.toString(),
-        sold: soldRarity1.toString(),
-        percentSold: percentSold.toPrecision(4).toString(),
-      },
-    },
-    totalSold: totalSold.toString(),
-    totalRaise: totalRaise.toString(),
-    buyLimitEnabled: buyLimitEnabled[0],
-    buyLimit: buyLimit.toString(),
-    whitelistEnabled: whitelistEnabled[0],
+    ...data,
   }
 }
 
