@@ -11,7 +11,6 @@ import TimerRenderer from 'views/GuildPad/components/TimerRenderer'
 import TokenLogo from 'components/Launchpad/Logo'
 import UnlockButton from 'components/UnlockButton'
 import { getStatus } from 'utils/guildpadHelpers'
-import { getBalanceAmount } from 'utils/formatBalance'
 
 const GCard = styled(SCard)`
   background: ${({ theme }) => theme.colors.MGG_container};
@@ -173,7 +172,7 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
         ) : (
           <Link to={`/launchpad/${guildpad.title}`} style={{ width: '100%' }}>
             <Button fullWidth style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}>
-              Participate
+              {status === GUILDPAD_STATUS.completed? 'Details' : 'Participate'}
             </Button>
           </Link>
         )}

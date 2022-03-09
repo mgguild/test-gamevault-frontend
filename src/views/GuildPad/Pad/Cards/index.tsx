@@ -22,7 +22,6 @@ import TokenLogo from 'components/Launchpad/Logo'
 import Boxcard from '../BoxCard'
 import IdoCard from './Ido'
 
-
 const GCard = styled(SCard)<{ src?: string }>`
   border: 2px solid ${({ theme }) => theme.colors.MGG_active};
   border-radius: 5px;
@@ -332,7 +331,7 @@ const Card: React.FC<{ guildpad: GuildpadConfig, userDataLoaded: boolean }> = ({
     }
   }
 
- 
+
   return (
     <GCard src={bgSrc}>
       <CardHeader status={status} background={src} guildpad={guildpad}/>

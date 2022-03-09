@@ -4,7 +4,7 @@ import { getAddress } from '../../utils/addressHelpers'
 import { multicallv2 } from '../../utils/multicall'
 import ino from '../../config/abi/ino.json'
 import ido from '../../config/abi/ido.json'
-import { getBalanceAmount } from '../../utils/formatBalance'
+import { getBalanceAmount, toBigNumber } from '../../utils/formatBalance'
 
 const fetchINODetails = async (guildpad: Guildpad) => {
   const guildpadAddress = getAddress(guildpad.contractAddress)
@@ -69,7 +69,8 @@ const fetchINODetails = async (guildpad: Guildpad) => {
     .div(new BigNumber(boxInfo.raritySupply.toString())).toString())
     .multipliedBy(new BigNumber(100).toString())
   const totalRaise = getBalanceAmount(tRaise, guildpad.buyingCoin.decimals)
-
+  const tSold = toBigNumber(totalSold)
+  const remainingSupply = toBigNumber(totalSupply).minus(tSold)
   return {
     hasStarted: hasStarted[0],
     hasEnded: hasEnded[0],
@@ -87,6 +88,7 @@ const fetchINODetails = async (guildpad: Guildpad) => {
     buyLimitEnabled: buyLimitEnabled[0],
     buyLimit: buyLimit.toString(),
     whitelistEnabled: whitelistEnabled[0],
+    remainingSupply: remainingSupply.toString(),
   }
 }
 
@@ -138,11 +140,12 @@ export const fetchIDODetails = async (guildpad: Guildpad) => {
   const [
     hasStarted, hasEnded, startTime,
     totalRewardTokens, totRaise,
-    tokRate, soldAmount, totalParticipant
+    tokRate, soldAmt, totalParticipant
   ] =
     await multicallv2(ido, calls)
   const expectedSales = getBalanceAmount(tokRate, guildpad.buyingCoin.decimals).multipliedBy(getBalanceAmount(totalRewardTokens, guildpad.buyingCoin.decimals))
   const totalSupply =  getBalanceAmount(totalRewardTokens, guildpad.sellingCoin.decimals)
+  const soldAmount =  getBalanceAmount(soldAmt, guildpad.sellingCoin.decimals)
   const totalSold =  getBalanceAmount(soldAmount, guildpad.sellingCoin.decimals)
   const tokenRate = getBalanceAmount(tokRate.toString(), guildpad.buyingCoin.decimals)
   const totalRaise = getBalanceAmount(totRaise, guildpad.buyingCoin.decimals)
