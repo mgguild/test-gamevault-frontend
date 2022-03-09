@@ -17,7 +17,7 @@ const guildpad = {
   status: GUILDPAD_STATUS.ongoing,
   contractAddress: {
     97: '0x002',
-    56: '0x6CBa3730607806eB281ba01579Bc39bb4f539d62',
+    56: '0x8A8a418C28BD2418EB6CF0887b15B6dd4aA9ae32',
   },
   buyingCoin: tokens.busd,
   sellingCoin: tokens.Wizardia,
