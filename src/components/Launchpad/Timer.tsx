@@ -39,7 +39,7 @@ const Timer: React.FC<TimerProps> = ({status, Renderer, dateSettings}) => {
                     justifyContent: 'center'
                   }}
                   >
-                    <Heading className='puff-in-center' size='xl' textTransform='uppercase' style={{whiteSpace: 'nowrap', letterSpacing: ' 0.2rem'}}>
+                    <Heading className='puff-in-center' size='xl' color='white' textTransform='uppercase' style={{whiteSpace: 'nowrap', letterSpacing: ' 0.2rem'}}>
                       「 Round Ended 」
                     </Heading>
                   </Flex>
