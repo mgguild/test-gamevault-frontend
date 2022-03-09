@@ -46,7 +46,7 @@ const Logo: React.FC<LogoProps> = ({projName, tokenSize, tokenName, nameSize = '
       <Flex flexDirection="column" justifyContent="center" alignItems="flex-start">
         <Heading color={colour} size={nameSize}>{
           projName && !tokenName.includes(projName.substring(0, 5)) ?
-          `${projName} | ${tokenName}` : tokenName
+          projName : tokenName
         }</Heading>
         {socMeds ? (
           <Flex>
