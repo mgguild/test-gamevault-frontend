@@ -154,14 +154,14 @@ export const fetchIDODetails = async (guildpad: Guildpad) => {
     hasStarted: hasStarted[0],
     hasEnded: hasEnded[0],
     startTime: startTime.toString(),
-    totalSold: totalSold.toString(),
+    totalSold: totalSold.toPrecision(6),
     totalParticipants: totalParticipant[0].toString(),
     expectedSales: expectedSales.toPrecision(),
     totalSupply: totalSupply.toPrecision(),
     remainingSupply: totalSupply.minus(totalSold).toString(),
     tokenRate: tokenRate.toPrecision(),
     totalRaise: totalRaise.toPrecision(),
-    percentage: percentage.toString(),
+    percentage: percentage.toPrecision(6),
   }
 }
 

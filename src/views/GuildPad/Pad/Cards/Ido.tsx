@@ -88,7 +88,7 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
           <MarketCard>
             <ProgressSection>
               <Heading>
-                {`${guildpad.percentage}%`} {guildpad.sellingCoin.symbol} SOLD
+                {`${guildpad.totalSold}`} {guildpad.sellingCoin.symbol} SOLD
               </Heading>
               <div>
                 <Progress variant='flat' primaryStep={toNumber(guildpad.percentage)} />
