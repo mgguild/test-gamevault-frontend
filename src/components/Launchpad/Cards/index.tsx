@@ -62,6 +62,10 @@ const TimerBox = styled(Flex)`
 const TimerContainer = styled(Flex)`
   background-color: rgba(0,0,0,0.4);
   padding: 5px 0px;
+  display: flex;
+  height: 8rem;
+  justify-content: center;
+  align-items: center;
 `
 
 const InfoBox = styled(Flex)`

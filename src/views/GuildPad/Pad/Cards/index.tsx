@@ -264,6 +264,7 @@ const CardHeader: React.FC<{ status: string; background?: string; guildpad: Guil
     <Flex style={{zIndex: 1, width: '100%'}}>
       <ColumnTwo>
         <TokenLogo
+          projName={guildpad.title}
           tokenName={guildpad.sellingCoin.symbol}
           nameSize='xl'
           primaryToken={guildpad.sellingCoin}
