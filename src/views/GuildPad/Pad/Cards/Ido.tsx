@@ -39,7 +39,7 @@ const TimerRows = styled(Flex)`
 
 `
 
-const CountDown: React.FC<{ status: string; round: string; start?: boolean; end?: number }> = ({ round, start, end }) => {
+const CountDown: React.FC<{ status: string; round: string; start?: boolean; end?: number }> = ({ round, start, end, status}) => {
   const endDate = end
   const isStart = start
 
