@@ -3,15 +3,14 @@ import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
-import Timer from 'views/GuildPad/components/Timer'
+import Timer from 'components/Launchpad/Timer'
 import { GuildpadConfig, GUILDPAD_STATUS, TYPE } from 'config/constants/types'
 import { useFetchBanner } from 'utils/assetFetch'
 import { Button, Card as SCard, CardHeader as SCardHeader, Flex, Heading, Text } from '@metagg/mgg-uikit'
+import TimerRenderer from 'views/GuildPad/components/TimerRenderer'
 import TokenLogo from 'components/Launchpad/Logo'
 import UnlockButton from 'components/UnlockButton'
 import { getStatus } from 'utils/guildpadHelpers'
-import { getBalanceAmount, toBigNumber } from 'utils/formatBalance'
-import CountDown from '../../Timer/Countdown'
 
 const GCard = styled(SCard)`
   background: ${({ theme }) => theme.colors.MGG_container};
@@ -61,7 +60,8 @@ const TimerBox = styled(Flex)`
   }
 `
 const TimerContainer = styled(Flex)`
-  background-color: rgba(41, 178, 19, 1);
+  background-color: rgba(0,0,0,0.4);
+  padding: 5px 0px;
 `
 
 const InfoBox = styled(Flex)`
@@ -74,6 +74,23 @@ const InfoBox = styled(Flex)`
 const InfoRow = styled(Flex)`
   width: 100%;
 `
+
+const CountDown: React.FC<{ round: string, start?: boolean; end?: number }> = ({ round, start, end }) => {
+  const endDate = end
+  const isStart = start
+
+  const Renderer = (days?: number, hours?: number, minutes?: number, seconds?: number) => {
+    return (
+      <TimerRenderer days={days} hours={hours} minutes={minutes} seconds={seconds} round={round}/>
+    )
+  }
+
+  return (
+    <TimerContainer justifyContent='center'>
+      <Timer dateSettings={{ isStart, end: endDate }} Renderer={Renderer} />
+    </TimerContainer>
+  )
+}
 
 const TokenInformation: React.FC<{
   totalRaise: string

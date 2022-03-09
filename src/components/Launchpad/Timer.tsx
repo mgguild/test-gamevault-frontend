@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import Countdown, { calcTimeDelta} from 'react-countdown'
-import '../../../css/styleFX.css'
+import 'css/styleFX.css'
 import { Text, Flex, Heading, } from '@metagg/mgg-uikit'
 import styled, { ThemeContext } from 'styled-components'
 
