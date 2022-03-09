@@ -14,10 +14,10 @@ const guildpad = {
   round: '1',
   distribution: DISTRIBUTION.VESTING,
   distributionDesc: '20% TGE and 20% per month for next 4 months',
-  status: GUILDPAD_STATUS.upcoming,
+  status: GUILDPAD_STATUS.ongoing,
   contractAddress: {
     97: '0x002',
-    56: '0x002',
+    56: '0x76B5FE982860573B5a872eE1303b32a68c8CA4A6',
   },
   buyingCoin: tokens.busd,
   sellingCoin: tokens.Wizardia,
