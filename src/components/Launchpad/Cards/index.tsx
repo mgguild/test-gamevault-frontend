@@ -156,7 +156,7 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
   return (
     <GCard>
       <CardHeader status={status} background={src} />
-      <CountDown round={guildpad.round} start={status === GUILDPAD_STATUS.ongoing} end={guildpad.epochEndDate} />
+      <CountDown round={guildpad.round} start end={guildpad.epochEndDate} />
       <TokenLogo
         tokenName={guildpad.sellingCoin.symbol}
         primaryToken={guildpad.sellingCoin}
