@@ -34,14 +34,12 @@ const Timer: React.FC<TimerProps> = ({status, Renderer, dateSettings}) => {
               <>
                 <div style={{position: 'relative'}}>
                   <Flex style={{
-                    backgroundColor: theme.colors.MGG_container,
                     margin: '1rem 0rem',
                     padding: '1rem',
                     justifyContent: 'center'
                   }}
-                    className='crt inset-shadow'
                   >
-                    <Heading className='puff-in-center' size='lg' textTransform='uppercase' style={{whiteSpace: 'nowrap', letterSpacing: ' 0.2rem'}}>
+                    <Heading className='puff-in-center' size='xl' textTransform='uppercase' style={{whiteSpace: 'nowrap', letterSpacing: ' 0.2rem'}}>
                       「 Round Ended 」
                     </Heading>
                   </Flex>
