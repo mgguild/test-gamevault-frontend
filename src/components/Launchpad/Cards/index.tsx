@@ -3,10 +3,11 @@ import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
-import Timer from 'views/GuildPad/components/Timer'
+import Timer from 'components/Launchpad/Timer'
 import { GuildpadConfig, GUILDPAD_STATUS, TYPE } from 'config/constants/types'
 import { useFetchBanner } from 'utils/assetFetch'
 import { Button, Card as SCard, CardHeader as SCardHeader, Flex, Heading, Text } from '@metagg/mgg-uikit'
+import TimerRenderer from 'views/GuildPad/components/TimerRenderer'
 import TokenLogo from 'components/Launchpad/Logo'
 import UnlockButton from 'components/UnlockButton'
 import { getStatus } from 'utils/guildpadHelpers'
@@ -60,7 +61,8 @@ const TimerBox = styled(Flex)`
   }
 `
 const TimerContainer = styled(Flex)`
-  background-color: rgba(41, 178, 19, 1);
+  background-color: rgba(0,0,0,0.4);
+  padding: 5px 0px;
 `
 
 const InfoBox = styled(Flex)`
@@ -80,33 +82,15 @@ const CountDown: React.FC<{ round: string, start?: boolean; end?: number }> = ({
 
   const Renderer = (days?: number, hours?: number, minutes?: number, seconds?: number) => {
     return (
-      <TimerContainer justifyContent="space-between" padding="10px">
-        <div style={{ textAlign: 'left' }}>
-          <Heading size="l">ROUND {round}</Heading>
-          <Text fontSize="12px"> ENDS IN</Text>
-        </div>
-        <TimerBox justifyContent="space-between">
-          <div>
-            <Heading size="l">{days}</Heading>
-            <Text fontSize="12px"> DAYS </Text>
-          </div>
-          <div>
-            <Heading size="l">{hours}</Heading>
-            <Text fontSize="12px"> HOURS </Text>
-          </div>
-          <div>
-            <Heading size="l">{minutes}</Heading>
-            <Text fontSize="12px"> MINUTES</Text>
-          </div>
-          <div>
-            <Heading size="l">{seconds}</Heading>
-            <Text fontSize="12px"> SECONDS </Text>
-          </div>
-        </TimerBox>
-      </TimerContainer>
+      <TimerRenderer days={days} hours={hours} minutes={minutes} seconds={seconds} round={round}/>
     )
   }
-  return <Timer dateSettings={{ isStart, end: endDate }} Renderer={Renderer} />
+
+  return (
+    <TimerContainer justifyContent='center'>
+      <Timer dateSettings={{ isStart, end: endDate }} Renderer={Renderer} />
+    </TimerContainer>
+  )
 }
 
 const TokenInformation: React.FC<{
@@ -155,7 +139,7 @@ const StatusBox = styled(Flex)<{ status: string }>`
 const CardHeader: React.FC<{ status: string; background?: string }> = ({ status, background }) => (
   <Header src={background}>
     <StatusBox status={status.toLowerCase()} padding="10px">
-      {status}
+      {status.toUpperCase()}
     </StatusBox>
   </Header>
 )

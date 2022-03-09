@@ -5,9 +5,10 @@ import { Guildpad } from 'state/types'
 import styled from 'styled-components'
 import { Button, Flex, Heading, Progress, Text, useModal } from '@metagg/mgg-uikit'
 import { Grid } from '@mui/material'
+import TimerRenderer from 'views/GuildPad/components/TimerRenderer'
 import Logo from 'components/Launchpad/Logo'
 import UnlockButton from 'components/UnlockButton'
-import Timer from 'views/GuildPad/components/Timer'
+import Timer from 'components/Launchpad/Timer'
 import BuyIdoModal from 'views/GuildPad/components/Modals/BuyIdo'
 import {
   ActionSection,
@@ -21,6 +22,7 @@ import {
 } from './styled'
 import ModalWhitelist from '../Modal'
 import useToast from '../../../../hooks/useToast'
+
 
 
 const TimerRows = styled(Flex)`
@@ -43,35 +45,12 @@ const CountDown: React.FC<{ round: string; start?: boolean; end?: number }> = ({
 
   const Renderer = (days?: number, hours?: number, minutes?: number, seconds?: number) => {
     return (
-      <Flex justifyContent="space-between" style={{ width: '100%', padding: '5px'}}>
-        <TimerRows flexDirection="column" flex='1'>
-          <Heading size="xl">Round 1</Heading>
-          <Text>Ends in</Text>
-        </TimerRows>
-        <Flex justifyContent='space-evenly' flex='1'>
-          <TimerRows flexDirection='column'>
-            <Heading size='xl'>{days}</Heading>
-            <Text >DAYS</Text>
-          </TimerRows>
-          <TimerRows flexDirection='column'>
-              <Heading size='xl'>{hours}</Heading>
-              <Text >HOURS</Text>
-          </TimerRows>
-          <TimerRows flexDirection='column'>
-              <Heading size='xl'>{minutes}</Heading>
-              <Text >MINUTES</Text>
-          </TimerRows>
-          <TimerRows flexDirection='column'>
-              <Heading size='xl'>{seconds}</Heading>
-              <Text>SECONDS</Text>
-          </TimerRows>
-        </Flex>
-      </Flex>
+     <TimerRenderer days={days} hours={hours} minutes={minutes} seconds={seconds} round={round}/>
     )
   }
 
   return (
-    <TimerContainer isStart={isStart} justifyContent="right" padding={isStart ? '10px' : '0px'}>
+    <TimerContainer justifyContent="right" padding={isStart ? '10px' : '0px'}>
       <Timer dateSettings={{ isStart, end: endDate }} Renderer={Renderer} />
     </TimerContainer>
   )

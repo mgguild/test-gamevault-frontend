@@ -54,14 +54,14 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
           }
         </div>
         <TokenProperty>
-            <Text>{type}</Text>
+            <Text>{type === TYPE.IDO? TYPE.IGO:TYPE.INO}</Text>
         </TokenProperty>
         <Details onClick={() => setToggle(!toggle)}>
           <Text  bold >Details</Text> &nbsp; <Text style={{display: 'flex', alignItems: 'center'}}>{toggle ? <ChevronUp /> : <ChevronDown />}</Text>
         </Details>
         </PadActions>
       </PostHeader>
-      {toggle && <Content guildpad={guildpad}  />}
+      {toggle && <Content guildpad={guildpad}  component='post'/>}
     </PostContainer>
   )
 }
