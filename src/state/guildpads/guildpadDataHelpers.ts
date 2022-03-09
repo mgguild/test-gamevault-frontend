@@ -140,12 +140,11 @@ export const fetchIDODetails = async (guildpad: Guildpad) => {
   const [
     hasStarted, hasEnded, startTime,
     totalRewardTokens, totRaise,
-    tokRate, soldAmt, totalParticipant
+    tokRate, soldAmount, totalParticipant
   ] =
     await multicallv2(ido, calls)
   const expectedSales = getBalanceAmount(tokRate, guildpad.buyingCoin.decimals).multipliedBy(getBalanceAmount(totalRewardTokens, guildpad.buyingCoin.decimals))
   const totalSupply =  getBalanceAmount(totalRewardTokens, guildpad.sellingCoin.decimals)
-  const soldAmount =  getBalanceAmount(soldAmt, guildpad.sellingCoin.decimals)
   const totalSold =  getBalanceAmount(soldAmount, guildpad.sellingCoin.decimals)
   const tokenRate = getBalanceAmount(tokRate.toString(), guildpad.buyingCoin.decimals)
   const totalRaise = getBalanceAmount(totRaise, guildpad.buyingCoin.decimals)
@@ -159,7 +158,7 @@ export const fetchIDODetails = async (guildpad: Guildpad) => {
     totalParticipants: totalParticipant[0].toString(),
     expectedSales: expectedSales.toPrecision(),
     totalSupply: totalSupply.toPrecision(),
-    remainingSupply: totalSupply.minus(soldAmount).toString(),
+    remainingSupply: totalSupply.minus(totalSold).toString(),
     tokenRate: tokenRate.toPrecision(),
     totalRaise: totalRaise.toPrecision(),
     percentage: percentage.toString(),
