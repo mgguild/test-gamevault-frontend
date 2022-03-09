@@ -27,11 +27,11 @@ const Guildpads: GuildpadConfig[] = [
     title: 'Demole',
     ... DemoleGuildpad
   },
-  {
-    id: 5,
-    title: 'Test IGO',
-    ... TestIgo
-  },
+  // {
+  //   id: 5,
+  //   title: 'Test IGO',
+  //   ... TestIgo
+  // },
 ]
 
 export default Guildpads
