@@ -155,7 +155,7 @@ const StatusBox = styled(Flex)<{ status: string }>`
 const CardHeader: React.FC<{ status: string; background?: string }> = ({ status, background }) => (
   <Header src={background}>
     <StatusBox status={status.toLowerCase()} padding="10px">
-      {status}
+      {status.toUpperCase()}
     </StatusBox>
   </Header>
 )
