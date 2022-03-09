@@ -8,7 +8,7 @@ import { TYPE } from 'config/constants/types'
 import { NavOption, PostBody, SaleContainer, SaleRow } from './styled'
 import { Guildpad } from '../../state/types'
 
-const Content: React.FC<{ guildpad: Guildpad; rarity?: string }> = ({ guildpad, rarity = '1' }) => {
+const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: string }> = ({ guildpad, rarity = '1', component}) => {
   const theme = useContext(ThemeContext)
   const [active, setActive] = useState(1)
   const { account } = useWeb3React()
@@ -221,7 +221,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string }> = ({ guildpad, 
 
   return (
     <PostBody>
-      {guildpad.type === TYPE.INO ? (
+      {guildpad.type === TYPE.INO || component === 'post' ?  (
         <>
           <Flex
             alignItems='center'
@@ -232,7 +232,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string }> = ({ guildpad, 
               Description
             </NavOption>
             <NavOption onClick={() => setActive(2)} activeIndex={active === 2}>
-              NFT Sale
+              {guildpad.type === TYPE.INO? 'NFT' : 'Token'} Sale
             </NavOption>
           </Flex>
           {active === 1 ? renderDescription() : active === 2 && renderSale()}
