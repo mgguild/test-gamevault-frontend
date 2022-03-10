@@ -39,7 +39,7 @@ const TimerRows = styled(Flex)`
 
 `
 
-const CountDown: React.FC<{ round: string; start?: boolean; end?: number }> = ({ round, start, end }) => {
+const CountDown: React.FC<{ status: string; round: string; start?: boolean; end?: number }> = ({ round, start, end, status}) => {
   const endDate = end
   const isStart = start
 
@@ -51,7 +51,7 @@ const CountDown: React.FC<{ round: string; start?: boolean; end?: number }> = ({
 
   return (
     <TimerContainer justifyContent="right" padding={isStart ? '10px' : '0px'}>
-      <Timer dateSettings={{ isStart, end: endDate }} Renderer={Renderer} />
+      <Timer dateSettings={{ isStart, end: endDate }} status={status} Renderer={Renderer} />
     </TimerContainer>
   )
 }
@@ -80,7 +80,7 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
     <ContainerBoxCard>
       <Grid container spacing={2}>
         <Grid item xs={4} md={6}>
-          <CountDown round='1' start end={guildpad.epochEndDate} />
+          <CountDown status={guildpad.status} round='1' start end={guildpad.epochEndDate} />
           <Text color='rgba(216, 209, 232, 1)' fontSize='17px' padding='10px 0px 0px 0px'
                 margin='10px 0px 0px 0px'>{details}</Text>
         </Grid>
@@ -88,7 +88,7 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
           <MarketCard>
             <ProgressSection>
               <Heading>
-                {`${guildpad.percentage}%`} {guildpad.sellingCoin.symbol} SOLD
+                {`${guildpad.totalSold}`} {guildpad.sellingCoin.symbol} SOLD
               </Heading>
               <div>
                 <Progress variant='flat' primaryStep={toNumber(guildpad.percentage)} />
