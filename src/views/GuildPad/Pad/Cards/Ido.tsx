@@ -129,7 +129,7 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
               {
                 account &&
                 <Button onClick={useBuyIDOModal}
-                        disabled={!guildpad.userData.details.whitelist || remainingSupply.isZero()}
+                        disabled={!guildpad.userData.details.whitelist || remainingSupply.isZero() || guildpad.hasEnded}
                         fullWidth>
                   {!remainingSupply.isZero() && `PURCHASE ${guildpad.sellingCoin.symbol}`}
                   {remainingSupply.isZero() && 'SOLD OUT'}
