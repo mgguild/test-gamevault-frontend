@@ -12,7 +12,7 @@ import { useFetchBanner, useFetchPadBG } from 'utils/assetFetch'
 import TimerRenderer from 'views/GuildPad/components/TimerRenderer'
 import Timer from 'components/Launchpad/Timer'
 import Content from 'components/Launchpad/Content'
-import { getStatus } from 'utils/guildpadHelpers'
+import { getGuildpadStatus } from 'utils/guildpadHelpers'
 import Anchor from 'components/Launchpad/Anchor'
 import SvgIcon from 'components/Launchpad/SvgIcon'
 import { ReactComponent as MediumIcon } from 'components/Launchpad/icons/MediumIcon.svg'
@@ -290,7 +290,7 @@ const Card: React.FC<{ guildpad: GuildpadConfig, userDataLoaded: boolean }> = ({
   const theme = useContext(ThemeContext)
   const src = useFetchBanner(guildpad.sellingCoin.symbol)
   const bgSrc = useFetchPadBG(guildpad.sellingCoin.symbol)
-  const status = getStatus(guildpad)
+  const status = getGuildpadStatus(guildpad)
 
   const renderType = (type:string) => {
     switch(type){

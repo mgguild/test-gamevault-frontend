@@ -6,7 +6,7 @@ export const getCountDown = (guildpad: Guildpad) => {
   // asd
 }
 
-export const getStatus = (guildpad: Guildpad) => {
+export const getGuildpadStatus = (guildpad: Guildpad) => {
   const remainingSupply = toBigNumber(guildpad.remainingSupply)
 
   switch (guildpad.status) {

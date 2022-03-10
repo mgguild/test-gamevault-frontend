@@ -22,6 +22,7 @@ import {
 } from './styled'
 import ModalWhitelist from '../Modal'
 import { toBigNumber } from '../../../../utils/formatBalance'
+import { getGuildpadStatus } from '../../../../utils/guildpadHelpers'
 
 
 
@@ -76,11 +77,13 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
   }, [account, guildpad, showNotInWhitelistModal, whitelistModalShowed, userDataLoaded])
 
   const remainingSupply = toBigNumber(guildpad.remainingSupply)
+  const status = getGuildpadStatus(guildpad)
+
   return (
     <ContainerBoxCard>
       <Grid container spacing={2}>
         <Grid item xs={4} md={6}>
-          <CountDown status={guildpad.status} round='1' start end={guildpad.epochEndDate} />
+          <CountDown status={status} round={guildpad.round} start end={guildpad.epochEndDate} />
           <Text color='rgba(216, 209, 232, 1)' fontSize='17px' padding='10px 0px 0px 0px'
                 margin='10px 0px 0px 0px'>{details}</Text>
         </Grid>
@@ -129,7 +132,7 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
               {
                 account &&
                 <Button onClick={useBuyIDOModal}
-                        disabled={!guildpad.userData.details.whitelist || remainingSupply.isZero()}
+                        disabled={!guildpad.userData.details.whitelist || remainingSupply.isZero() || guildpad.hasEnded}
                         fullWidth>
                   {!remainingSupply.isZero() && `PURCHASE ${guildpad.sellingCoin.symbol}`}
                   {remainingSupply.isZero() && 'SOLD OUT'}
