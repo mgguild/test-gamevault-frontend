@@ -20,17 +20,12 @@ const Guildpads: GuildpadConfig[] = [
   {
     id: 3,
     title: 'Wizardia',
-    ... WizardiaGuildpad
+    ... Wizardia2
   },
   {
     id: 4,
     title: 'Demole',
     ... DemoleGuildpad
-  },
-  {
-    id: 5,
-    title: 'Wizardia.',
-    ... Wizardia2
   },
 ]
 

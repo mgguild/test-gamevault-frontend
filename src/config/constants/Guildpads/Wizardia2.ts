@@ -31,7 +31,7 @@ const guildpad = {
   },
   // projectTokenEquivalent: '1425 WBOND',
   // asOfPriceInProjectToken: 1645362000000,
-  epochEndDate: 1647005400000,
+  epochEndDate: 1647003600000,
   nextRoundDate: 1646917200000
 }
 

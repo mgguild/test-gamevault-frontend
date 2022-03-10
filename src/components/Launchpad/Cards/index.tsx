@@ -10,7 +10,7 @@ import { Button, Card as SCard, CardHeader as SCardHeader, Flex, Heading, Text }
 import TimerRenderer from 'views/GuildPad/components/TimerRenderer'
 import TokenLogo from 'components/Launchpad/Logo'
 import UnlockButton from 'components/UnlockButton'
-import { getStatus } from 'utils/guildpadHelpers'
+import { getGuildpadStatus } from 'utils/guildpadHelpers'
 
 const GCard = styled(SCard)`
   background: ${({ theme }) => theme.colors.MGG_container};
@@ -151,7 +151,7 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
   const { account } = useWeb3React()
   const theme = useContext(ThemeContext)
   const src = useFetchBanner(guildpad.sellingCoin.symbol)
-  const status = getStatus(guildpad)
+  const status = getGuildpadStatus(guildpad)
 
   return (
     <GCard>
