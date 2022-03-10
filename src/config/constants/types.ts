@@ -266,6 +266,7 @@ interface GuildPadInformation {
 
 export interface GuildpadConfig extends GuildPadInformation {
   id: number,
+  isStatic: boolean,
   contractAddress?: Address;
   FundstoRaise?: string;
   buyingCoin?: Token;
@@ -279,6 +280,7 @@ export interface GuildpadConfig extends GuildPadInformation {
       price: string,
       supply: string,
       sold: string
+      percentSold?: string,
     }
   };
 }
