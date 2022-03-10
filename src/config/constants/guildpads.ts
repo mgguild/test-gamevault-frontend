@@ -1,30 +1,21 @@
 import { GuildpadConfig } from './types'
-import TankWarsZoneGuildpad from './Guildpads/TankWarsZone'
-import TankWarsZoneGuildpad2 from './Guildpads/TankWarsZone2'
 import DemoleGuildpad from './Guildpads/Demole'
 import WizardiaGuildpad from './Guildpads/Wizardia'
 import Wizardia2 from './Guildpads/Wizardia2'
+import GuildpadsLaunched from './guildpadsLaunched'
 
 const Guildpads: GuildpadConfig[] = [
-  {
-    id: 1,
-    title: 'TankWars Zone',
-    nextRoundID: 2,
-    ... TankWarsZoneGuildpad
-  },
-  {
-    id: 2,
-    title: 'TankWars Zone (Round 2)',
-    ... TankWarsZoneGuildpad2
-  },
+  ...GuildpadsLaunched,
   {
     id: 3,
     title: 'Wizardia',
+    isStatic: false,
     ... Wizardia2
   },
   {
     id: 4,
     title: 'Demole',
+    isStatic: true,
     ... DemoleGuildpad
   },
 ]
