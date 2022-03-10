@@ -17,7 +17,7 @@ import { fetchGuildpadUserDataAsync, fetchPublicGuildpadDataAsync } from '../../
 import { useAppDispatch } from '../../../../state'
 import useEthBalance from '../../../../hooks/useEthBalance'
 import ModalWhitelist from '../Modal/ModalWhitelist'
-import { getStatus } from '../../../../utils/guildpadHelpers'
+import { getGuildpadStatus } from '../../../../utils/guildpadHelpers'
 import { GUILDPAD_STATUS } from '../../../../config/constants/types'
 
 
@@ -227,7 +227,7 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps, userDataLoaded
 
   const hasRemainingSupply = (guildpad.boxInfo[rarityId].supply - guildpad.boxInfo[rarityId].sold) > 0
 
-  const status = getStatus(guildpad)
+  const status = getGuildpadStatus(guildpad)
   return (
     <GCard>
       <div style={{ padding: '1rem 1rem' }}>

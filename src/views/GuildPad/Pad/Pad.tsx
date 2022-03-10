@@ -13,7 +13,7 @@ import { useGuildpadData, useGuildpads } from 'state/hooks'
 import PageSection from '../sections/Layout'
 import Footer from '../sections/Footer'
 import Card from './Cards'
-import { getStatus } from '../../../utils/guildpadHelpers'
+import { getGuildpadStatus } from '../../../utils/guildpadHelpers'
 
 
 const Container = styled(Flex)`
@@ -41,7 +41,7 @@ const Pad: React.FC<RouteComponentProps<{ guildpadTitle?: string }>> = ({ match:
   useGuildpadData()
   const activeGuildpad = guildpads.filter((gpad) => gpad.title === guildpadTitle)[0]
   const { title } = activeGuildpad
-  const status = getStatus(activeGuildpad)
+  const status = getGuildpadStatus(activeGuildpad)
 
   return (
     <>
