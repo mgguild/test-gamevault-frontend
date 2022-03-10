@@ -3,7 +3,7 @@ import TankWarsZoneGuildpad from './Guildpads/TankWarsZone'
 import TankWarsZoneGuildpad2 from './Guildpads/TankWarsZone2'
 import DemoleGuildpad from './Guildpads/Demole'
 import WizardiaGuildpad from './Guildpads/Wizardia'
-import TestIgo from './Guildpads/TestIGO'
+import Wizardia2 from './Guildpads/Wizardia2'
 
 const Guildpads: GuildpadConfig[] = [
   {
@@ -27,11 +27,11 @@ const Guildpads: GuildpadConfig[] = [
     title: 'Demole',
     ... DemoleGuildpad
   },
-  // {
-  //   id: 5,
-  //   title: 'Test IGO',
-  //   ... TestIgo
-  // },
+  {
+    id: 5,
+    title: 'Wizardia.',
+    ... Wizardia2
+  },
 ]
 
 export default Guildpads
