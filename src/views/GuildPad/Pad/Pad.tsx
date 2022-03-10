@@ -1,8 +1,12 @@
 import React, { useContext } from 'react'
 import { Link, RouteComponentProps } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
+import { useLocation } from 'react-router'
+import { DEFAULT_META, getCustomMeta, getPadCustomMeta } from 'config/constants/meta'
+import { PageMeta } from 'components/layout/Page'
 import styled, {ThemeContext} from 'styled-components'
 import { ChevronRight } from 'react-feather'
-import { GUILDPAD_STATUS } from 'config/constants/types'
+import { GUILDPAD_STATUS, TYPE} from 'config/constants/types'
 import { Grid } from '@mui/material'
 import { Breadcrumbs, Flex, Text } from '@metagg/mgg-uikit'
 import { useGuildpadData, useGuildpads } from 'state/hooks'
@@ -38,8 +42,10 @@ const Pad: React.FC<RouteComponentProps<{ guildpadTitle?: string }>> = ({ match:
   const activeGuildpad = guildpads.filter((gpad) => gpad.title === guildpadTitle)[0]
   const { title } = activeGuildpad
   const status = getStatus(activeGuildpad)
+
   return (
     <>
+      <PageMeta guildpadTitle={guildpadTitle} />
       <Container>
       <PageSection direction='column'>
         <GuildpadContainer>

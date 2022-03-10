@@ -158,7 +158,7 @@ const RewardInfo: React.FC<{ guildpad: Guildpad }> = ({ guildpad }) => {
                 <UnorderedList>
                   {
                     reward.rarityLevels.map((rarityLevel) => {
-                      return (<li>{rarityLevel}</li>)
+                      return (<li key={rarityLevel}>{rarityLevel}</li>)
                     })
                   }
                 </UnorderedList>

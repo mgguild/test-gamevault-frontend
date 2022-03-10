@@ -2,7 +2,7 @@ import { ContextApi } from 'contexts/Localization/types'
 import { PageMeta } from './types'
 
 export const DEFAULT_META: PageMeta = {
-  title: 'MGG',
+  title: 'Meta Gaming Guild',
   description:
     'Stake MGG and earn token rewards',
   image: 'https://app.metagg.com/MGG.png',
@@ -24,7 +24,7 @@ export const getCustomMeta = (path: string, t: ContextApi['t']): PageMeta => {
       }
     case '/launchpad':
       return {
-        title: `${t('IGO and INO Launchpad')} | ${t('MGG')}`,
+        title: `${t('MGG Launchpad')} | ${t('MGG')}`,
       }
     case '/liquidity':
       return {
@@ -56,5 +56,11 @@ export const getCustomMeta = (path: string, t: ContextApi['t']): PageMeta => {
       }
     default:
       return null
+  }
+}
+
+export const getPadCustomMeta = (launchpad: string):PageMeta => {
+  return {
+    title: `MGG Guildpad > ${launchpad}`
   }
 }

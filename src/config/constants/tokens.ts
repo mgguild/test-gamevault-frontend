@@ -74,6 +74,15 @@ const tokens = {
     decimals: 18,
     projectLink: 'https://tixl.org/',
   },
+  test: {
+    symbol: 'TXL',
+    address: {
+      56: '0x1FFD0b47127fdd4097E54521C9E2c7f0D66AafC5',
+      97: '',
+    },
+    decimals: 18,
+    projectLink: 'https://tixl.org/',
+  },
   cos: {
     symbol: 'COS',
     address: {

@@ -17,7 +17,6 @@ const Guildpad: React.FC = () => {
     [Guildpads],
   )
   useGuildpadData()
-
   return (
     <>
       <HomeSection />

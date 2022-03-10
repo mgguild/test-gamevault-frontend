@@ -3,14 +3,14 @@ import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
-import Timer from 'views/GuildPad/components/Timer'
-import { GuildpadConfig, GUILDPAD_STATUS } from 'config/constants/types'
+import Timer from 'components/Launchpad/Timer'
+import { GuildpadConfig, GUILDPAD_STATUS, TYPE } from 'config/constants/types'
 import { useFetchBanner } from 'utils/assetFetch'
 import { Button, Card as SCard, CardHeader as SCardHeader, Flex, Heading, Text } from '@metagg/mgg-uikit'
+import TimerRenderer from 'views/GuildPad/components/TimerRenderer'
 import TokenLogo from 'components/Launchpad/Logo'
 import UnlockButton from 'components/UnlockButton'
 import { getStatus } from 'utils/guildpadHelpers'
-import { getBalanceAmount } from 'utils/formatBalance'
 
 const GCard = styled(SCard)`
   background: ${({ theme }) => theme.colors.MGG_container};
@@ -60,7 +60,12 @@ const TimerBox = styled(Flex)`
   }
 `
 const TimerContainer = styled(Flex)`
-  background-color: rgba(41, 178, 19, 1);
+  background-color: rgba(0,0,0,0.4);
+  padding: 5px 0px;
+  display: flex;
+  height: 8rem;
+  justify-content: center;
+  align-items: center;
 `
 
 const InfoBox = styled(Flex)`
@@ -74,39 +79,21 @@ const InfoRow = styled(Flex)`
   width: 100%;
 `
 
-const CountDown: React.FC<{ round: string, start?: boolean; end?: number }> = ({ round, start, end }) => {
+const CountDown: React.FC<{ status: string, round: string, start?: boolean; end?: number }> = ({ status, round, start, end }) => {
   const endDate = end
   const isStart = start
 
   const Renderer = (days?: number, hours?: number, minutes?: number, seconds?: number) => {
     return (
-      <TimerContainer justifyContent="space-between" padding="10px">
-        <div style={{ textAlign: 'left' }}>
-          <Heading size="l">ROUND {round}</Heading>
-          <Text fontSize="12px"> ENDS IN</Text>
-        </div>
-        <TimerBox justifyContent="space-between">
-          <div>
-            <Heading size="l">{days}</Heading>
-            <Text fontSize="12px"> DAYS </Text>
-          </div>
-          <div>
-            <Heading size="l">{hours}</Heading>
-            <Text fontSize="12px"> HOURS </Text>
-          </div>
-          <div>
-            <Heading size="l">{minutes}</Heading>
-            <Text fontSize="12px"> MINUTES</Text>
-          </div>
-          <div>
-            <Heading size="l">{seconds}</Heading>
-            <Text fontSize="12px"> SECONDS </Text>
-          </div>
-        </TimerBox>
-      </TimerContainer>
+      <TimerRenderer days={days} hours={hours} minutes={minutes} seconds={seconds} round={round}/>
     )
   }
-  return <Timer dateSettings={{ isStart, end: endDate }} Renderer={Renderer} />
+
+  return (
+    <TimerContainer justifyContent='center'>
+      <Timer dateSettings={{ isStart, end: endDate }} status={status} Renderer={Renderer} />
+    </TimerContainer>
+  )
 }
 
 const TokenInformation: React.FC<{
@@ -115,7 +102,8 @@ const TokenInformation: React.FC<{
   buyingCoin: string
   type: string
   sellingCoin: string
-}> = ({ totalRaise, boxesForSale, buyingCoin, type, sellingCoin }) => {
+  gpadType?: string
+}> = ({ totalRaise, boxesForSale, buyingCoin, type, sellingCoin , gpadType = 'INO'}) => {
   return (
     <InfoBox flexDirection="column" padding="0px 24px 12px 24px">
       <InfoRow justifyContent="space-between">
@@ -125,7 +113,7 @@ const TokenInformation: React.FC<{
         </Text>
       </InfoRow>
       <InfoRow justifyContent="space-between">
-        <Text>Boxes for Sale</Text>
+        <Text>{gpadType === TYPE.INO ? 'Boxes' : sellingCoin} for Sale</Text>
         <Text bold>{boxesForSale}</Text>
       </InfoRow>
       <InfoRow justifyContent="space-between">
@@ -154,7 +142,7 @@ const StatusBox = styled(Flex)<{ status: string }>`
 const CardHeader: React.FC<{ status: string; background?: string }> = ({ status, background }) => (
   <Header src={background}>
     <StatusBox status={status.toLowerCase()} padding="10px">
-      {status}
+      {status.toUpperCase()}
     </StatusBox>
   </Header>
 )
@@ -164,23 +152,23 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
   const theme = useContext(ThemeContext)
   const src = useFetchBanner(guildpad.sellingCoin.symbol)
   const status = getStatus(guildpad)
-  const totalRaiseInBnb = getBalanceAmount(new BigNumber(guildpad.totalRaise), 18);
 
   return (
     <GCard>
       <CardHeader status={status} background={src} />
-      <CountDown round={guildpad.round} start={status === GUILDPAD_STATUS.ongoing} end={guildpad.epochEndDate} />
+      <CountDown status={status} round={guildpad.round} start={status === GUILDPAD_STATUS.ongoing} end={guildpad.epochEndDate} />
       <TokenLogo
         tokenName={guildpad.sellingCoin.symbol}
         primaryToken={guildpad.sellingCoin}
         subtitle={guildpad.title}
       />
       <TokenInformation
-        totalRaise={totalRaiseInBnb.toString()}
+        totalRaise={guildpad.totalRaise}
         boxesForSale={guildpad.totalSupply.toString()}
         buyingCoin={guildpad.buyingCoin.symbol}
         type={guildpad.distribution}
         sellingCoin={guildpad.sellingCoin.symbol}
+        gpadType={guildpad.type}
       />
       <Flex padding="24px">
         {!account ? (
@@ -188,7 +176,7 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
         ) : (
           <Link to={`/launchpad/${guildpad.title}`} style={{ width: '100%' }}>
             <Button fullWidth style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}>
-              Participate
+              {status === GUILDPAD_STATUS.completed? 'Details' : 'Participate'}
             </Button>
           </Link>
         )}
