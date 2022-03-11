@@ -4,7 +4,7 @@ import { useWeb3React } from '@web3-react/core'
 import { Flex, Text, useWalletModal } from '@metagg/mgg-uikit'
 import useAuth from 'hooks/useAuth'
 import { ThemeContext } from 'styled-components'
-import { TYPE } from 'config/constants/types'
+import { TYPE, GUILDPAD_STATUS } from 'config/constants/types'
 import { NavOption, PostBody, SaleContainer, SaleRow } from './styled'
 import { Guildpad } from '../../state/types'
 
@@ -145,10 +145,17 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
             <Text color='textSubtle'>Buying Coin</Text>
             <Text>{guildpad.buyingCoin.symbol}</Text>
           </SaleRow>
-          <SaleRow justifyContent='space-between'>
-            <Text color='textSubtle'>Funds to be Raised</Text>
-            <Text>{guildpad.FundstoRaise ?? (guildpad.expectedSales ?? 'TBA')} {guildpad.buyingCoin.symbol}</Text>
-          </SaleRow>
+          {guildpad.status === GUILDPAD_STATUS.completed ?
+            <SaleRow justifyContent='space-between'>
+              <Text color='textSubtle'>Funds Raised</Text>
+              <Text>{guildpad.FundstoRaise ?? (guildpad.expectedSales ?? 'TBA')} {guildpad.buyingCoin.symbol}</Text>
+            </SaleRow>
+            :
+            <SaleRow justifyContent='space-between'>
+              <Text color='textSubtle'>Funds to be Raised</Text>
+              <Text>{guildpad.FundstoRaise ?? (guildpad.expectedSales ?? 'TBA')} {guildpad.buyingCoin.symbol}</Text>
+            </SaleRow>
+          }
           <SaleRow justifyContent='space-between'>
             <Text color='textSubtle'>Token Distribution</Text>
             <Text>{guildpad.distribution}</Text>

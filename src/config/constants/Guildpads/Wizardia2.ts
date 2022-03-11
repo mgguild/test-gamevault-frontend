@@ -14,7 +14,7 @@ const guildpad = {
   round: '2',
   distribution: DISTRIBUTION.VESTING,
   distributionDesc: '20% TGE and 20% per month for next 4 months',
-  status: GUILDPAD_STATUS.ongoing,
+  status: GUILDPAD_STATUS.completed,
   contractAddress: {
     97: '0x002',
     56: '0x577B1CA6e14B6b2ff40e5beF89FF9B47BFccAB51',
@@ -32,7 +32,11 @@ const guildpad = {
   // projectTokenEquivalent: '1425 WBOND',
   // asOfPriceInProjectToken: 1645362000000,
   epochEndDate: 1647003600000,
-  nextRoundDate: 1646917200000
+  nextRoundDate: 1646917200000,
+  display: true,
+  FundstoRaise: '60000',
+  totalSupply: '60000',
+  totalSold: '60000',
 }
 
 export default guildpad
