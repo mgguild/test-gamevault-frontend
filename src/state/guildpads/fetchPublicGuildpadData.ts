@@ -8,7 +8,7 @@ const fetchPublicGuildpadData = async (guildpad: Guildpad) => {
   const { contractAddress } = guildpad
   const guildpadAddress = getAddress(contractAddress)
 
-  if (!isAddress(guildpadAddress)) {
+  if (!isAddress(guildpadAddress) || guildpad.isStatic) {
     return guildpad
   }
 
