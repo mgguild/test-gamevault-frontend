@@ -9,7 +9,7 @@ const Guildpads: GuildpadConfig[] = [
   {
     id: 3,
     title: 'Wizardia',
-    isStatic: false,
+    isStatic: true,
     ... Wizardia2
   },
   {
