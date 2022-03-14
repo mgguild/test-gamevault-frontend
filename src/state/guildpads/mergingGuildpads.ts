@@ -12,6 +12,7 @@ const mergingGuildpads = (guildpads: Guildpad[]): Guildpad[] => {
   guildpads.forEach((guildpad, index) => {
     let merging: Guildpad = {
       id: guildpads.length + 1,
+      isStatic: true,
       title: guildpad.title,
       description: guildpad.description,
       round: `MERGED ${guildpad.title}`,

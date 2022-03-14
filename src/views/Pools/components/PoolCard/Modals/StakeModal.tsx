@@ -48,7 +48,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
                                                  onDismiss,
                                                }) => {
   const { sousId, stakingToken, userData, isAddTokenDisabled, earningToken } = pool
-  console.log(isAddTokenDisabled ?? false)
   const { onReward } = useSousHarvest(sousId, isBnbPool)
   const { onUnstake } = useSousUnstake(sousId, false)
   const { t } = useTranslation()

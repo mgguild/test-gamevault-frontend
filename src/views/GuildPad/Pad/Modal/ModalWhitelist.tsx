@@ -6,7 +6,7 @@ import { Flex, Heading, Text, Modal, Button } from '@metagg/mgg-uikit'
 interface ModalWhitelistProps{
   onDismiss?: () => void
   onBack?: () => void
-  dateInMilli: number
+  dateInMilli?: number
 }
 
 const Content = styled.div`
@@ -42,7 +42,7 @@ const ModalWhitelist: React.FC<ModalWhitelistProps> = ({
             <HeadingIcon size='xxl' color='#b80000'>X</HeadingIcon>
           </Flex>
           <Heading>SORRY, YOU ARE NOT WHITELISTED</Heading>
-          {comebackText}
+          {/* {comebackText} */}
           <Flex alignItems='center' justifyContent='center'>
             <Button
               style={{padding: '0 3rem'}}

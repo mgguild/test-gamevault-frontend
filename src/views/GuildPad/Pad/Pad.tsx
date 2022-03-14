@@ -1,5 +1,9 @@
 import React, { useContext } from 'react'
 import { Link, RouteComponentProps } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
+import { useLocation } from 'react-router'
+import { DEFAULT_META, getCustomMeta, getPadCustomMeta } from 'config/constants/meta'
+import { PageMeta } from 'components/layout/Page'
 import styled, {ThemeContext} from 'styled-components'
 import { ChevronRight } from 'react-feather'
 import { GUILDPAD_STATUS, TYPE} from 'config/constants/types'
@@ -9,7 +13,7 @@ import { useGuildpadData, useGuildpads } from 'state/hooks'
 import PageSection from '../sections/Layout'
 import Footer from '../sections/Footer'
 import Card from './Cards'
-import { getStatus } from '../../../utils/guildpadHelpers'
+import { getGuildpadStatus } from '../../../utils/guildpadHelpers'
 
 
 const Container = styled(Flex)`
@@ -37,9 +41,11 @@ const Pad: React.FC<RouteComponentProps<{ guildpadTitle?: string }>> = ({ match:
   useGuildpadData()
   const activeGuildpad = guildpads.filter((gpad) => gpad.title === guildpadTitle)[0]
   const { title } = activeGuildpad
-  const status = getStatus(activeGuildpad)
+  const status = getGuildpadStatus(activeGuildpad)
+
   return (
     <>
+      <PageMeta guildpadTitle={guildpadTitle} />
       <Container>
       <PageSection direction='column'>
         <GuildpadContainer>

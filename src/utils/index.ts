@@ -98,6 +98,13 @@ export const epochToDate = (epochTime) => {
   return date;
 }
 
+export const milliToDate = (milliseconds) => {
+  const date = new Date(0); // The 0 there is the key, which sets the date to the epoch
+  date.setMilliseconds(milliseconds);
+
+  return date;
+}
+
 export const dateEnded = (endDate) => {
   const current = new Date();
   const end = epochToDate(endDate);

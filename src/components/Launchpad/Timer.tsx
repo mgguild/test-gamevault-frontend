@@ -1,8 +1,9 @@
 import React, { useContext } from 'react'
 import Countdown, { calcTimeDelta} from 'react-countdown'
-import '../../../css/styleFX.css'
+import 'css/styleFX.css'
 import { Text, Flex, Heading, } from '@metagg/mgg-uikit'
 import styled, { ThemeContext } from 'styled-components'
+import { GUILDPAD_STATUS } from '../../config/constants/types'
 
 type dateSettingsProps = {
     isStart?: any;
@@ -10,11 +11,12 @@ type dateSettingsProps = {
 }
 
 type TimerProps = {
+    status?: string;
     Renderer: (days?:number, hours?: number, minutes?:number, seconds?: number) => JSX.Element;
     dateSettings?: dateSettingsProps;
 }
 
-const Timer: React.FC<TimerProps> = ({Renderer, dateSettings}) => {
+const Timer: React.FC<TimerProps> = ({status, Renderer, dateSettings}) => {
     const { isStart, end } = dateSettings
     const theme = useContext(ThemeContext)
     return (
@@ -24,10 +26,10 @@ const Timer: React.FC<TimerProps> = ({Renderer, dateSettings}) => {
             <Text>Upcoming</Text>
         }}
         renderer={({ days, hours, minutes, seconds, completed, api}) => {
-            if (isStart) {
-                return Renderer(days,hours,minutes,seconds)
-            }
-          if (completed) {
+          if (isStart  && status !== GUILDPAD_STATUS.completed) {
+              return Renderer(days,hours,minutes,seconds)
+          }
+          if (completed || status === GUILDPAD_STATUS.completed) {
             return (
               <>
                 <div style={{position: 'relative'}}>

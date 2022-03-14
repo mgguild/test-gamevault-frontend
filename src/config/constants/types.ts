@@ -222,6 +222,11 @@ type IgoDetails = {
 
 type IdoDetails = {
   price?: string;
+  startTime?: string;
+  tokenRate?: string;
+  expectedSales?: string;
+  totalParticipants?: string;
+  percentage?: string;
 }
 
 interface GuildPadInformation {
@@ -238,6 +243,7 @@ interface GuildPadInformation {
   hasStarted?: boolean;
   hasEnded?: boolean;
   totalSupply?: string;
+  remainingSupply?: string;
   totalSold?: string;
   totalRaise?: string;
   buyLimitEnabled?: boolean,
@@ -247,14 +253,20 @@ interface GuildPadInformation {
   buyLimit?: string,
   socials?: Socials;
   inoDetails?: InoDetails;
-  idoDetails?: IdoDetails;
   igoDetails?: IgoDetails;
+  price?: string;
+  startTime?: string;
+  tokenRate?: string;
+  expectedSales?: string;
+  totalParticipants?: string;
+  percentage?: string;
   epochEndDate?: number
 }
 
 
 export interface GuildpadConfig extends GuildPadInformation {
   id: number,
+  isStatic: boolean,
   contractAddress?: Address;
   FundstoRaise?: string;
   buyingCoin?: Token;

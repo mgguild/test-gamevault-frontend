@@ -9,17 +9,17 @@ import { Socials, GuildpadConfig, GUILDPAD_STATUS, TYPE } from 'config/constants
 import { Globe, Send, Twitter } from 'react-feather'
 import { SiDiscord, SiYoutube } from 'react-icons/si'
 import { useFetchBanner, useFetchPadBG } from 'utils/assetFetch'
-import Timer from 'views/GuildPad/components/Timer'
-import { getStatus } from 'utils/guildpadHelpers'
+import TimerRenderer from 'views/GuildPad/components/TimerRenderer'
+import Timer from 'components/Launchpad/Timer'
+import Content from 'components/Launchpad/Content'
+import { getGuildpadStatus } from 'utils/guildpadHelpers'
 import Anchor from 'components/Launchpad/Anchor'
 import SvgIcon from 'components/Launchpad/SvgIcon'
 import { ReactComponent as MediumIcon } from 'components/Launchpad/icons/MediumIcon.svg'
 import { Card as SCard, CardHeader as SCardHeader, Text, Heading, Flex, Button } from '@metagg/mgg-uikit'
 import TokenLogo from 'components/Launchpad/Logo'
-import { PostBody, NavOption, SaleContainer, SaleRow } from '../../../../components/Launchpad/styled'
+// import { PostBody, NavOption, SaleContainer, SaleRow } from '../../../../components/Launchpad/styled'
 import Boxcard from '../BoxCard'
-import '../../../../css/styleFX.css'
-import Content from '../../../../components/Launchpad/Content'
 import IdoCard from './Ido'
 
 const GCard = styled(SCard)<{ src?: string }>`
@@ -28,7 +28,7 @@ const GCard = styled(SCard)<{ src?: string }>`
   width: 100%;
   margin: 0 8rem;
   background: #101010;
-  @media screen and (max-width: 925px) {
+  @media screen and (max-width: 1024px) {
     margin: 0px auto;
   }
   ${({ src, theme }) =>
@@ -130,63 +130,29 @@ const ContainerProjDesc = styled(Flex)`
   position: relative;
   margin: 1.5rem;
 `
-const Box = styled.div`
-  height: 100%;
-  min-width: 100px;
-`
+// const Box = styled.div`
+//   height: 100%;
+//   min-width: 100px;
+// `
 
-const HOrbitron = styled(Heading)`
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  font-family: Orbitron !important;
-  line-height: 0.7em;
-  color: grey;
-`
-const TimeSpan = styled.div`
-  margin: 1rem 0 1.5rem 0;
-`
+// const HOrbitron = styled(Heading)`
+//   display: flex;
+//   justify-content: center;
+//   text-align: center;
+//   font-family: Orbitron !important;
+//   line-height: 0.7em;
+//   color: grey;
+// `
+// const TimeSpan = styled.div`
+//   margin: 1rem 0 1.5rem 0;
+// `
 
 // COUNTDOWN TIMER
 const CountDown: React.FC<{ round: string, start?:boolean, end?:number}> = ({round, start, end}) => {
   const endDate = end
   const isStart = start;
 
-  const Renderer = (days?: number, hours?: number, minutes?: number, seconds?: number) => {
-    return(
-      <div>
-      <Heading color='white' style={{textAlign: 'center', paddingTop: '0.5rem'}} size="l">ROUND {round} ENDS IN</Heading>
-      <TimerContainer>
-      <TimerBox>
-          <Box>
-            <TimeSpan>
-              <HOrbitron size="xl" className='glow'>{days}</HOrbitron>
-            </TimeSpan>
-            <Text color='white' fontSize="1rem"> DAYS </Text>
-          </Box>
-          <Box>
-            <TimeSpan>
-              <HOrbitron size="xl" className='glow'>{hours}</HOrbitron>
-            </TimeSpan>
-            <Text color='white' fontSize="1rem"> HOURS </Text>
-          </Box>
-          <Box>
-            <TimeSpan>
-              <HOrbitron size="xl" className='glow'>{minutes}</HOrbitron>
-            </TimeSpan>
-            <Text color='white' fontSize="1rem"> MINUTES</Text>
-          </Box>
-          <Box>
-            <TimeSpan>
-              <HOrbitron size="xl" className='glow'>{seconds}</HOrbitron>
-            </TimeSpan>
-            <Text color='white' fontSize="1rem"> SECONDS</Text>
-          </Box>
-        </TimerBox>
-      </TimerContainer>
-      </div>
-    )
-   }
+  const Renderer = (days?: number, hours?: number, minutes?: number, seconds?: number) => <TimerRenderer days={days} hours={hours} minutes={minutes} seconds={seconds} round={round} />
 
   return (
     <TimerContainer justifyContent="right" padding={isStart? '10px':'0px'}>
@@ -298,6 +264,7 @@ const CardHeader: React.FC<{ status: string; background?: string; guildpad: Guil
     <Flex style={{zIndex: 1, width: '100%'}}>
       <ColumnTwo>
         <TokenLogo
+          projName={guildpad.title}
           tokenName={guildpad.sellingCoin.symbol}
           nameSize='xl'
           primaryToken={guildpad.sellingCoin}
@@ -305,7 +272,7 @@ const CardHeader: React.FC<{ status: string; background?: string; guildpad: Guil
           socMeds={guildpad.socials}
           color="white"
         />
-        <Flex justifyContent='right'>
+        <Flex justifyContent='right' alignItems='center'>
           <div>
             <StatusBox status={status.toLowerCase()} padding="10px">
               {status.toUpperCase()}
@@ -323,7 +290,7 @@ const Card: React.FC<{ guildpad: GuildpadConfig, userDataLoaded: boolean }> = ({
   const theme = useContext(ThemeContext)
   const src = useFetchBanner(guildpad.sellingCoin.symbol)
   const bgSrc = useFetchPadBG(guildpad.sellingCoin.symbol)
-  const status = getStatus(guildpad)
+  const status = getGuildpadStatus(guildpad)
 
   const renderType = (type:string) => {
     switch(type){
@@ -365,13 +332,12 @@ const Card: React.FC<{ guildpad: GuildpadConfig, userDataLoaded: boolean }> = ({
     }
   }
 
- 
+
   return (
     <GCard src={bgSrc}>
       <CardHeader status={status} background={src} guildpad={guildpad}/>
       <Contain>
       { renderType(guildpad.type) }
-        
       </Contain>
     </GCard>
   )
