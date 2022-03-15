@@ -26,9 +26,6 @@ const Timer: React.FC<TimerProps> = ({status, Renderer, dateSettings}) => {
             <Text>Upcoming</Text>
         }}
         renderer={({ days, hours, minutes, seconds, completed, api}) => {
-          if (isStart  && status !== GUILDPAD_STATUS.completed) {
-              return Renderer(days,hours,minutes,seconds)
-          }
           if (completed || status === GUILDPAD_STATUS.completed) {
             return (
               <>
@@ -46,6 +43,9 @@ const Timer: React.FC<TimerProps> = ({status, Renderer, dateSettings}) => {
                 </div>
               </>
             )
+          }
+          if (isStart  && status !== GUILDPAD_STATUS.completed) {
+              return Renderer(days,hours,minutes,seconds)
           }
           return ''
         }}

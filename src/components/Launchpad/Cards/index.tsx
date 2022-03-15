@@ -90,7 +90,7 @@ const CountDown: React.FC<{ status: string, round: string, start?: boolean; end?
   }
 
   return (
-    <TimerContainer style={{position: 'relative'}} justifyContent='center' className='crt inset-shadow'>
+    <TimerContainer justifyContent='center' style={{position: 'relative'}} className='crt inset-shadow'>
       <Timer dateSettings={{ isStart, end: endDate }} status={status} Renderer={Renderer} />
     </TimerContainer>
   )
