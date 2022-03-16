@@ -254,7 +254,7 @@ const BoxCard: React.FC<{ guildpad: Guildpad, imgProps: ImgProps, userDataLoaded
           {!account && <UnlockButton fullWidth />}
           {account && !hasRemainingSupply &&
           <Button fullWidth
-                  style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}>
+                  style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }} disabled>
             SOLD OUT
           </Button>}
           {
