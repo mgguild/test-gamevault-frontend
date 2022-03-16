@@ -152,7 +152,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
           {guildpad.status === GUILDPAD_STATUS.completed ?
             <SaleRow justifyContent='space-between'>
               <Text color='textSubtle'>Funds Raised</Text>
-              <Text>{guildpad.FundstoRaise ?? (guildpad.expectedSales ?? 'TBA')} {guildpad.buyingCoin.symbol}</Text>
+              <Text>{guildpad.totalRaise ?? (guildpad.totalRaise ?? 'TBA')} {guildpad.buyingCoin.symbol}</Text>
             </SaleRow>
             :
             <SaleRow justifyContent='space-between'>

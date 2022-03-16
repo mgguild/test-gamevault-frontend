@@ -29,13 +29,19 @@ const mergingGuildpads = (guildpads: Guildpad[]): Guildpad[] => {
       if(toMergeGP && toMergeGP.round === '2' && toMergeGP.hasEnded && toMergeGP.status === GUILDPAD_STATUS.completed){
         guildpads[index].nextRoundID = 0
         Object.keys(guildpads[index]).forEach((key) => {
-          if(key === 'totalSold' || key === 'totalRaise'){
+          if(key === 'totalSold' || key === 'totalRaise' || key === 'totalParticipants'){
             // Sum of totalSold and totalsRaise of from rounds
             merging[key] = new BigNumber(guildpads[index][key]).plus(new BigNumber(toMergeGP[key])).toString()
           }
           if(key === 'epochEndDate'){
             // get latest round epochEndDate
             merging[key] = toMergeGP[key]
+          }
+          if(key === 'percentage' || key === 'remainingSupply'){
+            merging[key] = toMergeGP[key]
+          }
+          if(key === 'date'){
+            merging[key] = {...merging[key], end: toMergeGP[key].end}
           }
         })
         merging.id = guildpads.length + 1

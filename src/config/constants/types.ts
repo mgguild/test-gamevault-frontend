@@ -280,6 +280,7 @@ export interface GuildpadConfig extends GuildPadInformation {
       price: string,
       supply: string,
       sold: string
+      percentSold?: string,
     }
   };
 }

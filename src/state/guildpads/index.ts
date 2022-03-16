@@ -89,10 +89,10 @@ export const guildpadSlice = createSlice({
       })
 
       // Merging Here
-      const merges = mergingGuildpads(state.data)
-      if (merges && merges.length) {
-        state.data = [...state.data, ...merges]
-      }
+      // const merges = mergingGuildpads(state.data)
+      // if (merges && merges.length) {
+      //   state.data = [...state.data, ...merges]
+      // }
     })
 
     // Update guildpad with user data
