@@ -23,10 +23,10 @@ const Completed: React.FC<{ guildpads?: GuildpadConfig[] }> = ({ guildpads }) =>
 
 const Upcoming: React.FC<{ guildpads?: GuildpadConfig[]}> = ({ guildpads }) => {
   const renderUpcoming = (launchpads) => {
-    launchpads.reverse()
+    const temp = [...launchpads].reverse()
     return(
       <OrganizerContainer>
-        {launchpads.map((launchpad) => (
+        {temp.map((launchpad) => (
           <Post key={launchpad.address} guildpad={launchpad} />
         ))}
     </OrganizerContainer>
