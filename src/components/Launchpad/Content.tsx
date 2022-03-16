@@ -59,7 +59,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
             <Text color='textSubtle'>Sale Price</Text>
             <div style={{ textAlign: 'right' }}>
               <Text>
-                {guildpadPrice()}{guildpad.buyingCoin.symbol}
+                {guildpadPrice()}
                 {guildpadPrice() !== 'TBA' && guildpad.projectTokenEquivalent && `(${guildpad.projectTokenEquivalent})`}
               </Text>
               {asOfPriceTime && (
@@ -69,26 +69,10 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
               )}
             </div>
           </SaleRow>
-          <SaleRow justifyContent='space-between'>
-            <Text color='textSubtle'>Sale Start Time</Text>
-            <Text>{start}</Text>
-          </SaleRow>
-          <SaleRow justifyContent='space-between'>
-            <Text color='textSubtle'>Sale End Time</Text>
-            <Text>{end}</Text>
-          </SaleRow>
-        </Flex>
-        <Flex flexDirection='column'>
-          {guildpad.type === TYPE.INO && (
+          {guildpad.type === TYPE.INO && inoPrice && (
             <SaleRow justifyContent='space-between'>
-              <Text color='textSubtle'>Boxes for Sale</Text>
-              <Text>{guildpad.totalSupply}</Text>
-            </SaleRow>
-          )}
-          {guildpad.type === TYPE.IDO && (
-            <SaleRow justifyContent='space-between'>
-              <Text color='textSubtle'>Buying Coin</Text>
-              <Text>{guildpad.buyingCoin.symbol}</Text>
+              <Text color='textSubtle'>INO Price</Text>
+              <Text>{inoPrice}</Text>
             </SaleRow>
           )}
           <SaleRow justifyContent='space-between'>
@@ -102,10 +86,26 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
               )}
             </div>
           </SaleRow>
-          {guildpad.type === TYPE.INO && inoPrice && (
+          {/* <SaleRow justifyContent='space-between'>
+            <Text color='textSubtle'>Sale Start Time</Text>
+            <Text>{start}</Text>
+          </SaleRow>
+          <SaleRow justifyContent='space-between'>
+            <Text color='textSubtle'>Sale End Time</Text>
+            <Text>{end}</Text>
+          </SaleRow> */}
+        </Flex>
+        <Flex flexDirection='column'>
+          {guildpad.type === TYPE.IDO && (
             <SaleRow justifyContent='space-between'>
-              <Text color='textSubtle'>INO Price</Text>
-              <Text>{inoPrice}</Text>
+              <Text color='textSubtle'>Buying Coin</Text>
+              <Text>{guildpad.buyingCoin.symbol}</Text>
+            </SaleRow>
+          )}
+          {guildpad.type === TYPE.INO && (
+            <SaleRow justifyContent='space-between'>
+              <Text color='textSubtle'>Boxes for Sale</Text>
+              <Text>{guildpad.totalSupply}</Text>
             </SaleRow>
           )}
           {guildpad.type === TYPE.INO && (
@@ -221,6 +221,8 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
         return renderSchedule()
       case 3:
         return renderAllocation()
+      case 4:
+        return renderDescription()
       default:
         return (
           <Flex>
@@ -239,14 +241,18 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
             margin='10px 0px 20px 0px'
             style={{ borderBottom: `0.5px solid ${theme.colors.primary}`, width: '100%' }}
           >
-            <NavOption onClick={() => setActive(1)} activeIndex={active === 1}>
+            <NavOption onClick={() => setActive(4)} activeIndex={active === 4}>
               Description
             </NavOption>
             <NavOption onClick={() => setActive(2)} activeIndex={active === 2}>
+              Schedule
+            </NavOption>
+            <NavOption onClick={() => setActive(1)} activeIndex={active === 1}>
               {guildpad.type === TYPE.INO? 'NFT' : 'Token'} Sale
             </NavOption>
           </Flex>
-          {active === 1 ? renderDescription() : active === 2 && renderSale()}
+          {renderTabs(active)}
+          {/* {active === 1 ? renderDescription() : active === 2 && renderSale()} */}
         </>
       ) : (
         <>
