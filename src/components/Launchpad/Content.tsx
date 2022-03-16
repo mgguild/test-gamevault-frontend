@@ -32,7 +32,11 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
       price = price !== 'TBA' ? `${price} ${guildpad.buyingCoin.symbol}` : price
     }
     if (guildpad.type === TYPE.IDO) {
-      price = guildpad.tokenRate ?? (guildpad.igoDetails ? guildpad.igoDetails.price : 'TBA')
+      if(guildpad.tokenRate){
+        price = `${guildpad.tokenRate} ${guildpad.buyingCoin.symbol}`
+      }else{
+        price = guildpad.igoDetails ? guildpad.igoDetails.price : 'TBA'
+      }
     }
     return price
   }
@@ -55,7 +59,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
             <Text color='textSubtle'>Sale Price</Text>
             <div style={{ textAlign: 'right' }}>
               <Text>
-                {guildpadPrice()} {guildpad.buyingCoin.symbol}
+                {guildpadPrice()}{guildpad.buyingCoin.symbol}
                 {guildpadPrice() !== 'TBA' && guildpad.projectTokenEquivalent && `(${guildpad.projectTokenEquivalent})`}
               </Text>
               {asOfPriceTime && (
@@ -129,7 +133,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
             <Text color='textSubtle'>Sale Price</Text>
             <div style={{ textAlign: 'right' }}>
               <Text>
-                {guildpadPrice()} {guildpad.buyingCoin.symbol}
+                {guildpadPrice()}
                 {guildpadPrice() !== 'TBA' && guildpad.projectTokenEquivalent && `(${guildpad.projectTokenEquivalent})`}
               </Text>
               {asOfPriceTime && (
