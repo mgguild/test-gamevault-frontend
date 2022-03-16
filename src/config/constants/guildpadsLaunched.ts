@@ -2,6 +2,78 @@ import { GuildpadConfig, GUILDPAD_STATUS, TYPE, DISTRIBUTION } from './types'
 
 const GuildpadsLaunched: GuildpadConfig[] = [
   {
+        id: 1,
+        title: "Wizardia",
+        isStatic: true,
+        nextRoundID: 0,
+        description: "Wizardia is a Play-to-Earn online role-playing strategy game with unique NFTs at its core. It’s built on three core gameplay pillars: innovative turn-based combat, player-decision driven game evolution and upgrade-based character progression. $WZRD is the Solana-powered utility token that also acts as in-game currency and can be spent as well as earned or exchanged by every player inside and outside of the game. Wizardia rewards those who contribute to the game’s metaverse and its real-valued economy system so there are no one-way investments.",
+        socials: {
+            website: "https://wizardia.co/35ObEcS",
+            twitter: "https://twitter.com/PlayWizardia",
+            telegram: "https://t.me/Wizardia",
+            medium: "https://medium.com/@wizardia"
+        },
+        type: TYPE.IDO,
+        round: "MERGED Wizardia",
+        distribution: DISTRIBUTION.VESTING,
+        distributionDesc: "20% TGE and 20% per month for next 4 months",
+        status: GUILDPAD_STATUS.completed,
+        contractAddress: {
+            56: "0x76B5FE982860573B5a872eE1303b32a68c8CA4A6",
+            97: "0x002"
+        },
+        buyingCoin: {
+            symbol: "BUSD",
+            address: {
+                56: "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
+                97: ""
+            },
+            decimals: 18,
+            projectLink: "https://www.paxos.com/busd/"
+        },
+        sellingCoin: {
+            symbol: "WZRD",
+            address: {
+                56: "Wizardia",
+                97: "Wizardia"
+            },
+            iconExtension: "png",
+            decimals: 18,
+            projectLink: "https://wizardia.io//"
+        },
+        igoDetails: {
+            price: "0.12 USD",
+            fundsTarget: "60,000 USD"
+        },
+        date: {
+            start: "March 9, 2022 1:00 PM UTC",
+            end: "March 11, 2022 1:00 PM UTC"
+        },
+        epochEndDate: 1647003600000,
+        nextRoundDate: 1646917200000,
+        totalSold:  "500000",  // "400808",
+        totalRaise: "60000",  // "48096.95852760736092",
+        hasStarted: true,
+        hasEnded: true,
+        totalSupply: "500000",
+        boxInfo: {
+            1: {
+                price: "0",
+                supply: "0",
+                sold: "0"
+            }
+        },
+        buyLimitEnabled: false,
+        buyLimit: "0",
+        startTime: "1646830680",
+        totalParticipants: "36",
+        expectedSales: "60000",
+        remainingSupply: "99192.012269938659000006",
+        tokenRate: "0.12",
+        percentage: "100",  // "73.3226",
+        display: true
+  },
+  {
       id: 0,
       isStatic: true,
       title: "TankWars Zone",
@@ -83,78 +155,6 @@ const GuildpadsLaunched: GuildpadConfig[] = [
       remainingSupply: "0",
       display: true
   },
-  {
-        id: 1,
-        title: "Wizardia",
-        isStatic: true,
-        nextRoundID: 0,
-        description: "Wizardia is a Play-to-Earn online role-playing strategy game with unique NFTs at its core. It’s built on three core gameplay pillars: innovative turn-based combat, player-decision driven game evolution and upgrade-based character progression. $WZRD is the Solana-powered utility token that also acts as in-game currency and can be spent as well as earned or exchanged by every player inside and outside of the game. Wizardia rewards those who contribute to the game’s metaverse and its real-valued economy system so there are no one-way investments.",
-        socials: {
-            website: "https://wizardia.co/35ObEcS",
-            twitter: "https://twitter.com/PlayWizardia",
-            telegram: "https://t.me/Wizardia",
-            medium: "https://medium.com/@wizardia"
-        },
-        type: TYPE.IDO,
-        round: "MERGED Wizardia",
-        distribution: DISTRIBUTION.VESTING,
-        distributionDesc: "20% TGE and 20% per month for next 4 months",
-        status: GUILDPAD_STATUS.completed,
-        contractAddress: {
-            56: "0x76B5FE982860573B5a872eE1303b32a68c8CA4A6",
-            97: "0x002"
-        },
-        buyingCoin: {
-            symbol: "BUSD",
-            address: {
-                56: "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
-                97: ""
-            },
-            decimals: 18,
-            projectLink: "https://www.paxos.com/busd/"
-        },
-        sellingCoin: {
-            symbol: "WZRD",
-            address: {
-                56: "Wizardia",
-                97: "Wizardia"
-            },
-            iconExtension: "png",
-            decimals: 18,
-            projectLink: "https://wizardia.io//"
-        },
-        igoDetails: {
-            price: "0.12 USD",
-            fundsTarget: "60,000 USD"
-        },
-        date: {
-            start: "March 9, 2022 1:00 PM UTC",
-            end: "March 11, 2022 1:00 PM UTC"
-        },
-        epochEndDate: 1647003600000,
-        nextRoundDate: 1646917200000,
-        totalSold:  "500000",  // "400808",
-        totalRaise: "60000",  // "48096.95852760736092",
-        hasStarted: true,
-        hasEnded: true,
-        totalSupply: "500000",
-        boxInfo: {
-            1: {
-                price: "0",
-                supply: "0",
-                sold: "0"
-            }
-        },
-        buyLimitEnabled: false,
-        buyLimit: "0",
-        startTime: "1646830680",
-        totalParticipants: "36",
-        expectedSales: "60000",
-        remainingSupply: "99192.012269938659000006",
-        tokenRate: "0.12",
-        percentage: "100",  // "73.3226",
-        display: true
-    }
 ]
 
 export default GuildpadsLaunched

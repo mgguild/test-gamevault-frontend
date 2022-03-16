@@ -9,10 +9,9 @@ const Completed: React.FC<{ guildpads?: GuildpadConfig[] }> = ({ guildpads }) =>
   // Content for completed tab here
 
   const renderCompleted = (launchpads) => {
-    const temp = [...launchpads].reverse()
     return(
       <OrganizerContainer>
-        {temp.map((launchpad) => (
+        {launchpads.map((launchpad) => (
           <Post key={launchpad.address} guildpad={launchpad} />
         ))}
       </OrganizerContainer>
@@ -23,10 +22,9 @@ const Completed: React.FC<{ guildpads?: GuildpadConfig[] }> = ({ guildpads }) =>
 
 const Upcoming: React.FC<{ guildpads?: GuildpadConfig[]}> = ({ guildpads }) => {
   const renderUpcoming = (launchpads) => {
-     const temp = [...launchpads].reverse()
     return(
       <OrganizerContainer>
-        {temp.map((launchpad) => (
+        {launchpads.map((launchpad) => (
           <Post key={launchpad.address} guildpad={launchpad} />
         ))}
     </OrganizerContainer>
