@@ -27,15 +27,16 @@ const Guildpads: GuildpadConfig[] = [
     ... Wizardia2
   },
   {
-    id: 4,
-    title: 'Demole',
-    isStatic: true,
-    ... DemoleGuildpad
-  },{
     id: 5,
     title: 'Ookeenga',
     isStatic: true,
     ... Ookeenga
+  },
+  {
+    id: 4,
+    title: 'Demole',
+    isStatic: true,
+    ... DemoleGuildpad
   },
 ]
 
