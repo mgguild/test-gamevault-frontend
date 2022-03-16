@@ -4,6 +4,7 @@ import TankWarsZoneGuildpad2 from './Guildpads/TankWarsZone2'
 import DemoleGuildpad from './Guildpads/Demole'
 import WizardiaGuildpad from './Guildpads/Wizardia'
 import Wizardia2 from './Guildpads/Wizardia2'
+import Ookeenga from './Guildpads/Ookeenga'
 
 const Guildpads: GuildpadConfig[] = [
   {
@@ -30,6 +31,11 @@ const Guildpads: GuildpadConfig[] = [
     title: 'Demole',
     isStatic: true,
     ... DemoleGuildpad
+  },{
+    id: 5,
+    title: 'Ookeenga',
+    isStatic: true,
+    ... Ookeenga
   },
 ]
 
