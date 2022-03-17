@@ -2737,10 +2737,10 @@
     prop-types "^15.7.2"
     react-is "^16.8.0 || ^17.0.0"
 
-"@metagg/mgg-uikit@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@metagg/mgg-uikit/-/mgg-uikit-1.1.0.tgz#dfcd8f647ecb4ee73c8af2299bff3201d9fb5da0"
-  integrity sha512-3Y7sCB4+Liem6Ukz7OPXZwZ2GBsF6ncIvKgQ2tk8hYvvxx0my+SDWsoMM5hNyzqHAg/362Al5F5AXb3YvO0mgQ==
+"@metagg/mgg-uikit@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@metagg/mgg-uikit/-/mgg-uikit-1.1.1.tgz#ea5b87c14d7028438bc6fb297058a23522dc4bf9"
+  integrity sha512-Vr7JjTOuB1k48yyphlkfsAT9FkaMBVPWzgjp8OOKBt/X6UvT/zr+QNa89+6rDA0XOIxYfQnjkPhGaM8Csd+gpQ==
   dependencies:
     "@types/lodash" "^4.14.162"
     "@types/styled-system" "^5.1.10"
