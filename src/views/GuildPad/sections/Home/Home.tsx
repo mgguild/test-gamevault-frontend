@@ -106,7 +106,7 @@ const HomeSection: React.FC = () => {
         </HomeContainerAdapt>
         <HomeContainer>
           <Flex style={{margin: '10px auto',}} padding="25px" flexDirection='column' alignItems='center'>
-          <Text color="textSubtle" style={{ margin: '10px', fontSize: '20px' }}>
+          <Text color="textSubtle" style={{ margin: '10px', fontSize: '20px', textAlign: 'center'}} >
             EXCLUSIVELY ON MULTIPLE CHAINS
           </Text>
           <Flex justifyContent='space-around' style={{ width: '100%'}} flexWrap="wrap">
