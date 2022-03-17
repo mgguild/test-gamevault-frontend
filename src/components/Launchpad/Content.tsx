@@ -18,9 +18,11 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
     const description = guildpad.description !== '' ? guildpad.description : 'No description'
 
     return (
-      <Text color='textSubtle' margin='10px 0px' style={{ lineHeight: '2em' }}>
+     
+      <Text color='textSubtle' padding="30px" style={{ lineHeight: '2em' }}>
         {description}
       </Text>
+
     )
   }
 
@@ -171,8 +173,8 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
 
   const renderSchedule = () => {
     return (
-      <SaleContainer justifyContent='space-between'>
-        <Flex flexDirection='column'>
+      <Flex justifyContent='space-between' margin="10px 0px" padding="30px">
+        <Flex flexDirection='column' style={{width: '100%'}}>
           <SaleRow justifyContent='space-between'>
             <Text color='textSubtle'>Sale Start Time</Text>
             <Text>{guildpad.date.start}</Text>
@@ -182,7 +184,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
             <Text>{guildpad.date.end}</Text>
           </SaleRow>
         </Flex>
-      </SaleContainer>
+      </Flex>
     )
   }
 
