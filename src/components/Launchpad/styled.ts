@@ -71,6 +71,11 @@ export const PostHeader = styled(Header)<{background?:string}>`
   border-top: 3px solid ${(({theme}) => theme.colors.MGG_active)};
   border-bottom: 3px solid ${(({theme}) => theme.colors.MGG_active)};
   background: #101010;
+  
+  @media screen and (max-width: 425px) {
+    flex-direction: column;
+  }
+
   ${({ background, theme }) =>
   background &&
   `
@@ -168,7 +173,10 @@ align-items: flex-start;
 
 export const PadActions = styled(Flex)`
 flex-direction: column;
-align-items: flex-end;
+align-items: flex-start;
+& > * {
+  margin-top: 5px;
+}
   ${(({theme}) => `
     ${theme.mediaQueries.md} {
       flex-direction: row;
