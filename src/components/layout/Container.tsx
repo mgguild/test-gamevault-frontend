@@ -4,10 +4,10 @@ const Container = styled.div`
   margin-left: auto;
   margin-right: auto;
   max-width: 1200px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: 0px;
+  padding-right: 0px;
 
-  ${({ theme }) => theme.mediaQueries.sm} {
+  ${({ theme }) => theme.mediaQueries.md} {
     padding-left: 24px;
     padding-right: 24px;
   }

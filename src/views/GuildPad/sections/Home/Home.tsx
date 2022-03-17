@@ -11,18 +11,24 @@ import PageSection from '../Layout'
 
 
 const StyledFlex = styled(Flex)`
+  padding: 25px;
   text-align: left;
   max-width: 900px;
   justify-content: center;
-  padding: 80px;
   align-items: flex-start;
   row-gap: 40px;
+  ${(({theme}) => theme.mediaQueries.sm)} {
+    padding: 80px;
+  }
 `
 const HeadingAdapt = styled(Heading)`
   font-size: 4rem;
   @media screen and (max-width: 1024px) {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
+  // @media screen and (max-width: 500px) {
+  //   font-size: 0.5rem;
+  // }
 `
 
 const HomeContainerAdapt = styled(TwoColumnHeader)`
@@ -39,11 +45,13 @@ const AnimContainerAdapt = styled(AnimContainer)`
   }
   @media (max-width: 1100px) {
    height: 500px;
-   width: 500px;
   }
   @media (max-width: 500px) {
-    height: 500px;
+    height: 300px;
   }
+  // @media (max-width: 400px) {
+  //   height: 300px;
+  // }
 `
 
 const StyledLink = styled(Scroll.Link)`
@@ -101,7 +109,7 @@ const HomeSection: React.FC = () => {
           <Text color="textSubtle" style={{ margin: '10px', fontSize: '20px' }}>
             EXCLUSIVELY ON MULTIPLE CHAINS
           </Text>
-          <Flex justifyContent='space-around' style={{ width: '100%'}}>
+          <Flex justifyContent='space-around' style={{ width: '100%'}} flexWrap="wrap">
           <img
               src="./images/icons/exclusive_binance.png"
               alt="ex-binance"

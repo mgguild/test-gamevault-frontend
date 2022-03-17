@@ -11,6 +11,14 @@ const Container = styled(Flex)<{ direction?: string }>`
   @media (max-width: 1366px) {
     height: auto;
   }
+
+  @media (max-width: 425px) {
+    width: 425px;
+  }
+
+  @media (max-width: 320px) {
+    width: 320px;
+  }
 `
 
 const Layout: React.FC<{ direction?: string, id?: string }> = ({ direction, id, children }) => {
