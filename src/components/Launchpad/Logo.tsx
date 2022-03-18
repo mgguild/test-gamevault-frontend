@@ -41,7 +41,7 @@ const Logo: React.FC<LogoProps> = ({projName, tokenSize, tokenName, nameSize = '
   const theme = useContext(ThemeContext)
   const colour = color ?? theme.colors.text;
   return (
-    <Flex padding={padding}>
+    <Flex padding={padding} style={{alignItems: 'center'}}>
       <TokenLogo size={tokenSize} src={getImageUrlFromToken(primaryToken)} />
       <Flex flexDirection="column" justifyContent="center" alignItems="flex-start">
         <Heading color={colour} size={nameSize}>{
