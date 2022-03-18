@@ -155,9 +155,9 @@ export const NavOption = styled(Button)<{ activeIndex: boolean }>`
 export const SaleContainer = styled(Flex)`
   margin: 10px 0px;
   padding: 30px;
-  flex-direction: column;
+  flex-flow: column wrap;
   ${(({theme}) => theme.mediaQueries.sm)} {
-    flex-direction: row;
+    flex-flow: row wrap;
     & > * {
       width: 45%;
     }
