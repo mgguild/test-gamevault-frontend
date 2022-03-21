@@ -71,6 +71,11 @@ export const PostHeader = styled(Header)<{background?:string}>`
   border-top: 3px solid ${(({theme}) => theme.colors.MGG_active)};
   border-bottom: 3px solid ${(({theme}) => theme.colors.MGG_active)};
   background: #101010;
+  
+  @media screen and (max-width: 425px) {
+    flex-direction: column;
+  }
+
   ${({ background, theme }) =>
   background &&
   `
@@ -97,12 +102,15 @@ export const PostHeader = styled(Header)<{background?:string}>`
   }
 `
 export const PostBody = styled(Flex)`
-  width: 100%;
-  padding: 20px 30px;
-  background-color: ${({ theme }) => theme.card.background};
-  flex-direction: column;
+flex-direction: column;
   & > * {
     z-index: 1;
+  }
+  padding: 0px 0px;
+  ${(({theme}) => theme.mediaQueries.md)} {
+    width: 100%;
+    padding: 20px 30px;
+    background-color: ${({ theme }) => theme.card.background};
   }
 `
 export const PostContainer = styled.div`
@@ -146,8 +154,13 @@ export const NavOption = styled(Button)<{ activeIndex: boolean }>`
 `
 export const SaleContainer = styled(Flex)`
   margin: 10px 0px;
-  & > * {
-    width: 45%;
+  padding: 30px;
+  flex-flow: column wrap;
+  ${(({theme}) => theme.mediaQueries.sm)} {
+    flex-flow: row wrap;
+    & > * {
+      width: 45%;
+    }
   }
 `
 
@@ -168,7 +181,10 @@ align-items: flex-start;
 
 export const PadActions = styled(Flex)`
 flex-direction: column;
-align-items: flex-end;
+align-items: flex-start;
+& > * {
+  margin-top: 5px;
+}
   ${(({theme}) => `
     ${theme.mediaQueries.md} {
       flex-direction: row;
