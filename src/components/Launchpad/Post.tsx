@@ -40,11 +40,10 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
   const [toggle, setToggle] = React.useState(false)
   const sites = guildpad.socials
   const isMobile = useMedia({ maxWidth: 600 })
-
   const { buyingCoin, sellingCoin, description, type } = guildpad
   const srcs = useFetchBanner(sellingCoin.symbol);
   const hasRemainingSupply = new BigNumber(new BigNumber(guildpad.totalSupply).minus(new BigNumber(guildpad.totalSold))).isGreaterThan(0)
-
+  const USER_CLAIMABLE: 'USER_CLAIMABLE' | 'NOT_USER_CLAIMABLE' = 'NOT_USER_CLAIMABLE';
   return (
     <PostContainer style={{position: 'relative', overflow: 'hidden'}}>
       <PostHeader background={srcs}>
@@ -77,9 +76,14 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
                 </TokenProperty>
               }
             </div>
+            { guildpad.type !== TYPE.INO && (
+            <TokenProperty claimable={USER_CLAIMABLE}>
+                <Text>Claimable</Text>
+            </TokenProperty>
+            )}
             <TokenProperty>
                 <Text>{type === TYPE.IDO? TYPE.IGO:TYPE.INO}</Text>
-            </TokenProperty>
+            </TokenProperty>  
             {!isMobile &&
               <Details onClick={() => setToggle(!toggle)}>
                 <Text  bold >Details</Text> &nbsp; <Text style={{display: 'flex', alignItems: 'center'}}>{toggle ? <ChevronUp /> : <ChevronDown />}</Text>

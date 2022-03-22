@@ -118,8 +118,11 @@ export const PostContainer = styled.div`
   position: relative;
 `
 
-export const TokenProperty = styled(Flex)`
+export const TokenProperty = styled(Flex)<{claimable?: string}>`
   background-color: ${({ theme }) => theme.colors.MGG_accent2};
+  ${(({claimable, theme}) => claimable && `
+  background-color: ${claimable === 'USER_CLAIMABLE' ? `#29b213` : theme.colors.MGG_container};
+  `)}  
   border-radius: 25px;
   min-width: 80px;
   margin: 0px 10px;
