@@ -168,6 +168,7 @@ export const SaleContainer = styled(Flex)`
 `
 
 export const SaleRow = styled(Flex)`
+  align-items: center;
   margin: 10px 0px;
 `
 
