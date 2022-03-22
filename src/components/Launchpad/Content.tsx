@@ -61,7 +61,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
         <Flex flexDirection="column">
           <SaleRow justifyContent="space-between">
             <Text color="textSubtle">Sale Price</Text>
-            <div style={{ textAlign: 'center' }}>
+            <div style={{ textAlign: 'right' }}>
               <Text>
                 {guildpadPrice()}
                 {guildpadPrice() !== 'TBA' && guildpad.projectTokenEquivalent && `(${guildpad.projectTokenEquivalent})`}
@@ -135,7 +135,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
           </SaleRow>
           <SaleRow justifyContent="space-between">
             <Text color="textSubtle">Sale Price</Text>
-            <div style={{ textAlign: 'center' }}>
+            <div style={{ textAlign: 'right' }}>
               <Text>
                 {guildpadPrice()}
                 {guildpadPrice() !== 'TBA' && guildpad.projectTokenEquivalent && `(${guildpad.projectTokenEquivalent})`}
@@ -199,14 +199,14 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
 
   const renderClaim = () => {
     return (
-      <SaleContainer>
+      <SaleContainer justifyContent="space-between" alignItems="center">
         <Flex flexDirection="column">
           <SaleRow justifyContent='space-between'>
-            <Text color='textSubtle'>Available vesting</Text>
-            <Flex style={{textAlign: 'center'}}>
-            <Button style={{background: theme.colors.MGG_accent2}} margin='0px auto'>Claim #tokens</Button>
-            </Flex>
+            <Text color='textSubtle'> Vesting Available </Text>
+            <Button style={{background: theme.colors.MGG_accent2}}>Claim #tokens</Button>
           </SaleRow>
+          </Flex>
+        <Flex flexDirection='column'>
           <SaleRow justifyContent='space-between'>
             <Text color='textSubtle'>Next vesting date</Text>
             <Text>
