@@ -71,6 +71,7 @@ export enum PoolCategory {
 export interface FarmConfig {
   isMain?: true
   pid: number
+  name?: string
   lpSymbol: string
   lpAddresses: Address
   stakingAddresses: Address
@@ -86,11 +87,13 @@ export interface FarmConfig {
     rewardPerBlock: number
     earnLabel: string
     endBlock: number
-  }
+  },
+  UIProps?: UIProps
 }
 
 export interface PoolConfig {
   isMain?: boolean
+  name?: string
   sousId: number
   earningToken: Token
   stakingToken: Token
@@ -104,7 +107,8 @@ export interface PoolConfig {
   enableEmergencyWithdraw?: boolean
   isAddTokenDisabled?: boolean
   isDepositDisabled?: boolean
-  isWithdrawDisabled?: boolean
+  isWithdrawDisabled?: boolean,
+  UIProps?: UIProps
 }
 
 export type Images = {
@@ -205,6 +209,12 @@ export interface Socials {
   medium?: string;
   discord?: string;
   youtube?: string;
+}
+
+export interface UIProps{
+  socials?: Socials
+  contain?: boolean
+  bgColor?: string
 }
 
 type InoDetails = {
