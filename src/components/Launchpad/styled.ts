@@ -170,6 +170,12 @@ export const SaleContainer = styled(Flex)`
 export const SaleRow = styled(Flex)`
   align-items: center;
   margin: 10px 0px;
+  & > * {
+    flex: 1;
+  }
+  & : nth-child(2) {
+    text-align: center;
+  }
 `
 
 export const PadTitles = styled(Flex)`
