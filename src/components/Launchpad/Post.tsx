@@ -76,7 +76,7 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
                 </TokenProperty>
               }
             </div>
-            { guildpad.type !== TYPE.INO && (
+            { guildpad.type !== TYPE.INO && guildpad.status === GUILDPAD_STATUS.completed && (
             <TokenProperty claimable={USER_CLAIMABLE}>
                 <Text>Claimable</Text>
             </TokenProperty>
