@@ -69,6 +69,11 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
             </TokenProperty> */}
           </PadTitles>
           <PadActions>
+          { guildpad.type !== TYPE.INO && guildpad.status === GUILDPAD_STATUS.completed && (
+            <TokenProperty claimable={USER_CLAIMABLE}>
+                <Text>Claimable</Text>
+            </TokenProperty>
+            )}
             <div style={{display: 'grid', gridRowGap: '0.4rem'}}>
               {!hasRemainingSupply && guildpad.status === GUILDPAD_STATUS.completed &&
                 <TokenProperty style={{backgroundColor: '#29b213'}}>
@@ -76,11 +81,6 @@ const Post: React.FC<{guildpad?: GuildpadConfig}> = ({guildpad}) => {
                 </TokenProperty>
               }
             </div>
-            { guildpad.type !== TYPE.INO && guildpad.status === GUILDPAD_STATUS.completed && (
-            <TokenProperty claimable={USER_CLAIMABLE}>
-                <Text>Claimable</Text>
-            </TokenProperty>
-            )}
             <TokenProperty>
                 <Text>{type === TYPE.IDO? TYPE.IGO:TYPE.INO}</Text>
             </TokenProperty>  
