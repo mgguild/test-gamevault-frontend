@@ -202,14 +202,14 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
       <SaleContainer>
         <Flex flexDirection="column">
           <SaleRow justifyContent='space-between'>
+            <Text color='textSubtle'>Available vesting</Text>
+            <Button style={{background: theme.colors.MGG_accent2}}>Claim #tokens</Button>
+          </SaleRow>
+          <SaleRow justifyContent='space-between'>
             <Text color='textSubtle'>Next vesting date</Text>
             <Text>
               March 28, 2022, 13:00 UTC
             </Text>
-          </SaleRow>
-          <SaleRow justifyContent='space-between'>
-            <Text color='textSubtle'>Available vesting</Text>
-            <Button style={{background: theme.colors.MGG_accent2}}>Claim #tokens</Button>
           </SaleRow>
         </Flex>
       </SaleContainer>
