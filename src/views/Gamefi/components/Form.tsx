@@ -9,8 +9,8 @@ import tokens from 'config/constants/tokens'
 import { getAddress } from 'utils/addressHelpers'
 import { getFullDisplayBalance } from 'utils/formatBalance'
 import UnlockButton from 'components/UnlockButton'
-import CustomInput from './components/CustomInput'
-import { MainForm } from './styled'
+import CustomInput from './CustomInput'
+import { MainForm } from '../styled'
 
 const Container = styled(Card)`
   width: 720px;
