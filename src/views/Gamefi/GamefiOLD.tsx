@@ -1,10 +1,9 @@
 import BigNumber from 'bignumber.js';
 import React from 'react'
 import { Flex, Heading, Text, Button } from '@metagg/mgg-uikit'
-import styled from 'styled-components'
 import Page from 'components/layout/Page'
 import Form from './components/Form';
-import { DetailsContainer, MainContainer } from './styled'
+import { DetailsContainer, MainContainer } from './components/styled'
 
 
 type DetailsProps = {

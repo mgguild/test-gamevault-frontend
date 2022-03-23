@@ -1,1 +1,1 @@
-export { default } from './GamefiOLD';
+export { default } from './Gamefi';

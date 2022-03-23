@@ -3,11 +3,8 @@ import { Route, useLocation, useRouteMatch } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { Flex, Image, RowType, Toggle } from '@pancakeswap/uikit'
-import { Oval } from 'react-loading-icons'
-import { Text, Heading, Button, Input } from '@metagg/mgg-uikit'
+import { Text, Heading, Button } from '@metagg/mgg-uikit'
 import styled, { ThemeContext } from 'styled-components'
-import FlexLayout from 'components/layout/Flex'
-import Page from 'components/layout/Page'
 import useMedia from 'use-media'
 import { useFarms, usePollFarmsData, usePriceCakeBusd, usePools, useFetchPublicPoolsData, useCakeVault, useFetchCakeVault } from 'state/hooks'
 import usePersistState from 'hooks/usePersistState'
@@ -398,38 +395,6 @@ const NewFarms: React.FC = () => {
   })
 
   const renderContent = (): JSX.Element => {
-    if (viewMode === ViewMode.TABLE && rowData.length) {
-      const columnSchema = DesktopColumnSchema
-
-      const columns = columnSchema.map((column) => ({
-        id: column.id,
-        name: column.name,
-        label: column.label,
-        sort: (a: RowType<RowProps>, b: RowType<RowProps>) => {
-          switch (column.name) {
-            case 'farm':
-              return b.id - a.id
-
-            case 'apr':
-              if (a.original.apr.value && b.original.apr.value) {
-                return Number(a.original.apr.value) - Number(b.original.apr.value)
-              }
-
-              return 0
-
-            case 'earned':
-              return a.original.earned.earnings - b.original.earned.earnings
-
-            default:
-              return 1
-          }
-        },
-        sortable: column.sortable,
-      }))
-
-      return <Table data={rowData} columns={columns} userDataReady={userDataReady} />
-    }
-
 
     return (
       <div style={{ marginTop: '25x', paddingTop: '25px' }}>
