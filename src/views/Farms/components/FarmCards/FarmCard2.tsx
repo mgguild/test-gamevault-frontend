@@ -102,7 +102,7 @@ const FarmCard2: React.FC<FarmCard2Props> = ({bgColor = "#030f62", src="./MGG.pn
           <Flex style={{alignItems: 'end'}}>
             <div>
               <Text color='white'>{farm.lpSymbol}</Text>
-              <Heading color='white'>Metagaimng Guild</Heading>
+              <Heading color='white'>MetaGaming Guild</Heading>
             </div>
           </Flex>
           <Flex style={{justifyContent: 'end', alignItems: 'end'}}>

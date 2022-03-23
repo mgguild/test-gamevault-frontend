@@ -47,6 +47,15 @@ const getImageUrlFromToken = (token: Token) => {
   return `/images/tokens/${address}.${token.iconExtension?? 'svg'}`
 }
 
+const ToggleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  ${Text} {
+    margin-left: 8px;
+  }
+`
+
 const FilterItem = styled(Flex)`
   align-items: center;
   text-align: center;
@@ -494,54 +503,22 @@ const NewFarms: React.FC = () => {
       }}>
         <Flex style={{
           flexFlow: 'row wrap',
-          justifyContent: 'space-evenly',
+          justifyContent: 'space-between',
           textAlign: 'center',
           rowGap: '1rem',
           columnGap: '1rem',
           margin: '0 0 2rem 0'
         }}>
-          <ButtonA>
-            Filter
-          </ButtonA>
           <FilterItem>
-            <Text>Search</Text>
-            <Input />
+          <ToggleWrapper>
+              <Toggle checked={stakedOnly} onChange={() => setStakedOnly(!stakedOnly)} scale='sm' />
+              <Text> {t('Staked only')}</Text>
+            </ToggleWrapper>
+            <FarmTabButtons hasStakeInFinishedFarms={stakedInactiveFarms.length > 0} />
           </FilterItem>
           <FilterItem>
-            <Text>Sort By</Text>
-            <Select
-              options={[
-                {
-                  label: 'APR',
-                  value: 'apy',
-                },
-                {
-                  label: 'Token',
-                  value: 'token',
-                },
-                {
-                  label: 'Farm',
-                  value: 'farm',
-                },
-              ]}
-            />
-          </FilterItem>
-          <FilterItem>
-            <Text>View</Text>
-            <Flex>
-              <ButtonB
-                isGrid={isGrid}
-                onClick={() => setIsGrid(!isGrid)}
-              >
-                <SvgIcon width={24} Icon={IconGrid} fill={theme.colors.text}/>
-              </ButtonB>
-              <ButtonB
-                isGrid={!isGrid}
-                onClick={() => setIsGrid(!isGrid)}
-              >
-                <SvgIcon width={24} Icon={IconList} fill={theme.colors.text}/>
-              </ButtonB>
-            </Flex>
+              <Text textTransform='uppercase'>{t('Search')}</Text>
+              <SearchInput onChange={handleChangeQuery} placeholder='Search Farms' />
           </FilterItem>
         </Flex>
         <Heading size='xl'>
@@ -550,11 +527,10 @@ const NewFarms: React.FC = () => {
         {renderContent()}
         <br/>
         <br/>
-        <Heading size='xl'>
+        {/* <Heading size='xl'>
           Past Farms
         </Heading>
-        {/* {renderContent()} */}
-
+        {renderContent()} */}
         <div ref={loadMoreRef} />
       </div>
     </>

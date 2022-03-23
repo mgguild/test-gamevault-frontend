@@ -77,7 +77,7 @@ const PoolCard2: React.FC<PoolCard2Props> = ({bgColor = "#030f62", src="./MGG.pn
           <Flex style={{alignItems: 'end'}}>
             <div>
               <Text color='white'>{`${stakingToken.symbol}-${earningToken.symbol} Staking`}</Text>
-              <Heading color='white'>Metagaimng Guild</Heading>
+              <Heading color='white'>MetaGaming Guild</Heading>
             </div>
           </Flex>
           <Flex style={{justifyContent: 'end', alignItems: 'end'}}>
