@@ -154,7 +154,6 @@ const Gamefi: React.FC = () => {
                 farm={farm}
                 cakePrice={cakePrice}
                 account={account}
-                removed={false}
               />
             ))}
           </Route>
