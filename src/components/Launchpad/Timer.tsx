@@ -26,28 +26,26 @@ const Timer: React.FC<TimerProps> = ({status, Renderer, dateSettings}) => {
             <Text>Upcoming</Text>
         }}
         renderer={({ days, hours, minutes, seconds, completed, api}) => {
-          if (isStart  && status !== GUILDPAD_STATUS.completed) {
-              return Renderer(days,hours,minutes,seconds)
-          }
           if (completed || status === GUILDPAD_STATUS.completed) {
             return (
               <>
                 <div style={{position: 'relative'}}>
                   <Flex style={{
-                    backgroundColor: theme.colors.MGG_container,
                     margin: '1rem 0rem',
                     padding: '1rem',
                     justifyContent: 'center'
                   }}
-                    className='crt inset-shadow'
                   >
-                    <Heading className='puff-in-center' size='lg' textTransform='uppercase' style={{whiteSpace: 'nowrap', letterSpacing: ' 0.2rem'}}>
+                    <Heading className='puff-in-center' size='xl' color='white' textTransform='uppercase' style={{whiteSpace: 'nowrap', letterSpacing: ' 0.2rem'}}>
                       「 Round Ended 」
                     </Heading>
                   </Flex>
                 </div>
               </>
             )
+          }
+          if (isStart  && status !== GUILDPAD_STATUS.completed) {
+              return Renderer(days,hours,minutes,seconds)
           }
           return ''
         }}

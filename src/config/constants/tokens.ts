@@ -38,6 +38,16 @@ const guildpadTokens = {
     iconExtension: 'png',
     decimals: 18,
     projectLink: 'https://wizardia.io//'
+  },
+  Ookeenga: {
+    symbol: 'OKG',
+    address: {
+      56: 'Ookeenga',
+      96: 'Ookeenga',
+    },
+    iconExtension: 'png',
+    decimals: 18,
+    projectLink: 'https://ookeenga.io//'
   }
 }
 

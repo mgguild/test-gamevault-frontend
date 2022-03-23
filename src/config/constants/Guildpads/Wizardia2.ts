@@ -33,10 +33,6 @@ const guildpad = {
   // asOfPriceInProjectToken: 1645362000000,
   epochEndDate: 1647003600000,
   nextRoundDate: 1646917200000,
-  display: true,
-  FundstoRaise: '60000',
-  totalSupply: '60000',
-  totalSold: '60000',
 }
 
 export default guildpad

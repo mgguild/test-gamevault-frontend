@@ -8,24 +8,28 @@ import { OrganizerContainer } from './styled'
 const Completed: React.FC<{ guildpads?: GuildpadConfig[] }> = ({ guildpads }) => {
   // Content for completed tab here
 
-  const renderCompleted = (launchpads) => (
-    <OrganizerContainer>
-      {launchpads.map((launchpad) => (
-        <Post key={launchpad.address} guildpad={launchpad} />
-      ))}
-    </OrganizerContainer>
-  )
+  const renderCompleted = (launchpads) => {
+    return(
+      <OrganizerContainer>
+        {launchpads.map((launchpad) => (
+          <Post key={launchpad.address} guildpad={launchpad} />
+        ))}
+      </OrganizerContainer>
+    )
+  }
   return guildpads.length === 0 ? <NoLaunches section="COMPLETED" /> : renderCompleted(guildpads)
 }
 
 const Upcoming: React.FC<{ guildpads?: GuildpadConfig[]}> = ({ guildpads }) => {
-  const renderUpcoming = (launchpads) => (
-    <OrganizerContainer>
-      {launchpads.map((launchpad) => (
-        <Post key={launchpad.address} guildpad={launchpad} />
-      ))}
+  const renderUpcoming = (launchpads) => {
+    return(
+      <OrganizerContainer>
+        {launchpads.map((launchpad) => (
+          <Post key={launchpad.address} guildpad={launchpad} />
+        ))}
     </OrganizerContainer>
-  )
+    )
+  }
   return guildpads.length === 0 ? <NoLaunches section="UPCOMING" /> : renderUpcoming(guildpads)
 }
 
