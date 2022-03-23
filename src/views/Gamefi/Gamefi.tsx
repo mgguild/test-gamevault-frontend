@@ -21,6 +21,7 @@ import { Toggle } from '@pancakeswap/uikit'
 import SearchInput from 'components/SearchInput'
 import { FarmWithStakedValue } from './components/config'
 import TabButtons from './components/TabButtons'
+import NotAvailable from './components/NotAvailable'
 import { BodySection, FilterItem, HeaderSection, ToggleWrapper } from './styled'
 import FarmCard from './components/Cards/Farm'
 
@@ -33,8 +34,8 @@ const Gamefi: React.FC = () => {
   const { pools: poolsWithoutAutoVault } = usePools(account)
   const cakePrice = usePriceCakeBusd()
   const isArchived = pathname.includes('archived')
-  const isInactive = pathname.includes('history')
-  const isActive = !isInactive && !isArchived
+//   const [isActive, setIsActive ] = useState(true)
+  const isActive = true
   const {
     userData: { cakeAtLastUserAction, userShares },
     fees: { performanceFee },
@@ -107,34 +108,65 @@ const Gamefi: React.FC = () => {
   )
 
   const farmsStakedMemoized = useMemo(() => {
-    let farmsStaked = []
+    const farmsStaked = []
 
-    if (isActive) {
-      farmsStaked = stakedOnly ? farmsList(stakedOnlyFarms) : farmsList(activeFarms)
+    if (stakedOnly) {
+        farmsStaked.push(farmsList(stakedOnlyFarms))
+        farmsStaked.push(farmsList(stakedInactiveFarms))
+    } else {
+        farmsStaked.push(farmsList(activeFarms))
+        farmsStaked.push(farmsList(inactiveFarms))
     }
-    if (isInactive) {
-      farmsStaked = stakedOnly ? farmsList(stakedInactiveFarms) : farmsList(inactiveFarms)
-    }
-    if (isArchived) {
-      farmsStaked = stakedOnly ? farmsList(stakedArchivedFarms) : farmsList(archivedFarms)
-    }
+    
+    console.log(farmsStaked)
+    // if (isInActive) {
+    //   farmsStaked = stakedOnly ? farmsList(stakedInactiveFarms) : farmsList(inactiveFarms)
+    // }
+    // if (isArchived) {
+    //   farmsStaked = stakedOnly ? farmsList(stakedArchivedFarms) : farmsList(archivedFarms)
+    // }
 
     return farmsStaked
   }, [
     farmsList,
     activeFarms,
     inactiveFarms,
-    archivedFarms,
-    isActive,
-    isInactive,
-    isArchived,
-    stakedArchivedFarms,
     stakedInactiveFarms,
     stakedOnly,
     stakedOnlyFarms,
   ])
+  
 
-  const renderContent = (): JSX.Element => {
+  const renderContent = ({ RENDER_TYPE }: { RENDER_TYPE?: string }): JSX.Element => {
+    const render = (type) => {
+      switch (type) {
+        case 'RENDER_ENDED':
+            return farmsStakedMemoized[1].length !== 0 ? (
+                farmsStakedMemoized[0].map((farm) => (
+                    <FarmCard
+                      userDataReady={userDataReady}
+                      key={farm.pid}
+                      farm={farm}
+                      cakePrice={cakePrice}
+                      account={account}
+                    />
+                  ))
+              ) : <NotAvailable title='Past Farms'/>
+        default:
+          return farmsStakedMemoized[0].length !== 0 ? (
+            farmsStakedMemoized[0].map((farm) => (
+                <FarmCard
+                  userDataReady={userDataReady}
+                  key={farm.pid}
+                  farm={farm}
+                  cakePrice={cakePrice}
+                  account={account}
+                />
+              ))
+          ) : <NotAvailable title='Live Pools'/>
+      }
+    }
+
     return (
       <div style={{ marginTop: '25x', paddingTop: '25px' }}>
         <div
@@ -146,17 +178,7 @@ const Gamefi: React.FC = () => {
             rowGap: '2rem',
           }}
         >
-          <Route exact path={`${path}`}>
-            {farmsStakedMemoized.map((farm) => (
-              <FarmCard
-                userDataReady={userDataReady}
-                key={farm.pid}
-                farm={farm}
-                cakePrice={cakePrice}
-                account={account}
-              />
-            ))}
-          </Route>
+          {render(RENDER_TYPE)}
         </div>
       </div>
     )
@@ -171,19 +193,23 @@ const Gamefi: React.FC = () => {
       <HeaderSection>
         <FilterItem>
           <ToggleWrapper>
-            <Toggle scale="sm" />
+            <Toggle checked={stakedOnly} onChange={() => setStakedOnly(!stakedOnly)} scale="sm" />
             <Text marginLeft="10px"> Staked only</Text>
           </ToggleWrapper>
-          {/* <TabButtons /> */}
+          {/* <TabButtons hasStakeInFinishedFarms={stakedInactiveFarms.length > 0} /> */}
         </FilterItem>
         <FilterItem>
           <Text textTransform="uppercase">Search</Text>
-          {/* <SearchInput placeholder='Search Farms' /> */}
+          <SearchInput onChange={handleChangeQuery} placeholder="Search Farms" />
         </FilterItem>
       </HeaderSection>
       <BodySection>
         <Heading size="xl">Live Farms</Heading>
-        {renderContent()}
+        {renderContent({ RENDER_TYPE: '' })}
+      </BodySection>
+      <BodySection>
+        <Heading size="xl">Past Farms</Heading>
+        {renderContent({ RENDER_TYPE: 'RENDER_ENDED' })}
       </BodySection>
     </div>
   )
