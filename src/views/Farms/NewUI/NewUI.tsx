@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { Route, useLocation, useRouteMatch } from 'react-router-dom'
+import { Route, useLocation, useRouteMatch, Link } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { Flex, Image, RowType, Toggle } from '@pancakeswap/uikit'
@@ -423,7 +423,7 @@ const NewFarms: React.FC = () => {
 
 
     return (
-      <div style={{ marginTop: '25x', paddingTop: '25px' }}>
+      <div style={{ marginTop: '25px', paddingTop: '25px' }}>
         <div style={{
           display: 'flex',
           flexFlow: 'row wrap',
@@ -431,7 +431,7 @@ const NewFarms: React.FC = () => {
           columnGap: '2rem',
           rowGap: '2rem'
         }}>
-          <Route exact path={`${path}`}>
+
             {farmsStakedMemoized.map((farm) => (
               <FarmCard2
                 userDataReady={userDataReady}
@@ -450,10 +450,9 @@ const NewFarms: React.FC = () => {
                 cakePrice={cakePrice}
                 account={account}
                 removed={false}
-                bgColor="#b10303d6"
               />
             ))}
-          </Route>
+
           <Route exact path={`${path}/history`}>
             {farmsStakedMemoized.map((farm) => (
               <FarmCard
@@ -490,15 +489,21 @@ const NewFarms: React.FC = () => {
   return (
     <>
       <div style={{
-        padding: '5rem',
+        margin: '5rem 5rem',
       }}>
+        <Heading size='xl'>
+          MGG Vaults
+        </Heading>
+
+          {renderContent()}
+
         <Flex style={{
           flexFlow: 'row wrap',
           justifyContent: 'space-evenly',
           textAlign: 'center',
           rowGap: '1rem',
           columnGap: '1rem',
-          margin: '0 0 2rem 0'
+          margin: '3rem 0 2rem 0'
         }}>
           <ButtonA>
             Filter
@@ -544,15 +549,7 @@ const NewFarms: React.FC = () => {
             </Flex>
           </FilterItem>
         </Flex>
-        <Heading size='xl'>
-          Live Farms
-        </Heading>
-        {renderContent()}
-        <br/>
-        <br/>
-        <Heading size='xl'>
-          Past Farms
-        </Heading>
+
         {/* {renderContent()} */}
 
         <div ref={loadMoreRef} />
