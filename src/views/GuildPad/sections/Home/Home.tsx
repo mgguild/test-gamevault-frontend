@@ -41,6 +41,7 @@ const BG = styled(StyledContainer)`
   }
   position: relative;
   padding: 3rem 0 0 0;
+  min-height: 800px;
   justify-content: start;
 `
 
@@ -111,7 +112,7 @@ const HomeSection: React.FC = () => {
   const scrollTo = () => Scroll.animateScroll.scrollTo('activeSection');
   const scrnThreshold = useMedia({ maxWidth: 1100 })
   const scrnThreshold2 = useMedia({ minWidth: 1101, maxWidth: 1209 })
-  const scrnThresholdH = useMedia({ minHeight: 815 })
+  const scrnThresholdH = useMedia({ minHeight: 920 })
 
   return (
     <PageSection direction='column'>
@@ -145,10 +146,10 @@ const HomeSection: React.FC = () => {
             <AnimContainerAdapt>
               <LottieAnimation lotti={data} position="center" />
             </AnimContainerAdapt>
-            {scrnThreshold2 && renderLogos()}
+            {(scrnThreshold2 || !scrnThresholdH) && renderLogos()}
           </div>
         </HomeContainerAdapt>
-        {!scrnThreshold2 && renderLogos()}
+        {(!scrnThreshold2 && scrnThresholdH) && renderLogos()}
         {!scrnThreshold &&
           <div style={{
             position: 'absolute',
