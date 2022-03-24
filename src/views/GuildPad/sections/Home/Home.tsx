@@ -35,6 +35,9 @@ const HomeContainerAdapt = styled(TwoColumnHeader)`
   @media (min-width: 2500px) {
     min-height: 72vmin;
   }
+  @media (min-width: 1534px) {
+    min-height: 78vmin;
+  }
   & > * {
     margin: 0px auto;
   }
