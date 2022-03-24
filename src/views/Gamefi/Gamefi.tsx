@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import { orderBy } from 'lodash'
+import { orderBy, partition } from 'lodash'
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { Route, useLocation, useRouteMatch } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
@@ -24,6 +24,7 @@ import TabButtons from './components/TabButtons'
 import NotAvailable from './components/NotAvailable'
 import { BodySection, FilterItem, HeaderSection, ToggleWrapper } from './styled'
 import FarmCard from './components/Cards/Farm'
+import PoolCard from './components/Cards/Pool'
 
 const Gamefi: React.FC = () => {
   const [query, setQuery] = useState('')
@@ -34,7 +35,6 @@ const Gamefi: React.FC = () => {
   const { pools: poolsWithoutAutoVault } = usePools(account)
   const cakePrice = usePriceCakeBusd()
   const isArchived = pathname.includes('archived')
-//   const [isActive, setIsActive ] = useState(true)
   const isActive = true
   const {
     userData: { cakeAtLastUserAction, userShares },
@@ -58,13 +58,6 @@ const Gamefi: React.FC = () => {
   const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
   const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
 
-  const pools = useMemo(() => {
-    const cakePool = poolsWithoutAutoVault.map((pool) => pool.sousId === 0)
-    const cakeAutoVault = { ...cakePool, isAutoVault: true }
-
-    return [...poolsWithoutAutoVault]
-  }, [poolsWithoutAutoVault])
-
   const stakedOnlyFarms = activeFarms.filter(
     (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
   )
@@ -79,7 +72,6 @@ const Gamefi: React.FC = () => {
   const handleChangeQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value)
   }
-
   const loadMoreRef = useRef<HTMLDivElement>(null)
   const farmsList = useCallback(
     (farmsToDisplay: Farm[]): FarmWithStakedValue[] => {
@@ -107,63 +99,125 @@ const Gamefi: React.FC = () => {
     [cakePrice, query, isActive],
   )
 
-  const farmsStakedMemoized = useMemo(() => {
-    const farmsStaked = []
+  const pools = useMemo(() => {
+    const cakePool = poolsWithoutAutoVault.map((pool) => pool.sousId === 0)
+    const cakeAutoVault = { ...cakePool, isAutoVault: true }
 
-    if (stakedOnly) {
-        farmsStaked.push(farmsList(stakedOnlyFarms))
-        farmsStaked.push(farmsList(stakedInactiveFarms))
-    } else {
-        farmsStaked.push(farmsList(activeFarms))
-        farmsStaked.push(farmsList(inactiveFarms))
-    }
+    return [...poolsWithoutAutoVault]
+  }, [poolsWithoutAutoVault])
+
+  const [finishedPools, openPools] = useMemo(() => partition(pools, (pool) => pool.isFinished), [pools])
+  const stakedOnlyFinishedPools = useMemo(
+    () =>
+      finishedPools.filter((pool) => {
+        if (pool.isAutoVault) {
+          return accountHasVaultShares
+        }
+        return pool.userData && new BigNumber(pool.userData.stakedBalance).isGreaterThan(0)
+      }),
+    [finishedPools, accountHasVaultShares],
+  )
+  const stakedOnlyOpenPools = useMemo(
+    () =>
+      openPools.filter((pool) => {
+        if (pool.isAutoVault) {
+          return accountHasVaultShares
+        }
+        return pool.userData && new BigNumber(pool.userData.stakedBalance).isGreaterThan(0)
+      }),
+    [openPools, accountHasVaultShares],
+  )
+
+  const stakedMemoized = useMemo(() => {
+    const stakingList = { activeFarms: [], inactiveFarms: [], activePools: [], inactivePools: []}
     
-    console.log(farmsStaked)
-    // if (isInActive) {
-    //   farmsStaked = stakedOnly ? farmsList(stakedInactiveFarms) : farmsList(inactiveFarms)
-    // }
-    // if (isArchived) {
-    //   farmsStaked = stakedOnly ? farmsList(stakedArchivedFarms) : farmsList(archivedFarms)
-    // }
-
-    return farmsStaked
-  }, [
-    farmsList,
-    activeFarms,
-    inactiveFarms,
-    stakedInactiveFarms,
-    stakedOnly,
-    stakedOnlyFarms,
-  ])
-  
+    if (stakedOnly) {
+      stakingList.activeFarms = farmsList(stakedOnlyFarms)
+      stakingList.inactiveFarms = farmsList(stakedInactiveFarms)
+      stakingList.activePools = stakedOnlyOpenPools
+      stakingList.inactivePools = stakedOnlyFinishedPools
+    } else {
+      stakingList.activeFarms = farmsList(activeFarms)
+      stakingList.inactiveFarms = farmsList(inactiveFarms)
+      stakingList.activePools=openPools
+      stakingList.inactivePools=finishedPools
+    }
+    return stakingList
+  }, [farmsList, activeFarms, inactiveFarms, stakedInactiveFarms, stakedOnly, stakedOnlyFarms, finishedPools, openPools, stakedOnlyOpenPools, stakedOnlyFinishedPools])
 
   const renderContent = ({ RENDER_TYPE }: { RENDER_TYPE?: string }): JSX.Element => {
     const render = (type) => {
       switch (type) {
         case 'RENDER_ENDED':
-            return farmsStakedMemoized[1].length !== 0 ? (
-                farmsStakedMemoized[0].map((farm) => (
-                    <FarmCard
-                      userDataReady={userDataReady}
-                      key={farm.pid}
-                      farm={farm}
-                      cakePrice={cakePrice}
-                      account={account}
-                    />
-                  ))
-              ) : <NotAvailable title='Past Farms'/>
-        default:
-          return farmsStakedMemoized[0].length !== 0 ? (
-            farmsStakedMemoized[0].map((farm) => (
-                <FarmCard
+          return (
+            <>
+              {stakedMemoized.inactiveFarms.length !== 0? (
+                stakedMemoized.inactiveFarms.map((farm) => (
+                  <FarmCard
+                    userDataReady={userDataReady}
+                    key={farm.pid}
+                    farm={farm}
+                    cakePrice={cakePrice}
+                    account={account}
+                    removed={false}
+                  />
+                ))
+              ):(
+                <NotAvailable title="Inactive Farms" />
+              )
+            }
+            {
+              stakedMemoized.inactivePools.length !== 0? (
+                stakedMemoized.inactivePools.map((pool) => (
+                  <PoolCard
                   userDataReady={userDataReady}
-                  key={farm.pid}
-                  farm={farm}
+                  key={pool.sousId}
+                  pool={pool}
                   cakePrice={cakePrice}
                   account={account}
+                  removed={false}
+                  bgColor="#b10303d6"
                 />
-              ))
-          ) : <NotAvailable title='Live Pools'/>
+                ))
+              ) : <NotAvailable title="Inactive Pools" />
+            }
+            </>
+          )
+        default:
+          return (
+            <>
+              {stakedMemoized.activeFarms.length !== 0? (
+                stakedMemoized.activeFarms.map((farm) => (
+                  <FarmCard
+                    userDataReady={userDataReady}
+                    key={farm.pid}
+                    farm={farm}
+                    cakePrice={cakePrice}
+                    account={account}
+                    removed={false}
+                  />
+                ))
+              ):(
+                <NotAvailable title="Active Farms" />
+              )
+            }
+            {
+              stakedMemoized.activePools.length !== 0? (
+                stakedMemoized.activePools.map((pool) => (
+                  <PoolCard
+                  userDataReady={userDataReady}
+                  key={pool.sousId}
+                  pool={pool}
+                  cakePrice={cakePrice}
+                  account={account}
+                  removed={false}
+                  bgColor="#b10303d6"
+                />
+                ))
+              ) : <NotAvailable title="No Active Pools" />
+            }
+            </>
+          )
       }
     }
 
