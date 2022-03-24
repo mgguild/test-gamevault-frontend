@@ -241,7 +241,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
           <SaleRow justifyContent='space-between'>
             <Text color='textSubtle'>Next vesting date</Text>
             <Text>
-              March 28, 2022, 13:00 UTC
+              March 25, 2022, 13:00 UTC
             </Text>
           </SaleRow>
         </Flex>
