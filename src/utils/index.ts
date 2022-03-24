@@ -105,7 +105,7 @@ export const milliToDate = (milliseconds) => {
   return date;
 }
 
-export const dateEnded = (endDate) => {
+export const epochEnded = (endDate) => {
   const current = new Date();
   const end = epochToDate(endDate);
 

@@ -27,13 +27,19 @@ export const approveContract = async (tokenContract: Contract, spender: string, 
 export const buyBox = async (inoContract, rarity, account, amount) => {
   return inoContract.methods
     .buy(rarity)
-    .send({ from: account, value: getDecimalAmount(amount) }) // to fix
+    .send({ from: account, value: getDecimalAmount(amount) })
 }
 
 export const buyIgo = async (igoContract, account, amount) => {
   return igoContract.methods
     .buyTokens(getDecimalAmount(amount).toString())
-    .send({ from: account}) // to fix
+    .send({ from: account})
+}
+
+export const claimVesting = async (vestingContract, account) => {
+  return vestingContract.methods
+    .claimAll()
+    .send({ from: account})
 }
 
 export const approveWithAmount = async (lpContract, masterChefContract, account, amount) => {

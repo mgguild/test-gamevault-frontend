@@ -7,6 +7,13 @@ import { ThemeContext } from 'styled-components'
 import { TYPE, GUILDPAD_STATUS } from 'config/constants/types'
 import { NavOption, PostBody, SaleContainer, SaleRow } from './styled'
 import { Guildpad } from '../../state/types'
+import { useBuyIgo, useClaimVesting } from '../../hooks/useGuildPad'
+import { getAddress } from '../../utils/addressHelpers'
+import { fetchGuildpadUserDataAsync, fetchPublicGuildpadDataAsync } from '../../state/guildpads'
+import useToast from '../../hooks/useToast'
+import { useTranslation } from '../../contexts/Localization'
+import { useAppDispatch } from '../../state'
+import UnlockButton from '../UnlockButton'
 
 const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: string }> = ({
   guildpad,
@@ -18,6 +25,10 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
   const { account } = useWeb3React()
   const { login, logout } = useAuth()
   const { onPresentConnectModal } = useWalletModal(login, logout)
+  const { toastSuccess, toastError } = useToast()
+  const { t } = useTranslation()
+  const dispatch = useAppDispatch()
+
   const renderDescription = () => {
     const description = guildpad.description !== '' ? guildpad.description : 'No description'
 
@@ -27,8 +38,25 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
       </Text>
     )
   }
+  const [claimInitiated, setClaimInitiated] = useState(false)
 
-  console.log(guildpad)
+  const { onClaimVesting } = useClaimVesting(getAddress(guildpad.vestingAddress))
+
+  const handleClaim = async () => {
+    const ids = [guildpad.id]
+    setClaimInitiated(true)
+    try {
+      await onClaimVesting()
+      toastSuccess(`Successfully Bought!`)
+      setClaimInitiated(false)
+      dispatch(fetchPublicGuildpadDataAsync([guildpad.id]))
+      dispatch(fetchGuildpadUserDataAsync({ account, ids }))
+    } catch (e) {
+      setClaimInitiated(false)
+      toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas'))
+    }
+  }
+
 
   const guildpadPrice = () => {
     let price = 'TBA'
@@ -205,7 +233,8 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
         <Flex flexDirection="column">
           <SaleRow justifyContent='space-between'>
             <Text color='textSubtle'> Vesting Available </Text>
-            <Button style={{background: theme.colors.MGG_accent2}}>Claim #tokens</Button>
+            {!account &&  <UnlockButton />}
+            {account && <Button disabled={!guildpad.userData.vesting.isWhitelisted || guildpad.userData.vesting.distributedAmount[0]?.isClaimed} style={{background: theme.colors.MGG_accent2}} onClick={handleClaim} fullWidth>Claim</Button>}
           </SaleRow>
           </Flex>
         <Flex flexDirection='column'>
@@ -301,7 +330,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
             alignItems="center"
             margin="10px 0px 20px 0px"
             style={{ borderBottom: `0.5px solid ${theme.colors.primary}`, width: '100%' }}
-          > 
+          >
             <NavOption onClick={() => setActive(1)} activeIndex={active === 1}>
               Token Sale
             </NavOption>

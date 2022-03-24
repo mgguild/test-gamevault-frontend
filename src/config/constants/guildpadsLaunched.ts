@@ -4,7 +4,7 @@ const GuildpadsLaunched: GuildpadConfig[] = [
   {
         id: 1,
         title: "Wizardia",
-        isStatic: false,
+        isStatic: true,
         nextRoundID: 0,
         description: "Wizardia is a Play-to-Earn online role-playing strategy game with unique NFTs at its core. It’s built on three core gameplay pillars: innovative turn-based combat, player-decision driven game evolution and upgrade-based character progression. $WZRD is the Solana-powered utility token that also acts as in-game currency and can be spent as well as earned or exchanged by every player inside and outside of the game. Wizardia rewards those who contribute to the game’s metaverse and its real-valued economy system so there are no one-way investments.",
         socials: {
@@ -24,7 +24,7 @@ const GuildpadsLaunched: GuildpadConfig[] = [
         },
         vestingAddress: {
             97: '0x002',
-            56: '0xf7fc784cE9a478686c0EF484263AeDDdAa70FDDa',
+            56: '0x2579635b510087F33b9FcC0085940558Ab95D7d6',
           },
         buyingCoin: {
             symbol: "BUSD",

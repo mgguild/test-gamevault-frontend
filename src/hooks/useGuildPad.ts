@@ -5,7 +5,7 @@ import { ethers } from 'ethers'
 import BigNumber from 'bignumber.js'
 import { useAppDispatch } from 'state'
 import { updateUserAllowance } from 'state/actions'
-import { approve, approveWithAmount, buyBox, buyIgo, stake } from 'utils/callHelpers'
+import { approve, approveWithAmount, buyBox, buyIgo, claimVesting, stake } from 'utils/callHelpers'
 import { useTranslation } from 'contexts/Localization'
 import {
   useCake,
@@ -14,7 +14,7 @@ import {
   useInoContract,
   useLottery,
   useMasterchef,
-  useSousChef,
+  useSousChef, useVestingContract,
 } from './useContract'
 import useToast from './useToast'
 import useLastUpdated from './useLastUpdated'
@@ -52,4 +52,18 @@ export const useBuyIgo = (contractAddress: string) => {
   )
 
   return { onBuyIgo: handleBuyIgo }
+}
+
+export const useClaimVesting = (contractAddress: string) => {
+  const { account } = useWeb3React()
+  const vestingContract = useVestingContract(contractAddress)
+
+  const handleClaimVesting = useCallback(
+    async (contract?: Contract) => {
+      const txHash = await claimVesting(contract?? vestingContract, account)
+    },
+    [account, vestingContract],
+  )
+
+  return { onClaimVesting: handleClaimVesting }
 }

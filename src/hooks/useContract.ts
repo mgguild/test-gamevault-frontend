@@ -23,7 +23,7 @@ import {
   getChainlinkOracleContract,
   getSouschefV2Contract,
   getLotteryV2Contract,
-  getLpStakingContract, getInoContract, getIgoContract,
+  getLpStakingContract, getInoContract, getIgoContract, getVestingContract,
 } from 'utils/contractHelpers'
 
 /**
@@ -38,6 +38,11 @@ export const useInoContract = (address: string) => {
 export const useIgoContract = (address: string) => {
   const web3 = useWeb3()
   return useMemo(() => getIgoContract(address, web3), [address, web3])
+}
+
+export const useVestingContract = (address: string) => {
+  const web3 = useWeb3()
+  return useMemo(() => getVestingContract(address, web3), [address, web3])
 }
 
 export const useIfoV1Contract = (address: string) => {

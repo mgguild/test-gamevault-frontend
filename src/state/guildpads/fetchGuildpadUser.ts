@@ -91,9 +91,10 @@ export const fetchIsWhitelisted = async (account: string, guildpadsToFetch: Guil
       params: [account], type: guildpad.type, vestingAddress: guildpad.vestingAddress
     }
   }).filter(gpad => {
-    return isAddress(gpad.address) && gpad.type === 'IDO'
+    return isAddress(gpad.address) && gpad.type === 'IDO' && isAddress(getAddress(gpad.vestingAddress))
   })
   const returnData = await multicall(vesting, calls)
+
   return returnData[0][0]
 }
 
@@ -102,13 +103,12 @@ export const fetchDistributedAmount = async (account: string, guildpadsToFetch: 
     return {
       address: guildpad.vestingAddress ? getAddress(guildpad.vestingAddress) : "",
       name: 'distributedAmount',
-      params: [account], type: guildpad.type,
+      params: [account], type: guildpad.type, vestingAddress: guildpad.vestingAddress
     }
   }).filter(gpad => {
-    return isAddress(gpad.address) && gpad.type === 'IDO'
+    return isAddress(gpad.address) && gpad.type === 'IDO' && isAddress(getAddress(gpad.vestingAddress))
   })
   const returnData = await multicall(vesting, calls)
-  console.log(returnData)
   let data = []
 
   for (let x = 0 ; x < returnData[0][0].length ; x++ ){
@@ -116,4 +116,4 @@ export const fetchDistributedAmount = async (account: string, guildpadsToFetch: 
   }
 
   return data
-} 
+}
