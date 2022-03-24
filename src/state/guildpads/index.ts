@@ -7,6 +7,8 @@ import {
   fetchGuildpadIgoUserDetails,
   fetchGuildpadIsUserWhitelisted,
   fetchGuildpadUserBoxes,
+  fetchIsWhitelisted, 
+  fetchDistributedAmount
 } from './fetchGuildpadUser'
 import mergingGuildpads from './mergingGuildpads'
 
@@ -55,6 +57,7 @@ interface GuildpadUserDataResponse {
   boxesBought?: string
   isWhitelisted?: boolean
   details?: any
+  vesting?: any
 }
 
 export const fetchGuildpadUserDataAsync = createAsyncThunk<GuildpadUserDataResponse[], { account: string; ids: number[] }>(
@@ -64,6 +67,8 @@ export const fetchGuildpadUserDataAsync = createAsyncThunk<GuildpadUserDataRespo
     const useGuildpadBoxes = await fetchGuildpadUserBoxes(account, guildpadToFetch)
     const useGuildpadIsWhitelist = await fetchGuildpadIsUserWhitelisted(account, guildpadToFetch)
     const useGuildpadIgoUserDetails = await fetchGuildpadIgoUserDetails(account, guildpadToFetch)
+    const useGuildPadVestingIsWhitelist = await fetchIsWhitelisted(account, guildpadToFetch)
+    const useGuildPadVestingDistributedAmount = useGuildPadVestingIsWhitelist ? await fetchDistributedAmount(account, guildpadToFetch) : []
     return guildpadToFetch.map((gpad, index) => {
       const details = useGuildpadIgoUserDetails.filter((data) => { return data.id === gpad.id})[0]
       return {
@@ -71,6 +76,7 @@ export const fetchGuildpadUserDataAsync = createAsyncThunk<GuildpadUserDataRespo
         boxesBought: useGuildpadBoxes[index] ?? '0',
         isWhitelisted: useGuildpadIsWhitelist[index] ?? false,
         details: details?.details ?? {},
+        vesting: {isWhitelisted: useGuildPadVestingIsWhitelist, distributedAmount: useGuildPadVestingDistributedAmount}
       }
     })
   },

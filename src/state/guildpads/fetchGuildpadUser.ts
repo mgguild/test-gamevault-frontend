@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js'
 import ino from 'config/abi/ino.json'
 import ido from 'config/abi/ido.json'
+import vesting from 'config/abi/vesting.json'
 import multicall from 'utils/multicall'
 import { getAddress } from 'utils/addressHelpers'
 import { GuildpadConfig, TYPE } from 'config/constants/types'
@@ -80,3 +81,39 @@ export const fetchGuildpadIgoUserDetails = async (account: string, guildpadsToFe
   // })
   return parsedValues
 }
+
+
+export const fetchIsWhitelisted = async (account: string, guildpadsToFetch: GuildpadConfig[]) => {
+  const calls = guildpadsToFetch.map((guildpad) => {
+    return {
+      address: guildpad.vestingAddress ? getAddress(guildpad.vestingAddress) : "",
+      name: 'isWhitelistExist',
+      params: [account], type: guildpad.type, vestingAddress: guildpad.vestingAddress
+    }
+  }).filter(gpad => {
+    return isAddress(gpad.address) && gpad.type === 'IDO'
+  })
+  const returnData = await multicall(vesting, calls)
+  return returnData[0][0]
+}
+
+export const fetchDistributedAmount = async (account: string, guildpadsToFetch: GuildpadConfig[]) => {
+  const calls = guildpadsToFetch.map((guildpad) => {
+    return {
+      address: guildpad.vestingAddress ? getAddress(guildpad.vestingAddress) : "",
+      name: 'distributedAmount',
+      params: [account], type: guildpad.type,
+    }
+  }).filter(gpad => {
+    return isAddress(gpad.address) && gpad.type === 'IDO'
+  })
+  const returnData = await multicall(vesting, calls)
+  console.log(returnData)
+  let data = []
+
+  for (let x = 0 ; x < returnData[0][0].length ; x++ ){
+    data = [...data, { amount: (returnData[0][0][x].amount).toString(), epoch: (returnData[0][0][x].epoch).toString(), isClaimed: returnData[0][0][x].isClaimed }]
+  }
+
+  return data
+} 

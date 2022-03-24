@@ -267,6 +267,7 @@ export interface Guildpad extends GuildpadConfig {
     boxesBought?: string
     isWhitelisted?: boolean
     details?: any
+    vesting?: any
   }
 }
 

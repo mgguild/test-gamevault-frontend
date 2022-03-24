@@ -29,7 +29,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
   }
 
   console.log(guildpad)
-  
+
   const guildpadPrice = () => {
     let price = 'TBA'
 
