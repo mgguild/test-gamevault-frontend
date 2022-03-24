@@ -268,6 +268,7 @@ export interface GuildpadConfig extends GuildPadInformation {
   id: number,
   isStatic: boolean,
   contractAddress?: Address;
+  vestingAddress?: Address;
   FundstoRaise?: string;
   buyingCoin?: Token;
   sellingCoin?:  Token;
