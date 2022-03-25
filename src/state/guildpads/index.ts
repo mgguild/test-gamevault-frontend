@@ -4,13 +4,12 @@ import guildpadsConfig from 'config/constants/guildpads'
 import { Guildpad, GuildpadState } from '../types'
 import fetchGuildpads from './fetchGuildpads'
 import {
-  fetchDistributedAmount,
   fetchGuildpadIgoUserDetails,
   fetchGuildpadIsUserWhitelisted,
   fetchGuildpadUserBoxes,
-  fetchIsWhitelisted,
+  fetchUserDistributionDetails,
+  fetchUserHasClaimable,
 } from './fetchGuildpadUser'
-import { epochEnded } from '../../utils'
 
 const noAccountGuildpadConfig = guildpadsConfig.map((guildpad) => ({
   ...guildpad,
@@ -70,38 +69,21 @@ export const fetchGuildpadUserDataAsync = createAsyncThunk<GuildpadUserDataRespo
     const useGuildpadBoxes = await fetchGuildpadUserBoxes(account, guildpadToFetch)
     const useGuildpadIsWhitelist = await fetchGuildpadIsUserWhitelisted(account, guildpadToFetch)
     const useGuildpadIgoUserDetails = await fetchGuildpadIgoUserDetails(account, guildpadToFetch)
-    const useGuildPadVestingIsWhitelist = await fetchIsWhitelisted(account, guildpadToFetch)
-    const useGuildPadVestingDistributedAmount = useGuildPadVestingIsWhitelist ? await fetchDistributedAmount(account, guildpadToFetch) : []
+    const useGuildPadUserHasClaimable = await fetchUserHasClaimable(account, guildpadToFetch)
+    const useGuildPadUserDistributionDetails = await fetchUserDistributionDetails(account, useGuildPadUserHasClaimable)
     return guildpadToFetch.map((gpad, index) => {
       const details = useGuildpadIgoUserDetails.filter((data) => {
         return data.id === gpad.id
       })[0]
 
-      let totalToClaim = 0
-      // let nextClaimEpoch = ''
-      const distribList = useGuildPadVestingDistributedAmount.filter((data) => {return data.id === gpad.id})
-      useGuildPadVestingDistributedAmount.map((distributionDetails, i) => {
-        if (epochEnded(distributionDetails.epoch)) {
-          totalToClaim += parseInt(distributionDetails.amount)
-          console.log(useGuildPadVestingDistributedAmount.length)
-          // if ((i+1) <= useGuildPadVestingDistributedAmount.length ) {
-          //   nextClaimEpoch = distribList[i+1].epoch
-          // }
-          // console.log(nextClaimEpoch)
-        }
-        return {}
-      })
+      const vestingDetails = useGuildPadUserDistributionDetails
+        .filter((guildpad) => guildpad.id === gpad.id).map((guildpad) => guildpad)
       return {
         id: gpad.id,
         boxesBought: useGuildpadBoxes[index] ?? '0',
         isWhitelisted: useGuildpadIsWhitelist[index] ?? false,
         details: details?.details ?? {},
-        vesting: {
-          // nextClaimEpoch: nextClaimEpoch.toString(),
-          totalToClaim: totalToClaim.toString(),
-          isWhitelisted: useGuildPadVestingIsWhitelist,
-          distributedAmount: useGuildPadVestingDistributedAmount,
-        },
+        vesting: vestingDetails[0] ? vestingDetails[0].userData.vesting : noAccountGuildpadConfig[0].userData.vesting,
       }
     })
   },

@@ -106,8 +106,12 @@ export const milliToDate = (milliseconds) => {
 }
 
 export const epochEnded = (endDate) => {
-  const current = new Date();
-  const end = epochToDate(endDate);
+  try {
+    const current = new Date();
+    const end = epochToDate(endDate);
 
-  return current.getTime() > end.getTime()
+    return current.getTime() > end.getTime()
+  } catch (e) {
+      return true
+  }
 }

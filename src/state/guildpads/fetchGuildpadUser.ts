@@ -5,8 +5,9 @@ import vesting from 'config/abi/vesting.json'
 import multicall from 'utils/multicall'
 import { getAddress } from 'utils/addressHelpers'
 import { GuildpadConfig, TYPE } from 'config/constants/types'
-import { isAddress } from '../../utils'
+import { epochEnded, isAddress } from '../../utils'
 import { getBalanceAmount } from '../../utils/formatBalance'
+import { Guildpad } from '../types'
 
 
 export const fetchGuildpadUserBoxes = async (account: string, guildpadsToFetch: GuildpadConfig[]) => {
@@ -33,7 +34,7 @@ export const fetchGuildpadIsUserWhitelisted = async (account: string, guildpadsT
       address: getAddress(guildpad.contractAddress),
       name: 'getAddressInWhitelist',
       params: [account],
-      type: guildpad.type
+      type: guildpad.type,
     }
   }).filter(gpad => {
     return isAddress(gpad.address) && gpad.type === 'INO'
@@ -51,7 +52,7 @@ export const fetchGuildpadIgoUserDetails = async (account: string, guildpadsToFe
       address: getAddress(guildpad.contractAddress),
       name: 'getWhitelist',
       params: [account],
-      type: guildpad.type
+      type: guildpad.type,
     }
   }).filter(gpad => {
     return isAddress(gpad.address) && gpad.type === 'IDO'
@@ -62,19 +63,19 @@ export const fetchGuildpadIgoUserDetails = async (account: string, guildpadsToFe
     return gpad.type === 'IDO' && isAddress(getAddress(gpad.contractAddress))
   })
     .map((guildpad, index) => {
-    return {
-      id: guildpad.id,
-      address: getAddress(guildpad.contractAddress),
-      type: guildpad.type,
-      details: {
-        amount: getBalanceAmount(rawValues[index]._amount.toString(), guildpad.sellingCoin.decimals).toPrecision(),
-        maxPayableAmount: getBalanceAmount(rawValues[index]._maxPayableAmount.toString(), guildpad.sellingCoin.decimals).toPrecision(),
-        rewardedAmount: getBalanceAmount(rawValues[index]._rewardedAmount.toString(), guildpad.sellingCoin.decimals).toPrecision(),
-        redeemed: rawValues[index]._redeemed,
-        whitelist: rawValues[index]._whitelist,
+      return {
+        id: guildpad.id,
+        address: getAddress(guildpad.contractAddress),
+        type: guildpad.type,
+        details: {
+          amount: getBalanceAmount(rawValues[index]._amount.toString(), guildpad.sellingCoin.decimals).toPrecision(),
+          maxPayableAmount: getBalanceAmount(rawValues[index]._maxPayableAmount.toString(), guildpad.sellingCoin.decimals).toPrecision(),
+          rewardedAmount: getBalanceAmount(rawValues[index]._rewardedAmount.toString(), guildpad.sellingCoin.decimals).toPrecision(),
+          redeemed: rawValues[index]._redeemed,
+          whitelist: rawValues[index]._whitelist,
+        },
       }
-    }
-  })
+    })
 
   // const parseValues = rawValues.map((value, index) => {
   //   return value
@@ -83,37 +84,91 @@ export const fetchGuildpadIgoUserDetails = async (account: string, guildpadsToFe
 }
 
 
-export const fetchIsWhitelisted = async (account: string, guildpadsToFetch: GuildpadConfig[]) => {
+export const fetchUserHasClaimable = async (account: string, guildpadsToFetch: Guildpad[]) => {
   const calls = guildpadsToFetch.map((guildpad) => {
     return {
-      address: guildpad.vestingAddress ? getAddress(guildpad.vestingAddress) : "",
+      address: guildpad.vestingAddress ? getAddress(guildpad.vestingAddress) : '',
       name: 'isWhitelistExist',
-      params: [account], type: guildpad.type, vestingAddress: guildpad.vestingAddress
+      params: [account], type: guildpad.type, vestingAddress: guildpad.vestingAddress,
     }
   }).filter(gpad => {
     return isAddress(gpad.address) && gpad.type === 'IDO' && isAddress(getAddress(gpad.vestingAddress))
   })
-  const returnData = await multicall(vesting, calls)
+  const rawValues = await multicall(vesting, calls)
 
-  return returnData[0][0]
+  const parsedValues = guildpadsToFetch
+    .filter((gpad) => {
+      const isAddressValid = isAddress(getAddress(gpad.contractAddress))
+      const isVestingAddressValid = gpad.vestingAddress ? isAddress(getAddress(gpad.vestingAddress)) : false
+      return isAddressValid && isVestingAddressValid && gpad.type === TYPE.IDO
+    })
+    .map((guildpad, index) => {
+      return {
+        ...guildpad,
+        userData: {
+          vesting: {
+            hasClaimable: rawValues[index][0],
+          },
+        },
+      }
+    })
+
+  return parsedValues
 }
 
-export const fetchDistributedAmount = async (account: string, guildpadsToFetch: GuildpadConfig[]) => {
-  const calls = guildpadsToFetch.map((guildpad) => {
-    return {
-      address: guildpad.vestingAddress ? getAddress(guildpad.vestingAddress) : "",
-      name: 'distributedAmount',
-      params: [account], type: guildpad.type, vestingAddress: guildpad.vestingAddress
-    }
-  }).filter(gpad => {
-    return isAddress(gpad.address) && gpad.type === 'IDO' && isAddress(getAddress(gpad.vestingAddress))
-  })
-  const returnData = await multicall(vesting, calls)
-  let data = []
-
-  for (let x = 0 ; x < returnData[0][0].length ; x++ ){
-    data = [...data, { amount: (returnData[0][0][x].amount).toString(), epoch: (returnData[0][0][x].epoch).toString(), isClaimed: returnData[0][0][x].isClaimed }]
+export const fetchUserDistributionDetails = async (account: string, guildpadsToFetch: Guildpad[]) => {
+  if (guildpadsToFetch.length === 0) {
+    return []
   }
+  const calls = guildpadsToFetch
+    .map((guildpad) => {
+      return {
+        address: getAddress(guildpad.vestingAddress),
+        name: 'distributedAmount',
+        params: [account], type: guildpad.type, vestingAddress: guildpad.vestingAddress,
+      }
+    })
 
-  return data
+  const rawValues = await multicall(vesting, calls)
+
+  const parsedValues = guildpadsToFetch
+    .filter((gpad) => {
+      const isAddressValid = isAddress(getAddress(gpad.contractAddress))
+      const isVestingAddressValid = gpad.vestingAddress ? isAddress(getAddress(gpad.vestingAddress)) : false
+      return isAddressValid && isVestingAddressValid && gpad.type === TYPE.IDO
+    })
+    .map((guildpad, index) => {
+
+      let data = []
+      let toClaimTotal = 0
+      let epochToClaimNext = 0
+      for (let x = 0; x < rawValues[index][0].length; x++) {
+        if (epochEnded(rawValues[index][0][x].epoch) && !rawValues[index][0][x].isClaimed) {
+          toClaimTotal += parseInt(rawValues[index][0][x].amount)
+          if ((x+1) < rawValues[index][0].length && !epochEnded(rawValues[index][0][x + 1].epoch)) {
+            epochToClaimNext = rawValues[index][0][x + 1].epoch
+          }
+        }
+        data = [...data, {
+          amount: (rawValues[index][0][x].amount).toString(),
+          epoch: (rawValues[index][0][x].epoch).toString(),
+          isClaimed: rawValues[index][0][x].isClaimed,
+        }]
+
+      }
+
+      return {
+        ...guildpad,
+        userData: {
+          vesting: {
+            epochToClaimNext,
+            toClaimTotal,
+            hasClaimable: guildpad.userData.vesting.hasClaimable,
+            distributionDetails: data,
+          },
+        },
+      }
+    })
+
+  return parsedValues
 }
