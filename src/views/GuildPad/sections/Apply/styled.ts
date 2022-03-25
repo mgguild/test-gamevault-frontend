@@ -39,6 +39,6 @@ export const StyledHeading = styled(Heading)`
     margin: 0 auto;
     width: 80%;
     padding-top: 20px;
-    border-bottom: 3px solid ${({ theme }) => theme.colors.MGG_active };
+    border-bottom: 3px solid ${({ theme }) => theme.colors.MGG_active};
   }
 `

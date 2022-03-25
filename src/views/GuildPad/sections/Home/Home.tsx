@@ -55,10 +55,10 @@ const HomeContainerAdapt = styled(TwoColumnHeader)`
 `
 const AnimContainerAdapt = styled(AnimContainer)`
   @media (min-width: 2500px) {
-   height: 1080px;
+    height: 1080px;
   }
   @media (max-width: 1100px) {
-   height: 500px;
+    height: 500px;
   }
   @media (max-width: 500px) {
     height: 300px;
@@ -87,20 +87,20 @@ const renderLogos = () => {
   return(
     <HomeContainer>
       <Flex style={{margin: '10px auto',}} padding="25px" flexDirection='column' alignItems='center'>
-      <Text color="textSubtle" style={{ margin: '10px', fontSize: '20px', textAlign: 'center'}} >
-        EXCLUSIVELY ON MULTIPLE CHAINS
-      </Text>
-      <Flex justifyContent='space-around' style={{ width: '100%'}} flexWrap="wrap">
-      <img
-          src="./images/icons/exclusive_binance.png"
-          alt="ex-binance"
-          style={{ verticalAlign: 'middle' }}
-        />
-        <img
-          src="./images/icons/exclusive_eth.png"
-          alt="ex-binance"
-          style={{ verticalAlign: 'middle'}}
-        />
+        <Text color="textSubtle" style={{ margin: '10px', fontSize: '20px', textAlign: 'center'}} >
+          EXCLUSIVELY ON MULTIPLE CHAINS
+        </Text>
+        <Flex justifyContent='space-around' style={{ width: '100%'}} flexWrap="wrap">
+          <img
+            src="./images/icons/exclusive_binance.png"
+            alt="ex-binance"
+            style={{ verticalAlign: 'middle' }}
+          />
+          <img
+            src="./images/icons/exclusive_eth.png"
+            alt="ex-binance"
+            style={{ verticalAlign: 'middle'}}
+          />
         </Flex>
       </Flex>
     </HomeContainer>
@@ -120,17 +120,17 @@ const HomeSection: React.FC = () => {
         <HomeContainerAdapt>
           <StyledFlex flexDirection="column">
             <HeadingAdapt color={theme.colors.primary}>
-                Acquire early access to the incoming P2E Games in the Metaverse
+              Acquire early access to the incoming P2E Games in the Metaverse
             </HeadingAdapt>
             <Text fontSize="19px">
-             IGO and INO Launchpad for exciting GameFi projects
+              IGO and INO Launchpad for exciting GameFi projects
             </Text>
             <hr  style={{width: '100%', border: 'none', borderBottom: `1px solid ${theme.colors.primary}`}}/>
             <ButtonContainer>
               <div style={{width: '100%'}}>
-              <Button href="https://coinmarketcap.com/currencies/metagaming-guild/" external fullWidth as='a'  style={{ borderRadius: '4px' }}>
-                Buy MGG
-              </Button>
+                <Button href="https://coinmarketcap.com/currencies/metagaming-guild/" external fullWidth as='a'  style={{ borderRadius: '4px' }}>
+                  Buy MGG
+                </Button>
               </div>
               <div style={{width: '100%'}}>
                 <Button href="https://verify-with.blockpass.org/?clientId=dao_gaming_guild_limited_45e18&serviceName=DAO%20GAMING%20GUILD%20LIMITED&env=prod" external fullWidth as='a' style={{ backgroundColor: theme.colors.MGG_accent2, borderRadius: '4px' }}>
@@ -151,23 +151,23 @@ const HomeSection: React.FC = () => {
         </HomeContainerAdapt>
         {(!scrnThreshold2 && scrnThresholdH) && renderLogos()}
         {!scrnThreshold &&
-          <div style={{
-            position: 'absolute',
-            bottom: 0,
-            height: '3rem',
-            width: '100%',
-            background: theme.colors.MGG_mainBG
-          }}>
-            <StyledLink to="activeSection" isDynamic smooth>
-              <Text><ArrowDown color={theme.colors.MGG_accent2} /></Text>
-            </StyledLink>
-          </div>
+        <div style={{
+          position: 'absolute',
+          bottom: 0,
+          height: '3rem',
+          width: '100%',
+          background: theme.colors.MGG_mainBG
+        }}>
+          <StyledLink to="activeSection" isDynamic smooth>
+            <Text><ArrowDown color={theme.colors.MGG_accent2} /></Text>
+          </StyledLink>
+        </div>
         }
       </BG>
       {scrnThreshold &&
-        <StyledLink to="activeSection" isDynamic smooth>
-          <Text><ArrowDown color={theme.colors.MGG_accent2} /></Text>
-        </StyledLink>
+      <StyledLink to="activeSection" isDynamic smooth>
+        <Text><ArrowDown color={theme.colors.MGG_accent2} /></Text>
+      </StyledLink>
       }
     </PageSection>
   )

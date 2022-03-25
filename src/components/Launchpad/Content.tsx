@@ -1,12 +1,21 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useMemo } from 'react'
 import moment from 'moment'
 import { useWeb3React } from '@web3-react/core'
 import { Button, Flex, Text, useWalletModal } from '@metagg/mgg-uikit'
 import useAuth from 'hooks/useAuth'
 import { ThemeContext } from 'styled-components'
-import { TYPE, GUILDPAD_STATUS } from 'config/constants/types'
+import { GUILDPAD_STATUS, TYPE } from 'config/constants/types'
 import { NavOption, PostBody, SaleContainer, SaleRow } from './styled'
 import { Guildpad } from '../../state/types'
+import { useClaimVesting } from '../../hooks/useGuildPad'
+import { getAddress } from '../../utils/addressHelpers'
+import { fetchGuildpadUserDataAsync, fetchPublicGuildpadDataAsync } from '../../state/guildpads'
+import useToast from '../../hooks/useToast'
+import { useTranslation } from '../../contexts/Localization'
+import { useAppDispatch } from '../../state'
+import UnlockButton from '../UnlockButton'
+import { getBalanceAmount, toBigNumber } from '../../utils/formatBalance'
+import { epochToDate } from '../../utils'
 
 const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: string }> = ({
   guildpad,
@@ -18,6 +27,10 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
   const { account } = useWeb3React()
   const { login, logout } = useAuth()
   const { onPresentConnectModal } = useWalletModal(login, logout)
+  const { toastSuccess, toastError } = useToast()
+  const { t } = useTranslation()
+  const dispatch = useAppDispatch()
+
   const renderDescription = () => {
     const description = guildpad.description !== '' ? guildpad.description : 'No description'
 
@@ -197,20 +210,51 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
     )
   }
 
-  const renderClaim = () => {
+  const RenderClaim: React.FC = () => {
+    const hasToClaimNow = toBigNumber(guildpad.userData.vesting.toClaimTotal).gt(0)
+    const [claimInitiated, setClaimInitiated] = useState(false)
+
+    const { onClaimVesting } = useClaimVesting(getAddress(guildpad.vestingAddress))
+
+    const handleClaim = async () => {
+      const ids = [guildpad.id]
+      setClaimInitiated(true)
+      try {
+        await onClaimVesting()
+        toastSuccess(`Successfully Claimed!`)
+        setClaimInitiated(false)
+        dispatch(fetchPublicGuildpadDataAsync([guildpad.id]))
+        dispatch(fetchGuildpadUserDataAsync({ account, ids }))
+      } catch (e) {
+        setClaimInitiated(false)
+        toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas'))
+      }
+    }
     return (
       <SaleContainer justifyContent="space-between" alignItems="center">
         <Flex flexDirection="column">
-          <SaleRow justifyContent='space-between'>
-            <Text color='textSubtle'> Vesting Available </Text>
-            <Button style={{background: theme.colors.MGG_accent2}}>Claim #tokens</Button>
+          <SaleRow justifyContent="space-between">
+            <Text color="textSubtle"> Vesting Available </Text>
+            {!account && <UnlockButton />}
+            {account && (
+              <Button
+                disabled={!guildpad.userData.vesting.hasClaimable || !hasToClaimNow || claimInitiated}
+                style={{ background: theme.colors.MGG_accent1 }}
+                onClick={handleClaim}
+              >
+                Claim {hasToClaimNow && getBalanceAmount(guildpad.userData.vesting.toClaimTotal).toFormat(2)}{' '}
+                {guildpad.sellingCoin.symbol}
+              </Button>
+            )}
           </SaleRow>
-          </Flex>
-        <Flex flexDirection='column'>
-          <SaleRow justifyContent='space-between'>
-            <Text color='textSubtle'>Next vesting date</Text>
+        </Flex>
+        <Flex flexDirection="column">
+          <SaleRow justifyContent="space-between">
+            <Text color="textSubtle">Next vesting date</Text>
             <Text>
-              March 28, 2022, 13:00 UTC
+              {guildpad.userData.vesting.epochToClaimNext
+                ? epochToDate(guildpad.userData.vesting.epochToClaimNext).toUTCString()
+                : 'N/A'}
             </Text>
           </SaleRow>
         </Flex>
@@ -256,7 +300,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
       case 4:
         return renderDescription()
       case 5:
-        return renderClaim()
+        return <RenderClaim />
       default:
         return (
           <Flex>
@@ -284,7 +328,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
             <NavOption onClick={() => setActive(1)} activeIndex={active === 1}>
               {guildpad.type === TYPE.INO ? 'NFT' : 'Token'} Sale
             </NavOption>
-            {guildpad.type !== TYPE.INO && guildpad.status === GUILDPAD_STATUS.completed && (
+            {guildpad.type !== TYPE.INO && guildpad.status === GUILDPAD_STATUS.completed && guildpad.vestingAddress && (
               <NavOption onClick={() => setActive(5)} activeIndex={active === 5}>
                 Claim
               </NavOption>
@@ -299,7 +343,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
             alignItems="center"
             margin="10px 0px 20px 0px"
             style={{ borderBottom: `0.5px solid ${theme.colors.primary}`, width: '100%' }}
-          > 
+          >
             <NavOption onClick={() => setActive(1)} activeIndex={active === 1}>
               Token Sale
             </NavOption>

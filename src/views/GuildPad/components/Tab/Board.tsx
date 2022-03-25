@@ -9,7 +9,7 @@ const Completed: React.FC<{ guildpads?: GuildpadConfig[] }> = ({ guildpads }) =>
   // Content for completed tab here
 
   const renderCompleted = (launchpads) => {
-    return(
+    return (
       <OrganizerContainer>
         {launchpads.map((launchpad) => (
           <Post key={launchpad.address} guildpad={launchpad} />
@@ -20,20 +20,20 @@ const Completed: React.FC<{ guildpads?: GuildpadConfig[] }> = ({ guildpads }) =>
   return guildpads.length === 0 ? <NoLaunches section="COMPLETED" /> : renderCompleted(guildpads)
 }
 
-const Upcoming: React.FC<{ guildpads?: GuildpadConfig[]}> = ({ guildpads }) => {
+const Upcoming: React.FC<{ guildpads?: GuildpadConfig[] }> = ({ guildpads }) => {
   const renderUpcoming = (launchpads) => {
-    return(
+    return (
       <OrganizerContainer>
         {launchpads.map((launchpad) => (
           <Post key={launchpad.address} guildpad={launchpad} />
         ))}
-    </OrganizerContainer>
+      </OrganizerContainer>
     )
   }
   return guildpads.length === 0 ? <NoLaunches section="UPCOMING" /> : renderUpcoming(guildpads)
 }
 
-const Board: React.FC<{ tab: number; guildpads?: GuildpadConfig[]}> = ({ tab, guildpads }) => {
+const Board: React.FC<{ tab: number; guildpads?: GuildpadConfig[] }> = ({ tab, guildpads }) => {
   // Placeholder data
   const completedLaunches = useMemo(
     () => guildpads.filter((guildpad) => guildpad.status === GUILDPAD_STATUS.completed),

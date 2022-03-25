@@ -36,7 +36,7 @@ const AccentGradient = keyframes`
 `
 
 const StyledCardAccent = styled.div`
-    // background: ${({ theme }) => `linear-gradient(180deg, ${theme.colors.primaryBright}, ${theme.colors.secondary})`};
+  // background: ${({ theme }) => `linear-gradient(180deg, ${theme.colors.primaryBright}, ${theme.colors.secondary})`};
   background-size: 400% 400%;
   animation: ${AccentGradient} 2s linear infinite;
   border-radius: 32px;
@@ -53,7 +53,7 @@ const FCard = styled.div<{ isPromotedFarm: boolean }>`
   max-width: 450px;
   background: ${(props) => props.theme.colors.MGG_container};
   border: 5px solid ${(props) => props.theme.colors.MGG_active};
-    // border-radius: ${({ theme, isPromotedFarm }) => (isPromotedFarm ? '31px' : theme.radii.card)};
+  // border-radius: ${({ theme, isPromotedFarm }) => (isPromotedFarm ? '31px' : theme.radii.card)};
   box-shadow: 0px 1px 4px rgba(25, 19, 38, 0.15);
   display: flex;
   flex-direction: column;
@@ -97,7 +97,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ userDataReady, farm, removed, cakeP
     pairTokenAddress: farm.pairToken.address,
   })
 
-  const stakingAddress = getAddress(farm.stakingAddresses);
+  const stakingAddress = getAddress(farm.stakingAddresses)
 
   const addLiquidityUrl = `${farm.liquidityUrl ?? BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`
   const AddTokenUrl = `${BASE_SWAP_URL}/${farm.token.address[56]}`
@@ -108,7 +108,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ userDataReady, farm, removed, cakeP
   // const token1Balance = useTokenBalance(farm.token.address[56], farm.lpAddresses[56])
   // const token2Balance = useTokenBalance(farm.pairToken.address[56], farm.lpAddresses[56])
   // const {LPPrice, rewardPrice} = useFarmPrice(Number(farm.lpTotalSupply), farm.token.address[56], farm.pairToken.address[56], farm.quoteToken.address[56], farm.lpAddresses[56])
-  const aprBlackList = ["0x9f6b80e3867ab402081574e9e0a3be6fdf4ae95b"]
+  const aprBlackList = ['0x9f6b80e3867ab402081574e9e0a3be6fdf4ae95b']
   // const apr = (aprBlackList.includes(farm.lpAddresses[56]) ? null : getFarmV2Apr(LPPrice, rewardPrice, Number(farm.totalDeposits), Number(farm.rewardRate)) )
 
   return (

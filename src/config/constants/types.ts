@@ -183,104 +183,103 @@ export type PageMeta = {
   image?: string
 }
 
-export type Status = 'ongoing' | 'upcoming' | 'completed' | null;
-export type Type = 'INO' | 'IDO' | 'IGO';
-export type Distribution = 'VESTING' | 'SELF-CLAIM' | 'AIRDROP';
+export type Status = 'ongoing' | 'upcoming' | 'completed' | null
+export type Type = 'INO' | 'IDO' | 'IGO'
+export type Distribution = 'VESTING' | 'SELF-CLAIM' | 'AIRDROP'
 export const GUILDPAD_STATUS: { ongoing: Status; upcoming: Status; completed: Status } = {
   ongoing: 'ongoing',
   upcoming: 'upcoming',
   completed: 'completed',
 }
 export const TYPE: { INO: Type; IDO: Type; IGO: Type } = { INO: 'INO', IDO: 'IDO', IGO: 'IGO' }
-export const DISTRIBUTION: { VESTING: Distribution; SELF_CLAIM: Distribution; AIRDROP: Distribution} = {
+export const DISTRIBUTION: { VESTING: Distribution; SELF_CLAIM: Distribution; AIRDROP: Distribution } = {
   VESTING: 'VESTING',
   SELF_CLAIM: 'SELF-CLAIM',
-  AIRDROP: 'AIRDROP'
+  AIRDROP: 'AIRDROP',
 }
 
 export interface Socials {
-  website?: string;
-  twitter?: string;
-  telegram?: string;
-  medium?: string;
-  discord?: string;
-  youtube?: string;
+  website?: string
+  twitter?: string
+  telegram?: string
+  medium?: string
+  discord?: string
+  youtube?: string
 }
 
 type InoDetails = {
-  price?: string;
-  ratio?: string;
-  boxes?: string;
-  priceFiat?: string;
-
+  price?: string
+  ratio?: string
+  boxes?: string
+  priceFiat?: string
 }
 
 type IgoDetails = {
-  price?: string;
-  fundsTarget?: string;
+  price?: string
+  fundsTarget?: string
 }
 
 type IdoDetails = {
-  price?: string;
-  startTime?: string;
-  tokenRate?: string;
-  expectedSales?: string;
-  totalParticipants?: string;
-  percentage?: string;
+  price?: string
+  startTime?: string
+  tokenRate?: string
+  expectedSales?: string
+  totalParticipants?: string
+  percentage?: string
 }
 
 interface GuildPadInformation {
-  title: string;
-  description: string;
-  distribution?: string;
-  distributionDesc?: string;
-  round: string;
-  type?: Type;
-  merged?: boolean;
-  nextRoundID?: number;
-  date?: {start: string, end: string};
-  status: Status;
-  hasStarted?: boolean;
-  hasEnded?: boolean;
-  totalSupply?: string;
-  remainingSupply?: string;
-  totalSold?: string;
-  totalRaise?: string;
-  buyLimitEnabled?: boolean,
-  whitelistEnabled?: boolean,
-  display?: boolean,
-  nextRoundDate?: number,
-  buyLimit?: string,
-  socials?: Socials;
-  inoDetails?: InoDetails;
-  igoDetails?: IgoDetails;
-  price?: string;
-  startTime?: string;
-  tokenRate?: string;
-  expectedSales?: string;
-  totalParticipants?: string;
-  percentage?: string;
+  title: string
+  description: string
+  distribution?: string
+  distributionDesc?: string
+  round: string
+  type?: Type
+  merged?: boolean
+  nextRoundID?: number
+  date?: { start: string; end: string }
+  status: Status
+  hasStarted?: boolean
+  hasEnded?: boolean
+  totalSupply?: string
+  remainingSupply?: string
+  totalSold?: string
+  totalRaise?: string
+  buyLimitEnabled?: boolean
+  whitelistEnabled?: boolean
+  display?: boolean
+  nextRoundDate?: number
+  buyLimit?: string
+  socials?: Socials
+  inoDetails?: InoDetails
+  igoDetails?: IgoDetails
+  price?: string
+  startTime?: string
+  tokenRate?: string
+  expectedSales?: string
+  totalParticipants?: string
+  percentage?: string
   epochEndDate?: number
 }
 
-
 export interface GuildpadConfig extends GuildPadInformation {
-  id: number,
-  isStatic: boolean,
-  contractAddress?: Address;
-  FundstoRaise?: string;
-  buyingCoin?: Token;
-  sellingCoin?:  Token;
-  projectTokenEquivalent?: string;
-  asOfPriceInProjectToken?: number;
-  available?: string;
-  boxDetails?: any;
+  id: number
+  isStatic: boolean
+  contractAddress?: Address
+  vestingAddress?: Address
+  FundstoRaise?: string
+  buyingCoin?: Token
+  sellingCoin?: Token
+  projectTokenEquivalent?: string
+  asOfPriceInProjectToken?: number
+  available?: string
+  boxDetails?: any
   boxInfo?: {
     1: {
-      price: string,
-      supply: string,
+      price: string
+      supply: string
       sold: string
-      percentSold?: string,
+      percentSold?: string
     }
-  };
+  }
 }

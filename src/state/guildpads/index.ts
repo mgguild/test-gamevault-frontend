@@ -7,8 +7,9 @@ import {
   fetchGuildpadIgoUserDetails,
   fetchGuildpadIsUserWhitelisted,
   fetchGuildpadUserBoxes,
+  fetchUserDistributionDetails,
+  fetchUserHasClaimable,
 } from './fetchGuildpadUser'
-import mergingGuildpads from './mergingGuildpads'
 
 const noAccountGuildpadConfig = guildpadsConfig.map((guildpad) => ({
   ...guildpad,
@@ -18,6 +19,9 @@ const noAccountGuildpadConfig = guildpadsConfig.map((guildpad) => ({
     boxesBought: '0',
     isWhitelisted: false,
     details: {},
+    vesting: {
+      isWhitelisted: false,
+    },
   },
   hasStarted: false,
   hasEnded: false,
@@ -55,26 +59,36 @@ interface GuildpadUserDataResponse {
   boxesBought?: string
   isWhitelisted?: boolean
   details?: any
+  vesting?: any
 }
 
-export const fetchGuildpadUserDataAsync = createAsyncThunk<GuildpadUserDataResponse[], { account: string; ids: number[] }>(
-  'farms/fetchGuildpadUserDataAsync',
-  async ({ account, ids }) => {
-    const guildpadToFetch = guildpadsConfig.filter((guildpadConfig) => ids.includes(guildpadConfig.id))
-    const useGuildpadBoxes = await fetchGuildpadUserBoxes(account, guildpadToFetch)
-    const useGuildpadIsWhitelist = await fetchGuildpadIsUserWhitelisted(account, guildpadToFetch)
-    const useGuildpadIgoUserDetails = await fetchGuildpadIgoUserDetails(account, guildpadToFetch)
-    return guildpadToFetch.map((gpad, index) => {
-      const details = useGuildpadIgoUserDetails.filter((data) => { return data.id === gpad.id})[0]
-      return {
-        id: gpad.id,
-        boxesBought: useGuildpadBoxes[index] ?? '0',
-        isWhitelisted: useGuildpadIsWhitelist[index] ?? false,
-        details: details?.details ?? {},
-      }
-    })
-  },
-)
+export const fetchGuildpadUserDataAsync = createAsyncThunk<
+  GuildpadUserDataResponse[],
+  { account: string; ids: number[] }
+>('farms/fetchGuildpadUserDataAsync', async ({ account, ids }) => {
+  const guildpadToFetch = guildpadsConfig.filter((guildpadConfig) => ids.includes(guildpadConfig.id))
+  const useGuildpadBoxes = await fetchGuildpadUserBoxes(account, guildpadToFetch)
+  const useGuildpadIsWhitelist = await fetchGuildpadIsUserWhitelisted(account, guildpadToFetch)
+  const useGuildpadIgoUserDetails = await fetchGuildpadIgoUserDetails(account, guildpadToFetch)
+  const useGuildPadUserHasClaimable = await fetchUserHasClaimable(account, guildpadToFetch)
+  const useGuildPadUserDistributionDetails = await fetchUserDistributionDetails(account, useGuildPadUserHasClaimable)
+  return guildpadToFetch.map((gpad, index) => {
+    const details = useGuildpadIgoUserDetails.filter((data) => {
+      return data.id === gpad.id
+    })[0]
+
+    const vestingDetails = useGuildPadUserDistributionDetails
+      .filter((guildpad) => guildpad.id === gpad.id)
+      .map((guildpad) => guildpad)
+    return {
+      id: gpad.id,
+      boxesBought: useGuildpadBoxes[index] ?? '0',
+      isWhitelisted: useGuildpadIsWhitelist[index] ?? false,
+      details: details?.details ?? {},
+      vesting: vestingDetails[0] ? vestingDetails[0].userData.vesting : noAccountGuildpadConfig[0].userData.vesting,
+    }
+  })
+})
 
 export const guildpadSlice = createSlice({
   name: 'Guildpads',

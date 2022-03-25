@@ -5,6 +5,7 @@ import { poolsConfig } from 'config/constants'
 import { PoolCategory } from 'config/constants/types'
 import inoAbi from 'config/abi/ino.json'
 import igoAbi from 'config/abi/ido.json'
+import vesting from 'config/abi/vesting.json'
 
 // Addresses
 import {
@@ -95,6 +96,9 @@ export const getInoContract = (address: string, web3?: Web3) => {
 }
 export const getIgoContract = (address: string, web3?: Web3) => {
   return getContract(igoAbi, address, web3)
+}
+export const getVestingContract = (address: string, web3?: Web3) => {
+  return getContract(vesting, address, web3)
 }
 export const getIfoV2Contract = (address: string, web3?: Web3) => {
   return getContract(ifoV2Abi, address, web3)

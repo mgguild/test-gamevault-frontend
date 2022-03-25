@@ -7,14 +7,16 @@ export const StyledContainer = styled(Container)`
   height: auto;
   // min-height: 85vh;
   display: run-in;
-  background: ${({ theme }) => theme.isDark? `linear-gradient(0deg, rgba(43,28,0,1) 5%, rgba(16,16,16,1) 100%)` : theme.colors.modal};
+  background: ${({ theme }) =>
+    theme.isDark ? `linear-gradient(0deg, rgba(43,28,0,1) 5%, rgba(16,16,16,1) 100%)` : theme.colors.modal};
   width: 100%;
   justify-content: space-evenly;
 `
 
 export const BgContainer = styled.div`
   width: 100%;
-  background: ${({ theme }) => theme.isDark? `linear-gradient(0deg, rgba(43,28,0,1) 5%, rgba(16,16,16,1) 100%)` : theme.colors.modal};
+  background: ${({ theme }) =>
+    theme.isDark ? `linear-gradient(0deg, rgba(43,28,0,1) 5%, rgba(16,16,16,1) 100%)` : theme.colors.modal};
 `
 
 export const HomeContainer = styled(Flex)``

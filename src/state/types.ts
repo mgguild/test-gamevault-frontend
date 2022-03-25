@@ -267,12 +267,13 @@ export interface Guildpad extends GuildpadConfig {
     boxesBought?: string
     isWhitelisted?: boolean
     details?: any
+    vesting?: any
   }
 }
 
 export interface GuildpadState {
-  selected?: Guildpad | null;
-  data: Guildpad[];
+  selected?: Guildpad | null
+  data: Guildpad[]
   userDataLoaded: boolean
 }
 

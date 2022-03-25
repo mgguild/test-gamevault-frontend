@@ -2,41 +2,41 @@ import { MenuEntry } from '@sparkpointio/sparkswap-uikit'
 
 const config: MenuEntry[] = [
   {
-    label: "Staking",
-    icon: "",
+    label: 'Staking',
+    icon: '',
     // href: "/farms"
     items: [
       {
         label: 'Liquidity',
-        href: '/farms'
+        href: '/farms',
       },
       {
         label: 'Pool-Based',
-        href: '/pools'
-      }
-    ]
+        href: '/pools',
+      },
+    ],
   },
   {
-    label: "GameFi Vault",
-    icon: "",
-    href: "/gamefi",
+    label: 'GameFi Vault',
+    icon: '',
+    href: '/gamefi',
   },
   {
-    label: "Launchpad",
-    icon: "",
-    href: "/launchpad",
+    label: 'Launchpad',
+    icon: '',
+    href: '/launchpad',
   },
   {
-    label: "Earning Dashboard",
-    icon: "",
-    href: "/earning-dashboard",
+    label: 'Earning Dashboard',
+    icon: '',
+    href: '/earning-dashboard',
   },
   {
-    label: "Bridge",
-    icon: "",
-    href: "https://app.chainport.io",
+    label: 'Bridge',
+    icon: '',
+    href: 'https://app.chainport.io',
   },
-/*
+  /*
   {
     label: "Swap",
     icon: "TradeIcon",
