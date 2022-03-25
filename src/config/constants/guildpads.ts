@@ -10,7 +10,7 @@ const Guildpads: GuildpadConfig[] = [
   {
     id: 5,
     title: 'Ookeenga',
-    isStatic: true,
+    isStatic: false,
     ...Ookeenga,
   },
   {
