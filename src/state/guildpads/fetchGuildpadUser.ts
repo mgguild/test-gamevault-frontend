@@ -178,7 +178,7 @@ export const fetchUserDistributionDetails = async (account: string, guildpadsToF
         ...guildpad,
         userData: {
           vesting: {
-            epochToClaimNext,
+            epochToClaimNext: epochToClaimNext.toString(),
             toClaimTotal,
             hasClaimable: guildpad.userData.vesting.hasClaimable,
             distributionDetails: data,
