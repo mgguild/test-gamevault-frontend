@@ -3,15 +3,14 @@ import styled, { ThemeContext } from 'styled-components'
 export const Cards2 = styled.button<{src? : string, bgColor? : string}>`
   position: relative;
   min-width: 20rem;
-  max-width: 40rem;
   min-height: 12rem;
   cursor: pointer;
   border: none;
   padding: 0;
   text-align: left;
   flex: 1;
-  background-color: ${({bgColor}) => bgColor ?? '#a30404b8'};
-  ${({src}) => src &&
+  background-color: ${({bgColor}) => bgColor ?? '#030f62'};
+  ${({src}) =>
     `&:before {
       content: '';
       position: absolute;
@@ -21,7 +20,7 @@ export const Cards2 = styled.button<{src? : string, bgColor? : string}>`
       width: 100%;
       height: 100%;
       z-index: 0;
-      background-image: url(${src});
+      background-image: url(${src ?? `./MGG.png`});
       background-repeat: no-repeat;
       // background-attachment: fixed;
       background-position: center;
@@ -31,14 +30,12 @@ export const Cards2 = styled.button<{src? : string, bgColor? : string}>`
 `
 
 export const Card2Container = styled.div`
-  display: grid;
   position: relative;
   padding: 1rem 1.5rem;
   background: linear-gradient(0deg,rgb(0 0 0) 0%,rgb(0 0 0 / 50%) 25%,rgba(36,121,9,0) 75%);
   width: 100%;
   height: 100%;
   z-index: 2;
-  grid-template-columns: 1fr 1fr;
 `
 export const TokenLogo = styled.img<{ size?: string }>`
   border-radius: 50%;
@@ -64,5 +61,32 @@ export const Badge = styled.div<{ type?: number}>`
       background-color: rgb(0,196,204);
       border-radius: 0.3rem;
     `
+  }
+`
+
+export const HeadingBG = styled.div<{src? : string, bgColor? : string, contain?: boolean}>`
+  position: relative;
+  min-width: 20rem;
+  min-height: 14rem;
+  border: none;
+  padding: 0;
+  text-align: left;
+  flex: 1;
+  overflow: hidden;
+  background-color: ${({bgColor}) => bgColor ?? '#030f62'};
+  ${({src, contain}) =>
+    `&:before {
+      content: '';
+      position: absolute;
+      inset:  ${contain ? '-4rem 0 0 -10vh' : '0 0 0 0'};
+      opacity: 0.2;
+      width: 100%;
+      height: ${contain ? '125%' : '100%'};
+      z-index: 2;
+      background-image: url(${src ?? `./MGG.png`});
+      background-repeat: no-repeat;
+      background-position: ${contain ? 'right' : 'center'};
+      background-size: ${contain ? 'contain' : 'cover'};
+    }`
   }
 `

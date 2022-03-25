@@ -3,15 +3,14 @@ import styled, { ThemeContext } from 'styled-components'
 export const Cards2 = styled.button<{src? : string, bgColor? : string}>`
   position: relative;
   min-width: 20rem;
-  max-width: 40rem;
   min-height: 12rem;
   cursor: pointer;
   border: none;
   padding: 0;
   text-align: left;
   flex: 1;
-  background-color: ${({bgColor}) => bgColor ?? '#a30404b8'};
-  ${({src}) => src &&
+  background-color: ${({bgColor}) => bgColor ?? '#030f62'};
+  ${({src}) =>
     `&:before {
       content: '';
       position: absolute;
@@ -21,7 +20,7 @@ export const Cards2 = styled.button<{src? : string, bgColor? : string}>`
       width: 100%;
       height: 100%;
       z-index: 0;
-      background-image: url(${src});
+      background-image: url(${src ?? `./MGG.png`});
       background-repeat: no-repeat;
       // background-attachment: fixed;
       background-position: center;

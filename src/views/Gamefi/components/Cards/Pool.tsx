@@ -1,4 +1,5 @@
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { Link as RLink } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import { Flex, Link, Image, RowType, Toggle } from '@pancakeswap/uikit'
 import { Text, Heading } from '@metagg/mgg-uikit'
@@ -62,33 +63,35 @@ const PoolCard2: React.FC<PoolCard2Props> = ({bgColor = "#030f62", src="./MGG.pn
 
   return (
     <>
-      <Cards2 src={src} bgColor={bgColor} className='shodow-pop'>
-        <Card2Container>
-          <TokenLogo size='3.5rem' src={getImageUrlFromToken(stakingToken)} />
-          <Flex style={{
-            flexFlow: 'row wrap',
-            columnGap: '0.5rem',
-            justifyContent: 'end',
-          }}>
-            { isNew && <div><Badge><Text color='white'>New</Text></Badge></div> }
-            <TokenLogo size='2rem' src={getImageUrlFromToken(earningToken)} />
-            <div><Badge type={1}><Text color='white'>STAKING FARM</Text></Badge></div>
-          </Flex>
-          <Flex style={{alignItems: 'end'}}>
-            <div>
-              <Text color='white'>{`${stakingToken.symbol}-${earningToken.symbol} Staking`}</Text>
-              <Heading color='white'>MetaGaming Guild</Heading>
-            </div>
-          </Flex>
-          <Flex style={{justifyContent: 'end', alignItems: 'end'}}>
-            <div style={{textAlign: 'end'}}>
-              <Text color='white'>APR {apr}</Text>
-              <Link external href={getBscScanLink(hasPoolStarted ? endBlock : startBlock, 'countdown')}>
-                 <Heading color='white'>{!isComingSoon && `${formatNumber(blocksRemaining, 0, 0)}`} {isComingSoon && '-'} blocks</Heading>
-              </Link>
-            </div>
-          </Flex>
-        </Card2Container>
+       <Cards2 src={src} bgColor={pool.UIProps.bgColor} className='shodow-pop' style={{cursor: 'pointer'}}>
+        <RLink to={`/gamefi/${`Pools`}/${pool.sousId}`}>
+          <Card2Container style={{display: 'grid', gridTemplateColumns: '1fr 1fr'}}>
+            <TokenLogo size='3.5rem' src={getImageUrlFromToken(stakingToken)} />
+            <Flex style={{
+              flexFlow: 'row wrap',
+              columnGap: '0.5rem',
+              justifyContent: 'end',
+            }}>
+              { isNew && <div><Badge><Text color='white'>New</Text></Badge></div> }
+              <TokenLogo size='2rem' src={getImageUrlFromToken(earningToken)} />
+              <div><Badge type={1}><Text color='white'>Pool Based</Text></Badge></div>
+            </Flex>
+            <Flex style={{alignItems: 'end'}}>
+              <div>
+                <Text color='white'>{`${stakingToken.symbol}-${earningToken.symbol} Staking`}</Text>
+                <Heading color='white'>{pool.name}</Heading>
+              </div>
+            </Flex>
+            <Flex style={{justifyContent: 'end', alignItems: 'end'}}>
+              <div style={{textAlign: 'end'}}>
+                <Text color='white'>APR {apr}</Text>
+                <Link external href={getBscScanLink(hasPoolStarted ? endBlock : startBlock, 'countdown')}>
+                  <Heading color='white'>{!isComingSoon && `${formatNumber(blocksRemaining, 0, 0)}`} {isComingSoon && '-'} blocks</Heading>
+                </Link>
+              </div>
+            </Flex>
+          </Card2Container>
+        </RLink>
       </Cards2>
     </>
   )
