@@ -251,11 +251,11 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
         <Flex flexDirection="column">
           <SaleRow justifyContent="space-between">
             <Text color="textSubtle">Next vesting date</Text>
-            <Text>{
-              guildpad.userData.vesting.epochToClaimNext
+            <Text>
+              {guildpad.userData.vesting.epochToClaimNext
                 ? epochToDate(guildpad.userData.vesting.epochToClaimNext).toUTCString()
-                : 'N/A'
-            }</Text>
+                : 'N/A'}
+            </Text>
           </SaleRow>
         </Flex>
       </SaleContainer>
