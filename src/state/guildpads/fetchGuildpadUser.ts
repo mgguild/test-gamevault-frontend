@@ -135,7 +135,14 @@ export const fetchUserDistributionDetails = async (account: string, guildpadsToF
   if (guildpadsToFetch.length === 0) {
     return []
   }
-  const calls = guildpadsToFetch.map((guildpad) => {
+  const calls = guildpadsToFetch
+    .filter((gpad) => {
+      const isAddressValid = isAddress(getAddress(gpad.contractAddress))
+      const userHasClaimable = gpad.userData.vesting.hasClaimable
+      const isVestingAddressValid = gpad.vestingAddress ? isAddress(getAddress(gpad.vestingAddress)) : false
+      return isAddressValid && isVestingAddressValid && gpad.type === TYPE.IDO && userHasClaimable
+    })
+    .map((guildpad) => {
     return {
       address: getAddress(guildpad.vestingAddress),
       name: 'distributedAmount',
@@ -146,12 +153,12 @@ export const fetchUserDistributionDetails = async (account: string, guildpadsToF
   })
 
   const rawValues = await multicall(vesting, calls)
-
   const parsedValues = guildpadsToFetch
     .filter((gpad) => {
       const isAddressValid = isAddress(getAddress(gpad.contractAddress))
+      const userHasClaimable = gpad.userData.vesting.hasClaimable
       const isVestingAddressValid = gpad.vestingAddress ? isAddress(getAddress(gpad.vestingAddress)) : false
-      return isAddressValid && isVestingAddressValid && gpad.type === TYPE.IDO
+      return isAddressValid && isVestingAddressValid && gpad.type === TYPE.IDO && userHasClaimable
     })
     .map((guildpad, index) => {
       let data = []
@@ -186,6 +193,5 @@ export const fetchUserDistributionDetails = async (account: string, guildpadsToF
         },
       }
     })
-
   return parsedValues
 }

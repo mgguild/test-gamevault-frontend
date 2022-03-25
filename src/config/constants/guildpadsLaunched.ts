@@ -25,7 +25,7 @@ const GuildpadsLaunched: GuildpadConfig[] = [
     },
     vestingAddress: {
       97: '0x002',
-      56: '0x1ACF96409Ac608e3FDe56d420a716093bEeF72eb',
+      56: '0x2579635b510087F33b9FcC0085940558Ab95D7d6',
     },
     buyingCoin: {
       symbol: 'BUSD',
