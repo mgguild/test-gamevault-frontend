@@ -20,7 +20,11 @@ const noAccountGuildpadConfig = guildpadsConfig.map((guildpad) => ({
     isWhitelisted: false,
     details: {},
     vesting: {
-      isWhitelisted: false,
+      availableToClaim: 0,
+      totalToClaim: 0,
+      totalClaimed: 0,
+      hasClaimable: false,
+      distributionDetails: {},
     },
   },
   hasStarted: false,

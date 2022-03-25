@@ -211,7 +211,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
   }
 
   const RenderClaim: React.FC = () => {
-    const hasToClaimNow = toBigNumber(guildpad.userData.vesting.toClaimTotal).gt(0)
+    const hasToClaimNow = toBigNumber(guildpad.userData.vesting.availableToClaim).gt(0)
     const [claimInitiated, setClaimInitiated] = useState(false)
 
     const { onClaimVesting } = useClaimVesting(getAddress(guildpad.vestingAddress))
@@ -230,22 +230,33 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
         toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas'))
       }
     }
+    const totalToClaim = getBalanceAmount(guildpad.userData.vesting.totalToClaim).toFormat(2)
+    const totalClaimed = getBalanceAmount(guildpad.userData.vesting.totalClaimed).toFormat(2)
+    const availableToClaim = getBalanceAmount(guildpad.userData.vesting.availableToClaim).toFormat(2)
     return (
       <SaleContainer justifyContent="space-between" alignItems="center">
         <Flex flexDirection="column">
           <SaleRow justifyContent="space-between">
-            <Text color="textSubtle"> Vesting Available </Text>
-            {!account && <UnlockButton />}
-            {account && (
-              <Button
-                disabled={!guildpad.userData.vesting.hasClaimable || !hasToClaimNow || claimInitiated}
-                style={{ background: theme.colors.MGG_accent1 }}
-                onClick={handleClaim}
-              >
-                Claim {hasToClaimNow && getBalanceAmount(guildpad.userData.vesting.toClaimTotal).toFormat(2)}{' '}
-                {guildpad.sellingCoin.symbol}
-              </Button>
-            )}
+            <Text color="textSubtle">Total Allocation</Text>
+            <Text>
+              {totalToClaim} {guildpad.sellingCoin.symbol}
+            </Text>
+          </SaleRow>
+        </Flex>
+        <Flex flexDirection="column">
+          <SaleRow justifyContent="space-between">
+            <Text color="textSubtle">Claimed</Text>
+            <Text>
+              {totalClaimed} {guildpad.sellingCoin.symbol}
+            </Text>
+          </SaleRow>
+        </Flex>
+        <Flex flexDirection="column">
+          <SaleRow justifyContent="space-between">
+            <Text color="textSubtle"> Available </Text>
+            <Text>
+              {availableToClaim} {guildpad.sellingCoin.symbol}
+            </Text>
           </SaleRow>
         </Flex>
         <Flex flexDirection="column">
@@ -258,6 +269,16 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
             </Text>
           </SaleRow>
         </Flex>
+        {!account && <UnlockButton style={{ background: theme.colors.MGG_accent1, margin: '20px auto 0 auto' }} />}
+        {account && (
+          <Button
+            disabled={!guildpad.userData.vesting.hasClaimable || !hasToClaimNow || claimInitiated}
+            style={{ background: theme.colors.MGG_accent1, margin: '20px auto 0 auto' }}
+            onClick={handleClaim}
+          >
+            Claim
+          </Button>
+        )}
       </SaleContainer>
     )
   }
