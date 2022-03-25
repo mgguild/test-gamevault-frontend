@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useMemo } from 'react'
 import moment from 'moment'
 import { useWeb3React } from '@web3-react/core'
 import { Button, Flex, Text, useWalletModal } from '@metagg/mgg-uikit'
@@ -38,25 +38,6 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
       </Text>
     )
   }
-  const [claimInitiated, setClaimInitiated] = useState(false)
-
-  const { onClaimVesting } = useClaimVesting(getAddress(guildpad.vestingAddress))
-
-  const handleClaim = async () => {
-    const ids = [guildpad.id]
-    setClaimInitiated(true)
-    try {
-      await onClaimVesting()
-      toastSuccess(`Successfully Bought!`)
-      setClaimInitiated(false)
-      dispatch(fetchPublicGuildpadDataAsync([guildpad.id]))
-      dispatch(fetchGuildpadUserDataAsync({ account, ids }))
-    } catch (e) {
-      setClaimInitiated(false)
-      toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas'))
-    }
-  }
-
 
   const guildpadPrice = () => {
     let price = 'TBA'
@@ -227,7 +208,25 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
     )
   }
 
-  const renderClaim = () => {
+  const RenderClaim: React.FC = () => {
+    const [claimInitiated, setClaimInitiated] = useState(false)
+
+    const { onClaimVesting } = useClaimVesting(getAddress(guildpad.vestingAddress))
+
+    const handleClaim = async () => {
+      const ids = [guildpad.id]
+      setClaimInitiated(true)
+      try {
+        await onClaimVesting()
+        toastSuccess(`Successfully Bought!`)
+        setClaimInitiated(false)
+        dispatch(fetchPublicGuildpadDataAsync([guildpad.id]))
+        dispatch(fetchGuildpadUserDataAsync({ account, ids }))
+      } catch (e) {
+        setClaimInitiated(false)
+        toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas'))
+      }
+    }
     return (
       <SaleContainer justifyContent="space-between" alignItems="center">
         <Flex flexDirection="column">
@@ -287,7 +286,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
       case 4:
         return renderDescription()
       case 5:
-        return renderClaim()
+        return (<RenderClaim />)
       default:
         return (
           <Flex>
@@ -315,7 +314,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
             <NavOption onClick={() => setActive(1)} activeIndex={active === 1}>
               {guildpad.type === TYPE.INO ? 'NFT' : 'Token'} Sale
             </NavOption>
-            {guildpad.type !== TYPE.INO && guildpad.status === GUILDPAD_STATUS.completed && (
+            {guildpad.type !== TYPE.INO && guildpad.status === GUILDPAD_STATUS.completed && guildpad.vestingAddress &&  (
               <NavOption onClick={() => setActive(5)} activeIndex={active === 5}>
                 Claim
               </NavOption>
