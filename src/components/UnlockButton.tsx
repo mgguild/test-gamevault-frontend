@@ -4,14 +4,14 @@ import useAuth from 'hooks/useAuth'
 import { useTranslation } from 'contexts/Localization'
 
 const UnlockButton = (props) => {
-  const { customTitle } = props;
+  const { customTitle } = props
   const { t } = useTranslation()
   const { login, logout } = useAuth()
   const { onPresentConnectModal } = useWalletModal(login, logout)
 
   return (
     <Button onClick={onPresentConnectModal} {...props} fullWidth>
-      { !customTitle? 'Connect Wallet' : customTitle }
+      {!customTitle ? 'Connect Wallet' : customTitle}
     </Button>
   )
 }

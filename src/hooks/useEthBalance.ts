@@ -15,7 +15,6 @@ const useEthBalance = () => {
   const { slowRefresh } = useRefresh()
   const [ethBalance, setEthBalance] = useState(new BigNumber('0'))
 
-
   useEffect(() => {
     async function fetchEthBalance() {
       const balance = await web3.eth.getBalance(account)

@@ -60,7 +60,7 @@ const TimerBox = styled(Flex)`
   }
 `
 const TimerContainer = styled(Flex)`
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   padding: 5px 0px;
   display: flex;
   height: 8rem;
@@ -79,18 +79,21 @@ const InfoRow = styled(Flex)`
   width: 100%;
 `
 
-const CountDown: React.FC<{ status: string, round: string, start?: boolean; end?: number }> = ({ status, round, start, end }) => {
+const CountDown: React.FC<{ status: string; round: string; start?: boolean; end?: number }> = ({
+  status,
+  round,
+  start,
+  end,
+}) => {
   const endDate = end
   const isStart = start
 
   const Renderer = (days?: number, hours?: number, minutes?: number, seconds?: number) => {
-    return (
-      <TimerRenderer days={days} hours={hours} minutes={minutes} seconds={seconds} round={round}/>
-    )
+    return <TimerRenderer days={days} hours={hours} minutes={minutes} seconds={seconds} round={round} />
   }
 
   return (
-    <TimerContainer justifyContent='center' style={{position: 'relative'}} className='crt inset-shadow'>
+    <TimerContainer justifyContent="center" style={{ position: 'relative' }} className="crt inset-shadow">
       <Timer dateSettings={{ isStart, end: endDate }} status={status} Renderer={Renderer} />
     </TimerContainer>
   )
@@ -103,7 +106,7 @@ const TokenInformation: React.FC<{
   type: string
   sellingCoin: string
   gpadType?: string
-}> = ({ totalRaise, boxesForSale, buyingCoin, type, sellingCoin , gpadType = 'INO'}) => {
+}> = ({ totalRaise, boxesForSale, buyingCoin, type, sellingCoin, gpadType = 'INO' }) => {
   return (
     <InfoBox flexDirection="column" padding="0px 24px 12px 24px">
       <InfoRow justifyContent="space-between">
@@ -156,7 +159,12 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
   return (
     <GCard>
       <CardHeader status={status} background={src} />
-      <CountDown status={status} round={guildpad.round} start={status === GUILDPAD_STATUS.ongoing} end={guildpad.epochEndDate} />
+      <CountDown
+        status={status}
+        round={guildpad.round}
+        start={status === GUILDPAD_STATUS.ongoing}
+        end={guildpad.epochEndDate}
+      />
       <TokenLogo
         tokenName={guildpad.sellingCoin.symbol}
         primaryToken={guildpad.sellingCoin}
@@ -176,7 +184,7 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
         ) : (
           <Link to={`/launchpad/${guildpad.title}`} style={{ width: '100%' }}>
             <Button fullWidth style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}>
-              {status === GUILDPAD_STATUS.completed? 'Details' : 'Participate'}
+              {status === GUILDPAD_STATUS.completed ? 'Details' : 'Participate'}
             </Button>
           </Link>
         )}

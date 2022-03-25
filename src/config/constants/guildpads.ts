@@ -11,13 +11,13 @@ const Guildpads: GuildpadConfig[] = [
     id: 5,
     title: 'Ookeenga',
     isStatic: true,
-    ... Ookeenga
+    ...Ookeenga,
   },
   {
     id: 4,
     title: 'Demole',
     isStatic: true,
-    ... DemoleGuildpad
+    ...DemoleGuildpad,
   },
 ]
 

@@ -12,7 +12,7 @@ const StyledNotFound = styled.div`
   justify-content: center;
 `
 
-const NoLaunches = ({section}:{section: string}) => {
+const NoLaunches = ({ section }: { section: string }) => {
   const { t } = useTranslation()
 
   return (

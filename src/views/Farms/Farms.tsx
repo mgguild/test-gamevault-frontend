@@ -425,7 +425,7 @@ const Farms: React.FC = () => {
     )
   }
 
-  const [ isFetchData, setFetchData] = useState<boolean | null>(true); 
+  const [isFetchData, setFetchData] = useState<boolean | null>(true)
   const mggFarm = farmsStakedMemoized.filter((farm) => farm.isMain)[0]
 
   // const token1Balance = useTokenBalance(mggFarm.token.address[chainId], mggFarm.lpAddresses[chainId])
@@ -437,26 +437,25 @@ const Farms: React.FC = () => {
     mggFarm.pairToken.address[56],
     mggFarm.quoteToken.address[56],
     mggFarm.lpAddresses[56],
-    isFetchData
+    isFetchData,
   )
-  const prevLPPrice = usePrevious(LPPrice);
-  const prevRewardPrice = usePrevious(rewardPrice);
+  const prevLPPrice = usePrevious(LPPrice)
+  const prevRewardPrice = usePrevious(rewardPrice)
   useEffect(() => {
-    if ((LPPrice > 0) || (rewardPrice > 0)) {
-      setFetchData(false);
-    }   
-    setTimeout(() => {
-      setFetchData(true);
-      if ((LPPrice !== prevLPPrice) || (rewardPrice !== prevRewardPrice)) {
-        setFetchData(true);
-      } else {
-        setFetchData(false);
-      }
-    }, 60000);
-    if ((prevLPPrice === LPPrice) || (prevRewardPrice === rewardPrice)) {
-      setFetchData(false);
+    if (LPPrice > 0 || rewardPrice > 0) {
+      setFetchData(false)
     }
-    
+    setTimeout(() => {
+      setFetchData(true)
+      if (LPPrice !== prevLPPrice || rewardPrice !== prevRewardPrice) {
+        setFetchData(true)
+      } else {
+        setFetchData(false)
+      }
+    }, 60000)
+    if (prevLPPrice === LPPrice || prevRewardPrice === rewardPrice) {
+      setFetchData(false)
+    }
   }, [LPPrice, rewardPrice, setFetchData, prevLPPrice, prevRewardPrice])
   useEffect(() => {
     return setFetchData(null)
@@ -465,11 +464,14 @@ const Farms: React.FC = () => {
     () => getFarmV2Apr(LPPrice, rewardPrice, Number(mggFarm.totalDeposits), Number(mggFarm.rewardRate)),
     [LPPrice, rewardPrice, mggFarm.totalDeposits, mggFarm.rewardRate],
   )
-  
+
   const apr = farmV2Apr > 0 ? `${farmV2Apr.toFixed(2)} %` : <Oval width="20px" height="20px" />
-  const totalStaked = getBalanceNumber(new BigNumber(mggFarm.totalDeposits)) > 0? `${getBalanceAmount(new BigNumber(mggFarm.totalDeposits)).toFormat(4)} ${mggFarm.lpSymbol}` : (
-    <Oval width="20px" height="20px" />
-  )
+  const totalStaked =
+    getBalanceNumber(new BigNumber(mggFarm.totalDeposits)) > 0 ? (
+      `${getBalanceAmount(new BigNumber(mggFarm.totalDeposits)).toFormat(4)} ${mggFarm.lpSymbol}`
+    ) : (
+      <Oval width="20px" height="20px" />
+    )
   const tvr = useMemo(
     () => getBalanceAmount(new BigNumber(mggFarm.lpTotalSupply)).times(LPPrice).toFixed(4),
     [mggFarm.lpTotalSupply, LPPrice],
@@ -505,16 +507,15 @@ const Farms: React.FC = () => {
                 <Text fontSize="17px" bold color={theme.colors.MGG_accent2}>
                   Total Tokens Staked
                 </Text>
-                <Text fontSize="20px">
-                  {' '}
-                  {totalStaked}
-                </Text>
+                <Text fontSize="20px"> {totalStaked}</Text>
               </Flex>
               <Flex flexDirection="column">
                 <Text fontSize="17px" bold color={theme.colors.MGG_accent2}>
                   Total Value Locked
                 </Text>
-                <Text fontSize="20px">{Number(tvr) > 0 && Number(tvr) !== Infinity? `${tvr} USD` : <Oval width="20px" height="20px" />}</Text>
+                <Text fontSize="20px">
+                  {Number(tvr) > 0 && Number(tvr) !== Infinity ? `${tvr} USD` : <Oval width="20px" height="20px" />}
+                </Text>
               </Flex>
               <Flex flexDirection="column">
                 <Text fontSize="17px" bold color={theme.colors.MGG_accent2}>

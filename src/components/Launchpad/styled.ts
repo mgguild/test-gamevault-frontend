@@ -60,7 +60,7 @@ export const StatusBox = styled(Flex)<{ status: string }>`
   border-radius: 3px;
 `
 
-export const PostHeader = styled(Header)<{background?:string}>`
+export const PostHeader = styled(Header)<{ background?: string }>`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -68,17 +68,17 @@ export const PostHeader = styled(Header)<{background?:string}>`
   // background-position: 50% 78%;
   // background-size: cover;
   // background-repeat: no-repeat;
-  border-top: 3px solid ${(({theme}) => theme.colors.MGG_active)};
-  border-bottom: 3px solid ${(({theme}) => theme.colors.MGG_active)};
+  border-top: 3px solid ${({ theme }) => theme.colors.MGG_active};
+  border-bottom: 3px solid ${({ theme }) => theme.colors.MGG_active};
   background: #101010;
-  
+
   @media screen and (max-width: 425px) {
     flex-direction: column;
   }
 
   ${({ background, theme }) =>
-  background &&
-  `
+    background &&
+    `
       &:before {
           content: ' ';
           display: block;
@@ -102,12 +102,12 @@ export const PostHeader = styled(Header)<{background?:string}>`
   }
 `
 export const PostBody = styled(Flex)`
-flex-direction: column;
+  flex-direction: column;
   & > * {
     z-index: 1;
   }
   padding: 0px 0px;
-  ${(({theme}) => theme.mediaQueries.md)} {
+  ${({ theme }) => theme.mediaQueries.md} {
     width: 100%;
     padding: 20px 30px;
     background-color: ${({ theme }) => theme.card.background};
@@ -118,11 +118,13 @@ export const PostContainer = styled.div`
   position: relative;
 `
 
-export const TokenProperty = styled(Flex)<{claimable?: string}>`
+export const TokenProperty = styled(Flex)<{ claimable?: string }>`
   background-color: ${({ theme }) => theme.colors.MGG_accent2};
-  ${(({claimable, theme}) => claimable && `
+  ${({ claimable, theme }) =>
+    claimable &&
+    `
   background-color: ${claimable === 'USER_CLAIMABLE' ? `#29b213` : theme.colors.MGG_container};
-  `)}  
+  `}
   border-radius: 25px;
   min-width: 80px;
   margin: 0px 10px;
@@ -140,12 +142,11 @@ export const TokenProperty = styled(Flex)<{claimable?: string}>`
 `
 
 export const Details = styled(Button)`
-  background-color: ${(({theme}) => theme.colors.MGG_mainBG)};
+  background-color: ${({ theme }) => theme.colors.MGG_mainBG};
   border-radius: 5px;
   height: 40px;
   margin-left: 15px;
-  color: ${(({theme}) => theme.colors.text)}
-  @media (max-width: 500px) {
+  color: ${({ theme }) => theme.colors.text} @media (max-width: 500px) {
     width: 40%;
   }
 `
@@ -159,7 +160,7 @@ export const SaleContainer = styled(Flex)`
   margin: 10px 0px;
   padding: 30px;
   flex-flow: column wrap;
-  ${(({theme}) => theme.mediaQueries.sm)} {
+  ${({ theme }) => theme.mediaQueries.sm} {
     flex-flow: row wrap;
     & > * {
       width: 45%;
@@ -173,26 +174,26 @@ export const SaleRow = styled(Flex)`
 `
 
 export const PadTitles = styled(Flex)`
-flex-direction: column;
-align-items: flex-start;
-  ${(({theme}) => `
+  flex-direction: column;
+  align-items: flex-start;
+  ${({ theme }) => `
     ${theme.mediaQueries.md} {
       flex-direction: row;
       align-items: center;
     }
-  `)}
+  `}
 `
 
 export const PadActions = styled(Flex)`
-flex-direction: column;
-align-items: flex-start;
-& > * {
-  margin-top: 5px;
-}
-  ${(({theme}) => `
+  flex-direction: column;
+  align-items: flex-start;
+  & > * {
+    margin-top: 5px;
+  }
+  ${({ theme }) => `
     ${theme.mediaQueries.md} {
       flex-direction: row;
       align-items: center;
     }
-  `)}
+  `}
 `

@@ -71,9 +71,8 @@ const farms: FarmConfig[] = [
     token: tokens.mgg,
     pairToken: tokens.busd,
     quoteToken: tokens.mgg,
-    isPromoted: 1
+    isPromoted: 1,
   },
-
 ]
 
 export default farms

@@ -21,8 +21,8 @@ export const AboutColumn = styled(Column)`
 `
 
 export const TierColumns = styled(Flex)`
-flex-wrap: wrap;
-justify-content: center;
+  flex-wrap: wrap;
+  justify-content: center;
 `
 
 export const TwoColumn = styled(Column)`

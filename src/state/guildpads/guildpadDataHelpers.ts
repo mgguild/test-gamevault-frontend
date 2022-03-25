@@ -26,7 +26,7 @@ const fetchINODetails = async (guildpad: Guildpad) => {
     {
       address: guildpadAddress,
       name: 'getRarity',
-      params: [1]
+      params: [1],
     },
     {
       address: guildpadAddress,
@@ -39,7 +39,7 @@ const fetchINODetails = async (guildpad: Guildpad) => {
     {
       address: guildpadAddress,
       name: 'getSoldRarity',
-      params: [1]
+      params: [1],
     },
     {
       address: guildpadAddress,
@@ -57,17 +57,22 @@ const fetchINODetails = async (guildpad: Guildpad) => {
   ]
 
   const [
-    hasStarted, hasEnded, totalSupply,
-    boxInfo, totalSold, tRaise,
-    soldRarity1, buyLimitEnabled, buyLimit,
-    whitelistEnabled
-  ] =
-    await multicallv2(ino, calls)
+    hasStarted,
+    hasEnded,
+    totalSupply,
+    boxInfo,
+    totalSold,
+    tRaise,
+    soldRarity1,
+    buyLimitEnabled,
+    buyLimit,
+    whitelistEnabled,
+  ] = await multicallv2(ino, calls)
 
   const boxPrice = getBalanceAmount(new BigNumber(boxInfo.rarityPrice.toString()))
-  const percentSold =  new BigNumber(new BigNumber(soldRarity1.toString())
-    .div(new BigNumber(boxInfo.raritySupply.toString())).toString())
-    .multipliedBy(new BigNumber(100).toString())
+  const percentSold = new BigNumber(
+    new BigNumber(soldRarity1.toString()).div(new BigNumber(boxInfo.raritySupply.toString())).toString(),
+  ).multipliedBy(new BigNumber(100).toString())
   const totalRaise = getBalanceAmount(tRaise, guildpad.buyingCoin.decimals)
   const tSold = toBigNumber(totalSold)
   const remainingSupply = toBigNumber(totalSupply).minus(tSold)
@@ -137,15 +142,13 @@ export const fetchIDODetails = async (guildpad: Guildpad) => {
   // const totalParticipants = await contract.totalParticipant();
   // const percentage = totalSales.divide(expectedSales).multiply(BigInt(100));
 
-  const [
-    hasStarted, hasEnded, startTime,
-    totalRewardTokens, totRaise,
-    tokRate, soldAmount, totalParticipant
-  ] =
+  const [hasStarted, hasEnded, startTime, totalRewardTokens, totRaise, tokRate, soldAmount, totalParticipant] =
     await multicallv2(ido, calls)
-  const expectedSales = getBalanceAmount(tokRate, guildpad.buyingCoin.decimals).multipliedBy(getBalanceAmount(totalRewardTokens, guildpad.buyingCoin.decimals))
-  const totalSupply =  getBalanceAmount(totalRewardTokens, guildpad.sellingCoin.decimals)
-  const totalSold =  getBalanceAmount(soldAmount, guildpad.sellingCoin.decimals)
+  const expectedSales = getBalanceAmount(tokRate, guildpad.buyingCoin.decimals).multipliedBy(
+    getBalanceAmount(totalRewardTokens, guildpad.buyingCoin.decimals),
+  )
+  const totalSupply = getBalanceAmount(totalRewardTokens, guildpad.sellingCoin.decimals)
+  const totalSold = getBalanceAmount(soldAmount, guildpad.sellingCoin.decimals)
   const tokenRate = getBalanceAmount(tokRate.toString(), guildpad.buyingCoin.decimals)
   const totalRaise = getBalanceAmount(totRaise, guildpad.buyingCoin.decimals)
   const percentage = totalRaise.dividedBy(expectedSales).multipliedBy(100)
@@ -165,4 +168,4 @@ export const fetchIDODetails = async (guildpad: Guildpad) => {
   }
 }
 
-export default fetchINODetails;
+export default fetchINODetails

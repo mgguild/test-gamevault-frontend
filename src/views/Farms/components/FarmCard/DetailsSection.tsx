@@ -20,10 +20,7 @@ const StyledLinkExternal = styled(LinkExternal)`
   font-weight: 400;
 `
 
-const DetailsSection: React.FC<ExpandableSectionProps> = ({
-  stakingAddress,
-  lpInfoAddress,
-}) => {
+const DetailsSection: React.FC<ExpandableSectionProps> = ({ stakingAddress, lpInfoAddress }) => {
   const { t } = useTranslation()
 
   return (
@@ -36,7 +33,7 @@ const DetailsSection: React.FC<ExpandableSectionProps> = ({
         <StyledLinkExternal href={addLiquidityUrl}>{t('Get %symbol%', { symbol: lpLabel })}</StyledLinkExternal>
       )} */}
       <StyledLinkExternal href={stakingAddress}>View Staking Contract</StyledLinkExternal>
-      { lpInfoAddress && <StyledLinkExternal href={lpInfoAddress}>{t('See Pair Info')}</StyledLinkExternal>}
+      {lpInfoAddress && <StyledLinkExternal href={lpInfoAddress}>{t('See Pair Info')}</StyledLinkExternal>}
     </Wrapper>
   )
 }

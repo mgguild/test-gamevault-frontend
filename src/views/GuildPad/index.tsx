@@ -1,1 +1,1 @@
-export { default } from './Guildpad';
+export { default } from './Guildpad'

@@ -6,7 +6,9 @@ export const ContainerBoxCard = styled(Flex)`
   margin: 4rem 5rem;
   align-items: center;
   justify-content: center;
-  ${({theme}) => !theme.isDark && `
+  ${({ theme }) =>
+    !theme.isDark &&
+    `
     & > * { 
       z-index: 1;
      }
@@ -14,10 +16,9 @@ export const ContainerBoxCard = styled(Flex)`
 `
 
 export const MarketCard = styled(Flex)`
-    background-color: ${(({theme}) => theme.colors.MGG_container)};
-    padding: 10px;
-    flex-direction: column;
-    
+  background-color: ${({ theme }) => theme.colors.MGG_container};
+  padding: 10px;
+  flex-direction: column;
 `
 
 const MarketCardSection = styled(Flex)`
@@ -30,18 +31,20 @@ const MarketCardSection = styled(Flex)`
 `
 
 export const ProgressSection = styled(MarketCardSection)`
-    flex-direction: column;
+  flex-direction: column;
 `
 
 export const DetailSection = styled(MarketCardSection)`
   flex-direction: column;
-  border-top: 3px solid ${(({theme}) => theme.colors.primary)};
-  border-bottom: 3px solid ${(({theme}) => theme.colors.primary)}; 
+  border-top: 3px solid ${({ theme }) => theme.colors.primary};
+  border-bottom: 3px solid ${({ theme }) => theme.colors.primary};
 `
-export const DataRow = styled(Flex)<{modify?: boolean}>`
+export const DataRow = styled(Flex)<{ modify?: boolean }>`
   justify-content: space-between;
   margin: 10px;
-  ${({modify, theme}) => modify &&`
+  ${({ modify, theme }) =>
+    modify &&
+    `
     & :first-child {
       color: ${theme.colors.MGG_accent2};
     }
@@ -52,12 +55,12 @@ export const AllocSection = styled(MarketCardSection)`
   flex-direction: column;
 `
 export const ActionSection = styled(MarketCard)`
-    background-color: transparent;
-    z-index: 1;
+  background-color: transparent;
+  z-index: 1;
 `
 
-export const TimerContainer = styled(Flex)<{isStart?:boolean}>`
-  background-color: ${(({isStart}) => isStart? '#5C9E04' : 'transparent' )};
+export const TimerContainer = styled(Flex)<{ isStart?: boolean }>`
+  background-color: ${({ isStart }) => (isStart ? '#5C9E04' : 'transparent')};
   margin-bottom: 10px;
   justify-content: center;
 `

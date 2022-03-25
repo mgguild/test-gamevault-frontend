@@ -272,8 +272,8 @@ export interface Guildpad extends GuildpadConfig {
 }
 
 export interface GuildpadState {
-  selected?: Guildpad | null;
-  data: Guildpad[];
+  selected?: Guildpad | null
+  data: Guildpad[]
   userDataLoaded: boolean
 }
 

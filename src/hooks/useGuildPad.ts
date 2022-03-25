@@ -14,7 +14,8 @@ import {
   useInoContract,
   useLottery,
   useMasterchef,
-  useSousChef, useVestingContract,
+  useSousChef,
+  useVestingContract,
 } from './useContract'
 import useToast from './useToast'
 import useLastUpdated from './useLastUpdated'
@@ -24,14 +25,13 @@ export const useBoxSold = (lpContract: Contract, contractAddress: Contract) => {
   //
 }
 
-
 export const useBuyBox = (contractAddress: string) => {
   const { account } = useWeb3React()
   const inoContract = useInoContract(contractAddress)
 
   const handleBuyBox = useCallback(
     async (rarity: string, quantity, contract?: Contract) => {
-      const txHash = await buyBox(contract?? inoContract, rarity, account, quantity)
+      const txHash = await buyBox(contract ?? inoContract, rarity, account, quantity)
       console.info(txHash)
     },
     [account, inoContract],
@@ -46,7 +46,7 @@ export const useBuyIgo = (contractAddress: string) => {
 
   const handleBuyIgo = useCallback(
     async (quantity, contract?: Contract) => {
-      const txHash = await buyIgo(contract?? igoContract, account, quantity)
+      const txHash = await buyIgo(contract ?? igoContract, account, quantity)
     },
     [account, igoContract],
   )
@@ -60,7 +60,7 @@ export const useClaimVesting = (contractAddress: string) => {
 
   const handleClaimVesting = useCallback(
     async (contract?: Contract) => {
-      const txHash = await claimVesting(contract?? vestingContract, account)
+      const txHash = await claimVesting(contract ?? vestingContract, account)
     },
     [account, vestingContract],
   )

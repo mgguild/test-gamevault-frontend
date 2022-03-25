@@ -148,21 +148,26 @@ const ContainerProjDesc = styled(Flex)`
 // `
 
 // COUNTDOWN TIMER
-const CountDown: React.FC<{ round: string, start?:boolean, end?:number}> = ({round, start, end}) => {
+const CountDown: React.FC<{ round: string; start?: boolean; end?: number }> = ({ round, start, end }) => {
   const endDate = end
-  const isStart = start;
+  const isStart = start
 
-  const Renderer = (days?: number, hours?: number, minutes?: number, seconds?: number) => <TimerRenderer days={days} hours={hours} minutes={minutes} seconds={seconds} round={round} />
+  const Renderer = (days?: number, hours?: number, minutes?: number, seconds?: number) => (
+    <TimerRenderer days={days} hours={hours} minutes={minutes} seconds={seconds} round={round} />
+  )
 
   return (
-    <TimerContainer justifyContent="right" padding={isStart? '10px':'0px'}>
-      { isStart ? (
-        <Timer
-        dateSettings={{ isStart, end: endDate }}
-        Renderer={Renderer}
-       />
+    <TimerContainer justifyContent="right" padding={isStart ? '10px' : '0px'}>
+      {isStart ? (
+        <Timer dateSettings={{ isStart, end: endDate }} Renderer={Renderer} />
       ) : (
-        <Heading className='glow' size='xl' color='white' textTransform='uppercase' style={{whiteSpace: 'nowrap', letterSpacing: ' 0.2rem'}}>
+        <Heading
+          className="glow"
+          size="xl"
+          color="white"
+          textTransform="uppercase"
+          style={{ whiteSpace: 'nowrap', letterSpacing: ' 0.2rem' }}
+        >
           「 Round Ended 」
         </Heading>
       )}
@@ -261,18 +266,18 @@ const CardHeader: React.FC<{ status: string; background?: string; guildpad: Guil
   guildpad,
 }) => (
   <Header src={background}>
-    <Flex style={{zIndex: 1, width: '100%'}}>
+    <Flex style={{ zIndex: 1, width: '100%' }}>
       <ColumnTwo>
         <TokenLogo
           projName={guildpad.title}
           tokenName={guildpad.sellingCoin.symbol}
-          nameSize='xl'
+          nameSize="xl"
           primaryToken={guildpad.sellingCoin}
           padding="0"
           socMeds={guildpad.socials}
           color="white"
         />
-        <Flex justifyContent='right' alignItems='center'>
+        <Flex justifyContent="right" alignItems="center">
           <div>
             <StatusBox status={status.toLowerCase()} padding="10px">
               {status.toUpperCase()}
@@ -284,38 +289,45 @@ const CardHeader: React.FC<{ status: string; background?: string; guildpad: Guil
   </Header>
 )
 
-
-const Card: React.FC<{ guildpad: GuildpadConfig, userDataLoaded: boolean }> = ({ guildpad, userDataLoaded }) => {
+const Card: React.FC<{ guildpad: GuildpadConfig; userDataLoaded: boolean }> = ({ guildpad, userDataLoaded }) => {
   const { account } = useWeb3React()
   const theme = useContext(ThemeContext)
   const src = useFetchBanner(guildpad.sellingCoin.symbol)
   const bgSrc = useFetchPadBG(guildpad.sellingCoin.symbol)
   const status = getGuildpadStatus(guildpad)
 
-  const renderType = (type:string) => {
-    switch(type){
+  const renderType = (type: string) => {
+    switch (type) {
       case TYPE.INO:
         return (
           <>
             <Flex
-          className='crt'
-          style={{
-            position: 'relative',
-            background: 'black',
-            minHeight: '6rem',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-        >
-          <CountDown round={guildpad.round} start={status === GUILDPAD_STATUS.ongoing} end={guildpad.epochEndDate}/>
-        </Flex>
-        <ContainerBoxCard>
-          {/* BOX CARD */}
-          <Boxcard imgProps={{ src: 'Chest3.png', size: '15rem' }} guildpad={guildpad} userDataLoaded={userDataLoaded} />
-        </ContainerBoxCard>
-        <ContainerProjDesc>
-          <Content guildpad={guildpad}/>
-        </ContainerProjDesc>
+              className="crt"
+              style={{
+                position: 'relative',
+                background: 'black',
+                minHeight: '6rem',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <CountDown
+                round={guildpad.round}
+                start={status === GUILDPAD_STATUS.ongoing}
+                end={guildpad.epochEndDate}
+              />
+            </Flex>
+            <ContainerBoxCard>
+              {/* BOX CARD */}
+              <Boxcard
+                imgProps={{ src: 'Chest3.png', size: '15rem' }}
+                guildpad={guildpad}
+                userDataLoaded={userDataLoaded}
+              />
+            </ContainerBoxCard>
+            <ContainerProjDesc>
+              <Content guildpad={guildpad} />
+            </ContainerProjDesc>
           </>
         )
       case TYPE.IDO:
@@ -332,13 +344,10 @@ const Card: React.FC<{ guildpad: GuildpadConfig, userDataLoaded: boolean }> = ({
     }
   }
 
-
   return (
     <GCard src={bgSrc}>
-      <CardHeader status={status} background={src} guildpad={guildpad}/>
-      <Contain>
-      { renderType(guildpad.type) }
-      </Contain>
+      <CardHeader status={status} background={src} guildpad={guildpad} />
+      <Contain>{renderType(guildpad.type)}</Contain>
     </GCard>
   )
 }

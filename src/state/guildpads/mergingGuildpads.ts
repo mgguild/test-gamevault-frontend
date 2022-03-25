@@ -4,9 +4,7 @@ import BigNumber from 'bignumber.js'
 import { GUILDPAD_STATUS } from 'config/constants/types'
 import { Guildpad } from '../types'
 
-
 const mergingGuildpads = (guildpads: Guildpad[]): Guildpad[] => {
-
   const mergesGP = []
 
   guildpads.forEach((guildpad, index) => {
@@ -19,29 +17,39 @@ const mergingGuildpads = (guildpads: Guildpad[]): Guildpad[] => {
       status: GUILDPAD_STATUS.completed,
     }
     // Find nextRoundID property exists and check if not merged, has ended, and completed
-    if(!guildpad.merged && guildpad.nextRoundID && guildpad.hasEnded && guildpad.status === GUILDPAD_STATUS.completed){
+    if (
+      !guildpad.merged &&
+      guildpad.nextRoundID &&
+      guildpad.hasEnded &&
+      guildpad.status === GUILDPAD_STATUS.completed
+    ) {
       // copy all first round values
-      merging = {...guildpads[index], ...merging}
+      merging = { ...guildpads[index], ...merging }
       // Get next round GP
       const toMergeGP = guildpads.filter((gp) => gp.id === guildpad.nextRoundID)[0]
 
       // Checks if toMergeGP exists, is round 2, has ended, and completed
-      if(toMergeGP && toMergeGP.round === '2' && toMergeGP.hasEnded && toMergeGP.status === GUILDPAD_STATUS.completed){
+      if (
+        toMergeGP &&
+        toMergeGP.round === '2' &&
+        toMergeGP.hasEnded &&
+        toMergeGP.status === GUILDPAD_STATUS.completed
+      ) {
         guildpads[index].nextRoundID = 0
         Object.keys(guildpads[index]).forEach((key) => {
-          if(key === 'totalSold' || key === 'totalRaise' || key === 'totalParticipants'){
+          if (key === 'totalSold' || key === 'totalRaise' || key === 'totalParticipants') {
             // Sum of totalSold and totalsRaise of from rounds
             merging[key] = new BigNumber(guildpads[index][key]).plus(new BigNumber(toMergeGP[key])).toString()
           }
-          if(key === 'epochEndDate'){
+          if (key === 'epochEndDate') {
             // get latest round epochEndDate
             merging[key] = toMergeGP[key]
           }
-          if(key === 'percentage' || key === 'remainingSupply'){
+          if (key === 'percentage' || key === 'remainingSupply') {
             merging[key] = toMergeGP[key]
           }
-          if(key === 'date'){
-            merging[key] = {...merging[key], end: toMergeGP[key].end}
+          if (key === 'date') {
+            merging[key] = { ...merging[key], end: toMergeGP[key].end }
           }
         })
         merging.id = guildpads.length + 1

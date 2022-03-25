@@ -23,7 +23,10 @@ import {
   getChainlinkOracleContract,
   getSouschefV2Contract,
   getLotteryV2Contract,
-  getLpStakingContract, getInoContract, getIgoContract, getVestingContract,
+  getLpStakingContract,
+  getInoContract,
+  getIgoContract,
+  getVestingContract,
 } from 'utils/contractHelpers'
 
 /**

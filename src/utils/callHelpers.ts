@@ -19,33 +19,23 @@ export const approve = async (lpContract, masterChefContract, account) => {
 }
 
 export const approveContract = async (tokenContract: Contract, spender: string, account) => {
-  return tokenContract.methods
-    .approve(spender, ethers.constants.MaxUint256)
-    .send({ from: account })
+  return tokenContract.methods.approve(spender, ethers.constants.MaxUint256).send({ from: account })
 }
 
 export const buyBox = async (inoContract, rarity, account, amount) => {
-  return inoContract.methods
-    .buy(rarity)
-    .send({ from: account, value: getDecimalAmount(amount) })
+  return inoContract.methods.buy(rarity).send({ from: account, value: getDecimalAmount(amount) })
 }
 
 export const buyIgo = async (igoContract, account, amount) => {
-  return igoContract.methods
-    .buyTokens(getDecimalAmount(amount).toString())
-    .send({ from: account})
+  return igoContract.methods.buyTokens(getDecimalAmount(amount).toString()).send({ from: account })
 }
 
 export const claimVesting = async (vestingContract, account) => {
-  return vestingContract.methods
-    .claimAll()
-    .send({ from: account})
+  return vestingContract.methods.claimAll().send({ from: account })
 }
 
 export const approveWithAmount = async (lpContract, masterChefContract, account, amount) => {
-  return lpContract.methods
-    .approve(masterChefContract.options.address, amount)
-    .send({ from: account })
+  return lpContract.methods.approve(masterChefContract.options.address, amount).send({ from: account })
 }
 
 export const stake = async (masterChefContract, pid, amount, account, useV2 = false) => {
