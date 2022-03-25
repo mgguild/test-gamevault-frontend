@@ -221,7 +221,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
       setClaimInitiated(true)
       try {
         await onClaimVesting()
-        toastSuccess(`Successfully Bought!`)
+        toastSuccess(`Successfully Claimed!`)
         setClaimInitiated(false)
         dispatch(fetchPublicGuildpadDataAsync([guildpad.id]))
         dispatch(fetchGuildpadUserDataAsync({ account, ids }))
@@ -238,7 +238,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
             {!account && <UnlockButton />}
             {account && (
               <Button
-                disabled={!guildpad.userData.vesting.hasClaimable || !hasToClaimNow}
+                disabled={!guildpad.userData.vesting.hasClaimable || !hasToClaimNow || claimInitiated}
                 style={{ background: theme.colors.MGG_accent1 }}
                 onClick={handleClaim}
               >
