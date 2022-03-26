@@ -124,6 +124,9 @@ const ModalComponent: React.FC<ModalProps> = ({ onDismiss, guildpad }) => {
           <Text color="textSubtle" fontSize="1.1em">
             Max. Allocation is {maxPayableAmount.toString()} {guildpad.sellingCoin.symbol}
           </Text>
+          <Text color="textSubtle" fontSize="1.1em">
+            Balance: {balance.toString()} {guildpad.buyingCoin.symbol}
+          </Text>
         </HeaderSection>
         <SwapSection>
           <CurrencyInputPanel

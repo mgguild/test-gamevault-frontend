@@ -162,21 +162,31 @@ export const fetchUserDistributionDetails = async (account: string, guildpadsToF
     })
     .map((guildpad, index) => {
       let data = []
-      let toClaimTotal = 0
-      let epochToClaimNext = rawValues[index][0][0].epoch
-      for (let x = 0; x < rawValues[index][0].length; x++) {
-        if (epochEnded(rawValues[index][0][x].epoch) && !rawValues[index][0][x].isClaimed) {
-          toClaimTotal += parseInt(rawValues[index][0][x].amount)
-          if (x + 1 < rawValues[index][0].length && !epochEnded(rawValues[index][0][x + 1].epoch)) {
-            epochToClaimNext = rawValues[index][0][x + 1].epoch
+      let availableToClaim = 0
+      let totalToClaim = 0
+      let totalClaimed = 0
+      const rawValueElement = rawValues[index][0]
+      let epochToClaimNext = rawValueElement[rawValueElement.length - 1].epoch
+      for (let x = 0; x < rawValueElement.length; x++) {
+        const amount = parseInt(rawValueElement[x].amount)
+        const claimed = rawValueElement[x].isClaimed
+        const epoch = rawValueElement[x].epoch
+        totalToClaim += amount
+        if (claimed) {
+          totalClaimed += amount
+        }
+        if (epochEnded(epoch) && !claimed) {
+          availableToClaim += amount
+          if (x + 1 < rawValueElement.length && !epochEnded(rawValueElement[x + 1].epoch)) {
+            epochToClaimNext = rawValueElement[x + 1].epoch
           }
         }
         data = [
           ...data,
           {
-            amount: rawValues[index][0][x].amount.toString(),
-            epoch: rawValues[index][0][x].epoch.toString(),
-            isClaimed: rawValues[index][0][x].isClaimed,
+            amount: rawValueElement[x].amount.toString(),
+            epoch: epoch.toString(),
+            isClaimed: claimed,
           },
         ]
       }
@@ -186,7 +196,9 @@ export const fetchUserDistributionDetails = async (account: string, guildpadsToF
         userData: {
           vesting: {
             epochToClaimNext: epochToClaimNext.toString(),
-            toClaimTotal,
+            availableToClaim,
+            totalToClaim,
+            totalClaimed,
             hasClaimable: guildpad.userData.vesting.hasClaimable,
             distributionDetails: data,
           },
