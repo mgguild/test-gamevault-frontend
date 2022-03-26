@@ -4,7 +4,7 @@ import { useWeb3React } from '@web3-react/core'
 import { Button, Flex, Text, useWalletModal } from '@metagg/mgg-uikit'
 import useAuth from 'hooks/useAuth'
 import { ThemeContext } from 'styled-components'
-import { GUILDPAD_STATUS, TYPE } from 'config/constants/types'
+import { GUILDPAD_STATUS, TYPE, DISTRIBUTION } from 'config/constants/types'
 import { NavOption, PostBody, SaleContainer, SaleRow } from './styled'
 import { Guildpad } from '../../state/types'
 import { useClaimVesting } from '../../hooks/useGuildPad'
@@ -184,10 +184,15 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
               </Text>
             </SaleRow>
           )}
-          <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Token Distribution</Text>
-            <Text>{guildpad.distribution}</Text>
-          </SaleRow>
+          <div style={{textAlign: 'end'}}>
+            <SaleRow justifyContent="space-between" style={{margin: '10px 0 0 0'}}>
+                <Text color="textSubtle">Token Distribution</Text>
+                <Text>{guildpad.distribution}</Text>
+            </SaleRow>
+            {guildpad.distributionDesc &&
+              <Text small>(<em>{guildpad.distributionDesc}</em>)</Text>
+            }
+          </div>
         </Flex>
       </SaleContainer>
     )
