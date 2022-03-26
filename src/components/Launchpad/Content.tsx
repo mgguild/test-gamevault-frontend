@@ -184,10 +184,15 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
               </Text>
             </SaleRow>
           )}
-          <SaleRow justifyContent="space-between">
-            <Text color="textSubtle">Token Distribution</Text>
-            <Text>{guildpad.distribution}</Text>
-          </SaleRow>
+          <div style={{textAlign: 'end'}}>
+            <SaleRow justifyContent="space-between" style={{margin: '10px 0 0 0'}}>
+                <Text color="textSubtle">Token Distribution</Text>
+                <Text>{guildpad.distribution}</Text>
+            </SaleRow>
+            {guildpad.distributionDesc &&
+              <Text small>(<em>{guildpad.distributionDesc}</em>)</Text>
+            }
+          </div>
         </Flex>
       </SaleContainer>
     )
