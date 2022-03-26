@@ -14,7 +14,7 @@ const guildpad = {
   type: TYPE.IDO,
   round: '1',
   distribution: DISTRIBUTION.VESTING,
-  distributionDesc: '20% TGE and 20% per month for next 4 months',
+  distributionDesc: '5% up-front at TGE, 3 month cliff, then quarterly vesting over 4 quarters',
   status: GUILDPAD_STATUS.ongoing,
   contractAddress: {
     97: '0x002',
