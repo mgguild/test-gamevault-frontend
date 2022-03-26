@@ -143,14 +143,14 @@ export const fetchUserDistributionDetails = async (account: string, guildpadsToF
       return isAddressValid && isVestingAddressValid && gpad.type === TYPE.IDO && userHasClaimable
     })
     .map((guildpad) => {
-    return {
-      address: getAddress(guildpad.vestingAddress),
-      name: 'distributedAmount',
-      params: [account],
-      type: guildpad.type,
-      vestingAddress: guildpad.vestingAddress,
-    }
-  })
+      return {
+        address: getAddress(guildpad.vestingAddress),
+        name: 'distributedAmount',
+        params: [account],
+        type: guildpad.type,
+        vestingAddress: guildpad.vestingAddress,
+      }
+    })
 
   const rawValues = await multicall(vesting, calls)
   const parsedValues = guildpadsToFetch

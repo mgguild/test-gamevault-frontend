@@ -129,9 +129,11 @@ const TokenInformation: React.FC<{
           <Text>Distribution Type</Text>
           <Text bold>{type}</Text>
         </InfoRow>
-        {distributionDesc &&
-          <Text small>(<em>{distributionDesc}</em>)</Text>
-        }
+        {distributionDesc && (
+          <Text small>
+            (<em>{distributionDesc}</em>)
+          </Text>
+        )}
       </div>
     </InfoBox>
   )
