@@ -1,6 +1,63 @@
 import { GuildpadConfig, GUILDPAD_STATUS, TYPE, DISTRIBUTION } from './types'
+import tokens from './tokens'
 
 const GuildpadsLaunched: GuildpadConfig[] = [
+  {
+    id: 2,
+    title: 'Ookeenga',
+    isStatic: true,
+    nextRoundID: 0,
+    hasEnded: true,
+    description:
+      'Ookeenga (OKG) is 3D NFT gaming project which combines blockchain technology with breath-taking graphics, appealing world-building, and addictive gameplay to create a uniquely immersive play-to-earn experience developed by CROS Gamestudio and published by SPORES Network. OKG is set in a world where insects have evolved and built a massive civilization in an ancient forest called Glaik (The Sacred Forest), which divided into 2 factions: the Akhah (Pureblood) and the Ahika (Mixedblood).',
+    socials: {
+      website: 'https://ookeenga.io/',
+      twitter: 'https://twitter.com/ookeenga',
+      telegram: 'https://t.me/ookeenga_global',
+      youtube: 'https://www.youtube.com/channel/UCqQpViSkkAq_aFP3hj3GL8w',
+    },
+    type: 'IDO',
+    round: 'MERGED Ookeenga',
+    distribution: 'VESTING',
+    distributionDesc: '5% up-front at TGE, 3 month cliff, then quarterly vesting over 4 quarters',
+    status: 'completed',
+    contractAddress: {
+      56: '0x1858211ebb67b81cAa2ef740143a0D864B7339f3',
+      97: '0x002',
+    },
+    buyingCoin: tokens.busd,
+    sellingCoin: tokens.Ookeenga,
+    igoDetails: {
+      price: '0.04 USD',
+      fundsTarget: '50,000 USD',
+    },
+    date: {
+      start: 'March 25, 2022 1:00 PM UTC',
+      end: 'March 27, 2022 1:00 PM UTC',
+    },
+    epochEndDate: 1648386000000,
+    nextRoundDate: 1648299600000,
+    totalSold: '1250003.3',
+    totalRaise: '50000', // "49999.9887348728226"
+    hasStarted: true,
+    totalSupply: '1250000',
+    boxInfo: {
+      1: {
+        price: '0',
+        supply: '0',
+        sold: '0',
+      },
+    },
+    buyLimitEnabled: false,
+    buyLimit: '0',
+    startTime: '1648213080',
+    totalParticipants: '20',
+    expectedSales: '50000',
+    remainingSupply: '0.281628179435',
+    tokenRate: '0.04',
+    percentage: '100.0000',
+    display: true,
+  },
   {
     id: 1,
     title: 'Wizardia',
@@ -27,25 +84,8 @@ const GuildpadsLaunched: GuildpadConfig[] = [
       97: '0x002',
       56: '0x2579635b510087F33b9FcC0085940558Ab95D7d6',
     },
-    buyingCoin: {
-      symbol: 'BUSD',
-      address: {
-        56: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56',
-        97: '',
-      },
-      decimals: 18,
-      projectLink: 'https://www.paxos.com/busd/',
-    },
-    sellingCoin: {
-      symbol: 'WZRD',
-      address: {
-        56: 'Wizardia',
-        97: 'Wizardia',
-      },
-      iconExtension: 'png',
-      decimals: 18,
-      projectLink: 'https://wizardia.io//',
-    },
+    buyingCoin: tokens.busd,
+    sellingCoin: tokens.Wizardia,
     igoDetails: {
       price: '0.12 USD',
       fundsTarget: '60,000 USD',
@@ -100,20 +140,8 @@ const GuildpadsLaunched: GuildpadConfig[] = [
       56: '0xf99869Fb775456e84Aa980f1fC104297694b8c47',
       97: '0xE673E67bD59A7390725ED98cBead9A5928F6f51E',
     },
-    buyingCoin: {
-      symbol: 'BNB',
-      projectLink: 'https://www.binance.com/',
-    },
-    sellingCoin: {
-      symbol: 'TankWarsZone',
-      address: {
-        56: 'tankwarszone',
-        97: 'tankwarszone',
-      },
-      iconExtension: 'png',
-      decimals: 18,
-      projectLink: 'https://www.tankwars.zone/',
-    },
+    buyingCoin: tokens.bnb,
+    sellingCoin: tokens.TankWarsZone,
     inoDetails: {
       price: '0.3073',
       boxes: '300',
