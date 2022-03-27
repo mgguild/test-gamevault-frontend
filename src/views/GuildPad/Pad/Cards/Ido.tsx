@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { toNumber } from 'lodash'
 import { Guildpad } from 'state/types'
@@ -57,6 +58,15 @@ const CountDown: React.FC<{ status: string; round: string; start?: boolean; end?
   )
 }
 
+BigNumber.config({
+  DECIMAL_PLACES: 4,
+  FORMAT: {
+    decimalSeparator: '.',
+    groupSeparator: ',',
+    groupSize: 3,
+  },
+})
+
 const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ guildpad, userDataLoaded }) => {
   const { account } = useWeb3React()
   const [useBuyIDOModal] = useModal(<BuyIdoModal guildpad={guildpad} />)
@@ -79,6 +89,9 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
   }, [account, guildpad, showNotInWhitelistModal, whitelistModalShowed, userDataLoaded])
 
   const remainingSupply = toBigNumber(guildpad.remainingSupply)
+  const totalSupply = toBigNumber(guildpad.totalSupply).toFormat()
+  const totalRaised = toBigNumber(guildpad.totalRaise).toFormat()
+  const totalSold = toBigNumber(guildpad.totalSold).toFormat()
   const status = getGuildpadStatus(guildpad)
 
   return (
@@ -94,14 +107,14 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
           <MarketCard>
             <ProgressSection>
               <Heading>
-                {`${guildpad.totalSold}`} {guildpad.sellingCoin.symbol} SOLD
+                {`${totalSold}`} {guildpad.sellingCoin.symbol} SOLD
               </Heading>
               <div>
                 <Progress variant="flat" primaryStep={toNumber(guildpad.percentage)} />
                 <Flex justifyContent="space-between">
                   <Text fontSize="12px">{guildpad.percentage}%</Text>
                   <Text fontSize="12px">
-                    {guildpad.totalSold} / {guildpad.totalSupply}
+                    {totalSold} / {totalSupply}
                   </Text>
                 </Flex>
               </div>
@@ -110,7 +123,7 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
               <DataRow>
                 <Text>Total Raise</Text>
                 <Text>
-                  {guildpad.totalRaise} {guildpad.buyingCoin.symbol}
+                  {totalRaised} {guildpad.buyingCoin.symbol}
                 </Text>
               </DataRow>
               <DataRow>
@@ -121,7 +134,7 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
               </DataRow>
               <DataRow>
                 <Text>{guildpad.sellingCoin.symbol} Sold</Text>
-                <Text>{guildpad.totalSold}</Text>
+                <Text>{totalSold}</Text>
               </DataRow>
               <DataRow modify>
                 <Text>Max Allocation</Text>
