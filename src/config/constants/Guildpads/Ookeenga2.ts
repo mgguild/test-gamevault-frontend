@@ -15,7 +15,7 @@ const guildpad = {
   round: '2',
   distribution: DISTRIBUTION.VESTING,
   distributionDesc: '5% up-front at TGE, 3 month cliff, then quarterly vesting over 4 quarters',
-  status: GUILDPAD_STATUS.ongoing,
+  status: GUILDPAD_STATUS.completed,
   contractAddress: {
     97: '0x002',
     56: '0xF8feb75031145524008C0f9565acA43599f202Ac',
