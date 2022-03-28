@@ -290,6 +290,20 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
     )
   }
 
+  const renderIfClaim = () => {
+    return (
+      <>
+        {guildpad.vestingAddress ? (
+          <RenderClaim />
+        ) : (
+          <Flex style={{ justifyContent: 'center', alignItems: 'center', minHeight: '5rem' }}>
+            <Text>TBA</Text>
+          </Flex>
+        )}
+      </>
+    )
+  }
+
   const renderAllocation = () => {
     return (
       <SaleContainer justifyContent="space-between">
@@ -328,7 +342,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
       case 4:
         return renderDescription()
       case 5:
-        return <RenderClaim />
+        return renderIfClaim()
       default:
         return (
           <Flex>
@@ -356,7 +370,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
             <NavOption onClick={() => setActive(1)} activeIndex={active === 1}>
               {guildpad.type === TYPE.INO ? 'NFT' : 'Token'} Sale
             </NavOption>
-            {guildpad.type !== TYPE.INO && guildpad.status === GUILDPAD_STATUS.completed && guildpad.vestingAddress && (
+            {guildpad.type !== TYPE.INO && guildpad.status === GUILDPAD_STATUS.completed && (
               <NavOption onClick={() => setActive(5)} activeIndex={active === 5}>
                 Claim
               </NavOption>
