@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import moment from 'moment'
 import BigNumber from 'bignumber.js'
 import { Text, Flex, Button } from '@sparkpointio/sparkswap-uikit'
-import { getBalanceAmount } from 'utils/formatBalance'
+import { getBalanceAmount, toBigNumber } from 'utils/formatBalance'
 import styled, { ThemeContext } from 'styled-components'
 import { ChevronUp, ChevronDown } from 'react-feather'
 import { GuildpadConfig, GUILDPAD_STATUS, TYPE } from 'config/constants/types'
@@ -58,7 +58,8 @@ const Post: React.FC<{ guildpad?: Guildpad }> = ({ guildpad }) => {
   const hasRemainingSupply = new BigNumber(
     new BigNumber(guildpad.totalSupply).minus(new BigNumber(guildpad.totalSold)),
   ).isGreaterThan(0)
-  const USER_CLAIMABLE: 'USER_CLAIMABLE' | 'NOT_USER_CLAIMABLE' = guildpad.userData.vesting.hasClaimable ? 'USER_CLAIMABLE' : 'NOT_USER_CLAIMABLE'
+  const hasToClaimNow = toBigNumber(guildpad.userData.vesting.availableToClaim).gt(0)
+  const USER_CLAIMABLE: 'USER_CLAIMABLE' | 'NOT_USER_CLAIMABLE' = guildpad.userData.vesting.hasClaimable || hasToClaimNow ? 'USER_CLAIMABLE' : 'NOT_USER_CLAIMABLE'
   return (
     <PostContainer style={{ position: 'relative', overflow: 'hidden' }}>
       <PostHeader background={srcs}>
