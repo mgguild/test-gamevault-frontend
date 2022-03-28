@@ -6,6 +6,7 @@ import { getBalanceAmount } from 'utils/formatBalance'
 import styled, { ThemeContext } from 'styled-components'
 import { ChevronUp, ChevronDown } from 'react-feather'
 import { GuildpadConfig, GUILDPAD_STATUS, TYPE } from 'config/constants/types'
+import { Guildpad } from 'state/types'
 import { useFetchBanner } from 'utils/assetFetch'
 import useMedia from 'use-media'
 import {
@@ -46,7 +47,7 @@ const Container = styled.div`
   }
 `
 
-const Post: React.FC<{ guildpad?: GuildpadConfig }> = ({ guildpad }) => {
+const Post: React.FC<{ guildpad?: Guildpad }> = ({ guildpad }) => {
   const theme = useContext(ThemeContext)
   const [rarityId, setRarityId] = useState('1')
   const [toggle, setToggle] = React.useState(false)
@@ -57,7 +58,7 @@ const Post: React.FC<{ guildpad?: GuildpadConfig }> = ({ guildpad }) => {
   const hasRemainingSupply = new BigNumber(
     new BigNumber(guildpad.totalSupply).minus(new BigNumber(guildpad.totalSold)),
   ).isGreaterThan(0)
-  const USER_CLAIMABLE: 'USER_CLAIMABLE' | 'NOT_USER_CLAIMABLE' = 'NOT_USER_CLAIMABLE'
+  const USER_CLAIMABLE: 'USER_CLAIMABLE' | 'NOT_USER_CLAIMABLE' = guildpad.userData.vesting.hasClaimable ? 'USER_CLAIMABLE' : 'NOT_USER_CLAIMABLE'
   return (
     <PostContainer style={{ position: 'relative', overflow: 'hidden' }}>
       <PostHeader background={srcs}>
