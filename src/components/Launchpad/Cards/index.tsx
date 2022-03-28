@@ -106,7 +106,8 @@ const TokenInformation: React.FC<{
   type: string
   sellingCoin: string
   gpadType?: string
-}> = ({ totalRaise, boxesForSale, buyingCoin, type, sellingCoin, gpadType = 'INO' }) => {
+  distributionDesc?: string
+}> = ({ totalRaise, boxesForSale, buyingCoin, type, sellingCoin, gpadType = 'INO', distributionDesc }) => {
   return (
     <InfoBox flexDirection="column" padding="0px 24px 12px 24px">
       <InfoRow justifyContent="space-between">
@@ -123,10 +124,17 @@ const TokenInformation: React.FC<{
         <Text>Buying Coin</Text>
         <Text bold>{buyingCoin}</Text>
       </InfoRow>
-      <InfoRow justifyContent="space-between">
-        <Text>Distribution Type</Text>
-        <Text bold>{type}</Text>
-      </InfoRow>
+      <div>
+        <InfoRow justifyContent="space-between">
+          <Text>Distribution Type</Text>
+          <Text bold>{type}</Text>
+        </InfoRow>
+        {distributionDesc && (
+          <Text small>
+            (<em>{distributionDesc}</em>)
+          </Text>
+        )}
+      </div>
     </InfoBox>
   )
 }
@@ -177,6 +185,7 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
         type={guildpad.distribution}
         sellingCoin={guildpad.sellingCoin.symbol}
         gpadType={guildpad.type}
+        distributionDesc={guildpad.distributionDesc}
       />
       <Flex padding="24px">
         {!account ? (
