@@ -59,7 +59,8 @@ const Post: React.FC<{ guildpad?: Guildpad }> = ({ guildpad }) => {
     new BigNumber(guildpad.totalSupply).minus(new BigNumber(guildpad.totalSold)),
   ).isGreaterThan(0)
   const hasToClaimNow = toBigNumber(guildpad.userData.vesting.availableToClaim).gt(0)
-  const USER_CLAIMABLE: 'USER_CLAIMABLE' | 'NOT_USER_CLAIMABLE' = guildpad.userData.vesting.hasClaimable
+  console.log(hasToClaimNow)
+  const USER_CLAIMABLE: 'USER_CLAIMABLE' | 'NOT_USER_CLAIMABLE' = hasToClaimNow
     ? 'USER_CLAIMABLE'
     : 'NOT_USER_CLAIMABLE'
   return (
