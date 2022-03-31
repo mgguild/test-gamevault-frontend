@@ -289,7 +289,7 @@ const RenderFarm: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
   ]
 
   return(
-    <div style={{border: '1px solid red', background: 'red'}}>
+    <>
       <Flex>
         <HeadingBG bgColor={currentFarm.UIProps.bgColor} contain={currentFarm.UIProps.contain}>
           <Card2Container style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
@@ -428,7 +428,7 @@ const RenderFarm: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
         </TableStyle>
 
       </FlexC>
-    </div>
+    </>
   )
 }
 
