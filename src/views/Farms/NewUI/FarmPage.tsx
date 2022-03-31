@@ -489,7 +489,7 @@ const RenderPool: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
                 <TokenLogo size='3rem' src={getImageUrlFromToken(currentPool.stakingToken)} />
                 <Heading color='white' style={{fontSize: '1.875rem', padding: '0 1rem'}}>{currentPool.name} Token</Heading>
               </Flex>
-              <Text color='white'>Hodl your {currentPool.stakingToken.symbol} tokens for great benefits</Text>
+              <Text color='white'>Hold your {currentPool.stakingToken.symbol} tokens for great benefits</Text>
               <Flex>
                 <Text color='white'>Token address <Link style={{display: 'contents'}} href={getBscScanAddressUrl(getAddress(currentPool.stakingToken.address))}>{getAddress(currentPool.stakingToken.address)}</Link></Text>
               </Flex>
