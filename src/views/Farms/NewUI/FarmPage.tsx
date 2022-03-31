@@ -296,7 +296,7 @@ const RenderFarm: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
                 <TokenLogo size='3rem' src={getImageUrlFromToken(currentFarm.token)} />
                 <Heading color='white' style={{fontSize: '1.875rem', padding: '0 1rem'}}>{currentFarm.name} Token</Heading>
               </Flex>
-              <Text color='white'>Hodl your {currentFarm.token.symbol} tokens for great benefits</Text>
+              <Text color='white'>Hold your {currentFarm.token.symbol} tokens for great benefits</Text>
               <Flex>
                 <Text color='white'>Token address <Link style={{display: 'contents'}} href={getBscScanAddressUrl(getAddress(currentFarm.token.address))}>{getAddress(currentFarm.token.address)}</Link></Text>
               </Flex>
