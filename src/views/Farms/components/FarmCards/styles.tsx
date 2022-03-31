@@ -48,6 +48,10 @@ export const TokenLogo = styled.img<{ size?: string }>`
   }
 `
 
+export const ToolbarIcon = styled.img`
+  color: red;
+`
+
 export const Badge = styled.div<{ type?: number}>`
   ${({type}) => type ?
     `

@@ -3,6 +3,7 @@ import { Route, useLocation, useRouteMatch, RouteComponentProps } from 'react-ro
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { Oval } from 'react-loading-icons'
+import { RefreshCcw } from 'react-feather'
 import { Flex, Link, Text, Heading, Button, Input } from '@metagg/mgg-uikit'
 import styled, { ThemeContext } from 'styled-components'
 import FlexLayout from 'components/layout/Flex'
@@ -141,6 +142,7 @@ class ApexChart extends React.Component<{series: Series[]}, {options: ApexOption
               zoomin: true,
               zoomout: true,
               pan: false,
+              reset: '<img src="/images/icons/refresh-ccw.svg" />',
             }
           },
         },
@@ -287,7 +289,7 @@ const RenderFarm: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
   ]
 
   return(
-    <>
+    <div style={{border: '1px solid red', background: 'red'}}>
       <Flex>
         <HeadingBG bgColor={currentFarm.UIProps.bgColor} contain={currentFarm.UIProps.contain}>
           <Card2Container style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
@@ -426,7 +428,7 @@ const RenderFarm: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
         </TableStyle>
 
       </FlexC>
-    </>
+    </div>
   )
 }
 
@@ -489,7 +491,7 @@ const RenderPool: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
                 <TokenLogo size='3rem' src={getImageUrlFromToken(currentPool.stakingToken)} />
                 <Heading color='white' style={{fontSize: '1.875rem', padding: '0 1rem'}}>{currentPool.name} Token</Heading>
               </Flex>
-              <Text color='white'>Hold your {currentPool.stakingToken.symbol} tokens for great benefits</Text>
+              <Text color='white'>Hodl your {currentPool.stakingToken.symbol} tokens for great benefits</Text>
               <Flex>
                 <Text color='white'>Token address <Link style={{display: 'contents'}} href={getBscScanAddressUrl(getAddress(currentPool.stakingToken.address))}>{getAddress(currentPool.stakingToken.address)}</Link></Text>
               </Flex>
@@ -652,15 +654,7 @@ const FarmPage: React.FC<RouteComponentProps<{ type: string, farmID: string, }>>
     []
   )
 
-  return(
-    <>
-    {type === 'LP' ?
-      <RenderFarm farmID={farmID} tblColumns={columns}/>
-      :
-      <RenderPool farmID={farmID} tblColumns={columns}/>
-    }
-    </>
-  )
+  return type === 'LP' ? <RenderFarm farmID={farmID} tblColumns={columns}/> : <RenderPool farmID={farmID} tblColumns={columns}/>
 }
 
 export default FarmPage
