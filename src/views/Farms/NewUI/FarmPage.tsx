@@ -42,7 +42,7 @@ import { getAprData, getCakeVaultEarnings } from '../../Pools/helpers'
 import {FarmCard2, PoolCard2} from '../components/FarmCards'
 import SvgIcon from '../../../components/Launchpad/SvgIcon'
 import { getBscScanAddressUrl } from '../../../utils/bscscan'
-import { Cards2, Card2Container, TokenLogo, Badge, HeadingBG } from '../components/FarmCards/styles'
+import { Cards2, Card2Container, TokenLogo, Badge, LinearBG, PageContainer } from '../components/FarmCards/styles'
 import { RenderSocials } from '../../../components/Launchpad/Logo'
 
 
@@ -289,9 +289,10 @@ const RenderFarm: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
   ]
 
   return(
-    <>
+    <PageContainer  bgColor={currentFarm.UIProps.bgColor} contain={currentFarm.UIProps.contain}>
+      <LinearBG>
       <Flex>
-        <HeadingBG bgColor={currentFarm.UIProps.bgColor} contain={currentFarm.UIProps.contain}>
+        <>
           <Card2Container style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <Flex style={{textAlign: 'center', flexFlow: 'column', rowGap: '1rem'}}>
               <Flex style={{alignItems: 'center', justifyContent: 'center'}}>
@@ -305,9 +306,9 @@ const RenderFarm: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
               <RenderSocials socials={currentFarm.UIProps.socials} center color='white' size={20}/>
             </Flex>
           </Card2Container>
-        </HeadingBG>
+        </>
       </Flex>
-      <FlexC style={{backgroundColor: theme.colors.MGG_container}}>
+      <FlexC>
         <FlexC style={{backgroundColor: theme.colors.MGG_mainBG, maxWidth: '40rem'}}>
           <Heading style={{fontSize: '1.875rem'}}>{currentFarm.lpSymbol} Staking Farm</Heading>
           <Text>Deposit your {currentFarm.lpSymbol} Tokens to earn Extra Annual Percentage Rate</Text>
@@ -428,7 +429,8 @@ const RenderFarm: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
         </TableStyle>
 
       </FlexC>
-    </>
+      </LinearBG>
+    </PageContainer>
   )
 }
 
@@ -482,9 +484,10 @@ const RenderPool: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
   ]
 
   return(
-    <>
+    <PageContainer bgColor={currentPool.UIProps.bgColor} contain={currentPool.UIProps.contain}>
+      <LinearBG>
       <Flex>
-        <HeadingBG bgColor={currentPool.UIProps.bgColor} contain={currentPool.UIProps.contain}>
+        <>
           <Card2Container style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <Flex style={{textAlign: 'center', flexFlow: 'column', rowGap: '1rem'}}>
               <Flex style={{alignItems: 'center', justifyContent: 'center'}}>
@@ -498,9 +501,9 @@ const RenderPool: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
               <RenderSocials socials={currentPool.UIProps.socials} center color='white' size={20}/>
             </Flex>
           </Card2Container>
-        </HeadingBG>
+        </>
       </Flex>
-      <FlexC style={{backgroundColor: theme.colors.MGG_container}}>
+      <FlexC>
         <FlexC style={{backgroundColor: theme.colors.MGG_mainBG, maxWidth: '40rem'}}>
           <Heading style={{fontSize: '1.875rem'}}>{currentPool.stakingToken.symbol} - {currentPool.earningToken.symbol} Pool Based Farm</Heading>
           <Text>Deposit your {currentPool.stakingToken.symbol} Tokens to earn Extra Annual Percentage Rate</Text>
@@ -621,7 +624,8 @@ const RenderPool: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
         </TableStyle>
 
       </FlexC>
-    </>
+      </LinearBG>
+    </PageContainer>
   )
 }
 
