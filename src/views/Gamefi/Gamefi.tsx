@@ -149,7 +149,7 @@ const Gamefi: React.FC = () => {
     const render = (type) => {
       switch (type) {
         case 'RENDER_ENDED':
-          return (
+          return stakedMemoized.inactiveFarms.length !== 0 && stakedMemoized.inactivePools.length !== 0 ? (
             <>
               {stakedMemoized.inactiveFarms.length !== 0? (
                 stakedMemoized.inactiveFarms.map((farm) => (
@@ -182,9 +182,9 @@ const Gamefi: React.FC = () => {
               ) : <NotAvailable title="Inactive Pools" />
             }
             </>
-          )
+          ) : <NotAvailable title="inactive farms and pools" />
         default:
-          return (
+          return stakedMemoized.activeFarms.length !== 0 && stakedMemoized.activePools.length !== 0 ? (
             <>
               {stakedMemoized.activeFarms.length !== 0? (
                 stakedMemoized.activeFarms.map((farm) => (
@@ -214,10 +214,10 @@ const Gamefi: React.FC = () => {
                   bgColor="#b10303d6"
                 />
                 ))
-              ) : <NotAvailable title="No Active Pools" />
+              ) : <NotAvailable title="Active Pools" />
             }
             </>
-          )
+          ) : <NotAvailable title="active farms and pools" />
       }
     }
 
