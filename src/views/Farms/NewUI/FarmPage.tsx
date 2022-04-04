@@ -3,6 +3,7 @@ import { Route, useLocation, useRouteMatch, RouteComponentProps } from 'react-ro
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { Oval } from 'react-loading-icons'
+import { RefreshCcw } from 'react-feather'
 import { Flex, Link, Text, Heading, Button, Input } from '@metagg/mgg-uikit'
 import styled, { ThemeContext } from 'styled-components'
 import FlexLayout from 'components/layout/Flex'
@@ -41,7 +42,7 @@ import { getAprData, getCakeVaultEarnings } from '../../Pools/helpers'
 import {FarmCard2, PoolCard2} from '../components/FarmCards'
 import SvgIcon from '../../../components/Launchpad/SvgIcon'
 import { getBscScanAddressUrl } from '../../../utils/bscscan'
-import { Cards2, Card2Container, TokenLogo, Badge, HeadingBG } from '../components/FarmCards/styles'
+import { Cards2, Card2Container, TokenLogo, Badge, LinearBG, PageContainer } from '../components/FarmCards/styles'
 import { RenderSocials } from '../../../components/Launchpad/Logo'
 
 
@@ -141,6 +142,7 @@ class ApexChart extends React.Component<{series: Series[]}, {options: ApexOption
               zoomin: true,
               zoomout: true,
               pan: false,
+              reset: '<img src="/images/icons/refresh-ccw.svg" />',
             }
           },
         },
@@ -287,25 +289,26 @@ const RenderFarm: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
   ]
 
   return(
-    <>
+    <PageContainer  bgColor={currentFarm.UIProps.bgColor} contain={currentFarm.UIProps.contain}>
+      <LinearBG>
       <Flex>
-        <HeadingBG bgColor={currentFarm.UIProps.bgColor} contain={currentFarm.UIProps.contain}>
+        <>
           <Card2Container style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <Flex style={{textAlign: 'center', flexFlow: 'column', rowGap: '1rem'}}>
               <Flex style={{alignItems: 'center', justifyContent: 'center'}}>
                 <TokenLogo size='3rem' src={getImageUrlFromToken(currentFarm.token)} />
                 <Heading color='white' style={{fontSize: '1.875rem', padding: '0 1rem'}}>{currentFarm.name} Token</Heading>
               </Flex>
-              <Text color='white'>Hodl your {currentFarm.token.symbol} tokens for great benefits</Text>
+              <Text color='white'>Hold your {currentFarm.token.symbol} tokens for great benefits</Text>
               <Flex>
                 <Text color='white'>Token address <Link style={{display: 'contents'}} href={getBscScanAddressUrl(getAddress(currentFarm.token.address))}>{getAddress(currentFarm.token.address)}</Link></Text>
               </Flex>
               <RenderSocials socials={currentFarm.UIProps.socials} center color='white' size={20}/>
             </Flex>
           </Card2Container>
-        </HeadingBG>
+        </>
       </Flex>
-      <FlexC style={{backgroundColor: theme.colors.MGG_container}}>
+      <FlexC>
         <FlexC style={{backgroundColor: theme.colors.MGG_mainBG, maxWidth: '40rem'}}>
           <Heading style={{fontSize: '1.875rem'}}>{currentFarm.lpSymbol} Staking Farm</Heading>
           <Text>Deposit your {currentFarm.lpSymbol} Tokens to earn Extra Annual Percentage Rate</Text>
@@ -426,7 +429,8 @@ const RenderFarm: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
         </TableStyle>
 
       </FlexC>
-    </>
+      </LinearBG>
+    </PageContainer>
   )
 }
 
@@ -480,25 +484,26 @@ const RenderPool: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
   ]
 
   return(
-    <>
+    <PageContainer bgColor={currentPool.UIProps.bgColor} contain={currentPool.UIProps.contain}>
+      <LinearBG>
       <Flex>
-        <HeadingBG bgColor={currentPool.UIProps.bgColor} contain={currentPool.UIProps.contain}>
+        <>
           <Card2Container style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <Flex style={{textAlign: 'center', flexFlow: 'column', rowGap: '1rem'}}>
               <Flex style={{alignItems: 'center', justifyContent: 'center'}}>
                 <TokenLogo size='3rem' src={getImageUrlFromToken(currentPool.stakingToken)} />
                 <Heading color='white' style={{fontSize: '1.875rem', padding: '0 1rem'}}>{currentPool.name} Token</Heading>
               </Flex>
-              <Text color='white'>Hodl your {currentPool.stakingToken.symbol} tokens for great benefits</Text>
+              <Text color='white'>Hold your {currentPool.stakingToken.symbol} tokens for great benefits</Text>
               <Flex>
                 <Text color='white'>Token address <Link style={{display: 'contents'}} href={getBscScanAddressUrl(getAddress(currentPool.stakingToken.address))}>{getAddress(currentPool.stakingToken.address)}</Link></Text>
               </Flex>
               <RenderSocials socials={currentPool.UIProps.socials} center color='white' size={20}/>
             </Flex>
           </Card2Container>
-        </HeadingBG>
+        </>
       </Flex>
-      <FlexC style={{backgroundColor: theme.colors.MGG_container}}>
+      <FlexC>
         <FlexC style={{backgroundColor: theme.colors.MGG_mainBG, maxWidth: '40rem'}}>
           <Heading style={{fontSize: '1.875rem'}}>{currentPool.stakingToken.symbol} - {currentPool.earningToken.symbol} Pool Based Farm</Heading>
           <Text>Deposit your {currentPool.stakingToken.symbol} Tokens to earn Extra Annual Percentage Rate</Text>
@@ -619,7 +624,8 @@ const RenderPool: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
         </TableStyle>
 
       </FlexC>
-    </>
+      </LinearBG>
+    </PageContainer>
   )
 }
 
@@ -652,15 +658,7 @@ const FarmPage: React.FC<RouteComponentProps<{ type: string, farmID: string, }>>
     []
   )
 
-  return(
-    <>
-    {type === 'LP' ?
-      <RenderFarm farmID={farmID} tblColumns={columns}/>
-      :
-      <RenderPool farmID={farmID} tblColumns={columns}/>
-    }
-    </>
-  )
+  return type === 'LP' ? <RenderFarm farmID={farmID} tblColumns={columns}/> : <RenderPool farmID={farmID} tblColumns={columns}/>
 }
 
 export default FarmPage

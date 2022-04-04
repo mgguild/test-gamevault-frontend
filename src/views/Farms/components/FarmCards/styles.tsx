@@ -32,7 +32,7 @@ export const Cards2 = styled.button<{src? : string, bgColor? : string}>`
 export const Card2Container = styled.div`
   position: relative;
   padding: 1rem 1.5rem;
-  background: linear-gradient(0deg,rgb(0 0 0) 0%,rgb(0 0 0 / 50%) 25%,rgba(36,121,9,0) 75%);
+  // background: linear-gradient(0deg,rgb(0 0 0) 0%,rgb(0 0 0 / 50%) 25%,rgba(36,121,9,0) 75%);
   width: 100%;
   height: 100%;
   z-index: 2;
@@ -64,29 +64,25 @@ export const Badge = styled.div<{ type?: number}>`
   }
 `
 
-export const HeadingBG = styled.div<{src? : string, bgColor? : string, contain?: boolean}>`
-  position: relative;
-  min-width: 20rem;
-  min-height: 14rem;
-  border: none;
-  padding: 0;
-  text-align: left;
-  flex: 1;
-  overflow: hidden;
-  background-color: ${({bgColor}) => bgColor ?? '#030f62'};
-  ${({src, contain}) =>
-    `&:before {
-      content: '';
-      position: absolute;
-      inset:  ${contain ? '-4rem 0 0 -10vh' : '0 0 0 0'};
-      opacity: 0.2;
-      width: 100%;
-      height: ${contain ? '125%' : '100%'};
-      z-index: 2;
-      background-image: url(${src ?? `./MGG.png`});
-      background-repeat: no-repeat;
-      background-position: ${contain ? 'right' : 'center'};
-      background-size: ${contain ? 'contain' : 'cover'};
-    }`
-  }
+export const LinearBG = styled.div<{src? : string, bgColor? : string, contain?: boolean}>`
+background: linear-gradient(0deg,rgb(0 0 0) 0%,rgb(0 0 0 / 50%) 25%,rgba(36,121,9,0) 75%);
+`
+
+export const PageContainer = styled.div<{bgColor?: string, src?: string, contain?: boolean}>`
+background-color: ${({bgColor}) => bgColor ?? '#030f62'};
+${({src, contain}) =>
+`&:before {
+  content: '';
+  position: absolute;
+  inset:  ${contain ? '10rem 0 0 -2vh' : '0 0 0 0'};
+  opacity: 0.2;
+  width: 100%;
+  height: ${contain ? '30vw' : '20vw'};
+  z-index: 2;
+  background-image: url(${src ?? `./MGG.png`});
+  background-repeat: no-repeat;
+  background-position: ${contain ? 'right' : 'center'};
+  background-size: ${contain ? 'contain' : 'cover'};
+}`
+}
 `
