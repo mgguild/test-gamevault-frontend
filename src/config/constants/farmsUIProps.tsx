@@ -8,11 +8,11 @@ interface farmUIProps{
 const farmsUIProps: farmUIProps = {
   mgg: {
     socials: tokensSocials.mgg,
-    contain: true,
+    contain: false,
   },
   mgg2: {
     socials: tokensSocials.mgg,
-    contain: true,
+    contain: false,
     bgColor: '#b10303d6',
   },
 }
