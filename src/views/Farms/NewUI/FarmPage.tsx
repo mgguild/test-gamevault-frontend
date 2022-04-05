@@ -68,7 +68,8 @@ const StatCard = styled(Flex)`
   row-gap: 1rem;
   background-color: ${({theme}) => theme.colors.MGG_mainBG};
   text-align: start;
-  min-width: 21rem
+  min-width: 21rem;
+  flex: 1;
 `
 
 const Stats = styled(Flex)`
@@ -87,6 +88,7 @@ const TableStyle = styled.div`
   padding: 1rem;
   overflow: auto;
   background-color: ${({theme}) => theme.colors.MGG_mainBG};
+  z-index: 2;
 
   table {
     width: 99%;
@@ -112,7 +114,7 @@ const ChartStyle = styled(Flex)`
   max-width: 100%;
   background-color: ${({theme}) => theme.colors.MGG_mainBG};
   padding: 1rem;
-
+  z-index: 3;
   .apexcharts-text{
     fill: ${({theme}) => theme.colors.text};
   }
@@ -309,7 +311,7 @@ const RenderFarm: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
         </>
       </Flex>
       <FlexC>
-        <FlexC style={{backgroundColor: theme.colors.MGG_mainBG, maxWidth: '40rem'}}>
+        <FlexC style={{backgroundColor: theme.colors.MGG_mainBG, maxWidth: '40rem', zIndex: 3}}>
           <Heading style={{fontSize: '1.875rem'}}>{currentFarm.lpSymbol} Staking Farm</Heading>
           <Text>Deposit your {currentFarm.lpSymbol} Tokens to earn Extra Annual Percentage Rate</Text>
           <Text color={theme.colors.MGG_accent2}>Current APR</Text>
@@ -364,10 +366,10 @@ const RenderFarm: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
             </Flex>
           </Flex>
         </FlexC>
-        <Flex style={{margin: '2rem 0'}}>
+        <Flex style={{margin: '2rem 0', zIndex: 3}}>
           <div>
-            <Heading style={{fontSize: '1.875rem'}}> LP Farming Stats</Heading>
-            <Text>Learn About {currentFarm.name} LP staking Farm, and track its results</Text>
+            <Heading style={{fontSize: '1.875rem'}} color='white'> LP Farming Stats</Heading>
+            <Text color='white'>Learn About {currentFarm.name} LP staking Farm, and track its results</Text>
           </div>
         </Flex>
 
@@ -376,7 +378,8 @@ const RenderFarm: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
           width: '100%',
           flexFlow: 'row wrap',
           justifyContent: 'space-between',
-          backgroundColor: theme.colors.MGG_mainBG
+          backgroundColor: theme.colors.MGG_mainBG,
+          zIndex: 3
         }}>
           <Text>Current Total Value Locked - $100k</Text>
           <Text>All Time High Value Locked - $120k</Text>
@@ -386,8 +389,9 @@ const RenderFarm: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
         <Flex style={{
           width: '100%',
           flexFlow: 'row wrap',
-          justifyContent: 'space-evenly',
-          gap: '0.5rem'
+          justifyContent: 'space-between',
+          gap: '0.5rem',
+          zIndex: 3
         }}>
           <StatCard>
             <Text color={theme.colors.MGG_accent2}>Total {currentFarm.name} Staked</Text>
@@ -488,7 +492,7 @@ const RenderPool: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
       <LinearBG>
       <Flex>
         <>
-          <Card2Container style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <Card2Container style={{display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 3}}>
             <Flex style={{textAlign: 'center', flexFlow: 'column', rowGap: '1rem'}}>
               <Flex style={{alignItems: 'center', justifyContent: 'center'}}>
                 <TokenLogo size='3rem' src={getImageUrlFromToken(currentPool.stakingToken)} />
@@ -504,7 +508,7 @@ const RenderPool: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
         </>
       </Flex>
       <FlexC>
-        <FlexC style={{backgroundColor: theme.colors.MGG_mainBG, maxWidth: '40rem'}}>
+        <FlexC style={{backgroundColor: theme.colors.MGG_mainBG, maxWidth: '40rem', zIndex: 3}}>
           <Heading style={{fontSize: '1.875rem'}}>{currentPool.stakingToken.symbol} - {currentPool.earningToken.symbol} Pool Based Farm</Heading>
           <Text>Deposit your {currentPool.stakingToken.symbol} Tokens to earn Extra Annual Percentage Rate</Text>
           <Text color={theme.colors.MGG_accent2}>Current APR</Text>
@@ -559,7 +563,7 @@ const RenderPool: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
             </Flex>
           </Flex>
         </FlexC>
-        <Flex style={{margin: '2rem 0'}}>
+        <Flex style={{margin: '2rem 0', zIndex: 3}}>
           <div>
             <Heading style={{fontSize: '1.875rem'}}> Pool Based Farming Stats</Heading>
             <Text>Learn About {currentPool.name} Pool Based Farm, and track its results</Text>
@@ -571,7 +575,8 @@ const RenderPool: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
           width: '100%',
           flexFlow: 'row wrap',
           justifyContent: 'space-between',
-          backgroundColor: theme.colors.MGG_mainBG
+          backgroundColor: theme.colors.MGG_mainBG,
+          zIndex: 3
         }}>
           <Text>Current Total Value Locked - $100k</Text>
           <Text>All Time High Value Locked - $120k</Text>
@@ -582,7 +587,8 @@ const RenderPool: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
           width: '100%',
           flexFlow: 'row wrap',
           justifyContent: 'space-evenly',
-          gap: '0.5rem'
+          gap: '0.5rem',
+          zIndex: 3
         }}>
           <StatCard>
             <Text color={theme.colors.MGG_accent2}>Total {currentPool.name} Staked</Text>

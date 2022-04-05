@@ -77,12 +77,12 @@ ${({src, contain}) =>
   inset:  ${contain ? '10rem 0 0 -2vh' : '0 0 0 0'};
   opacity: 0.2;
   width: 100%;
-  height: ${contain ? '30vw' : '20vw'};
+  height: ${contain ? '30vw' : null};
   z-index: 2;
-  background-image: url(${src ?? `./MGG.png`});
+  background-image: url(${src ?? `./MGG-BG.svg`});
   background-repeat: no-repeat;
   background-position: ${contain ? 'right' : 'center'};
-  background-size: ${contain ? 'contain' : 'cover'};
+  background-size: contain;
 }`
 }
 `
