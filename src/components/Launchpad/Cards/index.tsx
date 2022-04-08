@@ -197,9 +197,13 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
           //     {status === GUILDPAD_STATUS.completed ? 'Details' : 'Participate'}
           //   </Button>
           // </Link>
-            <Button fullWidth style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }} onClick={() => history.push(`/launchpad/${guildpad.title}`)}>
-              {status === GUILDPAD_STATUS.completed ? 'Details' : 'Participate'}
-            </Button>
+          <Button
+            fullWidth
+            style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}
+            onClick={() => history.push(`/launchpad/${guildpad.title}`)}
+          >
+            {status === GUILDPAD_STATUS.completed ? 'Details' : 'Participate'}
+          </Button>
         )}
       </Flex>
     </GCard>
