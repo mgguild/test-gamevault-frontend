@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js'
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
 import Timer from 'components/Launchpad/Timer'
 import { GuildpadConfig, GUILDPAD_STATUS, TYPE } from 'config/constants/types'
@@ -160,6 +160,7 @@ const CardHeader: React.FC<{ status: string; background?: string }> = ({ status,
 
 const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
   const { account } = useWeb3React()
+  const history = useHistory()
   const theme = useContext(ThemeContext)
   const src = useFetchBanner(guildpad.sellingCoin.symbol)
   const status = getGuildpadStatus(guildpad)
@@ -191,11 +192,14 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
         {!account ? (
           <UnlockButton fullWidth />
         ) : (
-          <Link to={`/launchpad/${guildpad.title}`} style={{ width: '100%' }}>
-            <Button fullWidth style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}>
+          // <Link to={`/launchpad/${guildpad.title}`} style={{ width: '100%' }}>
+          //   <Button fullWidth style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}>
+          //     {status === GUILDPAD_STATUS.completed ? 'Details' : 'Participate'}
+          //   </Button>
+          // </Link>
+            <Button fullWidth style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }} onClick={() => history.push(`/launchpad/${guildpad.title}`)}>
               {status === GUILDPAD_STATUS.completed ? 'Details' : 'Participate'}
             </Button>
-          </Link>
         )}
       </Flex>
     </GCard>
