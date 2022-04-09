@@ -87,7 +87,7 @@ export interface FarmConfig {
     rewardPerBlock: number
     earnLabel: string
     endBlock: number
-  },
+  }
   UIProps?: UIProps
 }
 
@@ -107,7 +107,7 @@ export interface PoolConfig {
   enableEmergencyWithdraw?: boolean
   isAddTokenDisabled?: boolean
   isDepositDisabled?: boolean
-  isWithdrawDisabled?: boolean,
+  isWithdrawDisabled?: boolean
   UIProps?: UIProps
 }
 
@@ -211,7 +211,7 @@ export interface Socials {
   youtube?: string
 }
 
-export interface UIProps{
+export interface UIProps {
   socials?: Socials
   contain?: boolean
   bgColor?: string

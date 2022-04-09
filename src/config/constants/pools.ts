@@ -18,7 +18,7 @@ const pools: PoolConfig[] = [
     tokenPerBlock: '154320987654320987',
     sortOrder: 999,
     isFinished: false,
-    UIProps: farmsUIProps.mgg2
+    UIProps: farmsUIProps.mgg2,
   },
   // Dummy Contract #1
   // {

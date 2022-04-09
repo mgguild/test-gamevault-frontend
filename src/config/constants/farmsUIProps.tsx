@@ -1,7 +1,7 @@
 import { UIProps } from './types'
 import tokensSocials from './tokensSocials'
 
-interface farmUIProps{
+interface farmUIProps {
   [key: string]: UIProps
 }
 
@@ -18,4 +18,3 @@ const farmsUIProps: farmUIProps = {
 }
 
 export default farmsUIProps
-

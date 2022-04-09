@@ -44,13 +44,13 @@ type SocialsProps = {
   center?: boolean
 }
 
-export const RenderSocials: React.FC<SocialsProps> = ({socials, size = 16, color = null, center}) => {
+export const RenderSocials: React.FC<SocialsProps> = ({ socials, size = 16, color = null, center }) => {
   const theme = useContext(ThemeContext)
-  const colour = color ?? theme.colors.text;
+  const colour = color ?? theme.colors.text
 
-  return(
+  return (
     <>
-      <Flex style={{justifyContent: center ? 'center' : 'left'}}>
+      <Flex style={{ justifyContent: center ? 'center' : 'left' }}>
         {socials?.website && (
           <Anchor href={socials?.website}>
             <Globe size={`${size}px`} color={colour} />
@@ -63,7 +63,7 @@ export const RenderSocials: React.FC<SocialsProps> = ({socials, size = 16, color
         )}
         {socials?.telegram && (
           <Anchor href={socials?.telegram}>
-            <Send size={`${size}px`}  color={colour} />
+            <Send size={`${size}px`} color={colour} />
           </Anchor>
         )}
         {socials?.discord && (
@@ -73,20 +73,32 @@ export const RenderSocials: React.FC<SocialsProps> = ({socials, size = 16, color
         )}
         {socials?.medium && (
           <Anchor href={socials?.medium}>
-            <SvgIcon width={size} Icon={MediumIcon} fill={colour}/>
+            <SvgIcon width={size} Icon={MediumIcon} fill={colour} />
           </Anchor>
         )}
         {socials?.youtube && (
           <Anchor href={socials?.youtube}>
-          <SiYoutube size={`${size}px`} color={colour} />
-        </Anchor>
+            <SiYoutube size={`${size}px`} color={colour} />
+          </Anchor>
         )}
       </Flex>
     </>
   )
 }
 
-const Logo: React.FC<LogoProps> = ({projName, tokenSize, tokenName, nameSize = 'l', subSize = '12px', primaryToken, subtitle, socMeds, socMedsSize = 16, padding = '24px', color = null}) => {
+const Logo: React.FC<LogoProps> = ({
+  projName,
+  tokenSize,
+  tokenName,
+  nameSize = 'l',
+  subSize = '12px',
+  primaryToken,
+  subtitle,
+  socMeds,
+  socMedsSize = 16,
+  padding = '24px',
+  color = null,
+}) => {
   const theme = useContext(ThemeContext)
   const colour = color ?? theme.colors.text
   return (
@@ -97,7 +109,7 @@ const Logo: React.FC<LogoProps> = ({projName, tokenSize, tokenName, nameSize = '
           {projName && !tokenName.includes(projName.substring(0, 5)) ? projName : tokenName}
         </Heading>
         {socMeds ? (
-          <RenderSocials socials={socMeds} size={socMedsSize}/>
+          <RenderSocials socials={socMeds} size={socMedsSize} />
         ) : (
           <Text fontSize={subSize} color="textSubtle">
             {subtitle}
