@@ -92,22 +92,26 @@ export function escapeRegExp(string: string): string {
 }
 
 export const epochToDate = (epochTime) => {
-  const date = new Date(0); // The 0 there is the key, which sets the date to the epoch
-  date.setUTCSeconds(epochTime);
+  const date = new Date(0) // The 0 there is the key, which sets the date to the epoch
+  date.setUTCSeconds(epochTime)
 
-  return date;
+  return date
 }
 
 export const milliToDate = (milliseconds) => {
-  const date = new Date(0); // The 0 there is the key, which sets the date to the epoch
-  date.setMilliseconds(milliseconds);
+  const date = new Date(0) // The 0 there is the key, which sets the date to the epoch
+  date.setMilliseconds(milliseconds)
 
-  return date;
+  return date
 }
 
-export const dateEnded = (endDate) => {
-  const current = new Date();
-  const end = epochToDate(endDate);
+export const epochEnded = (endDate) => {
+  try {
+    const current = new Date()
+    const end = epochToDate(endDate)
 
-  return current.getTime() > end.getTime()
+    return current.getTime() > end.getTime()
+  } catch (e) {
+    return true
+  }
 }

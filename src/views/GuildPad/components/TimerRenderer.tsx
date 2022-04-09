@@ -36,47 +36,69 @@ const TimeSpan = styled.div`
 `
 
 interface TimerRendererProps {
-    days: number;
-    hours: number;
-    minutes: number;
-    seconds: number;
-    round: string;
+  days: number
+  hours: number
+  minutes: number
+  seconds: number
+  round: string
 }
 
-const TimerRenderer = ({days, hours, minutes, seconds, round}: TimerRendererProps) => {
-    return (
-        <div>
-        <Heading color='white' style={{textAlign: 'center', paddingTop: '0.5rem'}} size="l">ROUND {round} ENDS IN</Heading>
-        <TimerContainer>
+const TimerRenderer = ({ days, hours, minutes, seconds, round }: TimerRendererProps) => {
+  return (
+    <div>
+      <Heading color="white" style={{ textAlign: 'center', paddingTop: '0.5rem' }} size="l">
+        ROUND {round} ENDS IN
+      </Heading>
+      <TimerContainer>
         <TimerBox>
-            <Box>
-              <TimeSpan>
-                <HOrbitron size="xl" className='glow'>{days}</HOrbitron>
-              </TimeSpan>
-              <Text color='white' fontSize="1rem"> DAYS </Text>
-            </Box>
-            <Box>
-              <TimeSpan>
-                <HOrbitron size="xl" className='glow'>{hours}</HOrbitron>
-              </TimeSpan>
-              <Text color='white' fontSize="1rem"> HOURS </Text>
-            </Box>
-            <Box>
-              <TimeSpan>
-                <HOrbitron size="xl" className='glow'>{minutes}</HOrbitron>
-              </TimeSpan>
-              <Text color='white' fontSize="1rem"> MINUTES</Text>
-            </Box>
-            <Box>
-              <TimeSpan>
-                <HOrbitron size="xl" className='glow'>{seconds}</HOrbitron>
-              </TimeSpan>
-              <Text color='white' fontSize="1rem"> SECONDS</Text>
-            </Box>
-          </TimerBox>
-        </TimerContainer>
-        </div>
-    )
+          <Box>
+            <TimeSpan>
+              <HOrbitron size="xl" className="glow">
+                {days}
+              </HOrbitron>
+            </TimeSpan>
+            <Text color="white" fontSize="1rem">
+              {' '}
+              DAYS{' '}
+            </Text>
+          </Box>
+          <Box>
+            <TimeSpan>
+              <HOrbitron size="xl" className="glow">
+                {hours}
+              </HOrbitron>
+            </TimeSpan>
+            <Text color="white" fontSize="1rem">
+              {' '}
+              HOURS{' '}
+            </Text>
+          </Box>
+          <Box>
+            <TimeSpan>
+              <HOrbitron size="xl" className="glow">
+                {minutes}
+              </HOrbitron>
+            </TimeSpan>
+            <Text color="white" fontSize="1rem">
+              {' '}
+              MINUTES
+            </Text>
+          </Box>
+          <Box>
+            <TimeSpan>
+              <HOrbitron size="xl" className="glow">
+                {seconds}
+              </HOrbitron>
+            </TimeSpan>
+            <Text color="white" fontSize="1rem">
+              {' '}
+              SECONDS
+            </Text>
+          </Box>
+        </TimerBox>
+      </TimerContainer>
+    </div>
+  )
 }
 
-export default TimerRenderer;
+export default TimerRenderer

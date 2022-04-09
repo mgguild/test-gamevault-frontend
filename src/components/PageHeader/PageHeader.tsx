@@ -4,7 +4,8 @@ import { Box } from '@pancakeswap/uikit'
 import Container from '../layout/Container'
 
 const Outer = styled(Box)<{ background?: string }>`
-  background: ${({ theme, background }) => theme.isDark? `linear-gradient(0deg, rgba(43,28,0,1) 5%, rgba(16,16,16,1) 100%)` : theme.colors.modal};
+  background: ${({ theme, background }) =>
+    theme.isDark ? `linear-gradient(0deg, rgba(43,28,0,1) 5%, rgba(16,16,16,1) 100%)` : theme.colors.modal};
   // background:  rgb(43,28,0);
   // background: linear-gradient(0deg, rgba(43,28,0,1) 5%, rgba(16,16,16,1) 100%);
 `

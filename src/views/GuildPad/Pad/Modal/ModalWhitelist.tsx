@@ -3,7 +3,7 @@ import moment from 'moment'
 import styled, { ThemeContext } from 'styled-components'
 import { Flex, Heading, Text, Modal, Button } from '@metagg/mgg-uikit'
 
-interface ModalWhitelistProps{
+interface ModalWhitelistProps {
   onDismiss?: () => void
   onBack?: () => void
   dateInMilli?: number
@@ -23,32 +23,30 @@ const HeadingIcon = styled(Heading)`
   width: 5rem;
 `
 
-const ModalWhitelist: React.FC<ModalWhitelistProps> = ({
-  onDismiss,
-  onBack,
-  dateInMilli
-}) => {
+const ModalWhitelist: React.FC<ModalWhitelistProps> = ({ onDismiss, onBack, dateInMilli }) => {
   let comebackText = <Text>Please check other Guildpads :)</Text>
   if (dateInMilli) {
     const date = new Date(dateInMilli)
-    comebackText = <Text>Please come back to purchase box from {moment(date).utc().format('MM/DD/YYYY, hh:mm:ss A UTC')}</Text>
+    comebackText = (
+      <Text>Please come back to purchase box from {moment(date).utc().format('MM/DD/YYYY, hh:mm:ss A UTC')}</Text>
+    )
   }
-  const theme = useContext(ThemeContext);
+  const theme = useContext(ThemeContext)
   return (
-    <Modal title='' onDismiss={onDismiss} onBack={onBack}>
+    <Modal title="" onDismiss={onDismiss} onBack={onBack}>
       <Flex>
         <Content>
-          <Flex alignItems='center' justifyContent='center'>
-            <HeadingIcon size='xxl' color='#b80000'>X</HeadingIcon>
+          <Flex alignItems="center" justifyContent="center">
+            <HeadingIcon size="xxl" color="#b80000">
+              X
+            </HeadingIcon>
           </Flex>
           <Heading>SORRY, YOU ARE NOT WHITELISTED</Heading>
           {/* {comebackText} */}
-          <Flex alignItems='center' justifyContent='center'>
-            <Button
-              style={{padding: '0 3rem'}}
-              color={theme.colors.MGG_active}
-              onClick={onDismiss}
-            >OK</Button>
+          <Flex alignItems="center" justifyContent="center">
+            <Button style={{ padding: '0 3rem' }} color={theme.colors.MGG_active} onClick={onDismiss}>
+              OK
+            </Button>
           </Flex>
         </Content>
       </Flex>

@@ -479,7 +479,6 @@ export const useGetCollectibles = () => {
   }
 }
 
-
 // Launchpad or Guildpad
 
 export const useGuildpads = (): GuildpadState => {
@@ -504,8 +503,7 @@ export const useGuildpadData = () => {
     dispatch(fetchPublicGuildpadDataAsync(ids))
 
     if (account) {
-      dispatch(
-        fetchGuildpadUserDataAsync({ account, ids }))
+      dispatch(fetchGuildpadUserDataAsync({ account, ids }))
     }
   }, [dispatch, slowRefresh, account])
 }

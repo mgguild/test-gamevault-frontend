@@ -27,7 +27,12 @@ const Section: React.FC = () => {
       </StyledHeading>
       <Text>Apply for an IGO/INO on MetaGaming Pad, submit your project and get a response within 24 hours.</Text>
       <Actions>
-        <Button as="a" href="https://docs.google.com/forms/d/1BqJHkJYQSuKScdyLKrtMqMkhi5SHe8srOQnQxjcEQ8k/viewform?edit_requested=true" fullWidth style={{ borderRadius: '6px', backgroundColor: theme.colors.MGG_active }}>
+        <Button
+          as="a"
+          href="https://docs.google.com/forms/d/1BqJHkJYQSuKScdyLKrtMqMkhi5SHe8srOQnQxjcEQ8k/viewform?edit_requested=true"
+          fullWidth
+          style={{ borderRadius: '6px', backgroundColor: theme.colors.MGG_active }}
+        >
           Apply Now
         </Button>
         <Button

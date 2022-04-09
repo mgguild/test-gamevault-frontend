@@ -17,9 +17,8 @@ import { useGuildpadApproval } from '../../../../hooks/useApproval'
 import useToast from '../../../../hooks/useToast'
 import { useTranslation } from '../../../../contexts/Localization'
 
-
 interface ModalProps {
-  onDismiss?: () => void;
+  onDismiss?: () => void
   guildpad?: Guildpad
 }
 
@@ -34,7 +33,10 @@ const ModalComponent: React.FC<ModalProps> = ({ onDismiss, guildpad }) => {
   const [buyInitiated, setBuyInitiated] = useState(false)
 
   const { balance: bal } = useTokenBalance(getAddress(guildpad.buyingCoin.address))
-  const { balance: allow } = useTokenAllowance(getAddress(guildpad.buyingCoin.address), getAddress(guildpad.contractAddress))
+  const { balance: allow } = useTokenAllowance(
+    getAddress(guildpad.buyingCoin.address),
+    getAddress(guildpad.contractAddress),
+  )
   const balance = getBalanceAmount(bal)
   const allowance = getBalanceAmount(allow)
   const tokenRate = toBigNumber(guildpad.tokenRate)
@@ -45,7 +47,10 @@ const ModalComponent: React.FC<ModalProps> = ({ onDismiss, guildpad }) => {
 
   const dispatch = useAppDispatch()
   const { onBuyIgo } = useBuyIgo(getAddress(guildpad.contractAddress))
-  const { handleApprove, requestedApproval } = useGuildpadApproval(getAddress(guildpad.buyingCoin.address), getAddress(guildpad.contractAddress))
+  const { handleApprove, requestedApproval } = useGuildpadApproval(
+    getAddress(guildpad.buyingCoin.address),
+    getAddress(guildpad.contractAddress),
+  )
 
   const handleBuy = async () => {
     const ids = [guildpad.id]
@@ -112,16 +117,21 @@ const ModalComponent: React.FC<ModalProps> = ({ onDismiss, guildpad }) => {
   }
 
   return (
-    <Modal onDismiss={onDismiss} title=''>
+    <Modal onDismiss={onDismiss} title="">
       <ContentContainer>
-        <HeaderSection flexDirection='column'>
-          <Heading size='xl'>Swap Coins</Heading>
-          <Text color='textSubtle' fontSize='1.1em'>Max. Allocation is {maxPayableAmount.toString()} {guildpad.sellingCoin.symbol}</Text>
+        <HeaderSection flexDirection="column">
+          <Heading size="xl">Swap Coins</Heading>
+          <Text color="textSubtle" fontSize="1.1em">
+            Max. Allocation is {maxPayableAmount.toString()} {guildpad.sellingCoin.symbol}
+          </Text>
+          <Text color="textSubtle" fontSize="1.1em">
+            Balance: {balance.toString()} {guildpad.buyingCoin.symbol}
+          </Text>
         </HeaderSection>
         <SwapSection>
           <CurrencyInputPanel
-            label='From'
-            id='swap-input'
+            label="From"
+            id="swap-input"
             value={input}
             onUserInput={handleUserInput}
             currency={guildpad.buyingCoin}
@@ -131,8 +141,8 @@ const ModalComponent: React.FC<ModalProps> = ({ onDismiss, guildpad }) => {
             remainingSupply={expendable.toString()}
           />
           <CurrencyInputPanel
-            label='To'
-            id='swap-output'
+            label="To"
+            id="swap-output"
             value={output}
             onUserInput={handleUserOutput}
             currency={guildpad.sellingCoin}
@@ -144,14 +154,24 @@ const ModalComponent: React.FC<ModalProps> = ({ onDismiss, guildpad }) => {
           <Text>Price: {`${guildpad.tokenRate} ${guildpad.sellingCoin.symbol} per ${guildpad.buyingCoin.symbol}`}</Text>
         </SwapSection>
         <ActionSection>
-          {allowance.isZero() && <Button onClick={handleApprove} disabled={requestedApproval} fullWidth>Approve {guildpad.buyingCoin.symbol}</Button>}
-          {!allowance.isZero() && <Button disabled={swapDisabled || buyInitiated} onClick={handleBuy} fullWidth>SWAP</Button>}
+          {allowance.isZero() && (
+            <Button onClick={handleApprove} disabled={requestedApproval} fullWidth>
+              Approve {guildpad.buyingCoin.symbol}
+            </Button>
+          )}
+          {!allowance.isZero() && (
+            <Button disabled={swapDisabled || buyInitiated} onClick={handleBuy} fullWidth>
+              SWAP
+            </Button>
+          )}
         </ActionSection>
         <AllocSection>
-          <Text fontSize='14px'>My Allocation</Text>
-          <Flex alignItems='center'>
-            <Logo tokenSize='35px' primaryToken={guildpad.sellingCoin} padding='0px' />
-            <Text>{rewardedAmount.toString()} {guildpad.sellingCoin.symbol}</Text>
+          <Text fontSize="14px">My Allocation</Text>
+          <Flex alignItems="center">
+            <Logo tokenSize="35px" primaryToken={guildpad.sellingCoin} padding="0px" />
+            <Text>
+              {rewardedAmount.toString()} {guildpad.sellingCoin.symbol}
+            </Text>
           </Flex>
         </AllocSection>
       </ContentContainer>

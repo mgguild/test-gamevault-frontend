@@ -88,15 +88,14 @@ export const RenderSocials: React.FC<SocialsProps> = ({socials, size = 16, color
 
 const Logo: React.FC<LogoProps> = ({projName, tokenSize, tokenName, nameSize = 'l', subSize = '12px', primaryToken, subtitle, socMeds, socMedsSize = 16, padding = '24px', color = null}) => {
   const theme = useContext(ThemeContext)
-  const colour = color ?? theme.colors.text;
+  const colour = color ?? theme.colors.text
   return (
-    <Flex padding={padding} style={{alignItems: 'center'}}>
+    <Flex padding={padding} style={{ alignItems: 'center' }}>
       <TokenLogo size={tokenSize} src={getImageUrlFromToken(primaryToken)} />
       <Flex flexDirection="column" justifyContent="center" alignItems="flex-start">
-        <Heading color={colour} size={nameSize}>{
-          projName && !tokenName.includes(projName.substring(0, 5)) ?
-          projName : tokenName
-        }</Heading>
+        <Heading color={colour} size={nameSize}>
+          {projName && !tokenName.includes(projName.substring(0, 5)) ? projName : tokenName}
+        </Heading>
         {socMeds ? (
           <RenderSocials socials={socMeds} size={socMedsSize}/>
         ) : (

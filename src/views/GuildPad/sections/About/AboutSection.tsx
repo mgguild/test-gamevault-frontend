@@ -4,7 +4,7 @@ import { AboutColumn as Column, TwoColumn, TierColumns } from 'components/Column
 import { SvgProps } from 'components/SvgIcon/types'
 import SvgIcon from 'components/SvgIcon'
 import { ThemeContext } from 'styled-components'
-import {ReactComponent as InoRequirementIcon} from 'assets/InoReq.svg'
+import { ReactComponent as InoRequirementIcon } from 'assets/InoReq.svg'
 import {
   StyledContainer,
   StyledHeading,
@@ -24,7 +24,6 @@ import PageSection from '../Layout'
 import { BoxContainer, BoxHeader } from '../styled'
 import { BgContainer } from '../Home/styled'
 
-
 const Icons = IconModule as unknown as { [key: string]: React.FC<SvgProps> }
 const Tiers = IconModule as unknown as { [key: string]: React.FC<SvgProps> }
 /* Update and create separate Tier component */
@@ -37,7 +36,7 @@ const DetailBox = ({ image, title, description }: Details) => {
       {iconElement}
       <div style={{ textAlign: 'center', margin: '10px' }}>
         <BoxHeading>{title}</BoxHeading>
-        <Text fontSize="14px" color="textSubtle" >
+        <Text fontSize="14px" color="textSubtle">
           {description}
         </Text>
       </div>
@@ -136,21 +135,21 @@ const InoRequirement = () => {
   return (
     <Box>
       <TierTitle>
-      <SvgIcon width={118.8} Icon={InoRequirementIcon} />
+        <SvgIcon width={118.8} Icon={InoRequirementIcon} />
       </TierTitle>
       <TierDetails>
-      <div>
-        <Text fontSize="1rem">5,000 MGG</Text>
-        <Text fontSize="0.8rem" color="textSubtle">
-          Staking Requirement
-        </Text>
-      </div>
-      <div>
-        <Text fontSize="1rem">x2 Allocation</Text>
-        <Text fontSize="0.8rem" color="textSubtle">
-          MGG NFT Holder
-        </Text>
-      </div>
+        <div>
+          <Text fontSize="1rem">5,000 MGG</Text>
+          <Text fontSize="0.8rem" color="textSubtle">
+            Staking Requirement
+          </Text>
+        </div>
+        <div>
+          <Text fontSize="1rem">x2 Allocation</Text>
+          <Text fontSize="0.8rem" color="textSubtle">
+            MGG NFT Holder
+          </Text>
+        </div>
       </TierDetails>
       <TierFooter>
         <Button
@@ -173,20 +172,20 @@ const RenderRoundTwo = () => {
 
   return (
     <>
-      <Flex alignItems='center'>
-        <img
-          src={round2Icon}
-          alt="roundtwo"
-        />
+      <Flex alignItems="center">
+        <img src={round2Icon} alt="roundtwo" />
       </Flex>
       <div className="row">
         <Text>
-          All unsold tokens/boxes from the first round will be sold to all Tiered participants, and there will be NO LIMIT on
-          how much a tiered participant can buy! &nbsp; <br /><br />
+          All unsold tokens/boxes from the first round will be sold to all Tiered participants, and there will be NO
+          LIMIT on how much a tiered participant can buy! &nbsp; <br />
+          <br />
           Tiered participants will be able to buy the remaining tokens/boxes on the same page where the first round was
-          conducted, and at the same time regardless of the tier.&nbsp; <br /><br />
-          This round will remain open until all tokens/boxes are sold. Once all tokens are sold, that signals the end of the
-          IDO sale. &nbsp; <br /><br />
+          conducted, and at the same time regardless of the tier.&nbsp; <br />
+          <br />
+          This round will remain open until all tokens/boxes are sold. Once all tokens are sold, that signals the end of
+          the IDO sale. &nbsp; <br />
+          <br />
           Once the IGO/INO sale has been concluded, the platform will prepare the tokens for release. Once the necessary
           preparations are done, participants can now proceed with claiming. Just click the Claim buttons designated for
           the first and second rounds of the sale found on the same page where the sale was conducted. Participants may

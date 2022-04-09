@@ -1,15 +1,15 @@
-const useChainFinder = (chainId:number) => {
-  switch (chainId){
+const useChainFinder = (chainId: number) => {
+  switch (chainId) {
     case 1:
-      return "eth"
+      return 'eth'
     case 3:
-      return "ropsten"
+      return 'ropsten'
     case 56:
-      return "bsc"
+      return 'bsc'
     case 97:
-      return "bsc testnet"
+      return 'bsc testnet'
     default:
-      return "bsc"
+      return 'bsc'
   }
 }
 
