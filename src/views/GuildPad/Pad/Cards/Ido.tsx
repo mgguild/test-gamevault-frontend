@@ -24,6 +24,7 @@ import {
 import ModalWhitelist from '../Modal'
 import { toBigNumber } from '../../../../utils/formatBalance'
 import { getGuildpadStatus } from '../../../../utils/guildpadHelpers'
+import ProgressBar from '../../../../components/animated/ProgressBar'
 
 const TimerRows = styled(Flex)`
   text-align: center;
@@ -110,7 +111,9 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
                 {`${totalSold}`} {guildpad.sellingCoin.symbol} SOLD
               </Heading>
               <div>
-                <Progress variant="flat" primaryStep={toNumber(guildpad.percentage)} />
+                {/* <Progress variant="flat" primaryStep={toNumber(guildpad.percentage)} /> */}
+                <ProgressBar progress={toNumber(guildpad.percentage)}/>
+                <Text>{toNumber(guildpad.percentage)}</Text>
                 <Flex justifyContent="space-between">
                   <Text fontSize="12px">{guildpad.percentage}%</Text>
                   <Text fontSize="12px">

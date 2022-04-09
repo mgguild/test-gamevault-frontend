@@ -29,6 +29,30 @@
   filter: drop-shadow(-0.3rem 0.3rem 2px #222);
 }
 
+.puff-in-glow {
+  animation-name: puff-in-center, glow-flash;
+  animation-duration: 0.7s, 0.5s;
+  animation-delay: 0ms, 0.7s;
+  animation-timing-function: ease-in, ease;
+  animation-iteration-count: 1, 1;
+  animation-direction: normal, normal;
+  animation-fill-mode: none, forwards;
+}
+
+@keyframes glow-flash {
+  0% {
+    filter: drop-shadow(0px 0px 0px #fce13a);
+  }
+
+  50% {
+    filter: drop-shadow(0px 0px 15px #fce13a);
+  }
+
+  100% {
+    filter: drop-shadow(0px 0px 5px #fce13a);
+  }
+}
+
 @keyframes glow {
   from {
     box-shadow: none;
