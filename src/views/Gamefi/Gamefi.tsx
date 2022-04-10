@@ -129,8 +129,8 @@ const Gamefi: React.FC = () => {
   )
 
   const stakedMemoized = useMemo(() => {
-    const stakingList = { activeFarms: [], inactiveFarms: [], activePools: [], inactivePools: []}
-    
+    const stakingList = { activeFarms: [], inactiveFarms: [], activePools: [], inactivePools: [] }
+
     if (stakedOnly) {
       stakingList.activeFarms = farmsList(stakedOnlyFarms)
       stakingList.inactiveFarms = farmsList(stakedInactiveFarms)
@@ -139,11 +139,22 @@ const Gamefi: React.FC = () => {
     } else {
       stakingList.activeFarms = farmsList(activeFarms)
       stakingList.inactiveFarms = farmsList(inactiveFarms)
-      stakingList.activePools=openPools
-      stakingList.inactivePools=finishedPools
+      stakingList.activePools = openPools
+      stakingList.inactivePools = finishedPools
     }
     return stakingList
-  }, [farmsList, activeFarms, inactiveFarms, stakedInactiveFarms, stakedOnly, stakedOnlyFarms, finishedPools, openPools, stakedOnlyOpenPools, stakedOnlyFinishedPools])
+  }, [
+    farmsList,
+    activeFarms,
+    inactiveFarms,
+    stakedInactiveFarms,
+    stakedOnly,
+    stakedOnlyFarms,
+    finishedPools,
+    openPools,
+    stakedOnlyOpenPools,
+    stakedOnlyFinishedPools,
+  ])
 
   const renderContent = ({ RENDER_TYPE }: { RENDER_TYPE?: string }): JSX.Element => {
     const render = (type) => {
@@ -151,7 +162,7 @@ const Gamefi: React.FC = () => {
         case 'RENDER_ENDED':
           return stakedMemoized.inactiveFarms.length !== 0 && stakedMemoized.inactivePools.length !== 0 ? (
             <>
-              {stakedMemoized.inactiveFarms.length !== 0? (
+              {stakedMemoized.inactiveFarms.length !== 0 ? (
                 stakedMemoized.inactiveFarms.map((farm) => (
                   <FarmCard
                     userDataReady={userDataReady}
@@ -162,31 +173,32 @@ const Gamefi: React.FC = () => {
                     removed={false}
                   />
                 ))
-              ):(
+              ) : (
                 <NotAvailable title="Inactive Farms" />
-              )
-            }
-            {
-              stakedMemoized.inactivePools.length !== 0? (
+              )}
+              {stakedMemoized.inactivePools.length !== 0 ? (
                 stakedMemoized.inactivePools.map((pool) => (
                   <PoolCard
-                  userDataReady={userDataReady}
-                  key={pool.sousId}
-                  pool={pool}
-                  cakePrice={cakePrice}
-                  account={account}
-                  removed={false}
-                  bgColor="#b10303d6"
-                />
+                    userDataReady={userDataReady}
+                    key={pool.sousId}
+                    pool={pool}
+                    cakePrice={cakePrice}
+                    account={account}
+                    removed={false}
+                    bgColor="#b10303d6"
+                  />
                 ))
-              ) : <NotAvailable title="Inactive Pools" />
-            }
+              ) : (
+                <NotAvailable title="Inactive Pools" />
+              )}
             </>
-          ) : <NotAvailable title="inactive farms and pools" />
+          ) : (
+            <NotAvailable title="inactive farms and pools" />
+          )
         default:
           return stakedMemoized.activeFarms.length !== 0 && stakedMemoized.activePools.length !== 0 ? (
             <>
-              {stakedMemoized.activeFarms.length !== 0? (
+              {stakedMemoized.activeFarms.length !== 0 ? (
                 stakedMemoized.activeFarms.map((farm) => (
                   <FarmCard
                     userDataReady={userDataReady}
@@ -197,27 +209,28 @@ const Gamefi: React.FC = () => {
                     removed={false}
                   />
                 ))
-              ):(
+              ) : (
                 <NotAvailable title="Active Farms" />
-              )
-            }
-            {
-              stakedMemoized.activePools.length !== 0? (
+              )}
+              {stakedMemoized.activePools.length !== 0 ? (
                 stakedMemoized.activePools.map((pool) => (
                   <PoolCard
-                  userDataReady={userDataReady}
-                  key={pool.sousId}
-                  pool={pool}
-                  cakePrice={cakePrice}
-                  account={account}
-                  removed={false}
-                  bgColor="#b10303d6"
-                />
+                    userDataReady={userDataReady}
+                    key={pool.sousId}
+                    pool={pool}
+                    cakePrice={cakePrice}
+                    account={account}
+                    removed={false}
+                    bgColor="#b10303d6"
+                  />
                 ))
-              ) : <NotAvailable title="Active Pools" />
-            }
+              ) : (
+                <NotAvailable title="Active Pools" />
+              )}
             </>
-          ) : <NotAvailable title="active farms and pools" />
+          ) : (
+            <NotAvailable title="active farms and pools" />
+          )
       }
     }
 

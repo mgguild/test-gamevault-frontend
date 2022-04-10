@@ -1,1 +1,1 @@
-export {default} from './NewUI'
+export { default } from './NewUI'

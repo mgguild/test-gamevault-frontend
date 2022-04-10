@@ -76,7 +76,7 @@ const farms: FarmConfig[] = [
     pairToken: tokens.busd,
     quoteToken: tokens.mgg,
     isPromoted: 1,
-    UIProps: farmsUIProps.mgg
+    UIProps: farmsUIProps.mgg,
   },
 ]
 

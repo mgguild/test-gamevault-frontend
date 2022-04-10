@@ -21,13 +21,12 @@ export const FilterItem = styled(Flex)`
 `
 
 export const Section = styled(Flex)`
-    flex-flow: row-wrap;
-    justify-content: space-between;
-    margin-bottom: 2rem;
+  flex-flow: row-wrap;
+  justify-content: space-between;
+  margin-bottom: 2rem;
 `
 
-export const HeaderSection = styled(Section)`
-`
+export const HeaderSection = styled(Section)``
 export const BodySection = styled(Section)`
-flex-direction: column;
+  flex-direction: column;
 `

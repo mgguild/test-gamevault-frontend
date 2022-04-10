@@ -6,7 +6,15 @@ import { Flex, Image, RowType, Toggle } from '@pancakeswap/uikit'
 import { Text, Heading, Button } from '@metagg/mgg-uikit'
 import styled, { ThemeContext } from 'styled-components'
 import useMedia from 'use-media'
-import { useFarms, usePollFarmsData, usePriceCakeBusd, usePools, useFetchPublicPoolsData, useCakeVault, useFetchCakeVault } from 'state/hooks'
+import {
+  useFarms,
+  usePollFarmsData,
+  usePriceCakeBusd,
+  usePools,
+  useFetchPublicPoolsData,
+  useCakeVault,
+  useFetchCakeVault,
+} from 'state/hooks'
 import usePersistState from 'hooks/usePersistState'
 import { useFarmPrice } from 'hooks/price'
 import usePrevious from 'utils/refHelpers'
@@ -33,15 +41,14 @@ import { DesktopColumnSchema, ViewMode } from '../components/types'
 import { ReactComponent as FarmsDarkLogo } from '../components/assets/farm-dark.svg'
 import { ReactComponent as FarmsLightLogo } from '../components/assets/farm-light.svg'
 import { getAprData, getCakeVaultEarnings } from '../../Pools/helpers'
-import {FarmCard2, PoolCard2} from '../components/FarmCards'
+import { FarmCard2, PoolCard2 } from '../components/FarmCards'
 import SvgIcon from '../../../components/Launchpad/SvgIcon'
 import { ReactComponent as IconGrid } from './icons/IconGrid.svg'
 import { ReactComponent as IconList } from './icons/IconList.svg'
 
-
 const getImageUrlFromToken = (token: Token) => {
   const address = getAddress(token.symbol === 'BNB' ? tokens.wbnb.address : token.address)
-  return `/images/tokens/${address}.${token.iconExtension?? 'svg'}`
+  return `/images/tokens/${address}.${token.iconExtension ?? 'svg'}`
 }
 
 const ToggleWrapper = styled.div`
@@ -63,7 +70,7 @@ const FilterItem = styled(Flex)`
 const ButtonA = styled(Button)`
   width: 10rem;
 `
-const ButtonB = styled(Button)<{ isGrid: boolean; }>`
+const ButtonB = styled(Button)<{ isGrid: boolean }>`
   padding: 1rem;
   background-color: ${({ isGrid, theme }) => (isGrid ? theme.colors.MGG_active : theme.colors.MGG_container)};
 `
@@ -345,7 +352,6 @@ const NewFarms: React.FC = () => {
       chosenPools = stakedOnly ? stakedOnlyOpenPools : openPools
     }
 
-
     if (searchQuery) {
       const lowercaseQuery = latinise(searchQuery.toLowerCase())
       chosenPools = chosenPools.filter((pool) =>
@@ -395,37 +401,37 @@ const NewFarms: React.FC = () => {
   })
 
   const renderContent = (): JSX.Element => {
-
     return (
       <div style={{ marginTop: '25px', paddingTop: '25px' }}>
-        <div style={{
-          display: 'flex',
-          flexFlow: 'row wrap',
-          justifyContent: 'space-evenly',
-          columnGap: '2rem',
-          rowGap: '2rem'
-        }}>
-
-            {farmsStakedMemoized.map((farm) => (
-              <FarmCard2
-                userDataReady={userDataReady}
-                key={farm.pid}
-                farm={farm}
-                cakePrice={cakePrice}
-                account={account}
-                removed={false}
-              />
-            ))}
-            {poolsToShow().map((pool, index) => (
-              <PoolCard2
-                userDataReady={userDataReady}
-                key={pool.sousId}
-                pool={pool}
-                cakePrice={cakePrice}
-                account={account}
-                removed={false}
-              />
-            ))}
+        <div
+          style={{
+            display: 'flex',
+            flexFlow: 'row wrap',
+            justifyContent: 'space-evenly',
+            columnGap: '2rem',
+            rowGap: '2rem',
+          }}
+        >
+          {farmsStakedMemoized.map((farm) => (
+            <FarmCard2
+              userDataReady={userDataReady}
+              key={farm.pid}
+              farm={farm}
+              cakePrice={cakePrice}
+              account={account}
+              removed={false}
+            />
+          ))}
+          {poolsToShow().map((pool, index) => (
+            <PoolCard2
+              userDataReady={userDataReady}
+              key={pool.sousId}
+              pool={pool}
+              cakePrice={cakePrice}
+              account={account}
+              removed={false}
+            />
+          ))}
 
           <Route exact path={`${path}/history`}>
             {farmsStakedMemoized.map((farm) => (
@@ -459,44 +465,43 @@ const NewFarms: React.FC = () => {
     )
   }
 
-
   return (
     <>
-      <div style={{
-        margin: '5rem 5rem',
-      }}>
-        <Heading size='xl'>
-          MGG Vaults
-        </Heading>
+      <div
+        style={{
+          margin: '5rem 5rem',
+        }}
+      >
+        <Heading size="xl">MGG Vaults</Heading>
 
-          {renderContent()}
+        {renderContent()}
 
-        <Flex style={{
-          flexFlow: 'row wrap',
-          justifyContent: 'space-between',
-          textAlign: 'center',
-          rowGap: '1rem',
-          columnGap: '1rem',
-          margin: '3rem 0 2rem 0'
-        }}>
+        <Flex
+          style={{
+            flexFlow: 'row wrap',
+            justifyContent: 'space-between',
+            textAlign: 'center',
+            rowGap: '1rem',
+            columnGap: '1rem',
+            margin: '3rem 0 2rem 0',
+          }}
+        >
           <FilterItem>
-          <ToggleWrapper>
-              <Toggle checked={stakedOnly} onChange={() => setStakedOnly(!stakedOnly)} scale='sm' />
+            <ToggleWrapper>
+              <Toggle checked={stakedOnly} onChange={() => setStakedOnly(!stakedOnly)} scale="sm" />
               <Text> {t('Staked only')}</Text>
             </ToggleWrapper>
             <FarmTabButtons hasStakeInFinishedFarms={stakedInactiveFarms.length > 0} />
           </FilterItem>
           <FilterItem>
-              <Text textTransform='uppercase'>{t('Search')}</Text>
-              <SearchInput onChange={handleChangeQuery} placeholder='Search Farms' />
+            <Text textTransform="uppercase">{t('Search')}</Text>
+            <SearchInput onChange={handleChangeQuery} placeholder="Search Farms" />
           </FilterItem>
         </Flex>
-        <Heading size='xl'>
-          Live Farms
-        </Heading>
+        <Heading size="xl">Live Farms</Heading>
         {renderContent()}
-        <br/>
-        <br/>
+        <br />
+        <br />
         {/* <Heading size='xl'>
           Past Farms
         </Heading>

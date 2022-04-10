@@ -63,7 +63,7 @@ const App: React.FC = () => {
               <Pools />
               {/* <ComingSoon title="Pools" /> */}
             </Route>
-            <Route path='/gamefi' exact>
+            <Route path="/gamefi" exact>
               {/* <ComingSoon title="GameFi Vaults" /> */}
               <Gamefi />
             </Route>
@@ -71,9 +71,9 @@ const App: React.FC = () => {
               {/* <ComingSoon title="Launchpad" /> */}
               <Guildpad />
             </Route>
-            <Route path='/launchpad/:guildpadTitle' component={Pad}/>
-            <Route path='/gamefi/:type/:farmID' component={FarmPage}/>
-            <Route path='/earning-dashboard' exact>
+            <Route path="/launchpad/:guildpadTitle" component={Pad} />
+            <Route path="/gamefi/:type/:farmID" component={FarmPage} />
+            <Route path="/earning-dashboard" exact>
               <ComingSoon title="Earning Dashboard" />
             </Route>
             <Route path="/staking">
