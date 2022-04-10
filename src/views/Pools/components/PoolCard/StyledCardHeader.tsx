@@ -7,8 +7,8 @@ import TokenPairImage from 'components/TokenPairImage'
 import CakeVaultTokenPairImage from '../CakeVaultCard/CakeVaultTokenPairImage'
 
 const Wrapper = styled.div<{ isFinished?: boolean; background?: string }>`
-border-bottom: 5px solid ${(({theme}) => theme.colors.MGG_active)};
-padding: 24px;
+  border-bottom: 5px solid ${({ theme }) => theme.colors.MGG_active};
+  padding: 24px;
   svg {
     margin-right: 4px;
   }
@@ -29,7 +29,7 @@ const StyledCardHeader: React.FC<{
   // const background = isStaking ? 'bubblegum' : 'cardHeader'
   const background = 'cardHeader'
 
-/*
+  /*
   const getHeadingPrefix = () => {
     if (isAutoVault) {
       // vault
@@ -54,14 +54,14 @@ const StyledCardHeader: React.FC<{
     return t('Stake %symbol%', { symbol: stakingToken.symbol })
     // return t('Stake %symbol% to Earn SRK', { symbol: stakingToken.symbol } )
   }
-  const theme = useContext(ThemeContext);
+  const theme = useContext(ThemeContext)
 
   return (
     <Wrapper isFinished={isFinished} background={background}>
       <Flex alignItems="center" justifyContent="space-between">
-        <Flex flexDirection="column" style={{textAlign: 'left'}}>
-          <Heading color='text' size="lg">
-            {`Stake ${stakingToken.symbol}`} <br/>
+        <Flex flexDirection="column" style={{ textAlign: 'left' }}>
+          <Heading color="text" size="lg">
+            {`Stake ${stakingToken.symbol}`} <br />
             to <br />
             {`Earn ${earningToken.symbol}`}
           </Heading>

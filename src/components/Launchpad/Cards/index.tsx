@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js'
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
 import Timer from 'components/Launchpad/Timer'
 import { GuildpadConfig, GUILDPAD_STATUS, TYPE } from 'config/constants/types'
@@ -60,7 +60,7 @@ const TimerBox = styled(Flex)`
   }
 `
 const TimerContainer = styled(Flex)`
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   padding: 5px 0px;
   display: flex;
   height: 8rem;
@@ -79,18 +79,21 @@ const InfoRow = styled(Flex)`
   width: 100%;
 `
 
-const CountDown: React.FC<{ status: string, round: string, start?: boolean; end?: number }> = ({ status, round, start, end }) => {
+const CountDown: React.FC<{ status: string; round: string; start?: boolean; end?: number }> = ({
+  status,
+  round,
+  start,
+  end,
+}) => {
   const endDate = end
   const isStart = start
 
   const Renderer = (days?: number, hours?: number, minutes?: number, seconds?: number) => {
-    return (
-      <TimerRenderer days={days} hours={hours} minutes={minutes} seconds={seconds} round={round}/>
-    )
+    return <TimerRenderer days={days} hours={hours} minutes={minutes} seconds={seconds} round={round} />
   }
 
   return (
-    <TimerContainer justifyContent='center' style={{position: 'relative'}} className='crt inset-shadow'>
+    <TimerContainer justifyContent="center" style={{ position: 'relative' }} className="crt inset-shadow">
       <Timer dateSettings={{ isStart, end: endDate }} status={status} Renderer={Renderer} />
     </TimerContainer>
   )
@@ -103,7 +106,8 @@ const TokenInformation: React.FC<{
   type: string
   sellingCoin: string
   gpadType?: string
-}> = ({ totalRaise, boxesForSale, buyingCoin, type, sellingCoin , gpadType = 'INO'}) => {
+  distributionDesc?: string
+}> = ({ totalRaise, boxesForSale, buyingCoin, type, sellingCoin, gpadType = 'INO', distributionDesc }) => {
   return (
     <InfoBox flexDirection="column" padding="0px 24px 12px 24px">
       <InfoRow justifyContent="space-between">
@@ -120,10 +124,17 @@ const TokenInformation: React.FC<{
         <Text>Buying Coin</Text>
         <Text bold>{buyingCoin}</Text>
       </InfoRow>
-      <InfoRow justifyContent="space-between">
-        <Text>Distribution Type</Text>
-        <Text bold>{type}</Text>
-      </InfoRow>
+      <div>
+        <InfoRow justifyContent="space-between">
+          <Text>Distribution Type</Text>
+          <Text bold>{type}</Text>
+        </InfoRow>
+        {distributionDesc && (
+          <Text small>
+            (<em>{distributionDesc}</em>)
+          </Text>
+        )}
+      </div>
     </InfoBox>
   )
 }
@@ -149,6 +160,7 @@ const CardHeader: React.FC<{ status: string; background?: string }> = ({ status,
 
 const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
   const { account } = useWeb3React()
+  const history = useHistory()
   const theme = useContext(ThemeContext)
   const src = useFetchBanner(guildpad.sellingCoin.symbol)
   const status = getGuildpadStatus(guildpad)
@@ -156,7 +168,12 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
   return (
     <GCard>
       <CardHeader status={status} background={src} />
-      <CountDown status={status} round={guildpad.round} start={status === GUILDPAD_STATUS.ongoing} end={guildpad.epochEndDate} />
+      <CountDown
+        status={status}
+        round={guildpad.round}
+        start={status === GUILDPAD_STATUS.ongoing}
+        end={guildpad.epochEndDate}
+      />
       <TokenLogo
         tokenName={guildpad.sellingCoin.symbol}
         primaryToken={guildpad.sellingCoin}
@@ -169,16 +186,24 @@ const Card: React.FC<{ guildpad: GuildpadConfig }> = ({ guildpad }) => {
         type={guildpad.distribution}
         sellingCoin={guildpad.sellingCoin.symbol}
         gpadType={guildpad.type}
+        distributionDesc={guildpad.distributionDesc}
       />
       <Flex padding="24px">
         {!account ? (
           <UnlockButton fullWidth />
         ) : (
-          <Link to={`/launchpad/${guildpad.title}`} style={{ width: '100%' }}>
-            <Button fullWidth style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}>
-              {status === GUILDPAD_STATUS.completed? 'Details' : 'Participate'}
-            </Button>
-          </Link>
+          // <Link to={`/launchpad/${guildpad.title}`} style={{ width: '100%' }}>
+          //   <Button fullWidth style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}>
+          //     {status === GUILDPAD_STATUS.completed ? 'Details' : 'Participate'}
+          //   </Button>
+          // </Link>
+          <Button
+            fullWidth
+            style={{ backgroundColor: 'rgba(41, 178, 19, 1)', borderRadius: '5px' }}
+            onClick={() => history.push(`/launchpad/${guildpad.title}`)}
+          >
+            {status === GUILDPAD_STATUS.completed ? 'Details' : 'Participate'}
+          </Button>
         )}
       </Flex>
     </GCard>

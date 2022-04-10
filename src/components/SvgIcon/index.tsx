@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 interface Props {
   Icon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
-  Img?: string;
+  Img?: string
   width?: number
   height?: number
   fill?: string
@@ -29,10 +29,10 @@ export const SvgContainer = styled.div<{
 `
 
 const SvgIcon: React.FC<Props> = (props) => {
-  const { Icon, Img, width} = props
+  const { Icon, Img, width } = props
   return (
     <SvgContainer {...props}>
-     {Icon? <Icon /> : <img src={Img} alt='tier-icon' width={width} style={{height: width}}/>}
+      {Icon ? <Icon /> : <img src={Img} alt="tier-icon" width={width} style={{ height: width }} />}
     </SvgContainer>
   )
 }

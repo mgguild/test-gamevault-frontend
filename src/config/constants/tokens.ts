@@ -27,7 +27,7 @@ const guildpadTokens = {
     },
     iconExtension: 'png',
     decimals: 18,
-    projectLink: 'https://acknoledger.com/'
+    projectLink: 'https://acknoledger.com/',
   },
   Wizardia: {
     symbol: 'WZRD',
@@ -37,7 +37,7 @@ const guildpadTokens = {
     },
     iconExtension: 'png',
     decimals: 18,
-    projectLink: 'https://wizardia.io//'
+    projectLink: 'https://wizardia.io//',
   },
   Ookeenga: {
     symbol: 'OKG',
@@ -47,8 +47,8 @@ const guildpadTokens = {
     },
     iconExtension: 'png',
     decimals: 18,
-    projectLink: 'https://ookeenga.io//'
-  }
+    projectLink: 'https://ookeenga.io//',
+  },
 }
 
 const tokens = {
@@ -1782,4 +1782,3 @@ const tokens = {
 }
 
 export default tokens
-

@@ -1,1 +1,1 @@
-export { default } from './Inactive';
+export { default } from './Inactive'

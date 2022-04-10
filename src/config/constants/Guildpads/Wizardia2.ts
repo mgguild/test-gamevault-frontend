@@ -5,10 +5,11 @@ const socials = {
   website: 'https://wizardia.co/35ObEcS',
   twitter: 'https://twitter.com/PlayWizardia',
   telegram: 'https://t.me/Wizardia',
-  medium: 'https://medium.com/@wizardia'
+  medium: 'https://medium.com/@wizardia',
 }
 const guildpad = {
-  description: 'Wizardia is a Play-to-Earn online role-playing strategy game with unique NFTs at its core. It’s built on three core gameplay pillars: innovative turn-based combat, player-decision driven game evolution and upgrade-based character progression. $WZRD is the Solana-powered utility token that also acts as in-game currency and can be spent as well as earned or exchanged by every player inside and outside of the game. Wizardia rewards those who contribute to the game’s metaverse and its real-valued economy system so there are no one-way investments.',
+  description:
+    'Wizardia is a Play-to-Earn online role-playing strategy game with unique NFTs at its core. It’s built on three core gameplay pillars: innovative turn-based combat, player-decision driven game evolution and upgrade-based character progression. $WZRD is the Solana-powered utility token that also acts as in-game currency and can be spent as well as earned or exchanged by every player inside and outside of the game. Wizardia rewards those who contribute to the game’s metaverse and its real-valued economy system so there are no one-way investments.',
   socials,
   type: TYPE.IDO,
   round: '2',
@@ -27,7 +28,7 @@ const guildpad = {
   },
   date: {
     start: 'March 10, 2022 1:00 PM UTC',
-    end: 'March 11, 2022 1:00 PM UTC'
+    end: 'March 11, 2022 1:00 PM UTC',
   },
   // projectTokenEquivalent: '1425 WBOND',
   // asOfPriceInProjectToken: 1645362000000,

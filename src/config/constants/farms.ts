@@ -78,7 +78,6 @@ const farms: FarmConfig[] = [
     isPromoted: 1,
     UIProps: farmsUIProps.mgg
   },
-
 ]
 
 export default farms

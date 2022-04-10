@@ -3,7 +3,6 @@ import { Guildpad } from '../types'
 import { isAddress } from '../../utils'
 import fetchINODetails, { fetchIDODetails } from './guildpadDataHelpers'
 
-
 const fetchPublicGuildpadData = async (guildpad: Guildpad) => {
   const { contractAddress } = guildpad
   const guildpadAddress = getAddress(contractAddress)
