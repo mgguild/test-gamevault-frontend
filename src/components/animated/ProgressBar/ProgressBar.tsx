@@ -1,74 +1,40 @@
 import React, { useState, useEffect } from 'react'
-import { Spring, useSpringRef, useSpring, animated, SpringRef  } from 'react-spring'
-import styled, { ThemeContext } from 'styled-components'
-import { Flex, Heading, Text, Button } from '@metagg/mgg-uikit'
-
-const Container = styled.div`
-  position: relative;
-  width: 100%;
-  height: 1rem;
-`
-const Bar = styled.div`
-  position: relative;
-  width: 100%;
-  height: 1.5rem;
-  justifyContent: center;
-  align-items: center;
-`
-
-const Fill = styled(animated.div)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 100%;
-  background: #CC830280;
-`
-const Gauge = styled(animated.div)<{hide?: boolean}>`
-  position: relative;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  background: ${({ theme }) => theme.colors.MGG_accent1};
-  flex: 1;
-  // margin-right: 0.8rem;
-  visibility: ${({hide}) => (hide ? 'visible' : 'hidden')};
-  text-align: center;
-  justify-content: center;
-`
-const GaugeR = styled.div`
-  clip-path: polygon(0 0, 100% 0%, 50% 100%, 0% 100%);
-  position: absolute;
-  width: 1rem;
-  height: 100%;
-  z-index: 1;
-  background: ${({ theme }) => theme.colors.MGG_accent1};
-  right: -8px;
-`
-const GaugeL = styled.div`
-  clip-path: polygon(50% 0, 100% 0%, 100% 100%, 0 100%);
-  position: absolute;
-  width: 1rem;
-  height: 100%;
-  z-index: 1;
-  background: ${({ theme }) => theme.colors.MGG_accent1};
-  left: -8px;
-`
+import { useSpringRef, useSpring, useChain, useTransition } from 'react-spring'
+import { Flex, Text } from '@metagg/mgg-uikit'
+import { Bar, Fill, Gauge, GaugeR, GaugeL, AnimText} from './styles'
 
 const ProgressBar:React.FC<{progress: number}> = ({progress}) => {
-  const [soldOut, setSoldOut] = useState(false)
-  const [gauges, setGauges] = useState([false, false, false, false , false])
-  const [mergeGauges, apiMGauges] = useSpring(() => ({
+  const [points, setPoints] = useState([20, 40, 60, 80 , 100])
+
+  const apiMergeGauges = useSpringRef()
+  const {marginRight} = useSpring({
+    ref: apiMergeGauges,
     from:{
-      margin: '0 0.8rem 0 0',
+      marginRight: '0.8rem',
     },
     to:{
-      margin: '0 0 0 0',
+      marginRight: '0rem',
     }
-  }))
+  })
 
-  const [props, apiGauges] = useSpring(() => ({
+  const apiOpacities = useSpringRef()
+  const {opacity1, opacity2, translateY} = useSpring({
+    ref: apiOpacities,
+    from:{
+      opacity1: 1,
+      opacity2: 0,
+      translateY: '0rem',
+    },
+    to:{
+      opacity1: 0,
+      opacity2: 1,
+      translateY: '-1rem',
+    }
+  })
+
+  const apiGauges = useSpringRef()
+  const props = useSpring({
+    ref: apiGauges,
     from:{
       width: '0%',
       height: 0
@@ -80,70 +46,48 @@ const ProgressBar:React.FC<{progress: number}> = ({progress}) => {
     config:{
       duration: 1500
     },
-    onChange:(styles) => {
-      const temp = [...gauges]
-      if(styles.value.height > 20){
-        temp[0] = true
-        setGauges(temp)
-      }
-      if(styles.value.height > 40){
-        temp[1] = true
-        setGauges(temp)
-      }
-      if(styles.value.height > 60){
-        temp[2] = true
-        setGauges(temp)
-      }
-      if(styles.value.height > 80){
-        temp[3] = true
-        setGauges(temp)
-      }
-      if(styles.value.height >= 100){
-        temp[4] = true
-        setGauges(temp)
-      }
-    },
     onRest:() => {
       if(progress >= 100){
-        setTimeout(()=>{
-          apiMGauges.start()
-        }, 1200)
-        console.log('bruh start')
+        setTimeout(() => {
+          apiMergeGauges.start()
+
+          setTimeout(function () {
+            apiOpacities.start()
+
+         }, 400)
+        }, 850);
       }
     }
-  }))
-  
-  apiGauges.start()
+  })
+
+  const apiPoints = useSpringRef()
+  const gauges = useTransition(points, {
+    ref: apiPoints,
+    trail: 1500 / points.length,
+    from: { opacity: 0, scale: 2, marginRight: '0.8rem', filter: 'blur(4px)'},
+    enter: { opacity: 1, scale: 1, marginRight: '0.8rem', filter: 'blur(0px)'},
+    leave: {},
+    config: {duration: 500},
+  })
+  useChain([apiGauges, apiPoints], [ 0, 0.5])
 
   return(
     <>
       <Bar>
         <Fill style={{width: props.width}} />
         <Flex style={{flexFlow: 'row', rowGap: '1rem', padding: '0.2rem'}}>
-            <Gauge style={mergeGauges} className={gauges[0] ? 'puff-in-center' : ''} hide={gauges[0]}>
-              <Text fontSize="12px" color='black' style={{zIndex: 3}}>20%</Text>
-              <GaugeR />
+          {gauges((style, gauge) => (
+            <Gauge style={{...style, marginRight: gauge !== 100 ? marginRight : '0'}} hide={`${progress < gauge}`}>
+              <AnimText color="black" size="12px" style={{opacity: opacity1, zIndex: 3, translateY}}>{gauge}%</AnimText>
+              {gauge === 20 && <GaugeR />}
+              {gauge > 20 && gauge < 100 && <><GaugeL /><GaugeR /></>}
+              {gauge === 100 && <GaugeL />}
             </Gauge>
-            <Gauge style={mergeGauges} className={gauges[1] ? 'puff-in-center' : ''} hide={gauges[1]}>
-              <Text fontSize="12px" color='black' style={{zIndex: 3}}>40%</Text>
-              <GaugeL />
-              <GaugeR />
-            </Gauge>
-            <Gauge style={mergeGauges} className={gauges[2] ? 'puff-in-center' : ''} hide={gauges[2]}>
-              <Text fontSize="12px" color='black' style={{zIndex: 3}}>60%</Text>
-              <GaugeL />
-              <GaugeR />
-            </Gauge>
-            <Gauge style={mergeGauges} className={gauges[3] ? 'puff-in-center' : ''} hide={gauges[3]}>
-              <Text fontSize="12px" color='black' style={{zIndex: 3}}>80%</Text>
-              <GaugeL />
-              <GaugeR />
-            </Gauge>
-            <Gauge className={gauges[4] ? 'puff-in-glow' : ''} hide={gauges[4]} style={{margin: 0}}>
-              <Text fontSize="12px" color='black' style={{zIndex: 3}}>SOLD OUT</Text>
-              <GaugeL />
-            </Gauge>
-          </Flex>
+          ))}
+        </Flex>
+        <Flex style={{position: 'absolute', width: '100%', height: '100%', top: 0, justifyContent: 'center', alignItems: 'center'}}>
+          <AnimText color="black" size="12px" style={{opacity: opacity2, fontWeight: 1000}}>SOLD OUT</AnimText>
+        </Flex>
       </Bar>
     </>
   )
