@@ -97,7 +97,11 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
   const totalSold = toBigNumber(guildpad.totalSold).toFormat()
   const status = getGuildpadStatus(guildpad)
 
-  const { progress } = useSpring({from: {progress: 0}, to: {progress: toNumber(guildpad.percentage)}, config: {duration: 1500}})
+  const { progress } = useSpring({
+    from: { progress: 0 },
+    to: { progress: toNumber(guildpad.percentage) },
+    config: { duration: 1500 },
+  })
 
   return (
     <ContainerBoxCard>
@@ -116,9 +120,9 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
               </Heading>
               <div>
                 {/* <Progress variant="flat" primaryStep={toNumber(guildpad.percentage)} /> */}
-                <ProgressBar progress={toNumber(guildpad.percentage)}/>
+                <ProgressBar progress={toNumber(guildpad.percentage)} />
                 <Flex justifyContent="space-between">
-                  <AnimText size="12px">{progress.to(x => (`${x.toFixed(4)}%`))}</AnimText>
+                  <AnimText size="12px">{progress.to((x) => `${x.toFixed(4)}%`)}</AnimText>
                   <Text fontSize="12px">
                     {totalSold} / {totalSupply}
                   </Text>

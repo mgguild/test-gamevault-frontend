@@ -5,7 +5,7 @@ export const Bar = styled.div`
   position: relative;
   width: 100%;
   height: 1.5rem;
-  justifyContent: center;
+  justifycontent: center;
   align-items: center;
 `
 
@@ -15,9 +15,9 @@ export const Fill = styled(animated.div)`
   left: 0;
   width: 0;
   height: 100%;
-  background: #CC830280;
+  background: #cc830280;
 `
-export const Gauge = styled(animated.div)<{hide?}>`
+export const Gauge = styled(animated.div)<{ hide? }>`
   position: relative;
   display: flex;
   width: 100%;
@@ -25,7 +25,7 @@ export const Gauge = styled(animated.div)<{hide?}>`
   z-index: 1;
   background: ${({ theme }) => theme.colors.MGG_accent1};
   flex: 1;
-  visibility: ${({hide}) => (hide === 'true' ? 'hidden' : 'visible')};
+  visibility: ${({ hide }) => (hide === 'true' ? 'hidden' : 'visible')};
   text-align: center;
   justify-content: center;
 `
@@ -47,9 +47,9 @@ export const GaugeL = styled.div`
   background: ${({ theme }) => theme.colors.MGG_accent1};
   left: -8px;
 `
-export const AnimText = styled(animated.div)<{color?: string, size?: string}>`
-  color: ${({theme, color}) => color ?? theme.colors.text};
-  font-size: ${({size}) => size ?? '1rem'};
+export const AnimText = styled(animated.div)<{ color?: string; size?: string }>`
+  color: ${({ theme, color }) => color ?? theme.colors.text};
+  font-size: ${({ size }) => size ?? '1rem'};
   font-weight: 400;
   line-height: 1.5;
   z-index: 3;
