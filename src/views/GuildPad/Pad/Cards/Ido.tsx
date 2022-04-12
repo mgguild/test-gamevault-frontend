@@ -4,6 +4,7 @@ import { useWeb3React } from '@web3-react/core'
 import { toNumber } from 'lodash'
 import { Guildpad } from 'state/types'
 import styled from 'styled-components'
+import { useSpring } from 'react-spring'
 import { Button, Flex, Heading, Progress, Text, useModal } from '@metagg/mgg-uikit'
 import { Grid } from '@mui/material'
 import TimerRenderer from 'views/GuildPad/components/TimerRenderer'
@@ -24,6 +25,8 @@ import {
 import ModalWhitelist from '../Modal'
 import { toBigNumber } from '../../../../utils/formatBalance'
 import { getGuildpadStatus } from '../../../../utils/guildpadHelpers'
+import ProgressBar from '../../../../components/animated/ProgressBar'
+import { AnimText } from '../../../../components/animated/ProgressBar/styles'
 
 const TimerRows = styled(Flex)`
   text-align: center;
@@ -94,6 +97,12 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
   const totalSold = toBigNumber(guildpad.totalSold).toFormat()
   const status = getGuildpadStatus(guildpad)
 
+  const { progress } = useSpring({
+    from: { progress: 0 },
+    to: { progress: toNumber(guildpad.percentage) },
+    config: { duration: 1500 },
+  })
+
   return (
     <ContainerBoxCard>
       <Grid container spacing={2}>
@@ -110,9 +119,10 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
                 {`${totalSold}`} {guildpad.sellingCoin.symbol} SOLD
               </Heading>
               <div>
-                <Progress variant="flat" primaryStep={toNumber(guildpad.percentage)} />
+                {/* <Progress variant="flat" primaryStep={toNumber(guildpad.percentage)} /> */}
+                <ProgressBar progress={toNumber(guildpad.percentage)} />
                 <Flex justifyContent="space-between">
-                  <Text fontSize="12px">{guildpad.percentage}%</Text>
+                  <AnimText size="12px">{progress.to((x) => `${x.toFixed(4)}%`)}</AnimText>
                   <Text fontSize="12px">
                     {totalSold} / {totalSupply}
                   </Text>
