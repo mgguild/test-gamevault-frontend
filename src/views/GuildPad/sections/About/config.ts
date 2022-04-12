@@ -7,19 +7,17 @@ const DetailsList = [
   {
     image: 'LiquiditylockingIcon',
     title: 'Insurance Treasury',
-    description:
-      "All IGOs and INOs are secured by $200k in case of project failure",
+    description: 'All IGOs and INOs are secured by $200k in case of project failure',
   },
   {
     image: 'MultiChainIcon',
     title: 'Chain-agnostic',
-    description:
-      'Supports multiple blockchains such as Binance Smart Chain and Ethereum',
+    description: 'Supports multiple blockchains such as Binance Smart Chain and Ethereum',
   },
   {
     image: 'StakingservicesIcon',
     title: 'Staking as a Service (SaaS)',
-    description: "Provides staking platform for launchpad projects to reduce sell pressure",
+    description: 'Provides staking platform for launchpad projects to reduce sell pressure',
   },
   {
     image: 'DecentralizedidoIcon',
@@ -41,7 +39,7 @@ export const TierSystemList = [
     nftRequirement: 'x1.5 Allocation',
     stakingLength: '3 days before Allocation Round opens',
     poolWeight: 5,
-    whiteListRequirement: 'KYC Verified'
+    whiteListRequirement: 'KYC Verified',
   },
   {
     image: 'TierTwoIcon',
@@ -50,7 +48,7 @@ export const TierSystemList = [
     nftRequirement: 'x1.5 Allocation',
     stakingLength: '3 days before Allocation Round opens',
     poolWeight: 10,
-    whiteListRequirement: 'KYC Verified'
+    whiteListRequirement: 'KYC Verified',
   },
   {
     image: 'TierThreeIcon',
@@ -59,7 +57,7 @@ export const TierSystemList = [
     nftRequirement: 'x1.5 Allocation',
     stakingLength: '3 days before Allocation Round opens',
     poolWeight: 20,
-    whiteListRequirement: 'KYC Verified'
+    whiteListRequirement: 'KYC Verified',
   },
   {
     image: 'TierFourIcon',
@@ -68,7 +66,7 @@ export const TierSystemList = [
     nftRequirement: 'x1.5 Allocation',
     stakingLength: '3 days before Allocation Round opens',
     poolWeight: 30,
-    whiteListRequirement: 'KYC Verified'
+    whiteListRequirement: 'KYC Verified',
   },
   {
     image: 'TierFiveIcon',
@@ -77,7 +75,7 @@ export const TierSystemList = [
     nftRequirement: 'x1.5 Allocation',
     stakingLength: '3 days before Allocation Round opens',
     poolWeight: 50,
-    whiteListRequirement: 'KYC Verified'
+    whiteListRequirement: 'KYC Verified',
   },
 ]
 

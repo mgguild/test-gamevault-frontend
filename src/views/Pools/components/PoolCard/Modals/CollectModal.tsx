@@ -88,10 +88,7 @@ const CollectModal: React.FC<CollectModalProps> = ({
   }
 
   return (
-    <Modal
-      title={`${earningToken.symbol} ${isCompoundPool ? t('Collect') : t('Harvest')}`}
-      onDismiss={onDismiss}
-    >
+    <Modal title={`${earningToken.symbol} ${isCompoundPool ? t('Collect') : t('Harvest')}`} onDismiss={onDismiss}>
       {isCompoundPool && (
         <Flex justifyContent="center" alignItems="center" mb="24px">
           <ButtonMenu

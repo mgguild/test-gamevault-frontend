@@ -15,11 +15,10 @@ import { useTranslation } from 'contexts/Localization'
 import { ActionContainer, ActionContent, ActionTitles, Earned } from './styles'
 import useToast from '../../../../../hooks/useToast'
 
-
 interface HarvestActionProps {
   pid: number
-  stakingContract?: string,
-  tokenRewardSymbol?: string,
+  stakingContract?: string
+  tokenRewardSymbol?: string
   userData?: {
     allowance: string
     tokenBalance: string
@@ -29,10 +28,13 @@ interface HarvestActionProps {
   userDataReady: boolean
 }
 
-const HarvestAction: React.FunctionComponent<HarvestActionProps> = (
-  {
-    stakingContract, tokenRewardSymbol, pid, userData, userDataReady,
-  }) => {
+const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
+  stakingContract,
+  tokenRewardSymbol,
+  pid,
+  userData,
+  userDataReady,
+}) => {
   const earningsBigNumber = new BigNumber(userData.earnings)
   const cakePrice = usePriceCakeBusd()
   let earnings = BIG_ZERO
@@ -45,7 +47,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = (
     earningsBusd = earnings.multipliedBy(cakePrice).toNumber()
     displayBalance = earnings.toFixed(3, BigNumber.ROUND_DOWN)
   }
-  const theme = useContext(ThemeContext);
+  const theme = useContext(ThemeContext)
   const [pendingTx, setPendingTx] = useState(false)
   const { onReward } = useClaim(stakingContract)
   const { t } = useTranslation()
@@ -56,10 +58,10 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = (
   return (
     <ActionContainer style={{ margin: '10px 0' }}>
       <ActionTitles>
-        <Text bold textTransform='uppercase' color={theme.colors.MGG_accent2} fontSize='12px' pr='4px'>
+        <Text bold textTransform="uppercase" color={theme.colors.MGG_accent2} fontSize="12px" pr="4px">
           {tokenRewardSymbol}
         </Text>
-        <Text bold textTransform='uppercase' color='textSubtle' fontSize='12px'>
+        <Text bold textTransform="uppercase" color="textSubtle" fontSize="12px">
           {t('Earned')}
         </Text>
       </ActionTitles>
@@ -67,11 +69,11 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = (
         <div>
           <Earned>{displayBalance}</Earned>
           {earningsBusd > 0 && (
-            <Balance fontSize='12px' color='textSubtle' decimals={2} value={earningsBusd} unit=' USD' prefix='~' />
+            <Balance fontSize="12px" color="textSubtle" decimals={2} value={earningsBusd} unit=" USD" prefix="~" />
           )}
         </div>
         <Button
-          style={{borderRadius: '3px', height: '40px'}}
+          style={{ borderRadius: '3px', height: '40px' }}
           disabled={earnings.eq(0) || pendingTx || !userDataReady}
           onClick={async () => {
             setPendingTx(true)
@@ -92,7 +94,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = (
             }
             dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
           }}
-          ml='4px'
+          ml="4px"
         >
           {t('Claim')}
         </Button>

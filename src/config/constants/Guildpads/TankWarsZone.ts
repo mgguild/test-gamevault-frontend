@@ -6,10 +6,11 @@ const socials = {
   twitter: 'https://twitter.com/TankWarsZone',
   telegram: 'https://t.me/TankWarsZone',
   discord: 'https://discord.com/invite/82jCm7QyRA',
-  medium: 'https://tankwarszone.medium.com/'
+  medium: 'https://tankwarszone.medium.com/',
 }
 const guildpad = {
-  description: 'Tank wars zone is a metaverse-ready exciting and visually refreshing action game built on blockchain technology. Being the first blockchain game on Fantom & invested by the Fantom Foundation, the game will have very low transactions fees, the lowest time confirmations, and supportive communities for players. With various gameplays, you can play solo, or gather your friends, form a team, and battle with others while being able to earn money just by playing or staking your NFTs.',
+  description:
+    'Tank wars zone is a metaverse-ready exciting and visually refreshing action game built on blockchain technology. Being the first blockchain game on Fantom & invested by the Fantom Foundation, the game will have very low transactions fees, the lowest time confirmations, and supportive communities for players. With various gameplays, you can play solo, or gather your friends, form a team, and battle with others while being able to earn money just by playing or staking your NFTs.',
   socials,
   type: TYPE.INO,
   round: '1',
@@ -24,15 +25,16 @@ const guildpad = {
   inoDetails: {
     price: '0.3073',
     boxes: '300',
-    priceFiat: '126 USD'
+    priceFiat: '126 USD',
   },
   date: {
     start: 'February 18, 2022 1:00 PM UTC',
-    end: 'February 19, 2022 1:00 PM UTC'
+    end: 'February 19, 2022 1:00 PM UTC',
   },
-  boxDetails:{
+  boxDetails: {
     redeemInfo: 'Mystery Box can be later redeemed for Tanks after the Game Official Launch.',
-    rewardList: [ // made into array in case tokens & nfts are both rewards
+    rewardList: [
+      // made into array in case tokens & nfts are both rewards
       {
         description: 'There are 5 different tank rarity levels:',
         rarityLevels: [
@@ -41,14 +43,14 @@ const guildpad = {
           '1100 Rare Tanks',
           '555 Epic Tanks',
           '222 Legendary Tanks',
-        ]
-      }
-    ]
+        ],
+      },
+    ],
   },
   projectTokenEquivalent: '1425 WBOND',
   asOfPriceInProjectToken: 1645362000000,
   epochEndDate: 1645275600000,
-  nextRoundDate: 1645275600000
+  nextRoundDate: 1645275600000,
 }
 
 export default guildpad

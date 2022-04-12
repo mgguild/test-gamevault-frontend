@@ -23,9 +23,8 @@ import { Cards2, Card2Container, TokenLogo, Badge } from './styles'
 
 const getImageUrlFromToken = (token: Token) => {
   const address = getAddress(token.symbol === 'BNB' ? tokens.wbnb.address : token.address)
-  return `/images/tokens/${address}.${token.iconExtension?? 'svg'}`
+  return `/images/tokens/${address}.${token.iconExtension ?? 'svg'}`
 }
-
 
 interface PoolCard2Props {
   bgColor?: string
@@ -38,8 +37,19 @@ interface PoolCard2Props {
   isNew?: boolean
 }
 
-const PoolCard2: React.FC<PoolCard2Props> = ({bgColor, src, userDataReady, pool, account, isNew }) => {
-  const { sousId, stakingToken, earningToken, isFinished, userData, startBlock, endBlock, isComingSoon, poolCategory, stakingTokenPrice } = pool
+const PoolCard2: React.FC<PoolCard2Props> = ({ bgColor, src, userDataReady, pool, account, isNew }) => {
+  const {
+    sousId,
+    stakingToken,
+    earningToken,
+    isFinished,
+    userData,
+    startBlock,
+    endBlock,
+    isComingSoon,
+    poolCategory,
+    stakingTokenPrice,
+  } = pool
   const totalStaked = pool.totalStaked
     ? getBalanceNumber(new BigNumber(pool.totalStaked.toString()), stakingToken.decimals)
     : 0
@@ -52,10 +62,10 @@ const PoolCard2: React.FC<PoolCard2Props> = ({bgColor, src, userDataReady, pool,
   const rewardRate = pool?.tokenPerBlock ? getBalanceNumber(temp) : 0
 
   const { currentBlock } = useBlock()
-  const stakingAddess = getAddress(pool.contractAddress);
+  const stakingAddess = getAddress(pool.contractAddress)
   const { shouldShowBlockCountdown, blocksUntilStart, blocksRemaining, hasPoolStarted, blocksToDisplay } =
     getPoolBlockInfo(pool, currentBlock)
-    const stakingTokenBalance = userData?.stakingTokenBalance ? new BigNumber(userData.stakingTokenBalance) : BIG_ZERO
+  const stakingTokenBalance = userData?.stakingTokenBalance ? new BigNumber(userData.stakingTokenBalance) : BIG_ZERO
   const { stakingPrice, rewardPrice } = usePoolPrice(stakingToken.address[56], earningToken.address[56])
   const isBnbPool = poolCategory === PoolCategory.BINANCE
   const poolApr = getPoolApr(stakingPrice, rewardPrice, totalStaked, rewardPerBlock) ?? 0
@@ -63,30 +73,44 @@ const PoolCard2: React.FC<PoolCard2Props> = ({bgColor, src, userDataReady, pool,
 
   return (
     <>
-      <Cards2 src={src} bgColor={pool.UIProps.bgColor} className='shodow-pop' style={{cursor: 'pointer'}}>
+      <Cards2 src={src} bgColor={pool.UIProps.bgColor} className="shodow-pop" style={{ cursor: 'pointer' }}>
         <RLink to={`/Farm/${`Pools`}/${pool.sousId}`}>
-          <Card2Container style={{display: 'grid', gridTemplateColumns: '1fr 1fr'}}>
-            <TokenLogo size='3.5rem' src={getImageUrlFromToken(stakingToken)} />
-            <Flex style={{
-              flexFlow: 'row wrap',
-              columnGap: '0.5rem',
-              justifyContent: 'end',
-            }}>
-              { isNew && <div><Badge><Text color='white'>New</Text></Badge></div> }
-              <TokenLogo size='2rem' src={getImageUrlFromToken(earningToken)} />
-              <div><Badge type={1}><Text color='white'>Pool Based</Text></Badge></div>
-            </Flex>
-            <Flex style={{alignItems: 'end'}}>
+          <Card2Container style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+            <TokenLogo size="3.5rem" src={getImageUrlFromToken(stakingToken)} />
+            <Flex
+              style={{
+                flexFlow: 'row wrap',
+                columnGap: '0.5rem',
+                justifyContent: 'end',
+              }}
+            >
+              {isNew && (
+                <div>
+                  <Badge>
+                    <Text color="white">New</Text>
+                  </Badge>
+                </div>
+              )}
+              <TokenLogo size="2rem" src={getImageUrlFromToken(earningToken)} />
               <div>
-                <Text color='white'>{`${stakingToken.symbol}-${earningToken.symbol} Staking`}</Text>
-                <Heading color='white'>{pool.name}</Heading>
+                <Badge type={1}>
+                  <Text color="white">Pool Based</Text>
+                </Badge>
               </div>
             </Flex>
-            <Flex style={{justifyContent: 'end', alignItems: 'end'}}>
-              <div style={{textAlign: 'end'}}>
-                <Text color='white'>APR {apr}</Text>
+            <Flex style={{ alignItems: 'end' }}>
+              <div>
+                <Text color="white">{`${stakingToken.symbol}-${earningToken.symbol} Staking`}</Text>
+                <Heading color="white">{pool.name}</Heading>
+              </div>
+            </Flex>
+            <Flex style={{ justifyContent: 'end', alignItems: 'end' }}>
+              <div style={{ textAlign: 'end' }}>
+                <Text color="white">APR {apr}</Text>
                 <Link external href={getBscScanLink(hasPoolStarted ? endBlock : startBlock, 'countdown')}>
-                  <Heading color='white'>{!isComingSoon && `${formatNumber(blocksRemaining, 0, 0)}`} {isComingSoon && '-'} blocks</Heading>
+                  <Heading color="white">
+                    {!isComingSoon && `${formatNumber(blocksRemaining, 0, 0)}`} {isComingSoon && '-'} blocks
+                  </Heading>
                 </Link>
               </div>
             </Flex>

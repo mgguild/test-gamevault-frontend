@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { toNumber } from 'lodash'
 import { Guildpad } from 'state/types'
@@ -24,8 +25,6 @@ import ModalWhitelist from '../Modal'
 import { toBigNumber } from '../../../../utils/formatBalance'
 import { getGuildpadStatus } from '../../../../utils/guildpadHelpers'
 
-
-
 const TimerRows = styled(Flex)`
   text-align: center;
   & > * {
@@ -34,20 +33,22 @@ const TimerRows = styled(Flex)`
   & :first-child {
     font-size: 3vw;
   }
-  & :nth-child(2){
+  & :nth-child(2) {
     font-size: 1vw;
   }
-
 `
 
-const CountDown: React.FC<{ status: string; round: string; start?: boolean; end?: number }> = ({ round, start, end, status}) => {
+const CountDown: React.FC<{ status: string; round: string; start?: boolean; end?: number }> = ({
+  round,
+  start,
+  end,
+  status,
+}) => {
   const endDate = end
   const isStart = start
 
   const Renderer = (days?: number, hours?: number, minutes?: number, seconds?: number) => {
-    return (
-     <TimerRenderer days={days} hours={hours} minutes={minutes} seconds={seconds} round={round}/>
-    )
+    return <TimerRenderer days={days} hours={hours} minutes={minutes} seconds={seconds} round={round} />
   }
 
   return (
@@ -57,6 +58,15 @@ const CountDown: React.FC<{ status: string; round: string; start?: boolean; end?
   )
 }
 
+BigNumber.config({
+  DECIMAL_PLACES: 4,
+  FORMAT: {
+    decimalSeparator: '.',
+    groupSeparator: ',',
+    groupSize: 3,
+  },
+})
+
 const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ guildpad, userDataLoaded }) => {
   const { account } = useWeb3React()
   const [useBuyIDOModal] = useModal(<BuyIdoModal guildpad={guildpad} />)
@@ -64,9 +74,11 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
   const [whitelistModalShowed, setWhitelistModalShowed] = useState(false)
 
   const [showNotInWhitelistModal] = useModal(
-    <ModalWhitelist onDismiss={() => {
-      setWhitelistModalShowed(false)
-    }} />,
+    <ModalWhitelist
+      onDismiss={() => {
+        setWhitelistModalShowed(false)
+      }}
+    />,
   )
 
   useEffect(() => {
@@ -77,6 +89,9 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
   }, [account, guildpad, showNotInWhitelistModal, whitelistModalShowed, userDataLoaded])
 
   const remainingSupply = toBigNumber(guildpad.remainingSupply)
+  const totalSupply = toBigNumber(guildpad.totalSupply).toFormat()
+  const totalRaised = toBigNumber(guildpad.totalRaise).toFormat()
+  const totalSold = toBigNumber(guildpad.totalSold).toFormat()
   const status = getGuildpadStatus(guildpad)
 
   return (
@@ -84,59 +99,73 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
       <Grid container spacing={2}>
         <Grid item xs={4} md={6}>
           <CountDown status={status} round={guildpad.round} start end={guildpad.epochEndDate} />
-          <Text color='rgba(216, 209, 232, 1)' fontSize='17px' padding='10px 0px 0px 0px'
-                margin='10px 0px 0px 0px'>{details}</Text>
+          <Text color="rgba(216, 209, 232, 1)" fontSize="17px" padding="10px 0px 0px 0px" margin="10px 0px 0px 0px">
+            {details}
+          </Text>
         </Grid>
         <Grid item xs={12} md={6}>
           <MarketCard>
             <ProgressSection>
               <Heading>
-                {`${guildpad.totalSold}`} {guildpad.sellingCoin.symbol} SOLD
+                {`${totalSold}`} {guildpad.sellingCoin.symbol} SOLD
               </Heading>
               <div>
-                <Progress variant='flat' primaryStep={toNumber(guildpad.percentage)} />
-                <Flex justifyContent='space-between'>
-                  <Text fontSize='12px'>{guildpad.percentage}%</Text>
-                  <Text fontSize='12px'>{guildpad.totalSold} / {guildpad.totalSupply}</Text>
+                <Progress variant="flat" primaryStep={toNumber(guildpad.percentage)} />
+                <Flex justifyContent="space-between">
+                  <Text fontSize="12px">{guildpad.percentage}%</Text>
+                  <Text fontSize="12px">
+                    {totalSold} / {totalSupply}
+                  </Text>
                 </Flex>
               </div>
             </ProgressSection>
             <DetailSection>
               <DataRow>
                 <Text>Total Raise</Text>
-                <Text>{guildpad.totalRaise} {guildpad.buyingCoin.symbol}</Text>
+                <Text>
+                  {totalRaised} {guildpad.buyingCoin.symbol}
+                </Text>
               </DataRow>
               <DataRow>
                 <Text>{guildpad.sellingCoin.symbol} Price</Text>
-                <Text>{guildpad.tokenRate} {guildpad.buyingCoin.symbol}</Text>
+                <Text>
+                  {guildpad.tokenRate} {guildpad.buyingCoin.symbol}
+                </Text>
               </DataRow>
               <DataRow>
                 <Text>{guildpad.sellingCoin.symbol} Sold</Text>
-                <Text>{guildpad.totalSold}</Text>
+                <Text>{totalSold}</Text>
               </DataRow>
               <DataRow modify>
                 <Text>Max Allocation</Text>
-                <Text>{guildpad.userData.details.maxPayableAmount ?? '0'} {guildpad.sellingCoin.symbol}</Text>
+                <Text>
+                  {guildpad.userData.details.maxPayableAmount ?? '0'} {guildpad.sellingCoin.symbol}
+                </Text>
               </DataRow>
             </DetailSection>
             <AllocSection>
               <Text>My Allocation</Text>
               <div>
-                <Logo tokenSize='35px'
-                      tokenName={`${guildpad.userData.details.rewardedAmount ?? '0'} ${guildpad.sellingCoin.symbol}`}
-                      primaryToken={guildpad.sellingCoin} padding='0px' />
+                <Logo
+                  tokenSize="35px"
+                  tokenName={`${guildpad.userData.details.rewardedAmount ?? '0'} ${guildpad.sellingCoin.symbol}`}
+                  primaryToken={guildpad.sellingCoin}
+                  padding="0px"
+                />
               </div>
             </AllocSection>
             <ActionSection>
-              {!account && <UnlockButton customTitle='CONNECT WALLET TO PARTICIPATE' />}
-              {
-                account &&
-                <Button onClick={useBuyIDOModal}
-                        disabled={!guildpad.userData.details.whitelist || remainingSupply.isZero() || guildpad.hasEnded}
-                        fullWidth>
+              {!account && <UnlockButton customTitle="CONNECT WALLET TO PARTICIPATE" />}
+              {account && (
+                <Button
+                  onClick={useBuyIDOModal}
+                  disabled={!guildpad.userData.details.whitelist || remainingSupply.isZero() || guildpad.hasEnded}
+                  fullWidth
+                >
                   {!remainingSupply.isZero() && `PURCHASE ${guildpad.sellingCoin.symbol}`}
                   {remainingSupply.isZero() && 'SOLD OUT'}
-                </Button>}
+                </Button>
+              )}
             </ActionSection>
           </MarketCard>
         </Grid>

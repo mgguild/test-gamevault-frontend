@@ -3,8 +3,7 @@ import { PageMeta } from './types'
 
 export const DEFAULT_META: PageMeta = {
   title: 'Meta Gaming Guild',
-  description:
-    'Stake MGG and earn token rewards',
+  description: 'Stake MGG and earn token rewards',
   image: 'https://app.metagg.com/MGG.png',
 }
 
@@ -59,8 +58,8 @@ export const getCustomMeta = (path: string, t: ContextApi['t']): PageMeta => {
   }
 }
 
-export const getPadCustomMeta = (launchpad: string):PageMeta => {
+export const getPadCustomMeta = (launchpad: string): PageMeta => {
   return {
-    title: `MGG Guildpad > ${launchpad}`
+    title: `MGG Guildpad > ${launchpad}`,
   }
 }

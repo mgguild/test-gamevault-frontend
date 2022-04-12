@@ -19,10 +19,7 @@ const NotEnoughTokensModal: React.FC<NotEnoughTokensModalProps> = ({ tokenSymbol
   const { theme } = useTheme()
 
   return (
-    <Modal
-      title={t('%symbol% required', { symbol: tokenSymbol })}
-      onDismiss={onDismiss}
-    >
+    <Modal title={t('%symbol% required', { symbol: tokenSymbol })} onDismiss={onDismiss}>
       <Text color="failure" bold>
         {t('Insufficient %symbol% balance', { symbol: tokenSymbol })}
       </Text>

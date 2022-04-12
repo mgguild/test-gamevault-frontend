@@ -23,7 +23,7 @@ const StyledPage = styled(Container)`
   }
 `
 
-export const PageMeta:React.FC<{guildpadTitle?: string}> = ({guildpadTitle}) => {
+export const PageMeta: React.FC<{ guildpadTitle?: string }> = ({ guildpadTitle }) => {
   const { t } = useTranslation()
   const { pathname } = useLocation()
 
@@ -34,22 +34,20 @@ export const PageMeta:React.FC<{guildpadTitle?: string}> = ({guildpadTitle}) => 
   //       maximumFractionDigits: 3,
   //     })}`
   //   : ''
-  const pageMeta = guildpadTitle? getPadCustomMeta(guildpadTitle) : getCustomMeta(pathname, t) || {}
+  const pageMeta = guildpadTitle ? getPadCustomMeta(guildpadTitle) : getCustomMeta(pathname, t) || {}
   const { title, description, image } = { ...DEFAULT_META, ...pageMeta }
- 
+
   // const pageTitle = cakePriceUsdDisplay ? [title, cakePriceUsdDisplay].join(' - ') : title
 
   return (
     <Helmet>
       <title>{title}</title>
-      <meta property='og:title' content={title} />
-      <meta property='og:description' content={description} />
-      <meta property='og:image' content={image} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={image} />
     </Helmet>
   )
 }
-
-
 
 const Page: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ children, ...props }) => {
   return (

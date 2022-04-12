@@ -22,9 +22,23 @@ import CardActions from './CardActions'
 import { getAddress } from '../../../../utils/addressHelpers'
 import ClaimAction from '../ClaimAction'
 
-
-const PoolCard: React.FC<{ pool: Pool; account: string, userDataReady: boolean }> = ({ pool, account, userDataReady }) => {
-  const { sousId, stakingToken, earningToken, isFinished, userData, startBlock, endBlock, isComingSoon, poolCategory, stakingTokenPrice } = pool
+const PoolCard: React.FC<{ pool: Pool; account: string; userDataReady: boolean }> = ({
+  pool,
+  account,
+  userDataReady,
+}) => {
+  const {
+    sousId,
+    stakingToken,
+    earningToken,
+    isFinished,
+    userData,
+    startBlock,
+    endBlock,
+    isComingSoon,
+    poolCategory,
+    stakingTokenPrice,
+  } = pool
   const { t } = useTranslation()
   const stakedBalance = userData?.stakedBalance ? new BigNumber(userData.stakedBalance) : BIG_ZERO
   const accountHasStakedBalance = stakedBalance.gt(0)
@@ -42,10 +56,10 @@ const PoolCard: React.FC<{ pool: Pool; account: string, userDataReady: boolean }
   const rewardRate = pool?.tokenPerBlock ? getBalanceNumber(temp) : 0
 
   const { currentBlock } = useBlock()
-  const stakingAddess = getAddress(pool.contractAddress);
+  const stakingAddess = getAddress(pool.contractAddress)
   const { shouldShowBlockCountdown, blocksUntilStart, blocksRemaining, hasPoolStarted, blocksToDisplay } =
     getPoolBlockInfo(pool, currentBlock)
-    const stakingTokenBalance = userData?.stakingTokenBalance ? new BigNumber(userData.stakingTokenBalance) : BIG_ZERO
+  const stakingTokenBalance = userData?.stakingTokenBalance ? new BigNumber(userData.stakingTokenBalance) : BIG_ZERO
   const { stakingPrice, rewardPrice } = usePoolPrice(stakingToken.address[56], earningToken.address[56])
   const isBnbPool = poolCategory === PoolCategory.BINANCE
   const apr = getPoolApr(stakingPrice, rewardPrice, totalStaked, rewardPerBlock)
@@ -59,7 +73,7 @@ const PoolCard: React.FC<{ pool: Pool; account: string, userDataReady: boolean }
       />
       <Flex style={{ margin: '24px' }} flexDirection="column" justifyContent="space-evenly">
         <Flex>
-        <ClaimAction
+          <ClaimAction
             stakingTokenBalance={stakingTokenBalance}
             isBnbPool={isBnbPool}
             pool={pool}
@@ -101,9 +115,7 @@ const PoolCard: React.FC<{ pool: Pool; account: string, userDataReady: boolean }
         </Flex>
         {/* <Text color="textSubtle" fontSize="14px">{t('This will only work on Binance Smart Chain')}</Text> */}
         {/* <CardFooter pool={pool} account={account} /> */}
-        <DetailsSection 
-            stakingAddress={getBscScanAddressUrl(stakingAddess)}
-        />
+        <DetailsSection stakingAddress={getBscScanAddressUrl(stakingAddess)} />
       </Flex>
     </StyledCard>
   )

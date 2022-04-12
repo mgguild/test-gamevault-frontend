@@ -1,6 +1,6 @@
 import React, { lazy } from 'react'
 import { HashRouter, Redirect, Route, Switch, Link } from 'react-router-dom'
-import { ResetCSS,  } from '@metagg/mgg-uikit'
+import { ResetCSS } from '@metagg/mgg-uikit'
 import BigNumber from 'bignumber.js'
 import useEagerConnect from 'hooks/useEagerConnect'
 import { useFetchProfile, usePollBlockNumber, usePollCoreFarmData } from 'state/hooks'
@@ -40,8 +40,8 @@ BigNumber.config({
 })
 
 const ExternalRedirect = ({ to, ...routeProps }) => {
-  return <Redirect to={to} />;
-};
+  return <Redirect to={to} />
+}
 
 const App: React.FC = () => {
   usePollBlockNumber()
@@ -56,30 +56,30 @@ const App: React.FC = () => {
       <Menu>
         <SuspenseWithChunkError fallback={<PageLoader />}>
           <Switch>
-            <Route path='/farms'>
+            <Route path="/farms">
               <Farms />
             </Route>
-            <Route path='/pools' exact>
+            <Route path="/pools" exact>
               <Pools />
               {/* <ComingSoon title="Pools" /> */}
             </Route>
-            <Route path='/gamefi' exact>
-              {/* <ComingSoon title="GameFi Vaults" /> */}
-              <Gamefi />
+            <Route path="/gamefi" exact>
+              <ComingSoon title="GameFi Vaults" />
+              {/* <Gamefi /> */}
             </Route>
-            <Route path='/launchpad' exact>
+            <Route path="/launchpad" exact>
               {/* <ComingSoon title="Launchpad" /> */}
               <Guildpad />
             </Route>
-            <Route path='/launchpad/:guildpadTitle' component={Pad}/>
-            <Route path='/gamefi/:type/:farmID' component={FarmPage}/>
-            <Route path='/earning-dashboard' exact>
+            <Route path="/launchpad/:guildpadTitle" component={Pad} />
+            <Route path="/gamefi/:type/:farmID" component={FarmPage} />
+            <Route path="/earning-dashboard" exact>
               <ComingSoon title="Earning Dashboard" />
             </Route>
-            <Route path='/staking'>
-              <Redirect to='/farms' />
+            <Route path="/staking">
+              <Redirect to="/farms" />
             </Route>
-            <Route path='/' component={RedirectToFarms} />
+            <Route path="/" component={RedirectToFarms} />
             {/* 404 */}
             <Route component={NotFound} />
             {/* External link for redirect */}

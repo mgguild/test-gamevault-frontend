@@ -4,7 +4,7 @@ import { Button, Flex, Input, InputProps, Text } from '@metagg/mgg-uikit'
 import { useTranslation } from 'contexts/Localization'
 
 interface ModalInputProps {
-    purpose?: string
+  purpose?: string
   max: string
   symbol: string
   onSelectMax?: () => void
@@ -70,7 +70,7 @@ const InputContainer = styled(Flex)`
 // `
 
 const CustomInput: React.FC<ModalInputProps> = ({
-purpose,
+  purpose,
   max,
   // symbol,
   onChange,
@@ -102,12 +102,13 @@ purpose,
           {/* <Text fontSize="16px">{symbol}</Text> */}
         </InputContainer>
       </StyledTokenInput>
-      { purpose === 'staking' && (
-      <Flex justifyContent='flex-end' marginTop='15px'>
-        <Text fontSize="14px" color="textSubtle">
-          Your balance: 0 MGG
-        </Text>
-      </Flex>)}
+      {purpose === 'staking' && (
+        <Flex justifyContent="flex-end" marginTop="15px">
+          <Text fontSize="14px" color="textSubtle">
+            Your balance: 0 MGG
+          </Text>
+        </Flex>
+      )}
       {/* {isBalanceZero && (
         <StyledErrorMessage fontSize="14px" color="failure">
           {t('No tokens to stake')}:{' '}

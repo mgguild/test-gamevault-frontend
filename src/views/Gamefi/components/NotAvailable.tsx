@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {Button, Heading, Text } from '@sparkpointio/sparkswap-uikit'
+import { Button, Heading, Text } from '@sparkpointio/sparkswap-uikit'
 import { useTranslation } from 'contexts/Localization'
 
 const StyledNotFound = styled.div`
@@ -10,14 +10,14 @@ const StyledNotFound = styled.div`
   justify-content: center;
 `
 
-const NotAvailable = ({title}) => {
+const NotAvailable = ({ title }) => {
   const { t } = useTranslation()
 
   return (
-      <StyledNotFound>
-        <img src="/logo.png" alt="LogoIcon" width="64px" style= {{ marginBottom: '8px' }}/>
-        <Text mb="16px">{`No ${title} found`}</Text>
-      </StyledNotFound>
+    <StyledNotFound>
+      <img src="/logo.png" alt="LogoIcon" width="64px" style={{ marginBottom: '8px' }} />
+      <Text mb="16px">{`No ${title} found`}</Text>
+    </StyledNotFound>
   )
 }
 

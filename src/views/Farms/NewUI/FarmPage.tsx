@@ -9,7 +9,15 @@ import styled, { ThemeContext } from 'styled-components'
 import FlexLayout from 'components/layout/Flex'
 import Page from 'components/layout/Page'
 import useMedia from 'use-media'
-import { useFarms, usePollFarmsData, usePriceCakeBusd, usePools, useFetchPublicPoolsData, useCakeVault, useFetchCakeVault } from 'state/hooks'
+import {
+  useFarms,
+  usePollFarmsData,
+  usePriceCakeBusd,
+  usePools,
+  useFetchPublicPoolsData,
+  useCakeVault,
+  useFetchCakeVault,
+} from 'state/hooks'
 import usePersistState from 'hooks/usePersistState'
 import { useFarmPrice } from 'hooks/price'
 import usePrevious from 'utils/refHelpers'
@@ -28,8 +36,8 @@ import { latinise } from 'utils/latinise'
 import PageHeader from 'components/PageHeader'
 import SearchInput from 'components/SearchInput'
 import Select, { OptionProps } from 'components/Select/Select'
-import { ApexOptions } from 'apexcharts';
-import ReactApexChart from "react-apexcharts";
+import { ApexOptions } from 'apexcharts'
+import ReactApexChart from 'react-apexcharts'
 import { useTable } from 'react-table'
 import FarmCard, { FarmWithStakedValue } from '../components/FarmCard/FarmCard'
 import Table from '../components/FarmTable/FarmTable'
@@ -39,12 +47,11 @@ import { DesktopColumnSchema, ViewMode } from '../components/types'
 import { ReactComponent as FarmsDarkLogo } from '../components/assets/farm-dark.svg'
 import { ReactComponent as FarmsLightLogo } from '../components/assets/farm-light.svg'
 import { getAprData, getCakeVaultEarnings } from '../../Pools/helpers'
-import {FarmCard2, PoolCard2} from '../components/FarmCards'
+import { FarmCard2, PoolCard2 } from '../components/FarmCards'
 import SvgIcon from '../../../components/Launchpad/SvgIcon'
 import { getBscScanAddressUrl } from '../../../utils/bscscan'
 import { Cards2, Card2Container, TokenLogo, Badge, LinearBG, PageContainer } from '../components/FarmCards/styles'
 import { RenderSocials } from '../../../components/Launchpad/Logo'
-
 
 const FlexC = styled(Flex)`
   padding: 2.5rem;
@@ -66,7 +73,7 @@ const StatCard = styled(Flex)`
   padding: 1rem;
   flex-flow: column;
   row-gap: 1rem;
-  background-color: ${({theme}) => theme.colors.MGG_mainBG};
+  background-color: ${({ theme }) => theme.colors.MGG_mainBG};
   text-align: start;
   min-width: 21rem;
   flex: 1;
@@ -76,8 +83,8 @@ const Stats = styled(Flex)`
   justify-content: center;
   align-items: center;
   padding: 0.5rem 1rem;
-  background-color: ${({theme}) => theme.colors.MGG_container};
-  min-width: 11rem
+  background-color: ${({ theme }) => theme.colors.MGG_container};
+  min-width: 11rem;
 `
 
 const TableStyle = styled.div`
@@ -87,14 +94,14 @@ const TableStyle = styled.div`
   width: 100%;
   padding: 1rem;
   overflow: auto;
-  background-color: ${({theme}) => theme.colors.MGG_mainBG};
+  background-color: ${({ theme }) => theme.colors.MGG_mainBG};
   z-index: 2;
 
   table {
     width: 99%;
     position: absolute;
 
-    th{
+    th {
       text-align: start;
       margin: 0;
       padding: 0.5rem;
@@ -112,11 +119,11 @@ const TableStyle = styled.div`
 const ChartStyle = styled(Flex)`
   width: 100%;
   max-width: 100%;
-  background-color: ${({theme}) => theme.colors.MGG_mainBG};
+  background-color: ${({ theme }) => theme.colors.MGG_mainBG};
   padding: 1rem;
   z-index: 3;
-  .apexcharts-text{
-    fill: ${({theme}) => theme.colors.text};
+  .apexcharts-text {
+    fill: ${({ theme }) => theme.colors.text};
   }
 `
 
@@ -125,19 +132,19 @@ type Series = {
   data: number[]
 }
 
-class ApexChart extends React.Component<{series: Series[]}, {options: ApexOptions, series: Series[]}>{
-  constructor(props){
+class ApexChart extends React.Component<{ series: Series[] }, { options: ApexOptions; series: Series[] }> {
+  constructor(props) {
     super(props)
 
     this.state = {
       series: props.series,
 
-      options:{
+      options: {
         chart: {
-          id: "basic-area",
+          id: 'basic-area',
           toolbar: {
             show: true,
-            tools:{
+            tools: {
               download: false,
               selection: false,
               zoom: true,
@@ -145,20 +152,20 @@ class ApexChart extends React.Component<{series: Series[]}, {options: ApexOption
               zoomout: true,
               pan: false,
               reset: '<img src="/images/icons/refresh-ccw.svg" />',
-            }
+            },
           },
         },
         xaxis: {
-          categories: ['03/15', '03/16', '03/17', '03/18', '03/19', '03/20', '03/21', '03/22', '03/23']
+          categories: ['03/15', '03/16', '03/17', '03/18', '03/19', '03/20', '03/21', '03/22', '03/23'],
         },
         markers: {
           size: 5,
-          colors: ["#000524"],
-          strokeColors: ["#00BAEC"],
-          strokeWidth: 3
+          colors: ['#000524'],
+          strokeColors: ['#00BAEC'],
+          strokeWidth: 3,
         },
         dataLabels: {
-          enabled: false
+          enabled: false,
         },
         // yaxis:{
         //   labels:{
@@ -167,21 +174,15 @@ class ApexChart extends React.Component<{series: Series[]}, {options: ApexOption
         //     }
         //   }
         // }
-      }
+      },
     }
   }
 
   render() {
-    const {options, series} = this.state
-    return(
-      <div style={{width: '100%', height: '100%'}}>
-        <ReactApexChart
-          options={options}
-          series={series}
-          type="area"
-          height={300}
-          width="100%"
-        />
+    const { options, series } = this.state
+    return (
+      <div style={{ width: '100%', height: '100%' }}>
+        <ReactApexChart options={options} series={series} type="area" height={300} width="100%" />
       </div>
     )
   }
@@ -189,42 +190,38 @@ class ApexChart extends React.Component<{series: Series[]}, {options: ApexOption
 
 const options: ApexOptions = {
   chart: {
-    id: "basic-area",
+    id: 'basic-area',
     events: {
       mounted: (chart) => {
-        chart.windowResizeHandler();
-      }
+        chart.windowResizeHandler()
+      },
     },
-    height: "100%",
-    width: "100%",
+    height: '100%',
+    width: '100%',
   },
   xaxis: {
-    categories: [0.001, 0.002, 0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.009]
-  }
+    categories: [0.001, 0.002, 0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.009],
+  },
 }
 
 const getImageUrlFromToken = (token: Token) => {
   const address = getAddress(token.symbol === 'BNB' ? tokens.wbnb.address : token.address)
-  return `/images/tokens/${address}.${token.iconExtension?? 'svg'}`
+  return `/images/tokens/${address}.${token.iconExtension ?? 'svg'}`
 }
 
-const RenderTable = ({columns, data}) => {
+const RenderTable = ({ columns, data }) => {
   const theme = useContext(ThemeContext)
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-  } = useTable({ columns, data })
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data })
 
   return (
     <table {...getTableProps()}>
-      <thead style={{width: '100%'}}>
-        {headerGroups.map(headerGroup => (
+      <thead style={{ width: '100%' }}>
+        {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}><Text color={theme.colors.MGG_accent2}>{column.render('Header')}</Text></th>
+            {headerGroup.headers.map((column) => (
+              <th {...column.getHeaderProps()}>
+                <Text color={theme.colors.MGG_accent2}>{column.render('Header')}</Text>
+              </th>
             ))}
           </tr>
         ))}
@@ -234,8 +231,12 @@ const RenderTable = ({columns, data}) => {
           prepareRow(row)
           return (
             <tr {...row.getRowProps()}>
-              {row.cells.map(cell => {
-                return <td {...cell.getCellProps()}><Text>{cell.render('Cell')}</Text></td>
+              {row.cells.map((cell) => {
+                return (
+                  <td {...cell.getCellProps()}>
+                    <Text>{cell.render('Cell')}</Text>
+                  </td>
+                )
               })}
             </tr>
           )
@@ -245,14 +246,14 @@ const RenderTable = ({columns, data}) => {
   )
 }
 
-const RenderFarm: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblColumns }) => {
+const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tblColumns }) => {
   const theme = useContext(ThemeContext)
   const { path } = useRouteMatch()
   const { account, chainId } = useWeb3React()
   const { pathname } = useLocation()
   const { data: farmsLP, userDataLoaded } = useFarms()
   const isArchived = pathname.includes('archived')
-  const currentFarm = farmsLP.filter((farm) => new BigNumber(farm.pid).isEqualTo(new BigNumber(farmID)) )[0]
+  const currentFarm = farmsLP.filter((farm) => new BigNumber(farm.pid).isEqualTo(new BigNumber(farmID)))[0]
   usePollFarmsData(isArchived)
   console.log(currentFarm)
 
@@ -280,165 +281,234 @@ const RenderFarm: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
         time: '1hr 53m ago',
       },
     ],
-    []
+    [],
   )
 
   const series: Series[] = [
     {
-      name: "MGG",
-      data: [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09]
-    }
+      name: 'MGG',
+      data: [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09],
+    },
   ]
 
-  return(
-    <PageContainer  bgColor={currentFarm.UIProps.bgColor} contain={currentFarm.UIProps.contain}>
+  return (
+    <PageContainer bgColor={currentFarm.UIProps.bgColor} contain={currentFarm.UIProps.contain}>
       <LinearBG>
-      <Flex>
-        <>
-          <Card2Container style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            <Flex style={{textAlign: 'center', flexFlow: 'column', rowGap: '1rem'}}>
-              <Flex style={{alignItems: 'center', justifyContent: 'center'}}>
-                <TokenLogo size='3rem' src={getImageUrlFromToken(currentFarm.token)} />
-                <Heading color='white' style={{fontSize: '1.875rem', padding: '0 1rem'}}>{currentFarm.name} Token</Heading>
+        <Flex>
+          <>
+            <Card2Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <Flex style={{ textAlign: 'center', flexFlow: 'column', rowGap: '1rem' }}>
+                <Flex style={{ alignItems: 'center', justifyContent: 'center' }}>
+                  <TokenLogo size="3rem" src={getImageUrlFromToken(currentFarm.token)} />
+                  <Heading color="white" style={{ fontSize: '1.875rem', padding: '0 1rem' }}>
+                    {currentFarm.name} Token
+                  </Heading>
+                </Flex>
+                <Text color="white">Hold your {currentFarm.token.symbol} tokens for great benefits</Text>
+                <Flex>
+                  <Text color="white">
+                    Token address{' '}
+                    <Link
+                      style={{ display: 'contents' }}
+                      href={getBscScanAddressUrl(getAddress(currentFarm.token.address))}
+                    >
+                      {getAddress(currentFarm.token.address)}
+                    </Link>
+                  </Text>
+                </Flex>
+                <RenderSocials socials={currentFarm.UIProps.socials} center color="white" size={20} />
               </Flex>
-              <Text color='white'>Hold your {currentFarm.token.symbol} tokens for great benefits</Text>
-              <Flex>
-                <Text color='white'>Token address <Link style={{display: 'contents'}} href={getBscScanAddressUrl(getAddress(currentFarm.token.address))}>{getAddress(currentFarm.token.address)}</Link></Text>
-              </Flex>
-              <RenderSocials socials={currentFarm.UIProps.socials} center color='white' size={20}/>
+            </Card2Container>
+          </>
+        </Flex>
+        <FlexC>
+          <FlexC style={{ backgroundColor: theme.colors.MGG_mainBG, maxWidth: '40rem', zIndex: 3 }}>
+            <Heading style={{ fontSize: '1.875rem' }}>{currentFarm.lpSymbol} Staking Farm</Heading>
+            <Text>Deposit your {currentFarm.lpSymbol} Tokens to earn Extra Annual Percentage Rate</Text>
+            <Text color={theme.colors.MGG_accent2}>Current APR</Text>
+            <Flex
+              style={{
+                width: '100%',
+                justifyContent: 'center',
+                padding: '1rem',
+                backgroundColor: theme.colors.MGG_container,
+              }}
+            >
+              <Heading style={{ fontSize: '1.875rem' }}>150%</Heading>
             </Flex>
-          </Card2Container>
-        </>
-      </Flex>
-      <FlexC>
-        <FlexC style={{backgroundColor: theme.colors.MGG_mainBG, maxWidth: '40rem', zIndex: 3}}>
-          <Heading style={{fontSize: '1.875rem'}}>{currentFarm.lpSymbol} Staking Farm</Heading>
-          <Text>Deposit your {currentFarm.lpSymbol} Tokens to earn Extra Annual Percentage Rate</Text>
-          <Text color={theme.colors.MGG_accent2}>Current APR</Text>
-          <Flex style={{width: '100%', justifyContent: 'center', padding: '1rem', backgroundColor: theme.colors.MGG_container}}>
-            <Heading style={{fontSize: '1.875rem'}}>150%</Heading>
-          </Flex>
 
-          <Flex style={{width: '100%', flexFlow: 'row wrap', gap: '1rem', justifyContent: 'space-evenly'}}>
-            <Stats>
-              <div>
-                <Heading size='l'>100 days</Heading>
-                <Text fontSize='0.8rem'>Program duration</Text>
-              </div>
-            </Stats>
-            <Stats>
-              <div>
-                <Heading size='l'>June 03, 2022</Heading>
-                <Text fontSize='0.8rem'>Last day to earn APR</Text>
-              </div>
-            </Stats>
-            <Stats>
-              <div>
-                <Heading size='l'>14 days</Heading>
-                <Text fontSize='0.8rem'>Minimum Staking Time</Text>
-              </div>
-            </Stats>
-          </Flex>
+            <Flex style={{ width: '100%', flexFlow: 'row wrap', gap: '1rem', justifyContent: 'space-evenly' }}>
+              <Stats>
+                <div>
+                  <Heading size="l">100 days</Heading>
+                  <Text fontSize="0.8rem">Program duration</Text>
+                </div>
+              </Stats>
+              <Stats>
+                <div>
+                  <Heading size="l">June 03, 2022</Heading>
+                  <Text fontSize="0.8rem">Last day to earn APR</Text>
+                </div>
+              </Stats>
+              <Stats>
+                <div>
+                  <Heading size="l">14 days</Heading>
+                  <Text fontSize="0.8rem">Minimum Staking Time</Text>
+                </div>
+              </Stats>
+            </Flex>
 
-          <Text fontSize='0.8rem' color={theme.colors.textSubtle}><em>*Neither stake nor rewards can be withdrawn before minimum staking time</em></Text>
-          <Flex style={{width: '100%', flexWrap: 'wrap', rowGap: '1rem', justifyContent: 'space-between', alignItems: 'center'}}>
-            <Flex style={{flex: '0 50%'}}>
+            <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
+              <em>*Neither stake nor rewards can be withdrawn before minimum staking time</em>
+            </Text>
+            <Flex
+              style={{
+                width: '100%',
+                flexWrap: 'wrap',
+                rowGap: '1rem',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <Flex style={{ flex: '0 50%' }}>
                 <Text>Amount</Text>
+              </Flex>
+              <Flex style={{ flex: '0 50%', justifyContent: 'end' }}>
+                <ButtomSM>Deposit Max</ButtomSM>
+              </Flex>
+              <Flex style={{ flex: '0 100%', position: 'relative' }}>
+                <Input style={{ padding: '1.5rem' }} placeholder="0" type="number" min="0" />
+                <div style={{ position: 'absolute', top: '0.7rem', right: '1.5rem' }}>
+                  <Text color={theme.colors.textSubtle}>
+                    {currentFarm.quoteToken.symbol} - {currentFarm.pairToken.symbol}
+                  </Text>
+                </div>
+              </Flex>
+              <Flex style={{ flex: '0 100%', justifyContent: 'center' }}>
+                <Button>Connect Wallet to Stake</Button>
+              </Flex>
+              <Flex style={{ flex: '0 100%' }} />
+              <Flex style={{ flex: '0 50%' }}>
+                <Text fontSize="0.7rem" color={theme.colors.MGG_accent2}>
+                  Add Liquidity to get {currentFarm.lpSymbol} Tokens
+                </Text>
+              </Flex>
+              <Flex style={{ flex: '0 50%', justifyContent: 'end' }}>
+                <Text fontSize="0.7rem" color={theme.colors.MGG_accent2}>
+                  Pool info on SparkSwap
+                </Text>
+              </Flex>
             </Flex>
-            <Flex style={{flex: '0 50%', justifyContent: 'end'}}>
-              <ButtomSM>Deposit Max</ButtomSM>
-            </Flex>
-            <Flex style={{flex: '0 100%', position: 'relative'}}>
-              <Input style={{padding: '1.5rem'}} placeholder='0' type='number' min="0"/>
-              <div style={{position: 'absolute', top: '0.7rem', right: '1.5rem'}}>
-                <Text color={theme.colors.textSubtle}>{currentFarm.quoteToken.symbol} - {currentFarm.pairToken.symbol}</Text>
-              </div>
-            </Flex>
-            <Flex style={{flex: '0 100%', justifyContent: 'center'}}>
-              <Button>Connect Wallet to Stake</Button>
-            </Flex>
-            <Flex style={{flex: '0 100%'}} />
-            <Flex style={{flex: '0 50%'}}>
-              <Text fontSize='0.7rem' color={theme.colors.MGG_accent2}>Add Liquidity to get {currentFarm.lpSymbol} Tokens</Text>
-            </Flex>
-            <Flex style={{flex: '0 50%', justifyContent: 'end'}}>
-              <Text fontSize='0.7rem' color={theme.colors.MGG_accent2}>Pool info on SparkSwap</Text>
-            </Flex>
+          </FlexC>
+          <Flex style={{ margin: '2rem 0', zIndex: 3 }}>
+            <div>
+              <Heading style={{ fontSize: '1.875rem' }} color="white">
+                {' '}
+                LP Farming Stats
+              </Heading>
+              <Text color="white">Learn About {currentFarm.name} LP staking Farm, and track its results</Text>
+            </div>
           </Flex>
+
+          <Flex
+            style={{
+              padding: '1rem 2rem',
+              width: '100%',
+              flexFlow: 'row wrap',
+              justifyContent: 'space-between',
+              backgroundColor: theme.colors.MGG_mainBG,
+              zIndex: 3,
+            }}
+          >
+            <Text>Current Total Value Locked - $100k</Text>
+            <Text>All Time High Value Locked - $120k</Text>
+            <Text color={theme.colors.MGG_accent2}>Farm Contract Address</Text>
+          </Flex>
+
+          <Flex
+            style={{
+              width: '100%',
+              flexFlow: 'row wrap',
+              justifyContent: 'space-between',
+              gap: '0.5rem',
+              zIndex: 3,
+            }}
+          >
+            <StatCard>
+              <Text color={theme.colors.MGG_accent2}>Total {currentFarm.name} Staked</Text>
+              <Heading style={{ fontSize: '1.875rem' }}>2M</Heading>
+              <hr
+                style={{
+                  width: '100%',
+                  borderTop: `1px solid ${theme.colors.MGG_active}`,
+                  borderBottom: `1px solid ${theme.colors.MGG_active}`,
+                }}
+              />
+              <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
+                123.456789k LP Tokens
+              </Text>
+            </StatCard>
+
+            <StatCard>
+              <Text color={theme.colors.MGG_accent2}>Total {currentFarm.name} Rewards Locked</Text>
+              <Heading style={{ fontSize: '1.875rem' }}>1.977M</Heading>
+              <hr
+                style={{
+                  width: '100%',
+                  borderTop: `1px solid ${theme.colors.MGG_active}`,
+                  borderBottom: `1px solid ${theme.colors.MGG_active}`,
+                }}
+              />
+              <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
+                26.21 {currentFarm.token.symbol} token per minute
+              </Text>
+            </StatCard>
+
+            <StatCard>
+              <Text color={theme.colors.MGG_accent2}>Farming Program Ends</Text>
+              <Heading style={{ fontSize: '1.875rem' }}>100D 23H 22M</Heading>
+              <hr
+                style={{
+                  width: '100%',
+                  borderTop: `1px solid ${theme.colors.MGG_active}`,
+                  borderBottom: `1px solid ${theme.colors.MGG_active}`,
+                }}
+              />
+              <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
+                145402 Minutes Remaining
+              </Text>
+            </StatCard>
+
+            <StatCard>
+              <Text color={theme.colors.MGG_accent2}>Total {currentFarm.name} Rewards Unlocked</Text>
+              <Heading style={{ fontSize: '1.875rem' }}>2M</Heading>
+              <hr
+                style={{
+                  width: '100%',
+                  borderTop: `1px solid ${theme.colors.MGG_active}`,
+                  borderBottom: `1px solid ${theme.colors.MGG_active}`,
+                }}
+              />
+              <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
+                0 Rewards Withdrawn
+              </Text>
+            </StatCard>
+          </Flex>
+
+          <ChartStyle>
+            <ApexChart series={series} />
+          </ChartStyle>
+
+          <TableStyle>
+            <RenderTable columns={tblColumns} data={data} />
+          </TableStyle>
         </FlexC>
-        <Flex style={{margin: '2rem 0', zIndex: 3}}>
-          <div>
-            <Heading style={{fontSize: '1.875rem'}} color='white'> LP Farming Stats</Heading>
-            <Text color='white'>Learn About {currentFarm.name} LP staking Farm, and track its results</Text>
-          </div>
-        </Flex>
-
-        <Flex style={{
-          padding: '1rem 2rem',
-          width: '100%',
-          flexFlow: 'row wrap',
-          justifyContent: 'space-between',
-          backgroundColor: theme.colors.MGG_mainBG,
-          zIndex: 3
-        }}>
-          <Text>Current Total Value Locked - $100k</Text>
-          <Text>All Time High Value Locked - $120k</Text>
-          <Text color={theme.colors.MGG_accent2}>Farm Contract Address</Text>
-        </Flex>
-
-        <Flex style={{
-          width: '100%',
-          flexFlow: 'row wrap',
-          justifyContent: 'space-between',
-          gap: '0.5rem',
-          zIndex: 3
-        }}>
-          <StatCard>
-            <Text color={theme.colors.MGG_accent2}>Total {currentFarm.name} Staked</Text>
-            <Heading style={{fontSize: '1.875rem'}}>2M</Heading>
-            <hr style={{width: '100%', borderTop: `1px solid ${theme.colors.MGG_active}`, borderBottom: `1px solid ${theme.colors.MGG_active}`}} />
-            <Text fontSize='0.8rem' color={theme.colors.textSubtle}>123.456789k LP Tokens</Text>
-          </StatCard>
-
-          <StatCard>
-            <Text color={theme.colors.MGG_accent2}>Total {currentFarm.name} Rewards Locked</Text>
-            <Heading style={{fontSize: '1.875rem'}}>1.977M</Heading>
-            <hr style={{width: '100%', borderTop: `1px solid ${theme.colors.MGG_active}`, borderBottom: `1px solid ${theme.colors.MGG_active}`}} />
-            <Text fontSize='0.8rem' color={theme.colors.textSubtle}>26.21 {currentFarm.token.symbol} token per minute</Text>
-          </StatCard>
-
-          <StatCard>
-            <Text color={theme.colors.MGG_accent2}>Farming Program Ends</Text>
-            <Heading style={{fontSize: '1.875rem'}}>100D 23H 22M</Heading>
-            <hr style={{width: '100%', borderTop: `1px solid ${theme.colors.MGG_active}`, borderBottom: `1px solid ${theme.colors.MGG_active}`}} />
-            <Text fontSize='0.8rem' color={theme.colors.textSubtle}>145402 Minutes Remaining</Text>
-          </StatCard>
-
-          <StatCard>
-            <Text color={theme.colors.MGG_accent2}>Total {currentFarm.name} Rewards Unlocked</Text>
-            <Heading style={{fontSize: '1.875rem'}}>2M</Heading>
-            <hr style={{width: '100%', borderTop: `1px solid ${theme.colors.MGG_active}`, borderBottom: `1px solid ${theme.colors.MGG_active}`}} />
-            <Text fontSize='0.8rem' color={theme.colors.textSubtle}>0 Rewards Withdrawn</Text>
-          </StatCard>
-        </Flex>
-
-        <ChartStyle>
-
-          <ApexChart series={series}/>
-
-        </ChartStyle>
-
-        <TableStyle>
-          <RenderTable columns={tblColumns} data={data} />
-        </TableStyle>
-
-      </FlexC>
       </LinearBG>
     </PageContainer>
   )
 }
 
-const RenderPool: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblColumns }) => {
+const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tblColumns }) => {
   const theme = useContext(ThemeContext)
   const { path } = useRouteMatch()
   const { account, chainId } = useWeb3React()
@@ -446,7 +516,9 @@ const RenderPool: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
   const { pools: poolsWithoutAutoVault, userDataLoaded } = usePools(account)
 
   const currentPool = useMemo(() => {
-    const getPool = poolsWithoutAutoVault.filter((pool) => new BigNumber(pool.sousId).isEqualTo(new BigNumber(farmID)) )[0]
+    const getPool = poolsWithoutAutoVault.filter((pool) =>
+      new BigNumber(pool.sousId).isEqualTo(new BigNumber(farmID)),
+    )[0]
 
     return getPool
   }, [poolsWithoutAutoVault, farmID])
@@ -477,167 +549,237 @@ const RenderPool: React.FC<{farmID: string, tblColumns: any}> = ({ farmID, tblCo
         time: '1hr 53m ago',
       },
     ],
-    []
+    [],
   )
 
   const series: Series[] = [
     {
-      name: "MGG",
-      data: [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09]
-    }
+      name: 'MGG',
+      data: [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09],
+    },
   ]
 
-  return(
+  return (
     <PageContainer bgColor={currentPool.UIProps.bgColor} contain={currentPool.UIProps.contain}>
       <LinearBG>
-      <Flex>
-        <>
-          <Card2Container style={{display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 3}}>
-            <Flex style={{textAlign: 'center', flexFlow: 'column', rowGap: '1rem'}}>
-              <Flex style={{alignItems: 'center', justifyContent: 'center'}}>
-                <TokenLogo size='3rem' src={getImageUrlFromToken(currentPool.stakingToken)} />
-                <Heading color='white' style={{fontSize: '1.875rem', padding: '0 1rem'}}>{currentPool.name} Token</Heading>
+        <Flex>
+          <>
+            <Card2Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 3 }}>
+              <Flex style={{ textAlign: 'center', flexFlow: 'column', rowGap: '1rem' }}>
+                <Flex style={{ alignItems: 'center', justifyContent: 'center' }}>
+                  <TokenLogo size="3rem" src={getImageUrlFromToken(currentPool.stakingToken)} />
+                  <Heading color="white" style={{ fontSize: '1.875rem', padding: '0 1rem' }}>
+                    {currentPool.name} Token
+                  </Heading>
+                </Flex>
+                <Text color="white">Hold your {currentPool.stakingToken.symbol} tokens for great benefits</Text>
+                <Flex>
+                  <Text color="white">
+                    Token address{' '}
+                    <Link
+                      style={{ display: 'contents' }}
+                      href={getBscScanAddressUrl(getAddress(currentPool.stakingToken.address))}
+                    >
+                      {getAddress(currentPool.stakingToken.address)}
+                    </Link>
+                  </Text>
+                </Flex>
+                <RenderSocials socials={currentPool.UIProps.socials} center color="white" size={20} />
               </Flex>
-              <Text color='white'>Hold your {currentPool.stakingToken.symbol} tokens for great benefits</Text>
-              <Flex>
-                <Text color='white'>Token address <Link style={{display: 'contents'}} href={getBscScanAddressUrl(getAddress(currentPool.stakingToken.address))}>{getAddress(currentPool.stakingToken.address)}</Link></Text>
-              </Flex>
-              <RenderSocials socials={currentPool.UIProps.socials} center color='white' size={20}/>
+            </Card2Container>
+          </>
+        </Flex>
+        <FlexC>
+          <FlexC style={{ backgroundColor: theme.colors.MGG_mainBG, maxWidth: '40rem', zIndex: 3 }}>
+            <Heading style={{ fontSize: '1.875rem' }}>
+              {currentPool.stakingToken.symbol} - {currentPool.earningToken.symbol} Pool Based Farm
+            </Heading>
+            <Text>Deposit your {currentPool.stakingToken.symbol} Tokens to earn Extra Annual Percentage Rate</Text>
+            <Text color={theme.colors.MGG_accent2}>Current APR</Text>
+            <Flex
+              style={{
+                width: '100%',
+                justifyContent: 'center',
+                padding: '1rem',
+                backgroundColor: theme.colors.MGG_container,
+              }}
+            >
+              <Heading style={{ fontSize: '1.875rem' }}>150%</Heading>
             </Flex>
-          </Card2Container>
-        </>
-      </Flex>
-      <FlexC>
-        <FlexC style={{backgroundColor: theme.colors.MGG_mainBG, maxWidth: '40rem', zIndex: 3}}>
-          <Heading style={{fontSize: '1.875rem'}}>{currentPool.stakingToken.symbol} - {currentPool.earningToken.symbol} Pool Based Farm</Heading>
-          <Text>Deposit your {currentPool.stakingToken.symbol} Tokens to earn Extra Annual Percentage Rate</Text>
-          <Text color={theme.colors.MGG_accent2}>Current APR</Text>
-          <Flex style={{width: '100%', justifyContent: 'center', padding: '1rem', backgroundColor: theme.colors.MGG_container}}>
-            <Heading style={{fontSize: '1.875rem'}}>150%</Heading>
-          </Flex>
 
-          <Flex style={{width: '100%', flexFlow: 'row wrap', gap: '1rem', justifyContent: 'space-evenly'}}>
-            <Stats>
-              <div>
-                <Heading size='l'>100 days</Heading>
-                <Text fontSize='0.8rem'>Program duration</Text>
-              </div>
-            </Stats>
-            <Stats>
-              <div>
-                <Heading size='l'>June 03, 2022</Heading>
-                <Text fontSize='0.8rem'>Last day to earn APR</Text>
-              </div>
-            </Stats>
-            <Stats>
-              <div>
-                <Heading size='l'>14 days</Heading>
-                <Text fontSize='0.8rem'>Minimum Staking Time</Text>
-              </div>
-            </Stats>
-          </Flex>
+            <Flex style={{ width: '100%', flexFlow: 'row wrap', gap: '1rem', justifyContent: 'space-evenly' }}>
+              <Stats>
+                <div>
+                  <Heading size="l">100 days</Heading>
+                  <Text fontSize="0.8rem">Program duration</Text>
+                </div>
+              </Stats>
+              <Stats>
+                <div>
+                  <Heading size="l">June 03, 2022</Heading>
+                  <Text fontSize="0.8rem">Last day to earn APR</Text>
+                </div>
+              </Stats>
+              <Stats>
+                <div>
+                  <Heading size="l">14 days</Heading>
+                  <Text fontSize="0.8rem">Minimum Staking Time</Text>
+                </div>
+              </Stats>
+            </Flex>
 
-          <Text fontSize='0.8rem' color={theme.colors.textSubtle}><em>*Neither stake nor rewards can be withdrawn before minimum staking time</em></Text>
-          <Flex style={{width: '100%', flexWrap: 'wrap', rowGap: '1rem', justifyContent: 'space-between', alignItems: 'center'}}>
-            <Flex style={{flex: '0 50%'}}>
+            <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
+              <em>*Neither stake nor rewards can be withdrawn before minimum staking time</em>
+            </Text>
+            <Flex
+              style={{
+                width: '100%',
+                flexWrap: 'wrap',
+                rowGap: '1rem',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <Flex style={{ flex: '0 50%' }}>
                 <Text>Amount</Text>
+              </Flex>
+              <Flex style={{ flex: '0 50%', justifyContent: 'end' }}>
+                <ButtomSM>Deposit Max</ButtomSM>
+              </Flex>
+              <Flex style={{ flex: '0 100%', position: 'relative' }}>
+                <Input style={{ padding: '1.5rem' }} placeholder="0" type="number" min="0" />
+                <div style={{ position: 'absolute', top: '0.7rem', right: '1.5rem' }}>
+                  <Text color={theme.colors.textSubtle}>
+                    {currentPool.stakingToken.symbol} - {currentPool.earningToken.symbol}
+                  </Text>
+                </div>
+              </Flex>
+              <Flex style={{ flex: '0 100%', justifyContent: 'center' }}>
+                <Button>Connect Wallet to Stake</Button>
+              </Flex>
+              <Flex style={{ flex: '0 100%' }} />
+              <Flex style={{ flex: '0 50%' }}>
+                <Text fontSize="0.7rem" color={theme.colors.MGG_accent2}>
+                  Add Liquidity to get {currentPool.earningToken.symbol} Tokens
+                </Text>
+              </Flex>
+              <Flex style={{ flex: '0 50%', justifyContent: 'end' }}>
+                <Text fontSize="0.7rem" color={theme.colors.MGG_accent2}>
+                  Pool info on SparkSwap
+                </Text>
+              </Flex>
             </Flex>
-            <Flex style={{flex: '0 50%', justifyContent: 'end'}}>
-              <ButtomSM>Deposit Max</ButtomSM>
-            </Flex>
-            <Flex style={{flex: '0 100%', position: 'relative'}}>
-              <Input style={{padding: '1.5rem'}} placeholder='0' type='number' min="0"/>
-              <div style={{position: 'absolute', top: '0.7rem', right: '1.5rem'}}>
-                <Text color={theme.colors.textSubtle}>{currentPool.stakingToken.symbol} - {currentPool.earningToken.symbol}</Text>
-              </div>
-            </Flex>
-            <Flex style={{flex: '0 100%', justifyContent: 'center'}}>
-              <Button>Connect Wallet to Stake</Button>
-            </Flex>
-            <Flex style={{flex: '0 100%'}} />
-            <Flex style={{flex: '0 50%'}}>
-              <Text fontSize='0.7rem' color={theme.colors.MGG_accent2}>Add Liquidity to get {currentPool.earningToken.symbol} Tokens</Text>
-            </Flex>
-            <Flex style={{flex: '0 50%', justifyContent: 'end'}}>
-              <Text fontSize='0.7rem' color={theme.colors.MGG_accent2}>Pool info on SparkSwap</Text>
-            </Flex>
+          </FlexC>
+          <Flex style={{ margin: '2rem 0', zIndex: 3 }}>
+            <div>
+              <Heading style={{ fontSize: '1.875rem' }}> Pool Based Farming Stats</Heading>
+              <Text>Learn About {currentPool.name} Pool Based Farm, and track its results</Text>
+            </div>
           </Flex>
+
+          <Flex
+            style={{
+              padding: '1rem 2rem',
+              width: '100%',
+              flexFlow: 'row wrap',
+              justifyContent: 'space-between',
+              backgroundColor: theme.colors.MGG_mainBG,
+              zIndex: 3,
+            }}
+          >
+            <Text>Current Total Value Locked - $100k</Text>
+            <Text>All Time High Value Locked - $120k</Text>
+            <Text color={theme.colors.MGG_accent2}>Farm Contract Address</Text>
+          </Flex>
+
+          <Flex
+            style={{
+              width: '100%',
+              flexFlow: 'row wrap',
+              justifyContent: 'space-evenly',
+              gap: '0.5rem',
+              zIndex: 3,
+            }}
+          >
+            <StatCard>
+              <Text color={theme.colors.MGG_accent2}>Total {currentPool.name} Staked</Text>
+              <Heading style={{ fontSize: '1.875rem' }}>2M</Heading>
+              <hr
+                style={{
+                  width: '100%',
+                  borderTop: `1px solid ${theme.colors.MGG_active}`,
+                  borderBottom: `1px solid ${theme.colors.MGG_active}`,
+                }}
+              />
+              <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
+                123.456789k LP Tokens
+              </Text>
+            </StatCard>
+
+            <StatCard>
+              <Text color={theme.colors.MGG_accent2}>Total {currentPool.name} Rewards Locked</Text>
+              <Heading style={{ fontSize: '1.875rem' }}>1.977M</Heading>
+              <hr
+                style={{
+                  width: '100%',
+                  borderTop: `1px solid ${theme.colors.MGG_active}`,
+                  borderBottom: `1px solid ${theme.colors.MGG_active}`,
+                }}
+              />
+              <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
+                26.21 {currentPool.earningToken.symbol} token per minute
+              </Text>
+            </StatCard>
+
+            <StatCard>
+              <Text color={theme.colors.MGG_accent2}>Farming Program Ends</Text>
+              <Heading style={{ fontSize: '1.875rem' }}>100D 23H 22M</Heading>
+              <hr
+                style={{
+                  width: '100%',
+                  borderTop: `1px solid ${theme.colors.MGG_active}`,
+                  borderBottom: `1px solid ${theme.colors.MGG_active}`,
+                }}
+              />
+              <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
+                145402 Minutes Remaining
+              </Text>
+            </StatCard>
+
+            <StatCard>
+              <Text color={theme.colors.MGG_accent2}>Total {currentPool.name} Rewards Unlocked</Text>
+              <Heading style={{ fontSize: '1.875rem' }}>2M</Heading>
+              <hr
+                style={{
+                  width: '100%',
+                  borderTop: `1px solid ${theme.colors.MGG_active}`,
+                  borderBottom: `1px solid ${theme.colors.MGG_active}`,
+                }}
+              />
+              <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
+                0 Rewards Withdrawn
+              </Text>
+            </StatCard>
+          </Flex>
+
+          <ChartStyle>
+            <ApexChart series={series} />
+          </ChartStyle>
+
+          <TableStyle>
+            <RenderTable columns={tblColumns} data={data} />
+          </TableStyle>
         </FlexC>
-        <Flex style={{margin: '2rem 0', zIndex: 3}}>
-          <div>
-            <Heading style={{fontSize: '1.875rem'}}> Pool Based Farming Stats</Heading>
-            <Text>Learn About {currentPool.name} Pool Based Farm, and track its results</Text>
-          </div>
-        </Flex>
-
-        <Flex style={{
-          padding: '1rem 2rem',
-          width: '100%',
-          flexFlow: 'row wrap',
-          justifyContent: 'space-between',
-          backgroundColor: theme.colors.MGG_mainBG,
-          zIndex: 3
-        }}>
-          <Text>Current Total Value Locked - $100k</Text>
-          <Text>All Time High Value Locked - $120k</Text>
-          <Text color={theme.colors.MGG_accent2}>Farm Contract Address</Text>
-        </Flex>
-
-        <Flex style={{
-          width: '100%',
-          flexFlow: 'row wrap',
-          justifyContent: 'space-evenly',
-          gap: '0.5rem',
-          zIndex: 3
-        }}>
-          <StatCard>
-            <Text color={theme.colors.MGG_accent2}>Total {currentPool.name} Staked</Text>
-            <Heading style={{fontSize: '1.875rem'}}>2M</Heading>
-            <hr style={{width: '100%', borderTop: `1px solid ${theme.colors.MGG_active}`, borderBottom: `1px solid ${theme.colors.MGG_active}`}} />
-            <Text fontSize='0.8rem' color={theme.colors.textSubtle}>123.456789k LP Tokens</Text>
-          </StatCard>
-
-          <StatCard>
-            <Text color={theme.colors.MGG_accent2}>Total {currentPool.name} Rewards Locked</Text>
-            <Heading style={{fontSize: '1.875rem'}}>1.977M</Heading>
-            <hr style={{width: '100%', borderTop: `1px solid ${theme.colors.MGG_active}`, borderBottom: `1px solid ${theme.colors.MGG_active}`}} />
-            <Text fontSize='0.8rem' color={theme.colors.textSubtle}>26.21 {currentPool.earningToken.symbol} token per minute</Text>
-          </StatCard>
-
-          <StatCard>
-            <Text color={theme.colors.MGG_accent2}>Farming Program Ends</Text>
-            <Heading style={{fontSize: '1.875rem'}}>100D 23H 22M</Heading>
-            <hr style={{width: '100%', borderTop: `1px solid ${theme.colors.MGG_active}`, borderBottom: `1px solid ${theme.colors.MGG_active}`}} />
-            <Text fontSize='0.8rem' color={theme.colors.textSubtle}>145402 Minutes Remaining</Text>
-          </StatCard>
-
-          <StatCard>
-            <Text color={theme.colors.MGG_accent2}>Total {currentPool.name} Rewards Unlocked</Text>
-            <Heading style={{fontSize: '1.875rem'}}>2M</Heading>
-            <hr style={{width: '100%', borderTop: `1px solid ${theme.colors.MGG_active}`, borderBottom: `1px solid ${theme.colors.MGG_active}`}} />
-            <Text fontSize='0.8rem' color={theme.colors.textSubtle}>0 Rewards Withdrawn</Text>
-          </StatCard>
-        </Flex>
-
-        <ChartStyle>
-
-          <ApexChart series={series}/>
-
-        </ChartStyle>
-
-        <TableStyle>
-          <RenderTable columns={tblColumns} data={data} />
-        </TableStyle>
-
-      </FlexC>
       </LinearBG>
     </PageContainer>
   )
 }
 
-
-
-const FarmPage: React.FC<RouteComponentProps<{ type: string, farmID: string, }>> = ({ match: { params: {type, farmID} } }) => {
+const FarmPage: React.FC<RouteComponentProps<{ type: string; farmID: string }>> = ({
+  match: {
+    params: { type, farmID },
+  },
+}) => {
   const columns = React.useMemo(
     () => [
       {
@@ -661,10 +803,14 @@ const FarmPage: React.FC<RouteComponentProps<{ type: string, farmID: string, }>>
         accessor: 'time',
       },
     ],
-    []
+    [],
   )
 
-  return type === 'LP' ? <RenderFarm farmID={farmID} tblColumns={columns}/> : <RenderPool farmID={farmID} tblColumns={columns}/>
+  return type === 'LP' ? (
+    <RenderFarm farmID={farmID} tblColumns={columns} />
+  ) : (
+    <RenderPool farmID={farmID} tblColumns={columns} />
+  )
 }
 
 export default FarmPage
