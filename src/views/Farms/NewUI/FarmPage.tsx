@@ -47,7 +47,6 @@ import { DesktopColumnSchema, ViewMode } from '../components/types'
 import { ReactComponent as FarmsDarkLogo } from '../components/assets/farm-dark.svg'
 import { ReactComponent as FarmsLightLogo } from '../components/assets/farm-light.svg'
 import { getAprData, getCakeVaultEarnings } from '../../Pools/helpers'
-import { FarmCard2, PoolCard2 } from '../components/FarmCards'
 import SvgIcon from '../../../components/Launchpad/SvgIcon'
 import { getBscScanAddressUrl } from '../../../utils/bscscan'
 import { Cards2, Card2Container, TokenLogo, Badge, LinearBG, PageContainer } from '../components/FarmCards/styles'
@@ -255,7 +254,6 @@ const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
   const isArchived = pathname.includes('archived')
   const currentFarm = farmsLP.filter((farm) => new BigNumber(farm.pid).isEqualTo(new BigNumber(farmID)))[0]
   usePollFarmsData(isArchived)
-  console.log(currentFarm)
 
   const data = React.useMemo(
     () => [
@@ -522,8 +520,6 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
 
     return getPool
   }, [poolsWithoutAutoVault, farmID])
-
-  console.log(currentPool)
 
   const data = React.useMemo(
     () => [
