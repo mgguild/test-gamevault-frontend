@@ -43,14 +43,15 @@ const FarmCard2: React.FC<FarmCard2Props> = ({
   account,
   isNew,
 }) => {
-  const farmImage = farm.lpSymbol.split(' ')[0].toLocaleLowerCase()
-  const formatTotalRewardRate = getBalanceAmount(new BigNumber(farm.totalRewardRate ?? 0)).toFormat(4)
-  const lpLabel = farm.lpSymbol && farm.lpSymbol.toUpperCase().replace('PANCAKE', '')
-  const earnLabel = farm.quoteToken.symbol
-  const liquidityUrlPathParts = getLiquidityUrlPathParts({
-    mainTokenAddress: farm.token.address,
-    pairTokenAddress: farm.pairToken.address,
-  })
+  // const farmImage = farm.lpSymbol.split(' ')[0].toLocaleLowerCase()
+  // const formatTotalRewardRate = getBalanceAmount(new BigNumber(farm.totalRewardRate ?? 0)).toFormat(4)
+  // const lpLabel = farm.lpSymbol && farm.lpSymbol.toUpperCase().replace('PANCAKE', '')
+  // const earnLabel = farm.quoteToken.symbol
+  // const liquidityUrlPathParts = getLiquidityUrlPathParts({
+  //   mainTokenAddress: farm.token.address,
+  //   pairTokenAddress: farm.pairToken.address,
+  // })
+  const [dummyState, setDummyState] = useState(null)
   const [isFetchData, setFetchData] = useState<boolean | null>(true)
 
   const lpTotalSupply = getBalanceNumber(new BigNumber(farm.totalDeposits ?? 0))
@@ -84,7 +85,7 @@ const FarmCard2: React.FC<FarmCard2Props> = ({
 
   useEffect(() => {
     return setFetchData(null)
-  }, [])
+  }, [dummyState])
 
   const farmV2Apr = useMemo(
     () => getFarmV2Apr(LPPrice, rewardPrice, Number(farm.totalDeposits), Number(farm.rewardRate)),

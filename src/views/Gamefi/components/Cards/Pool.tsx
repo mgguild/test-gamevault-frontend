@@ -114,11 +114,9 @@ const PoolCard2: React.FC<PoolCard2Props> = ({
             <Flex style={{ justifyContent: 'end', alignItems: 'end' }}>
               <div style={{ textAlign: 'end' }}>
                 <Text color="white">APR {apr}</Text>
-                <Link external href={getBscScanLink(hasPoolStarted ? endBlock : startBlock, 'countdown')}>
-                  <Heading color="white">
-                    {!isComingSoon && `${formatNumber(blocksRemaining, 0, 0)}`} {isComingSoon && '-'} blocks
-                  </Heading>
-                </Link>
+                <Heading color="white">
+                  {!isComingSoon && `${formatNumber(blocksRemaining, 0, 0)}`} {isComingSoon && '-'} blocks
+                </Heading>
               </div>
             </Flex>
           </Card2Container>
