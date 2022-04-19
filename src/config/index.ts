@@ -37,6 +37,8 @@ export const DEFAULT_GAS_LIMIT = 200000
 export const DEFAULT_GAS_PRICE = 5
 export const TESTNET_CHAIN_ID = '97'
 export const MAINNET_CHAIN_ID = '56'
+export const MAINNET_ETH_CHAIN_ID = '1'
+export const ROPSTEN_CHAIN_ID = '3'
 export const EPOCH_PER_YEAR = 31556926
 export const SPARKSWAP_API = 'https://api.pancakeswap.info/api/v2/'
 export const API_ASSETS = 'tokens'
@@ -44,6 +46,10 @@ export const API_SUMMARY = 'summary'
 export const API_DATA = 'data'
 export const API_LIQUIDITY = 'liquidity'
 export const API_LASTPRICE = 'price'
+export const multiChainSupport = {
+  STAKING: ['1', '56'],
+  LAUNCHPAD: ['56'],
+}
 
 export const BASE_BSC_SCAN_URLS = {
   [MAINNET_CHAIN_ID]: 'https://bscscan.com',

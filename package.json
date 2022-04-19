@@ -33,7 +33,7 @@
     "@emotion/styled": "^11.6.0",
     "@ethersproject/abi": "^5.1.2",
     "@material-ui/core": "^4.12.3",
-    "@metagg/mgg-uikit": "^1.1.2",
+    "@metagg/mgg-uikit": "^1.0.10",
     "@mui/material": "^5.3.1",
     "@pancakeswap-libs/sdk": "^1.0.1",
     "@pancakeswap/uikit": "^0.39.3",

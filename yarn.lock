@@ -2737,7 +2737,7 @@
     prop-types "^15.7.2"
     react-is "^16.8.0 || ^17.0.0"
 
-"@metagg/mgg-uikit@^1.1.2":
+"@metagg/mgg-uikit@^1.0.10":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@metagg/mgg-uikit/-/mgg-uikit-1.1.2.tgz#79514ec798c75fc945a1bdb59ab26d85b6133908"
   integrity sha512-s0E2udrp5S3f5BgtLz6VczUny8mZknmvNHrwAYkiatK1aTOa3qtKkkJeU7gycm/9TQCmWiaMWdHa+++km1Vb4A==
