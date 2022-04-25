@@ -20,7 +20,7 @@ const GuildpadsLaunched: GuildpadConfig[] = [
     round: 'MERGED Ookeenga',
     distribution: DISTRIBUTION.VESTING,
     distributionDesc: '5% up-front at TGE, 3 month cliff, then quarterly vesting over 4 quarters',
-    status: GUILDPAD_STATUS.ongoing,
+    status: GUILDPAD_STATUS.completed,
     contractAddress: {
       56: '0x1858211ebb67b81cAa2ef740143a0D864B7339f3',
       97: '0x002',
