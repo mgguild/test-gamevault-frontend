@@ -54,7 +54,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const { account, chainId } = useWeb3React()
-  const chain = chainId? chainId.toString() : MAINNET_CHAIN_ID
+  const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
   const { toastError, toastSuccess } = useToast()
 
   return (

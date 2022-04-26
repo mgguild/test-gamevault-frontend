@@ -99,7 +99,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ userDataReady, farm, removed, cakeP
   })
 
   const { chainId } = useWeb3React()
-  const chain = chainId? chainId.toString() : MAINNET_CHAIN_ID
+  const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
 
   const stakingAddress = getAddress(farm.stakingAddresses, chain)
 

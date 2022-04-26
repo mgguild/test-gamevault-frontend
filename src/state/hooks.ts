@@ -51,11 +51,11 @@ export const usePollFarmsData = (includeArchive = false) => {
   useEffect(() => {
     const farmsToFetch = includeArchive ? farmsConfig : nonArchivedFarms
     const pids = farmsToFetch.map((farmToFetch) => farmToFetch.pid)
-    const chain = chainId? chainId.toString(): MAINNET_CHAIN_ID
-    dispatch(fetchFarmsPublicDataAsync({pids, chain }))
+    const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
+    dispatch(fetchFarmsPublicDataAsync({ pids, chain }))
 
     if (account) {
-      dispatch(fetchFarmUserDataAsync({ account, pids, chain}))
+      dispatch(fetchFarmUserDataAsync({ account, pids, chain }))
     }
   }, [includeArchive, dispatch, slowRefresh, account, chainId])
 }
@@ -72,7 +72,7 @@ export const usePollCoreFarmData = () => {
 
   useEffect(() => {
     const pids = [251]
-    const chain = chainId? chainId.toString(): MAINNET_CHAIN_ID
+    const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
     dispatch(fetchFarmsPublicDataAsync({ pids, chain }))
   }, [dispatch, fastRefresh, chainId])
 }

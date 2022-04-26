@@ -8,7 +8,11 @@ import lpStakingAbi from 'config/abi/lpStaking.json'
 export const fetchFarmUserAllowances = async (account: string, farmsToFetch: FarmConfig[], chain: string) => {
   const calls = farmsToFetch.map((farm) => {
     const lpContractAddress = getAddress(farm.lpAddresses, chain)
-    return { address: lpContractAddress, name: 'allowance', params: [account, getAddress(farm.stakingAddresses, chain)] }
+    return {
+      address: lpContractAddress,
+      name: 'allowance',
+      params: [account, getAddress(farm.stakingAddresses, chain)],
+    }
   })
 
   const rawLpAllowances = await multicall(erc20ABI, calls, {}, chain)

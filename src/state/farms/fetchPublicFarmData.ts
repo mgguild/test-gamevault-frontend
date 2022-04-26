@@ -63,8 +63,12 @@ const fetchFarm = async (farm: Farm, chain: string): Promise<any> => {
     },
   ]
 
-  const [tokenBalanceLP, quoteTokenBalanceLP, lpTotalSupply, tokenDecimals, quoteTokenDecimals] =
-    await multicall(erc20, calls, {}, chain)
+  const [tokenBalanceLP, quoteTokenBalanceLP, lpTotalSupply, tokenDecimals, quoteTokenDecimals] = await multicall(
+    erc20,
+    calls,
+    {},
+    chain,
+  )
   const stakingAddress = getAddress(stakingAddresses, chain)
   const lpStakingCalls = [
     // Total deposits in staking address

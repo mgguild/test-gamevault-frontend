@@ -45,10 +45,12 @@ const EarnAPRCard = () => {
     const fetchFarmData = async () => {
       const pids = nonArchivedFarms.map((nonArchivedFarm) => nonArchivedFarm.pid)
       try {
-        await dispatch(fetchFarmsPublicDataAsync({
-          pids,
-          chain
-      }))
+        await dispatch(
+          fetchFarmsPublicDataAsync({
+            pids,
+            chain,
+          }),
+        )
       } finally {
         setIsFetchingFarmData(false)
       }
@@ -57,7 +59,7 @@ const EarnAPRCard = () => {
     if (isIntersecting) {
       fetchFarmData()
     }
-  }, [dispatch, setIsFetchingFarmData, isIntersecting])
+  }, [dispatch, setIsFetchingFarmData, isIntersecting, chain])
 
   const highestApr = useMemo(() => {
     if (cakePrice.gt(0)) {

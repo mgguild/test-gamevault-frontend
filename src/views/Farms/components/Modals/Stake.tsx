@@ -45,7 +45,7 @@ const Stake: React.FC<StakeModalInterface> = ({
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const { account, chainId } = useWeb3React()
-  const chain = chainId? chainId.toString() : MAINNET_CHAIN_ID
+  const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
   const fullBalanceNumber = new BigNumber(fullBalance)
 
   const handleChange = useCallback(

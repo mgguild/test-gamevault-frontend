@@ -17,5 +17,4 @@ export const getWeb3NoAccount = (chainId) => {
   return new Web3(httpProvider2)
 }
 
-
 export default web3NoAccount

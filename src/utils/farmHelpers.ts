@@ -7,15 +7,9 @@ const ARCHIVED_FARMS_END_PID = 250
 const isArchivedPid = (pid: number) => pid >= ARCHIVED_FARMS_START_PID && pid <= ARCHIVED_FARMS_END_PID
 
 export const calculateUserRewardRate = (
-  {
-    lpAddresses,
-    totalDeposits,
-    quoteToken,
-    token,
-    rewardRate,
-    userData,
-    pairToken,
-  }: any, chain) => {
+  { lpAddresses, totalDeposits, quoteToken, token, rewardRate, userData, pairToken }: any,
+  chain,
+) => {
   const ChainId = chain
   const stakingToken = new Token(ChainId, getAddress(lpAddresses, chain), 18)
   const rewardsToken = new Token(ChainId, getAddress(quoteToken.address, chain), quoteToken.decimals)

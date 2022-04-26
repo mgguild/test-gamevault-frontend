@@ -19,7 +19,7 @@ interface FarmCardActionsProps {
 
 const HarvestAction: React.FC<FarmCardActionsProps> = ({ earnings, pid }) => {
   const { account, chainId } = useWeb3React()
-  const chain = chainId? chainId.toString() : MAINNET_CHAIN_ID
+  const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
   const { t } = useTranslation()
   const [pendingTx, setPendingTx] = useState(false)
   const { onReward } = useHarvest(pid)
