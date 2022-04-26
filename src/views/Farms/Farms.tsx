@@ -134,7 +134,6 @@ const Farms: React.FC = () => {
   const isMobile = useMedia({ maxWidth: 500 })
   usePollFarmsData(isArchived)
 
-  console.log(farmsLP)
   // Users with no wallet connected should see 0 as Earned amount
   // Connected users should see loading indicator until first userData has loaded
   const userDataReady = !account || (!!account && userDataLoaded)

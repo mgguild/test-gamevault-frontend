@@ -44,8 +44,6 @@ const App: React.FC = () => {
   useEagerConnect()
   useFetchProfile()
   usePollCoreFarmData()
-  const provider = (window as WindowChain).ethereum
-  console.log(provider)
 
   return (
     <HashRouter>

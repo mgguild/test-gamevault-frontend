@@ -754,7 +754,7 @@ const tokens = {
     symbol: 'USDC',
     address: {
       56: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
-      1: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+      1: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
       97: '',
     },
     decimals: 18,

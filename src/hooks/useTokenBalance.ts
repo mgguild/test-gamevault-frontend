@@ -6,6 +6,8 @@ import { BIG_ZERO } from 'utils/bigNumber'
 import useWeb3 from './useWeb3'
 import useRefresh from './useRefresh'
 import useLastUpdated from './useLastUpdated'
+import { MAINNET_CHAIN_ID } from '../config'
+import { getWeb3NoAccount } from '../utils/web3'
 
 type UseTokenBalanceState = {
   balance: BigNumber
@@ -24,16 +26,18 @@ const useTokenBalance = (tokenAddress: string, customAccount = '0x0000') => {
     balance: BIG_ZERO,
     fetchStatus: NOT_FETCHED,
   })
-  let { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
+  const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
+  let acct = account
   const { fastRefresh } = useRefresh()
   if (customAccount !== '0x0000') {
-    account = customAccount
+    acct = customAccount
   }
   useEffect(() => {
     const fetchBalance = async () => {
-      const contract = getBep20Contract(tokenAddress)
+      const contract = getBep20Contract(tokenAddress, getWeb3NoAccount(chain))
       try {
-        const res = await contract.methods.balanceOf(account).call()
+        const res = await contract.methods.balanceOf(acct).call()
         setBalanceState({ balance: new BigNumber(res), fetchStatus: SUCCESS })
       } catch (e) {
         console.error(e)
@@ -44,10 +48,10 @@ const useTokenBalance = (tokenAddress: string, customAccount = '0x0000') => {
       }
     }
 
-    if (account) {
+    if (acct) {
       fetchBalance()
     }
-  }, [account, tokenAddress, fastRefresh, SUCCESS, FAILED])
+  }, [acct, chain, tokenAddress, fastRefresh, SUCCESS, FAILED])
 
   return balanceState
 }
