@@ -433,7 +433,7 @@ const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
             }}
           >
             <StatCard>
-              <Text color={theme.colors.MGG_accent2}>Total {currentFarm.quoteToken.symbol} Staked</Text>
+              <Text color={theme.colors.MGG_accent2}>Total {currentFarm.lpSymbol} Staked</Text>
               <Heading style={{ fontSize: '1.875rem' }}>2M</Heading>
               <hr
                 style={{
@@ -698,7 +698,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
             }}
           >
             <StatCard>
-              <Text color={theme.colors.MGG_accent2}>Total {currentPool.name} Staked</Text>
+              <Text color={theme.colors.MGG_accent2}>Total {currentPool.stakingToken.symbol} Staked</Text>
               <Heading style={{ fontSize: '1.875rem' }}>2M</Heading>
               <hr
                 style={{
@@ -713,7 +713,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
             </StatCard>
 
             <StatCard>
-              <Text color={theme.colors.MGG_accent2}>Total {currentPool.name} Rewards Locked</Text>
+              <Text color={theme.colors.MGG_accent2}>Total {currentPool.earningToken.symbol} Rewards Locked</Text>
               <Heading style={{ fontSize: '1.875rem' }}>1.977M</Heading>
               <hr
                 style={{
@@ -743,7 +743,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
             </StatCard>
 
             <StatCard>
-              <Text color={theme.colors.MGG_accent2}>Total {currentPool.name} Rewards Unlocked</Text>
+              <Text color={theme.colors.MGG_accent2}>Total {currentPool.earningToken.symbol} Rewards Unlocked</Text>
               <Heading style={{ fontSize: '1.875rem' }}>2M</Heading>
               <hr
                 style={{
