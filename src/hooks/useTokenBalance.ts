@@ -26,9 +26,9 @@ const useTokenBalance = (tokenAddress: string, customAccount = '0x0000') => {
   })
   let { account } = useWeb3React()
   const { fastRefresh } = useRefresh()
-
-  if (customAccount !== '0x0000') account = customAccount
-
+  if (customAccount !== '0x0000') {
+    account = customAccount
+  }
   useEffect(() => {
     const fetchBalance = async () => {
       const contract = getBep20Contract(tokenAddress)

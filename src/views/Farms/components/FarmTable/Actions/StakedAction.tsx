@@ -13,7 +13,7 @@ import { FarmWithStakedValue } from 'views/Farms/components/FarmCard/FarmCard'
 import { useTranslation } from 'contexts/Localization'
 import { useApprove } from 'hooks/useApprove'
 import { useERC20, useLPStakingContract } from 'hooks/useContract'
-import { BASE_ADD_LIQUIDITY_URL } from 'config'
+import { BASE_ADD_LIQUIDITY_URL, MAINNET_CHAIN_ID } from 'config'
 import { useAppDispatch } from 'state'
 import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts'
 import { getBalanceAmount, getBalanceNumber, getFullDisplayBalance } from 'utils/formatBalance'
@@ -42,7 +42,8 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
   stakingAddresses,
 }) => {
   const { t } = useTranslation()
-  const { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
+  const chain = chainId? chainId.toString() : MAINNET_CHAIN_ID
   const [requestedApproval, setRequestedApproval] = useState(false)
   const { allowance, tokenBalance, stakedBalance } = useFarmUser(pid)
   const { onStake } = useStake(pid)
@@ -61,12 +62,12 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
 
   const handleStake = async (amount: string, contract: Contract) => {
     await onStake(amount, contract)
-    dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
+    dispatch(fetchFarmUserDataAsync({ account, pids: [pid], chain }))
   }
 
   const handleUnstake = async (amount: string) => {
     await onUnstake(amount)
-    dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
+    dispatch(fetchFarmUserDataAsync({ account, pids: [pid], chain }))
   }
 
   const displayBalance = useCallback(() => {
@@ -84,7 +85,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
     <WithdrawModal max={stakedBalance} onConfirm={handleUnstake} tokenName={lpSymbol} />,
   )
   const lpContract = useERC20(lpAddress)
-  const lpStakingAddress = getAddress(stakingAddresses)
+  const lpStakingAddress = getAddress(stakingAddresses, chain)
   const lpStakingContract = useLPStakingContract(lpStakingAddress)
   const { onApprove } = useApprove(lpContract, lpStakingContract)
   const dispatch = useAppDispatch()
@@ -93,13 +94,13 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
     try {
       setRequestedApproval(true)
       await onApprove()
-      dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
+      dispatch(fetchFarmUserDataAsync({ account, pids: [pid], chain }))
 
       setRequestedApproval(false)
     } catch (e) {
       console.error(e)
     }
-  }, [onApprove, dispatch, account, pid])
+  }, [onApprove, dispatch, account, pid, chain])
 
   if (!account) {
     return (

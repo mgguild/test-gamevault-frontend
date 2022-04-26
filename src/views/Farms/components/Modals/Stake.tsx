@@ -10,6 +10,7 @@ import useToast from '../../../../hooks/useToast'
 import { useTranslation } from '../../../../contexts/Localization'
 import { useAppDispatch } from '../../../../state'
 import { fetchFarmUserDataAsync } from '../../../../state/farms'
+import { MAINNET_CHAIN_ID } from '../../../../config'
 
 interface StakeModalInterface {
   pid: number
@@ -43,8 +44,8 @@ const Stake: React.FC<StakeModalInterface> = ({
   const { toastError, toastSuccess } = useToast()
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
-  const { account } = useWeb3React()
-
+  const { account, chainId } = useWeb3React()
+  const chain = chainId? chainId.toString() : MAINNET_CHAIN_ID
   const fullBalanceNumber = new BigNumber(fullBalance)
 
   const handleChange = useCallback(
@@ -69,7 +70,7 @@ const Stake: React.FC<StakeModalInterface> = ({
     } finally {
       setPendingTx(false)
     }
-    dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
+    dispatch(fetchFarmUserDataAsync({ account, pids: [pid], chain }))
   }
 
   const handleSelectMax = useCallback(() => {

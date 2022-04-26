@@ -6,9 +6,9 @@ export const nodes = [process.env.REACT_APP_NODE_1, process.env.REACT_APP_NODE_2
 export const ethnodes = [process.env.REACT_APP_ETH_NODE_1]
 export const ropsnodes = [process.env.REACT_APP_ROPS_NODE_1]
 
-const getNodeUrl = (chainID = MAINNET_CHAIN_ID) => {
+const getNodeUrl = (chainId = MAINNET_CHAIN_ID) => {
   const randomIndex = random(0, nodes.length - 1)
-  switch (chainID) {
+  switch (chainId) {
     case '1':
       return ethnodes[0]
     case '3':

@@ -19,6 +19,7 @@ import DepositModal from '../DepositModal'
 import WithdrawModal from '../WithdrawModal'
 import { getAddress } from '../../../../utils/addressHelpers'
 import { calculateUserRewardRate } from '../../../../utils/farmHelpers'
+import { MAINNET_CHAIN_ID } from '../../../../config'
 
 interface FarmCardActionsProps {
   userDataReady?: boolean
@@ -51,20 +52,21 @@ const StakeAction: React.FC<FarmCardActionsProps> = ({
 }) => {
   const { t } = useTranslation()
   const { onStake } = useStake(pid)
-  const { onUnstake } = useExit(getAddress(farm.stakingAddresses))
+  const { account, chainId } = useWeb3React()
+  const chain = chainId? chainId.toString() : MAINNET_CHAIN_ID
+  const { onUnstake } = useExit(getAddress(farm.stakingAddresses, chain))
   const location = useLocation()
   const dispatch = useAppDispatch()
-  const { account } = useWeb3React()
   const lpPrice = useLpTokenPrice(tokenName)
 
   const handleStake = async (amount: string, contract?: Contract) => {
     await onStake(amount, contract)
-    dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
+    dispatch(fetchFarmUserDataAsync({ account, pids: [pid], chain }))
   }
 
   const handleUnstake = async (amount: string) => {
     await onUnstake(amount)
-    dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
+    dispatch(fetchFarmUserDataAsync({ account, pids: [pid], chain }))
   }
 
   const displayBalance = useCallback(() => {

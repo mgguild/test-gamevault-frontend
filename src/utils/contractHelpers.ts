@@ -56,7 +56,7 @@ import cakeVaultAbi from 'config/abi/cakeVault.json'
 import predictionsAbi from 'config/abi/predictions.json'
 import chainlinkOracleAbi from 'config/abi/chainlinkOracle.json'
 import MultiCallAbi from 'config/abi/Multicall.json'
-import { DEFAULT_GAS_PRICE, TESTNET_CHAIN_ID } from 'config'
+import { DEFAULT_GAS_PRICE, MAINNET_CHAIN_ID, TESTNET_CHAIN_ID } from 'config'
 import { getSettings, getGasPriceInWei } from './settings'
 
 export const getDefaultGasPrice = () => {
@@ -69,11 +69,9 @@ export const getDefaultGasPrice = () => {
 
 const getContract = (abi: any, address: string, web3?: Web3, account?: string) => {
   const _web3 = web3 ?? web3NoAccount
-  const gasPrice = account ? getSettings(account).gasPrice : getDefaultGasPrice()
+  // const gasPrice = account ? getSettings(account).gasPrice : getDefaultGasPrice()
 
-  return new _web3.eth.Contract(abi as unknown as AbiItem, address, {
-    gasPrice: getGasPriceInWei(gasPrice).toString(),
-  })
+  return new _web3.eth.Contract(abi as unknown as AbiItem, address)
 }
 
 export const getBep20Contract = (address: string, web3?: Web3) => {
@@ -160,6 +158,6 @@ export const getPredictionsContract = (web3?: Web3) => {
 export const getChainlinkOracleContract = (web3?: Web3) => {
   return getContract(chainlinkOracleAbi, getChainlinkOracleAddress(), web3)
 }
-export const getMulticallContract = (web3?: Web3) => {
-  return getContract(MultiCallAbi, getMulticallAddress(), web3)
+export const getMulticallContract = (web3?: Web3, chainId = MAINNET_CHAIN_ID) => {
+  return getContract(MultiCallAbi, getMulticallAddress(chainId), web3)
 }

@@ -32,6 +32,7 @@ import { RowProps } from './components/FarmTable/Row'
 import { DesktopColumnSchema, ViewMode } from './components/types'
 import { ReactComponent as FarmsDarkLogo } from './components/assets/farm-dark.svg'
 import { ReactComponent as FarmsLightLogo } from './components/assets/farm-light.svg'
+import { MAINNET_CHAIN_ID } from '../../config'
 
 const ControlContainer = styled.div`
   display: flex;
@@ -124,6 +125,7 @@ const Farms: React.FC = () => {
   const [query, setQuery] = useState('')
   const [viewMode, setViewMode] = usePersistState(ViewMode.CARD, { localStorageKey: 'sparkswap_farm_view' })
   const { account, chainId } = useWeb3React()
+  const chain = chainId? chainId.toString() : MAINNET_CHAIN_ID
   const [sortOption, setSortOption] = useState('earned')
   const theme = useContext(ThemeContext)
   const isArchived = pathname.includes('archived')
@@ -132,6 +134,7 @@ const Farms: React.FC = () => {
   const isMobile = useMedia({ maxWidth: 500 })
   usePollFarmsData(isArchived)
 
+  console.log(farmsLP)
   // Users with no wallet connected should see 0 as Earned amount
   // Connected users should see loading indicator until first userData has loaded
   const userDataReady = !account || (!!account && userDataLoaded)
@@ -143,9 +146,9 @@ const Farms: React.FC = () => {
   // const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid))
   // const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
   // const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
-  const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid))
-  const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
-  const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
+  const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid) && farm.chain === chain)
+  const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid) && farm.chain === chain)
+  const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid) && farm.chain === chain)
 
   const stakedOnlyFarms = activeFarms.filter(
     (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),

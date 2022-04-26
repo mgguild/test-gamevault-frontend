@@ -754,6 +754,7 @@ const tokens = {
     symbol: 'USDC',
     address: {
       56: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d',
+      1: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
       97: '',
     },
     decimals: 18,
@@ -1672,7 +1673,7 @@ const tokens = {
   mgg: {
     symbol: 'MGG',
     address: {
-      1: '0x9F7A0406Abe72354006Ac8949c156365A7455e3A',
+      1: '0x7237C0B30B1355f1B76355582f182F6f04B08740',
       56: '0x6125adcab2f171bc70cfe2caecfec5509273a86a',
       97: '0xb67F3922042B8c4546DFD9E55C1E55CaC7aE1F3f',
     },

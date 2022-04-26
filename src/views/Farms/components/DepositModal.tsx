@@ -17,6 +17,7 @@ import Container, { ActionDiv, DetailsCont, ModalFooter } from './Styled'
 import { ModalHr } from './Divider'
 import StakeModal from './Modals/Stake'
 import ClaimModal from './Modals/ClaimModal'
+import { MAINNET_CHAIN_ID } from '../../../config'
 import { calculateUserRewardRate } from '../../../utils/farmHelpers'
 
 interface DepositModalProps {
@@ -46,35 +47,35 @@ const DepositModal: React.FC<DepositModalProps> = ({
   const { t } = useTranslation()
   const [activeSelect, setActiveSelect] = useState(false)
   const { allowance, tokenBalance, stakedBalance, earnings } = farm.userData || {}
-  const userRate = calculateUserRewardRate(farm)
-  const { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
+  const chain = chainId? chainId.toString() : MAINNET_CHAIN_ID
+  const userRate = calculateUserRewardRate(farm, chain)
   const dispatch = useAppDispatch()
   const { pid, lpAddresses } = farm
-  const lpAddress = getAddress(lpAddresses)
+  const lpAddress = getAddress(lpAddresses, chain)
   const lpContract = useERC20(lpAddress)
-  const RewardTokenBalance = useTokenBalance(getAddress(farm.quoteToken.address))
+  const RewardTokenBalance = useTokenBalance(getAddress(farm.quoteToken.address, chain))
   const formatTokenBalance = getBalanceAmount(RewardTokenBalance.balance).toFormat(6)
   const formatLPTokenBalance = getBalanceAmount(new BigNumber(tokenBalance)).toFormat(6)
   const formatStakedTokenBalance = getBalanceAmount(new BigNumber(stakedBalance)).toFormat(6)
   const formatTokenEarnings = getBalanceAmount(new BigNumber(earnings)).toFormat(6)
-
   const [isApproved, setIsApproved] = useState(
     account && allowance && new BigNumber(allowance).isGreaterThanOrEqualTo(tokenBalance),
   )
-  const lpStakingAddress = getAddress(farm.stakingAddresses)
+  const lpStakingAddress = getAddress(farm.stakingAddresses, chain)
   const lpStakingContract = useLPStakingContract(lpStakingAddress)
   const { onApprove } = useApprove(lpContract, lpStakingContract)
   const handleApprove = useCallback(async () => {
     try {
       setRequestedApproval(true)
       await onApprove()
-      dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
+      dispatch(fetchFarmUserDataAsync({ account, pids: [pid], chain }))
       setIsApproved(true)
       setRequestedApproval(false)
     } catch (e) {
       console.error(e)
     }
-  }, [onApprove, dispatch, account, pid])
+  }, [onApprove, dispatch, account, pid, chain])
   const [onPresentStake] = useModal(
     <StakeModal
       pid={pid}

@@ -10,6 +10,7 @@ import { BIG_ZERO } from 'utils/bigNumber'
 import { useWeb3React } from '@web3-react/core'
 import { usePriceCakeBusd } from 'state/hooks'
 import Balance from 'components/Balance'
+import { MAINNET_CHAIN_ID } from '../../../../config'
 
 interface FarmCardActionsProps {
   earnings?: BigNumber
@@ -17,7 +18,8 @@ interface FarmCardActionsProps {
 }
 
 const HarvestAction: React.FC<FarmCardActionsProps> = ({ earnings, pid }) => {
-  const { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
+  const chain = chainId? chainId.toString() : MAINNET_CHAIN_ID
   const { t } = useTranslation()
   const [pendingTx, setPendingTx] = useState(false)
   const { onReward } = useHarvest(pid)
@@ -40,7 +42,7 @@ const HarvestAction: React.FC<FarmCardActionsProps> = ({ earnings, pid }) => {
         onClick={async () => {
           setPendingTx(true)
           await onReward()
-          dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
+          dispatch(fetchFarmUserDataAsync({ account, pids: [pid], chain }))
 
           setPendingTx(false)
         }}

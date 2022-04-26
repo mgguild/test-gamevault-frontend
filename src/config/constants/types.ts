@@ -3,7 +3,8 @@ import BigNumber from 'bignumber.js'
 
 export interface Address {
   97?: string
-  56: string
+  1?: string
+  56?: string
 }
 
 export interface Token {
@@ -71,6 +72,7 @@ export enum PoolCategory {
 export interface FarmConfig {
   isMain?: true
   pid: number
+  chain?: string
   lpSymbol: string
   lpAddresses: Address
   stakingAddresses: Address
