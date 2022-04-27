@@ -791,7 +791,7 @@ const FarmPage: React.FC<RouteComponentProps<{ type: string; farmID: string }>> 
         accessor: 'earnings',
       },
       {
-        Header: 'Wallets',
+        Header: 'Wallet Address',
         accessor: 'txn',
       },
       {
