@@ -1,6 +1,7 @@
 import tokens from './tokens'
 import { FarmConfig } from './types'
 import { CAKE_INFO_URL, PANCAKE_ADD_LIQUIDITY_URL } from '../index'
+import farmsUIProps from './farmsUIProps'
 
 const farms: FarmConfig[] = [
   /**
@@ -36,6 +37,7 @@ const farms: FarmConfig[] = [
   //   token: tokens.srkb,
   //   pairToken: tokens.wbnb,
   //   quoteToken: tokens.srkb,
+  //   UIProps: farmsUIProps.mgg
   // },
   // {
   //   pid: 252,
@@ -51,6 +53,7 @@ const farms: FarmConfig[] = [
   //   token: tokens.own,
   //   pairToken: tokens.wbnb,
   //   quoteToken: tokens.own,
+  //   UIProps: farmsUIProps.mgg
   // },
 
   /**
@@ -58,7 +61,8 @@ const farms: FarmConfig[] = [
    */
   {
     isMain: true,
-    pid: 251,
+    pid: 253,
+    name: 'MetaGaming Guild',
     lpSymbol: 'MGG-BUSD LP',
     lpAddresses: {
       97: '',
@@ -72,6 +76,7 @@ const farms: FarmConfig[] = [
     pairToken: tokens.busd,
     quoteToken: tokens.mgg,
     isPromoted: 1,
+    UIProps: farmsUIProps.mgg,
   },
 ]
 

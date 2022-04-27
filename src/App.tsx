@@ -25,6 +25,7 @@ const Lottery = lazy(() => import('./views/Lottery'))
 const Ifos = lazy(() => import('./views/Ifos'))
 const NotFound = lazy(() => import('./views/NotFound'))
 const Pad = lazy(() => import('./views/GuildPad/Pad'))
+const FarmPage = lazy(() => import('./views/Farms/NewUI/FarmPage'))
 // const Collectibles = lazy(() => import('./views/Collectibles'))
 // const Teams = lazy(() => import('./views/Teams'))
 // const Team = lazy(() => import('./views/Teams/Team'))
@@ -63,14 +64,15 @@ const App: React.FC = () => {
               {/* <ComingSoon title="Pools" /> */}
             </Route>
             <Route path="/gamefi" exact>
-              <ComingSoon title="GameFi Vaults" />
-              {/* <Gamefi /> */}
+              {/* <ComingSoon title="GameFi Vaults" /> */}
+              <Gamefi />
             </Route>
             <Route path="/launchpad" exact>
               {/* <ComingSoon title="Launchpad" /> */}
               <Guildpad />
             </Route>
             <Route path="/launchpad/:guildpadTitle" component={Pad} />
+            <Route path="/gamefi/:type/:farmID" component={FarmPage} />
             <Route path="/earning-dashboard" exact>
               <ComingSoon title="Earning Dashboard" />
             </Route>

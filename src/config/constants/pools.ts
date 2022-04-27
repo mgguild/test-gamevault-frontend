@@ -1,10 +1,12 @@
 import tokens from './tokens'
 import { PoolConfig, PoolCategory } from './types'
+import farmsUIProps from './farmsUIProps'
 
 const pools: PoolConfig[] = [
   {
     isMain: true,
     sousId: 9,
+    name: 'MetaGaming Guild',
     stakingToken: tokens.mgg,
     earningToken: tokens.mgg,
     contractAddress: {
@@ -16,6 +18,7 @@ const pools: PoolConfig[] = [
     tokenPerBlock: '154320987654320987',
     sortOrder: 999,
     isFinished: false,
+    UIProps: farmsUIProps.mgg2,
   },
   // Dummy Contract #1
   // {
