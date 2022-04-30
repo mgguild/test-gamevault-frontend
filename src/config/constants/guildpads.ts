@@ -5,6 +5,7 @@ import Wizardia2 from './Guildpads/Wizardia2'
 import GuildpadsLaunched from './guildpadsLaunched'
 import Ookeenga from './Guildpads/Ookeenga'
 import Ookeenga2 from './Guildpads/Ookeenga2'
+import PlayZap from './Guildpads/PlayZap'
 
 const Guildpads: GuildpadConfig[] = [
   ...GuildpadsLaunched,
@@ -13,6 +14,12 @@ const Guildpads: GuildpadConfig[] = [
     title: 'Demole',
     isStatic: true,
     ...DemoleGuildpad,
+  },
+  {
+    id: 5,
+    title: 'PlayZap',
+    isStatic: true,
+    ...PlayZap,
   },
 ]
 

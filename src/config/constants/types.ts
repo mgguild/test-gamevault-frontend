@@ -244,7 +244,7 @@ interface GuildPadInformation {
   distribution?: string
   distributionDesc?: string
   round: string
-  type?: Type
+  type?: Type | string
   merged?: boolean
   nextRoundID?: number
   date?: { start: string; end: string }

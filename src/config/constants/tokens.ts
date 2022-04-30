@@ -23,7 +23,7 @@ const guildpadTokens = {
     symbol: 'Acknoledger',
     address: {
       56: 'Acknoledger',
-      96: 'Acknoledger',
+      97: 'Acknoledger',
     },
     iconExtension: 'png',
     decimals: 18,
@@ -33,7 +33,7 @@ const guildpadTokens = {
     symbol: 'WZRD',
     address: {
       56: 'Wizardia',
-      96: 'Wizardia',
+      97: 'Wizardia',
     },
     iconExtension: 'png',
     decimals: 18,
@@ -43,12 +43,22 @@ const guildpadTokens = {
     symbol: 'OKG',
     address: {
       56: 'Ookeenga',
-      96: 'Ookeenga',
+      97: 'Ookeenga',
     },
     iconExtension: 'png',
     decimals: 18,
     projectLink: 'https://ookeenga.io//',
   },
+  PlayZap: {
+    symbol: 'PlayZap',
+    address: {
+      56: 'PlayZap',
+      97: 'PlayZap'
+    },
+    iconExtension: 'png',
+    decimals: 18,
+    projectLink: ''
+  }
 }
 
 const tokens = {
