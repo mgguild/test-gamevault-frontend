@@ -209,6 +209,7 @@ export interface Socials {
   medium?: string
   discord?: string
   youtube?: string
+  linkedin?: string
 }
 
 export interface UIProps {

@@ -39,6 +39,7 @@ import Select, { OptionProps } from 'components/Select/Select'
 import { ApexOptions } from 'apexcharts'
 import ReactApexChart from 'react-apexcharts'
 import { useTable } from 'react-table'
+import RenderSocials from 'components/Launchpad/SocialGroup'
 import FarmCard, { FarmWithStakedValue } from '../components/FarmCard/FarmCard'
 import Table from '../components/FarmTable/FarmTable'
 import FarmTabButtons from '../components/FarmTabButtons'
@@ -50,7 +51,6 @@ import { getAprData, getCakeVaultEarnings } from '../../Pools/helpers'
 import SvgIcon from '../../../components/Launchpad/SvgIcon'
 import { getBscScanAddressUrl } from '../../../utils/bscscan'
 import { Cards2, Card2Container, TokenLogo, Badge, LinearBG, PageContainer } from '../components/FarmCards/styles'
-import { RenderSocials } from '../../../components/Launchpad/Logo'
 
 const FlexC = styled(Flex)`
   padding: 2.5rem;
