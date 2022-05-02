@@ -6,7 +6,8 @@ const socials = {
   twitter: 'https://twitter.com/PlayZapGames',
   telegram: 'https://t.me/playzap',
   discord: 'https://discord.com/invite/YYPAyJpyqm',
-  linkedin: 'https://www.linkedin.com/authwall?trk=bf&trkInfo=AQGAP1hx3t3v1wAAAYB7KtAINfzkAXIQsHms3BV50qReTON94f-SDPpBh8bghE9t2dA85WR3UZcILIPEqQZt3YO49k7QQu7SlW6PbwtQ1oMy7egzyzeLhFsgupoGK7TwxiURjc0=&originalReferer=&sessionRedirect=https%3A%2F%2Fwww.linkedin.com%2Fcompany%2Fplayzap-games%2F%3FviewAsMember%3Dtrue',
+  linkedin:
+    'https://www.linkedin.com/authwall?trk=bf&trkInfo=AQGAP1hx3t3v1wAAAYB7KtAINfzkAXIQsHms3BV50qReTON94f-SDPpBh8bghE9t2dA85WR3UZcILIPEqQZt3YO49k7QQu7SlW6PbwtQ1oMy7egzyzeLhFsgupoGK7TwxiURjc0=&originalReferer=&sessionRedirect=https%3A%2F%2Fwww.linkedin.com%2Fcompany%2Fplayzap-games%2F%3FviewAsMember%3Dtrue',
 }
 const guildpad = {
   description:

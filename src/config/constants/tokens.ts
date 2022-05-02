@@ -53,12 +53,12 @@ const guildpadTokens = {
     symbol: 'PlayZap',
     address: {
       56: 'PlayZap',
-      97: 'PlayZap'
+      97: 'PlayZap',
     },
     iconExtension: 'png',
     decimals: 18,
-    projectLink: ''
-  }
+    projectLink: '',
+  },
 }
 
 const tokens = {
