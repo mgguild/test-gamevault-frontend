@@ -27,6 +27,13 @@ const ComingSoon = lazy(() => import('./views/ComingSoon'))
 const Guildpad = lazy(() => import('./views/GuildPad'))
 const NotFound = lazy(() => import('./views/NotFound'))
 const Pad = lazy(() => import('./views/GuildPad/Pad'))
+const FarmPage = lazy(() => import('./views/Farms/NewUI/FarmPage'))
+// const Collectibles = lazy(() => import('./views/Collectibles'))
+// const Teams = lazy(() => import('./views/Teams'))
+// const Team = lazy(() => import('./views/Teams/Team'))
+// const Profile = lazy(() => import('./views/Profile'))
+// const TradingCompetition = lazy(() => import('./views/TradingCompetition'))
+// const Predictions = lazy(() => import('./views/Predictions'))
 
 // This config is required for number formatting
 BigNumber.config({
@@ -68,9 +75,10 @@ const App: React.FC = () => {
               {/* <ComingSoon title="Pools" /> */}
             </Route>
             <Route path="/gamefi" exact>
-               <ComingSoon title="GameFi Vaults" />
-              {/* <Gamefi /> */}
+              {/* <ComingSoon title="GameFi Vaults" /> */}
+              <Gamefi />
             </Route>
+            <Route path="/gamefi/:type/:farmID" component={FarmPage} />
             <Route path="/launchpad" exact>
               {/* <ComingSoon title="Launchpad" /> */}
               {isChainSupported('LAUNCHPAD', chainId) ? (

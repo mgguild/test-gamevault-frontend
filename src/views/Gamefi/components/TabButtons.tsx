@@ -8,20 +8,20 @@ interface FarmTabButtonsProps {
   hasStakeInFinishedFarms: boolean
 }
 
-const FarmTabButtons: React.FC<FarmTabButtonsProps> = ({ hasStakeInFinishedFarms }) => {
+const TabButtons: React.FC<FarmTabButtonsProps> = ({ hasStakeInFinishedFarms }) => {
   const { url } = useRouteMatch()
   const location = useLocation()
   const { t } = useTranslation()
 
   let activeIndex
   switch (location.pathname) {
-    case '/farms':
+    case '/gamefi':
       activeIndex = 0
       break
-    case '/farms/history':
+    case '/gamefi/history':
       activeIndex = 1
       break
-    case '/farms/archived':
+    case '/gamefi/archived':
       activeIndex = 2
       break
     default:
@@ -45,7 +45,7 @@ const FarmTabButtons: React.FC<FarmTabButtonsProps> = ({ hasStakeInFinishedFarms
   )
 }
 
-export default FarmTabButtons
+export default TabButtons
 
 const Wrapper = styled.div`
   display: flex;
