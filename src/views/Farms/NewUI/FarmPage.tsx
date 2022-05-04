@@ -250,7 +250,7 @@ const RenderTable = ({ columns, data }) => {
 }
 
 const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tblColumns }) => {
-  const [ dayDuration, setDayDuration ] = useState<string>('') 
+  const [dayDuration, setDayDuration] = useState<string>('')
   const theme = useContext(ThemeContext)
   const { path } = useRouteMatch()
   const { account, chainId } = useWeb3React()
@@ -344,7 +344,7 @@ const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
               <Stats>
                 <div>
                   <Heading size="l">{dayDuration !== '' ? `${dayDuration} days` : 'Select Days'}</Heading>
-                  { dayDuration !== '' && <Text fontSize="0.8rem">Program duration</Text>}
+                  {dayDuration !== '' && <Text fontSize="0.8rem">Program duration</Text>}
                 </div>
               </Stats>
               <Stats>
@@ -373,12 +373,17 @@ const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                 alignItems: 'center',
               }}
             >
-             { !account? (
-              <Flex style={{ flex: '0 100%', justifyContent: 'center' }}>
-                <UnlockButton customTitle='Connect Wallet to Stake' />
-              </Flex>
-             ) : ( 
-               <InputComponent dayDuration={dayDuration} dayFunction={setDayDuration} stakingType="farm" currentFarm={currentFarm}  />
+              {!account ? (
+                <Flex style={{ flex: '0 100%', justifyContent: 'center' }}>
+                  <UnlockButton customTitle="Connect Wallet to Stake" />
+                </Flex>
+              ) : (
+                <InputComponent
+                  dayDuration={dayDuration}
+                  dayFunction={setDayDuration}
+                  stakingType="farm"
+                  currentFarm={currentFarm}
+                />
               )}
               <Flex style={{ flex: '0 100%' }} />
               <Flex style={{ flex: '0 50%' }}>
@@ -502,7 +507,7 @@ const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
 }
 
 const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tblColumns }) => {
-  const [ dayDuration, setDayDuration ] = useState<string>('')
+  const [dayDuration, setDayDuration] = useState<string>('')
   const theme = useContext(ThemeContext)
   const { path } = useRouteMatch()
   const { account, chainId } = useWeb3React()
@@ -603,7 +608,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
               <Stats>
                 <div>
                   <Heading size="l">{dayDuration !== '' ? `${dayDuration} days ` : 'Select days'}</Heading>
-                  { dayDuration !== '' && <Text fontSize="0.8rem">Program duration</Text> }
+                  {dayDuration !== '' && <Text fontSize="0.8rem">Program duration</Text>}
                 </div>
               </Stats>
               <Stats>
@@ -632,15 +637,18 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                 alignItems: 'center',
               }}
             >
-            {
-              !account? (
+              {!account ? (
                 <Flex style={{ flex: '0 100%', justifyContent: 'center' }}>
-                 <UnlockButton customTitle='Connect wallet to Stake' />
+                  <UnlockButton customTitle="Connect wallet to Stake" />
                 </Flex>
-              ): (
-                <InputComponent  dayDuration={dayDuration} dayFunction={setDayDuration} stakingType="pool" currentPoolBased={currentPool}   />
-              )
-            }
+              ) : (
+                <InputComponent
+                  dayDuration={dayDuration}
+                  dayFunction={setDayDuration}
+                  stakingType="pool"
+                  currentPoolBased={currentPool}
+                />
+              )}
               <Flex style={{ flex: '0 100%' }} />
               <Flex style={{ flex: '0 50%' }}>
                 <Text fontSize="0.7rem" color={theme.colors.MGG_accent2}>
