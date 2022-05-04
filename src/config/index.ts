@@ -47,7 +47,8 @@ export const API_DATA = 'data'
 export const API_LIQUIDITY = 'liquidity'
 export const API_LASTPRICE = 'price'
 export const multiChainSupport = {
-  STAKING: ['1', '56'],
+  LP_STAKING: ['1', '56'],
+  POOL_STAKING: ['56'],
   LAUNCHPAD: ['56'],
 }
 

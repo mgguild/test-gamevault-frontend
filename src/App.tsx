@@ -53,17 +53,17 @@ const App: React.FC = () => {
         <SuspenseWithChunkError fallback={<PageLoader />}>
           <Switch>
             <Route path="/farms">
-              {isChainSupported('STAKING', chainId) ? (
+              {isChainSupported('LP_STAKING', chainId) ? (
                 <Farms />
               ) : (
-                <NotSupported title="Farms" supportedChainId={getSupportedChain('STAKING')} />
+                <NotSupported title="Farms" supportedChainId={getSupportedChain('LP_STAKING')} />
               )}
             </Route>
             <Route path="/pools" exact>
-              {isChainSupported('STAKING', chainId) ? (
+              {isChainSupported('POOL_STAKING', chainId) ? (
                 <Pools />
               ) : (
-                <NotSupported title="Pools" supportedChainId={getSupportedChain('STAKING')} />
+                <NotSupported title="Pools" supportedChainId={getSupportedChain('POOL_STAKING')} />
               )}
               {/* <ComingSoon title="Pools" /> */}
             </Route>
