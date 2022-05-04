@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } 
 import { Route, useLocation, useRouteMatch, RouteComponentProps } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
-import { Oval } from 'react-loading-icons'
+import { Grid } from '@mui/material'
 import { RefreshCcw } from 'react-feather'
 import { Flex, Link, Text, Heading, Button, Input } from '@metagg/mgg-uikit'
 import styled, { ThemeContext } from 'styled-components'
@@ -33,6 +33,7 @@ import { Token } from 'config/constants/types'
 import { getAddress } from 'utils/addressHelpers'
 import isArchivedPid from 'utils/farmHelpers'
 import { latinise } from 'utils/latinise'
+import UnlockButton from 'components/UnlockButton'
 import PageHeader from 'components/PageHeader'
 import SearchInput from 'components/SearchInput'
 import Select, { OptionProps } from 'components/Select/Select'
@@ -52,6 +53,7 @@ import { getBscScanAddressUrl } from '../../../utils/bscscan'
 import { Cards2, Card2Container, TokenLogo, Badge, LinearBG, PageContainer } from '../components/FarmCards/styles'
 import { RenderSocials } from '../../../components/Launchpad/Logo'
 
+
 const FlexC = styled(Flex)`
   padding: 2.5rem;
   flex-flow column wrap;
@@ -62,10 +64,11 @@ const FlexC = styled(Flex)`
   text-align: center;
 `
 
-const ButtomSM = styled(Button)`
+const ButtonSM = styled(Button)`
   padding: 0.5rem 1rem;
   font-size: 1rem;
   height: 2.5rem;
+  border-radius: 4px;
 `
 
 const StatCard = styled(Flex)`
@@ -115,6 +118,20 @@ const TableStyle = styled.div`
     }
   }
 `
+
+const StyledDetails = styled(Flex)`
+  width: 100%;
+  flex-direction: column;
+  & > * {
+    justify-content: space-between;
+    flex: 1;
+    & :first-child {
+      color: ${({theme}) => theme.colors.textSubtle};
+    }
+  }
+  
+`
+
 const ChartStyle = styled(Flex)`
   width: 100%;
   max-width: 100%;
@@ -246,6 +263,7 @@ const RenderTable = ({ columns, data }) => {
 }
 
 const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tblColumns }) => {
+  const [ dayDuration, setDayDuration ] = useState<string>('') 
   const theme = useContext(ThemeContext)
   const { path } = useRouteMatch()
   const { account, chainId } = useWeb3React()
@@ -338,7 +356,7 @@ const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
             <Flex style={{ width: '100%', flexFlow: 'row wrap', gap: '1rem', justifyContent: 'space-evenly' }}>
               <Stats>
                 <div>
-                  <Heading size="l">100 days</Heading>
+                  <Heading size="l">{dayDuration !== '' ? `${dayDuration} days` : 'Input Days'}</Heading>
                   <Text fontSize="0.8rem">Program duration</Text>
                 </div>
               </Stats>
@@ -348,12 +366,12 @@ const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                   <Text fontSize="0.8rem">Last day to earn APR</Text>
                 </div>
               </Stats>
-              <Stats>
+              {/* <Stats>
                 <div>
                   <Heading size="l">14 days</Heading>
                   <Text fontSize="0.8rem">Minimum Staking Time</Text>
                 </div>
-              </Stats>
+              </Stats> */}
             </Flex>
 
             <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
@@ -368,11 +386,83 @@ const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                 alignItems: 'center',
               }}
             >
-              <Flex style={{ flex: '0 50%' }}>
+             { !account? (
+              <Flex style={{ flex: '0 100%', justifyContent: 'center' }}>
+                <UnlockButton customTitle='Connect Wallet to Stake' />
+              </Flex>
+             ) : ( 
+             <>
+             <Flex justifyContent='center' style={{width: '100%'}}>
+               <Grid container spacing={{xs: 2, md: 1}} justifyContent='center'>
+                {
+                  ['15', '90', '180', '365'].map((day) => (
+                    <>
+                      <Grid item xs={12} sm={3} md={3}>
+                        <ButtonSM fullWidth onClick={() => setDayDuration(day)} >
+                          {`${day} Days`}
+                        </ButtonSM>
+                      </Grid>
+                    </>
+                  ))
+                }
+               </Grid>
+             </Flex>
+             <StyledDetails>
+               <Flex>
+                 <Text>
+                   APY
+                 </Text>
+                 <Text>
+                   2%
+                 </Text>
+               </Flex>
+               <Flex>
+                 <Text>
+                   Max fine
+                 </Text>
+                 <Text>
+                   60%
+                 </Text>
+               </Flex>
+               <Flex>
+                 <Text>
+                   Max profit (estimated)
+                 </Text>
+                 <Text>
+                   -
+                 </Text>
+               </Flex>
+               <hr style={{width: '100%'}} />
+               <Flex>
+                 <Text>
+                   You staked
+                 </Text>
+                 <Text>
+                   1000 MGG
+                 </Text>
+               </Flex>
+               <Flex>
+                 <Text>
+                   Your balance
+                 </Text>
+                 <Text>
+                   0 MGG
+                 </Text>
+               </Flex>
+               <Flex>
+                 <Text>
+                   Total staked 
+                 </Text>
+                 <Text>
+                   10000.00 MGG
+                 </Text>
+               </Flex>
+             </StyledDetails>
+             <Flex style={{ flex: '0 50%' }}>
                 <Text>Amount</Text>
               </Flex>
               <Flex style={{ flex: '0 50%', justifyContent: 'end' }}>
-                <ButtomSM>Deposit Max</ButtomSM>
+                <ButtonSM>Deposit Max</ButtonSM>
               </Flex>
               <Flex style={{ flex: '0 100%', position: 'relative' }}>
                 <Input style={{ padding: '1.5rem' }} placeholder="0" type="number" min="0" />
@@ -383,8 +473,10 @@ const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                 </div>
               </Flex>
               <Flex style={{ flex: '0 100%', justifyContent: 'center' }}>
-                <Button>Connect Wallet to Stake</Button>
+                <Button fullWidth>Stake</Button>
               </Flex>
+              </> 
+              )}
               <Flex style={{ flex: '0 100%' }} />
               <Flex style={{ flex: '0 50%' }}>
                 <Text fontSize="0.7rem" color={theme.colors.MGG_accent2}>
@@ -640,7 +732,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                 <Text>Amount</Text>
               </Flex>
               <Flex style={{ flex: '0 50%', justifyContent: 'end' }}>
-                <ButtomSM>Deposit Max</ButtomSM>
+                <ButtonSM>Deposit Max</ButtonSM>
               </Flex>
               <Flex style={{ flex: '0 100%', position: 'relative' }}>
                 <Input style={{ padding: '1.5rem' }} placeholder="0" type="number" min="0" />
