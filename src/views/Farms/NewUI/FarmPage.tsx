@@ -343,8 +343,8 @@ const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
             <Flex style={{ width: '100%', flexFlow: 'row wrap', gap: '1rem', justifyContent: 'space-evenly' }}>
               <Stats>
                 <div>
-                  <Heading size="l">{dayDuration !== '' ? `${dayDuration} days` : 'Input Days'}</Heading>
-                  <Text fontSize="0.8rem">Program duration</Text>
+                  <Heading size="l">{dayDuration !== '' ? `${dayDuration} days` : 'Select Days'}</Heading>
+                  { dayDuration !== '' && <Text fontSize="0.8rem">Program duration</Text>}
                 </div>
               </Stats>
               <Stats>
@@ -378,7 +378,7 @@ const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                 <UnlockButton customTitle='Connect Wallet to Stake' />
               </Flex>
              ) : ( 
-               <InputComponent dayDuration={dayDuration} dayFunction={setDayDuration} stakingType="farms" currentFarm={currentFarm}  />
+               <InputComponent dayDuration={dayDuration} dayFunction={setDayDuration} stakingType="farm" currentFarm={currentFarm}  />
               )}
               <Flex style={{ flex: '0 100%' }} />
               <Flex style={{ flex: '0 50%' }}>
@@ -502,6 +502,7 @@ const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
 }
 
 const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tblColumns }) => {
+  const [ dayDuration, setDayDuration ] = useState<string>('')
   const theme = useContext(ThemeContext)
   const { path } = useRouteMatch()
   const { account, chainId } = useWeb3React()
@@ -601,8 +602,8 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
             <Flex style={{ width: '100%', flexFlow: 'row wrap', gap: '1rem', justifyContent: 'space-evenly' }}>
               <Stats>
                 <div>
-                  <Heading size="l">100 days</Heading>
-                  <Text fontSize="0.8rem">Program duration</Text>
+                  <Heading size="l">{dayDuration !== '' ? `${dayDuration} days ` : 'Select days'}</Heading>
+                  { dayDuration !== '' && <Text fontSize="0.8rem">Program duration</Text> }
                 </div>
               </Stats>
               <Stats>
@@ -611,12 +612,12 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                   <Text fontSize="0.8rem">Last day to earn APR</Text>
                 </div>
               </Stats>
-              <Stats>
+              {/* <Stats>
                 <div>
                   <Heading size="l">14 days</Heading>
                   <Text fontSize="0.8rem">Minimum Staking Time</Text>
                 </div>
-              </Stats>
+              </Stats> */}
             </Flex>
 
             <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
@@ -631,23 +632,15 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                 alignItems: 'center',
               }}
             >
-              <Flex style={{ flex: '0 50%' }}>
-                <Text>Amount</Text>
-              </Flex>
-              <Flex style={{ flex: '0 50%', justifyContent: 'end' }}>
-                <ButtonSM>Deposit Max</ButtonSM>
-              </Flex>
-              <Flex style={{ flex: '0 100%', position: 'relative' }}>
-                <Input style={{ padding: '1.5rem' }} placeholder="0" type="number" min="0" />
-                <div style={{ position: 'absolute', top: '0.7rem', right: '1.5rem' }}>
-                  <Text color={theme.colors.textSubtle}>
-                    {currentPool.stakingToken.symbol} - {currentPool.earningToken.symbol}
-                  </Text>
-                </div>
-              </Flex>
-              <Flex style={{ flex: '0 100%', justifyContent: 'center' }}>
-                <Button>Connect Wallet to Stake</Button>
-              </Flex>
+            {
+              !account? (
+                <Flex style={{ flex: '0 100%', justifyContent: 'center' }}>
+                 <UnlockButton customTitle='Connect wallet to Stake' />
+                </Flex>
+              ): (
+                <InputComponent  dayDuration={dayDuration} dayFunction={setDayDuration} stakingType="pool" currentPoolBased={currentPool}   />
+              )
+            }
               <Flex style={{ flex: '0 100%' }} />
               <Flex style={{ flex: '0 50%' }}>
                 <Text fontSize="0.7rem" color={theme.colors.MGG_accent2}>

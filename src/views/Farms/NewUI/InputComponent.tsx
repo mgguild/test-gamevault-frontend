@@ -35,7 +35,7 @@ interface ComponentProps {
 
 const Component:React.FC<ComponentProps> = ({dayDuration, dayFunction, currentFarm, currentPoolBased, stakingType}) => {
     const theme = useContext(ThemeContext)
-    const pairSymbol = stakingType === 'farms' ? currentFarm.pairToken.symbol : 'NAN'
+    const pairSymbol = stakingType === 'farm' ? currentFarm.lpSymbol : currentPoolBased.stakingToken.symbol
     return (
             <>
              <Flex justifyContent='center' style={{width: '100%'}}>
@@ -84,7 +84,7 @@ const Component:React.FC<ComponentProps> = ({dayDuration, dayFunction, currentFa
                    You staked
                  </Text>
                  <Text>
-                   1000 MGG
+                   1000 {pairSymbol}
                  </Text>
                </Flex>
                <Flex>
@@ -92,7 +92,7 @@ const Component:React.FC<ComponentProps> = ({dayDuration, dayFunction, currentFa
                    Your balance
                  </Text>
                  <Text>
-                   0 MGG
+                   0 {pairSymbol}
                  </Text>
                </Flex>
                <Flex>
@@ -100,7 +100,7 @@ const Component:React.FC<ComponentProps> = ({dayDuration, dayFunction, currentFa
                    Total staked 
                  </Text>
                  <Text>
-                   10000.00 MGG
+                   10000.00 {pairSymbol}
                  </Text>
                </Flex>
              </StyledDetails>
