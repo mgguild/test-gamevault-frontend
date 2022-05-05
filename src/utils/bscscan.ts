@@ -1,5 +1,13 @@
 import { BASE_BSC_SCAN_URL } from 'config'
 
+export const getExplorerAddressUrl = (address: string) => {
+  return `${BASE_BSC_SCAN_URL}/address/${address}`
+}
+
+export const getExplorerTransactionUrl = (address: string) => {
+  return `${BASE_BSC_SCAN_URL}/address/${address}`
+}
+
 export const getBscScanAddressUrl = (address: string) => {
   return `${BASE_BSC_SCAN_URL}/address/${address}`
 }

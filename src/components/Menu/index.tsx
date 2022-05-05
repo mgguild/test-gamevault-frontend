@@ -8,13 +8,14 @@ import useAuth from 'hooks/useAuth'
 import config from './config'
 
 const Menu = (props) => {
-  const { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
   const { login, logout } = useAuth()
   const { isDark, toggleTheme } = useTheme()
   const { currentLanguage, setLanguage } = useTranslation()
 
   return (
     <UikitMenu
+      network={chainId}
       account={account}
       login={login}
       logout={logout}

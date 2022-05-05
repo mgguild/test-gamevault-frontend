@@ -1,6 +1,6 @@
 import tokens from './tokens'
 import { FarmConfig } from './types'
-import { CAKE_INFO_URL, PANCAKE_ADD_LIQUIDITY_URL } from '../index'
+import { CAKE_INFO_URL, MAINNET_CHAIN_ID, MAINNET_ETH_CHAIN_ID, PANCAKE_ADD_LIQUIDITY_URL } from '../index'
 import farmsUIProps from './farmsUIProps'
 
 const farms: FarmConfig[] = [
@@ -72,8 +72,27 @@ const farms: FarmConfig[] = [
       97: '',
       56: '0xc5A228b9Ec0605944ee7a7cf5CBE528F310257DF',
     },
+    chain: MAINNET_CHAIN_ID,
     token: tokens.mgg,
     pairToken: tokens.busd,
+    quoteToken: tokens.mgg,
+    isPromoted: 1,
+  },
+  {
+    isMain: true,
+    pid: 252,
+    lpSymbol: 'MGG-USDC LP',
+    lpAddresses: {
+      97: '',
+      1: '0x8324479F05F79F2d17d05aF0A5db9caa321CB9A3',
+    },
+    stakingAddresses: {
+      97: '',
+      1: '0xc5A228b9Ec0605944ee7a7cf5CBE528F310257DF',
+    },
+    chain: MAINNET_ETH_CHAIN_ID,
+    token: tokens.mgg,
+    pairToken: tokens.usdc,
     quoteToken: tokens.mgg,
     isPromoted: 1,
     UIProps: farmsUIProps.mgg,

@@ -6,8 +6,9 @@ import { Farm } from 'state/types'
 import { useFarmPrice } from 'hooks/price'
 import { getFarmV2Apr } from 'utils/apr'
 import useTokenBalance from 'hooks/useTokenBalance'
+import { useWeb3React } from '@web3-react/core'
 import { useTranslation } from 'contexts/Localization'
-import { BASE_ADD_LIQUIDITY_URL, BASE_EXCHANGE_URL, BASE_INFO_URL, BASE_SWAP_URL } from 'config'
+import { BASE_ADD_LIQUIDITY_URL, BASE_EXCHANGE_URL, BASE_INFO_URL, BASE_SWAP_URL, MAINNET_CHAIN_ID } from 'config'
 import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts'
 import CardHeading from './CardHeading'
 import CardActionsContainer from './CardActionsContainer'
@@ -97,7 +98,10 @@ const FarmCard: React.FC<FarmCardProps> = ({ userDataReady, farm, removed, cakeP
     pairTokenAddress: farm.pairToken.address,
   })
 
-  const stakingAddress = getAddress(farm.stakingAddresses)
+  const { chainId } = useWeb3React()
+  const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
+
+  const stakingAddress = getAddress(farm.stakingAddresses, chain)
 
   const addLiquidityUrl = `${farm.liquidityUrl ?? BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`
   const AddTokenUrl = `${BASE_SWAP_URL}/${farm.token.address[56]}`
@@ -150,7 +154,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ userDataReady, farm, removed, cakeP
       <div style={{ margin: '24px' }}>
         <Flex>
           <HarvestAction
-            stakingContract={getAddress(farm.stakingAddresses)}
+            stakingContract={getAddress(farm.stakingAddresses, chain)}
             tokenRewardSymbol={earnLabel}
             userDataReady={userDataReady}
             userData={farm.userData}

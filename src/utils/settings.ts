@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import { DEFAULT_GAS_PRICE } from 'config'
+import { DEFAULT_GAS_PRICE, MAINNET_CHAIN_ID, multiChainSupport } from 'config'
 import { getDecimalAmount } from './formatBalance'
 
 export interface UserSettings {
@@ -42,4 +42,13 @@ export const setSettings = (account: string, newSettings: UserSettings) => {
 export const setSetting = (account: string, newSetting: Partial<UserSettings>) => {
   const currentSettings = getSettings(account)
   setSettings(account, { ...currentSettings, ...newSetting })
+}
+
+export const isChainSupported = (category: string, chainId: number) => {
+  const chain = chainId?.toString()
+  return multiChainSupport[category].includes(chain ?? MAINNET_CHAIN_ID)
+}
+
+export const getSupportedChain = (category: string) => {
+  return multiChainSupport[category][0]
 }

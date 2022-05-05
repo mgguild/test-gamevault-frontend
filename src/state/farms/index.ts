@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import farmsConfig from 'config/constants/farms'
+import { useWeb3React } from '@web3-react/core'
 import isArchivedPid from 'utils/farmHelpers'
 import priceHelperLpsConfig from 'config/constants/priceHelperLps'
 import fetchFarms from './fetchFarms'
@@ -28,20 +29,19 @@ const initialState: FarmsState = { data: noAccountFarmConfig, loadArchivedFarmsD
 export const nonArchivedFarms = farmsConfig.filter(({ pid }) => !isArchivedPid(pid))
 
 // Async thunks
-export const fetchFarmsPublicDataAsync = createAsyncThunk<Farm[], number[]>(
+export const fetchFarmsPublicDataAsync = createAsyncThunk<Farm[], { pids: number[]; chain?: string }>(
   'farms/fetchFarmsPublicDataAsync',
-  async (pids) => {
-    const farmsToFetch = farmsConfig.filter((farmConfig) => pids.includes(farmConfig.pid))
-
+  async ({ pids, chain }) => {
+    const farmsToFetch = farmsConfig.filter((farmConfig) => pids.includes(farmConfig.pid) && farmConfig.chain === chain)
     // Add price helper farms
     const farmsWithPriceHelpers = farmsToFetch.concat(priceHelperLpsConfig)
 
-    const farms = await fetchFarms(farmsWithPriceHelpers)
-    const farmsWithPrices = await fetchFarmsPrices(farms)
+    const farms = await fetchFarms(farmsWithPriceHelpers, chain)
+    // const farmsWithPrices = await fetchFarmsPrices(farms)
 
     // Filter out price helper LP config farms
-    const farmsWithoutHelperLps = farmsWithPrices.filter((farm: Farm) => {
-      return farm.pid || farm.pid === 0
+    const farmsWithoutHelperLps = farms.filter((farm: Farm) => {
+      return (farm.pid || farm.pid === 0) && farm.chain === chain
     })
 
     return farmsWithoutHelperLps
@@ -56,26 +56,25 @@ interface FarmUserDataResponse {
   earnings: string
 }
 
-export const fetchFarmUserDataAsync = createAsyncThunk<FarmUserDataResponse[], { account: string; pids: number[] }>(
-  'farms/fetchFarmUserDataAsync',
-  async ({ account, pids }) => {
-    const farmsToFetch = farmsConfig.filter((farmConfig) => pids.includes(farmConfig.pid))
-    const userFarmAllowances = await fetchFarmUserAllowances(account, farmsToFetch)
-    const userFarmTokenBalances = await fetchFarmUserTokenBalances(account, farmsToFetch)
-    const userStakedBalances = await fetchFarmUserStakedBalances(account, farmsToFetch)
-    const userFarmEarnings = await fetchFarmUserEarnings(account, farmsToFetch)
-
-    return userFarmAllowances.map((farmAllowance, index) => {
-      return {
-        pid: farmsToFetch[index].pid,
-        allowance: userFarmAllowances[index],
-        tokenBalance: userFarmTokenBalances[index],
-        stakedBalance: userStakedBalances[index],
-        earnings: userFarmEarnings[index],
-      }
-    })
-  },
-)
+export const fetchFarmUserDataAsync = createAsyncThunk<
+  FarmUserDataResponse[],
+  { account: string; pids: number[]; chain?: string }
+>('farms/fetchFarmUserDataAsync', async ({ account, pids, chain }) => {
+  const farmsToFetch = farmsConfig.filter((farmConfig) => pids.includes(farmConfig.pid) && farmConfig.chain === chain)
+  const userFarmAllowances = await fetchFarmUserAllowances(account, farmsToFetch, chain)
+  const userFarmTokenBalances = await fetchFarmUserTokenBalances(account, farmsToFetch, chain)
+  const userStakedBalances = await fetchFarmUserStakedBalances(account, farmsToFetch, chain)
+  const userFarmEarnings = await fetchFarmUserEarnings(account, farmsToFetch, chain)
+  return userFarmAllowances.map((farmAllowance, index) => {
+    return {
+      pid: farmsToFetch[index].pid,
+      allowance: userFarmAllowances[index],
+      tokenBalance: userFarmTokenBalances[index],
+      stakedBalance: userStakedBalances[index],
+      earnings: userFarmEarnings[index],
+    }
+  })
+})
 
 export const farmsSlice = createSlice({
   name: 'Farms',
@@ -100,6 +99,7 @@ export const farmsSlice = createSlice({
       action.payload.forEach((userDataEl) => {
         const { pid } = userDataEl
         const index = state.data.findIndex((farm) => farm.pid === pid)
+        console.log(userDataEl)
         state.data[index] = { ...state.data[index], userData: userDataEl }
       })
       state.userDataLoaded = true

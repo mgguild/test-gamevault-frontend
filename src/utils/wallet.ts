@@ -1,6 +1,6 @@
 // Set of helper functions to facilitate wallet setup
 
-import { BASE_BSC_SCAN_URL } from 'config'
+import { BASE_BSC_SCAN_URL, MAINNET_ETH_CHAIN_ID } from 'config'
 import { nodes } from './getRpcUrl'
 
 /**
@@ -27,6 +27,69 @@ export const setupNetwork = async () => {
             blockExplorerUrls: [`${BASE_BSC_SCAN_URL}/`],
           },
         ],
+      })
+      return true
+    } catch (error) {
+      console.error(error)
+      return false
+    }
+  } else {
+    console.error("Can't setup the BSC network on metamask because window.ethereum is undefined")
+    return false
+  }
+}
+
+export const switchNetwork = async (chainId) => {
+  const provider = (window as WindowChain).ethereum
+  if (provider) {
+    console.log(provider)
+    console.log(chainId)
+    let networkData
+    switch (chainId) {
+      case 97:
+      case '97':
+        networkData = [
+          {
+            chainId: '0x61',
+            chainName: 'BSCTESTNET',
+            rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545'],
+            nativeCurrency: {
+              name: 'BINANCE COIN',
+              symbol: 'BNB',
+              decimals: 18,
+            },
+            blockExplorerUrls: ['https://testnet.bscscan.com/'],
+          },
+        ]
+        break
+      case 56:
+      case '56':
+        networkData = [
+          {
+            chainId: '0x38',
+            chainName: 'BSCMAINET',
+            rpcUrls: ['https://bsc-dataseed1.binance.org'],
+            nativeCurrency: {
+              name: 'BINANCE COIN',
+              symbol: 'BNB',
+              decimals: 18,
+            },
+            blockExplorerUrls: ['https://testnet.bscscan.com/'],
+          },
+        ]
+        break
+      default:
+        break
+    }
+    try {
+      console.log(networkData)
+      if (chainId === MAINNET_ETH_CHAIN_ID) {
+        provider.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x1' }] })
+        return true
+      }
+      await provider.request({
+        method: 'wallet_addEthereumChain',
+        params: networkData,
       })
       return true
     } catch (error) {

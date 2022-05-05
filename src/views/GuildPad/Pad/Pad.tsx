@@ -35,11 +35,7 @@ const BackButton = styled(Link)`
   color: ${({ theme }) => theme.colors.text};
 `
 
-const Pad: React.FC<RouteComponentProps<{ guildpadTitle?: string }>> = ({
-  match: {
-    params: { guildpadTitle },
-  },
-}) => {
+const Pad: React.FC<{ guildpadTitle?: string }> = ({ guildpadTitle }) => {
   const theme = useContext(ThemeContext)
   const { data: guildpads, userDataLoaded } = useGuildpads()
   useGuildpadData()
