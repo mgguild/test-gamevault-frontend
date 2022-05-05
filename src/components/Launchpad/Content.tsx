@@ -68,7 +68,13 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
       ? moment(guildpad.asOfPriceInProjectToken).utc().format('MMM DD, YYYY h A')
       : null
     const end = guildpad.epochEndDate ? `${moment(guildpad.epochEndDate).utc().format('LLL')} UTC` : 'TBA'
-
+    if (guildpad.type === 'TBA') {
+      return (
+        <SaleContainer>
+          <Text>TBA</Text>
+        </SaleContainer>
+      )
+    }
     return guildpad.type === TYPE.INO ? (
       <SaleContainer justifyContent="space-between">
         <Flex flexDirection="column">

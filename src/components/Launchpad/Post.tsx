@@ -101,7 +101,7 @@ const Post: React.FC<{ guildpad?: Guildpad }> = ({ guildpad }) => {
               )}
             </div>
             <TokenProperty>
-              <Text>{type === TYPE.IDO ? TYPE.IGO : TYPE.INO}</Text>
+              <Text>{type}</Text>
             </TokenProperty>
             {!isMobile && (
               <Details onClick={() => setToggle(!toggle)}>
