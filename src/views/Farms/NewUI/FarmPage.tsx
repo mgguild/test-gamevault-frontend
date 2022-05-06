@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } 
 import { Route, useLocation, useRouteMatch, RouteComponentProps } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
-import { Oval } from 'react-loading-icons'
+import { Grid } from '@mui/material'
 import { RefreshCcw } from 'react-feather'
 import { Flex, Link, Text, Heading, Button, Input } from '@metagg/mgg-uikit'
 import styled, { ThemeContext } from 'styled-components'
@@ -33,6 +33,7 @@ import { Token } from 'config/constants/types'
 import { getAddress } from 'utils/addressHelpers'
 import isArchivedPid from 'utils/farmHelpers'
 import { latinise } from 'utils/latinise'
+import UnlockButton from 'components/UnlockButton'
 import PageHeader from 'components/PageHeader'
 import SearchInput from 'components/SearchInput'
 import Select, { OptionProps } from 'components/Select/Select'
@@ -51,6 +52,7 @@ import { getAprData, getCakeVaultEarnings } from '../../Pools/helpers'
 import SvgIcon from '../../../components/Launchpad/SvgIcon'
 import { getBscScanAddressUrl } from '../../../utils/bscscan'
 import { Cards2, Card2Container, TokenLogo, Badge, LinearBG, PageContainer } from '../components/FarmCards/styles'
+import InputComponent from './InputComponent'
 
 const FlexC = styled(Flex)`
   padding: 2.5rem;
@@ -62,10 +64,11 @@ const FlexC = styled(Flex)`
   text-align: center;
 `
 
-const ButtomSM = styled(Button)`
+const ButtonSM = styled(Button)`
   padding: 0.5rem 1rem;
   font-size: 1rem;
   height: 2.5rem;
+  border-radius: 4px;
 `
 
 const StatCard = styled(Flex)`
@@ -115,6 +118,7 @@ const TableStyle = styled.div`
     }
   }
 `
+
 const ChartStyle = styled(Flex)`
   width: 100%;
   max-width: 100%;
@@ -246,6 +250,7 @@ const RenderTable = ({ columns, data }) => {
 }
 
 const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tblColumns }) => {
+  const [dayDuration, setDayDuration] = useState<string>('')
   const theme = useContext(ThemeContext)
   const { path } = useRouteMatch()
   const { account, chainId } = useWeb3React()
@@ -338,8 +343,8 @@ const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
             <Flex style={{ width: '100%', flexFlow: 'row wrap', gap: '1rem', justifyContent: 'space-evenly' }}>
               <Stats>
                 <div>
-                  <Heading size="l">100 days</Heading>
-                  <Text fontSize="0.8rem">Program duration</Text>
+                  <Heading size="l">{dayDuration !== '' ? `${dayDuration} days` : 'Select Days'}</Heading>
+                  {dayDuration !== '' && <Text fontSize="0.8rem">Program duration</Text>}
                 </div>
               </Stats>
               <Stats>
@@ -348,12 +353,12 @@ const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                   <Text fontSize="0.8rem">Last day to earn APR</Text>
                 </div>
               </Stats>
-              <Stats>
+              {/* <Stats>
                 <div>
                   <Heading size="l">14 days</Heading>
                   <Text fontSize="0.8rem">Minimum Staking Time</Text>
                 </div>
-              </Stats>
+              </Stats> */}
             </Flex>
 
             <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
@@ -368,23 +373,18 @@ const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                 alignItems: 'center',
               }}
             >
-              <Flex style={{ flex: '0 50%' }}>
-                <Text>Amount</Text>
-              </Flex>
-              <Flex style={{ flex: '0 50%', justifyContent: 'end' }}>
-                <ButtomSM>Deposit Max</ButtomSM>
-              </Flex>
-              <Flex style={{ flex: '0 100%', position: 'relative' }}>
-                <Input style={{ padding: '1.5rem' }} placeholder="0" type="number" min="0" />
-                <div style={{ position: 'absolute', top: '0.7rem', right: '1.5rem' }}>
-                  <Text color={theme.colors.textSubtle}>
-                    {currentFarm.quoteToken.symbol} - {currentFarm.pairToken.symbol}
-                  </Text>
-                </div>
-              </Flex>
-              <Flex style={{ flex: '0 100%', justifyContent: 'center' }}>
-                <Button>Connect Wallet to Stake</Button>
-              </Flex>
+              {!account ? (
+                <Flex style={{ flex: '0 100%', justifyContent: 'center' }}>
+                  <UnlockButton customTitle="Connect Wallet to Stake" />
+                </Flex>
+              ) : (
+                <InputComponent
+                  dayDuration={dayDuration}
+                  dayFunction={setDayDuration}
+                  stakingType="farm"
+                  currentFarm={currentFarm}
+                />
+              )}
               <Flex style={{ flex: '0 100%' }} />
               <Flex style={{ flex: '0 50%' }}>
                 <Text fontSize="0.7rem" color={theme.colors.MGG_accent2}>
@@ -507,6 +507,7 @@ const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
 }
 
 const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tblColumns }) => {
+  const [dayDuration, setDayDuration] = useState<string>('')
   const theme = useContext(ThemeContext)
   const { path } = useRouteMatch()
   const { account, chainId } = useWeb3React()
@@ -606,8 +607,8 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
             <Flex style={{ width: '100%', flexFlow: 'row wrap', gap: '1rem', justifyContent: 'space-evenly' }}>
               <Stats>
                 <div>
-                  <Heading size="l">100 days</Heading>
-                  <Text fontSize="0.8rem">Program duration</Text>
+                  <Heading size="l">{dayDuration !== '' ? `${dayDuration} days ` : 'Select days'}</Heading>
+                  {dayDuration !== '' && <Text fontSize="0.8rem">Program duration</Text>}
                 </div>
               </Stats>
               <Stats>
@@ -616,12 +617,12 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                   <Text fontSize="0.8rem">Last day to earn APR</Text>
                 </div>
               </Stats>
-              <Stats>
+              {/* <Stats>
                 <div>
                   <Heading size="l">14 days</Heading>
                   <Text fontSize="0.8rem">Minimum Staking Time</Text>
                 </div>
-              </Stats>
+              </Stats> */}
             </Flex>
 
             <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
@@ -636,23 +637,18 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                 alignItems: 'center',
               }}
             >
-              <Flex style={{ flex: '0 50%' }}>
-                <Text>Amount</Text>
-              </Flex>
-              <Flex style={{ flex: '0 50%', justifyContent: 'end' }}>
-                <ButtomSM>Deposit Max</ButtomSM>
-              </Flex>
-              <Flex style={{ flex: '0 100%', position: 'relative' }}>
-                <Input style={{ padding: '1.5rem' }} placeholder="0" type="number" min="0" />
-                <div style={{ position: 'absolute', top: '0.7rem', right: '1.5rem' }}>
-                  <Text color={theme.colors.textSubtle}>
-                    {currentPool.stakingToken.symbol} - {currentPool.earningToken.symbol}
-                  </Text>
-                </div>
-              </Flex>
-              <Flex style={{ flex: '0 100%', justifyContent: 'center' }}>
-                <Button>Connect Wallet to Stake</Button>
-              </Flex>
+              {!account ? (
+                <Flex style={{ flex: '0 100%', justifyContent: 'center' }}>
+                  <UnlockButton customTitle="Connect wallet to Stake" />
+                </Flex>
+              ) : (
+                <InputComponent
+                  dayDuration={dayDuration}
+                  dayFunction={setDayDuration}
+                  stakingType="pool"
+                  currentPoolBased={currentPool}
+                />
+              )}
               <Flex style={{ flex: '0 100%' }} />
               <Flex style={{ flex: '0 50%' }}>
                 <Text fontSize="0.7rem" color={theme.colors.MGG_accent2}>

@@ -3,6 +3,7 @@ import { orderBy, partition } from 'lodash'
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { Route, useLocation, useRouteMatch } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
+import { Grid } from '@mui/material'
 import { Farm, Pool } from 'state/types'
 import {
   useFarms,
@@ -22,7 +23,7 @@ import SearchInput from 'components/SearchInput'
 import { FarmWithStakedValue } from './components/config'
 import TabButtons from './components/TabButtons'
 import NotAvailable from './components/NotAvailable'
-import { BodySection, FilterItem, HeaderSection, ToggleWrapper } from './styled'
+import { BodySection, FilterItem, HeaderSection, StakeSection, ToggleWrapper } from './styled'
 import FarmCard from './components/Cards/Farm'
 import PoolCard from './components/Cards/Pool'
 
@@ -161,73 +162,85 @@ const Gamefi: React.FC = () => {
       switch (type) {
         case 'RENDER_ENDED':
           return stakedMemoized.inactiveFarms.length !== 0 && stakedMemoized.inactivePools.length !== 0 ? (
-            <>
+            <StakeSection>
               {stakedMemoized.inactiveFarms.length !== 0 ? (
-                stakedMemoized.inactiveFarms.map((farm) => (
-                  <FarmCard
-                    userDataReady={userDataReady}
-                    key={farm.pid}
-                    farm={farm}
-                    cakePrice={cakePrice}
-                    account={account}
-                    removed={false}
-                  />
-                ))
+                <Grid container spacing={4}>
+                  {stakedMemoized.inactiveFarms.map((farm) => (
+                    <Grid key={farm.pid} item md={11}>
+                      <FarmCard
+                        userDataReady={userDataReady}
+                        farm={farm}
+                        cakePrice={cakePrice}
+                        account={account}
+                        removed={false}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
               ) : (
                 <NotAvailable title="Inactive Farms" />
               )}
               {stakedMemoized.inactivePools.length !== 0 ? (
-                stakedMemoized.inactivePools.map((pool) => (
-                  <PoolCard
-                    userDataReady={userDataReady}
-                    key={pool.sousId}
-                    pool={pool}
-                    cakePrice={cakePrice}
-                    account={account}
-                    removed={false}
-                    bgColor="#b10303d6"
-                  />
-                ))
+                <Grid container spacing={4}>
+                  {stakedMemoized.inactivePools.map((pool) => (
+                    <Grid key={pool.sousId} item md={11}>
+                      <PoolCard
+                        userDataReady={userDataReady}
+                        pool={pool}
+                        cakePrice={cakePrice}
+                        account={account}
+                        removed={false}
+                        bgColor="#b10303d6"
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
               ) : (
                 <NotAvailable title="Inactive Pools" />
               )}
-            </>
+            </StakeSection>
           ) : (
             <NotAvailable title="inactive farms and pools" />
           )
         default:
           return stakedMemoized.activeFarms.length !== 0 && stakedMemoized.activePools.length !== 0 ? (
-            <>
+            <StakeSection>
               {stakedMemoized.activeFarms.length !== 0 ? (
-                stakedMemoized.activeFarms.map((farm) => (
-                  <FarmCard
-                    userDataReady={userDataReady}
-                    key={farm.pid}
-                    farm={farm}
-                    cakePrice={cakePrice}
-                    account={account}
-                    removed={false}
-                  />
-                ))
+                <Grid container spacing={4}>
+                  {stakedMemoized.activeFarms.map((farm) => (
+                    <Grid key={farm.pid} item md={11}>
+                      <FarmCard
+                        userDataReady={userDataReady}
+                        farm={farm}
+                        cakePrice={cakePrice}
+                        account={account}
+                        removed={false}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
               ) : (
                 <NotAvailable title="Active Farms" />
               )}
               {stakedMemoized.activePools.length !== 0 ? (
-                stakedMemoized.activePools.map((pool) => (
-                  <PoolCard
-                    userDataReady={userDataReady}
-                    key={pool.sousId}
-                    pool={pool}
-                    cakePrice={cakePrice}
-                    account={account}
-                    removed={false}
-                    bgColor="#b10303d6"
-                  />
-                ))
+                <Grid container spacing={2}>
+                  {stakedMemoized.activePools.map((pool) => (
+                    <Grid key={pool.sousId} item md={11}>
+                      <PoolCard
+                        userDataReady={userDataReady}
+                        pool={pool}
+                        cakePrice={cakePrice}
+                        account={account}
+                        removed={false}
+                        bgColor="#b10303d6"
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
               ) : (
                 <NotAvailable title="Active Pools" />
               )}
-            </>
+            </StakeSection>
           ) : (
             <NotAvailable title="active farms and pools" />
           )

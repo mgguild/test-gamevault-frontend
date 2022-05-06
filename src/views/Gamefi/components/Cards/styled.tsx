@@ -1,6 +1,7 @@
 import styled, { ThemeContext } from 'styled-components'
 
 export const Cards2 = styled.button<{ src?: string; bgColor?: string }>`
+  width: 100%;
   position: relative;
   min-width: 20rem;
   min-height: 12rem;
@@ -9,6 +10,8 @@ export const Cards2 = styled.button<{ src?: string; bgColor?: string }>`
   padding: 0;
   text-align: left;
   flex: 1;
+  display: flex;
+  align-items: stretch;
   background-color: ${({ bgColor }) => bgColor ?? '#030f62'};
   ${({ src }) =>
     `&:before {
@@ -26,6 +29,9 @@ export const Cards2 = styled.button<{ src?: string; bgColor?: string }>`
       background-position: center;
       background-size: cover;
     }`}
+  & > * {
+    flex: 1;
+  }
 `
 
 export const Card2Container = styled.div`
