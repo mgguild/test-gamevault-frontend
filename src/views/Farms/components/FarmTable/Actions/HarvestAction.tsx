@@ -14,6 +14,7 @@ import { useTranslation } from 'contexts/Localization'
 
 import { ActionContainer, ActionContent, ActionTitles, Earned } from './styles'
 import useToast from '../../../../../hooks/useToast'
+import { MAINNET_CHAIN_ID } from '../../../../../config'
 
 interface HarvestActionProps {
   pid: number
@@ -52,7 +53,8 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   const { onReward } = useClaim(stakingContract)
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
-  const { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
+  const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
   const { toastError, toastSuccess } = useToast()
 
   return (
@@ -92,7 +94,7 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
             } finally {
               setPendingTx(false)
             }
-            dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
+            dispatch(fetchFarmUserDataAsync({ account, pids: [pid], chain }))
           }}
           ml="4px"
         >

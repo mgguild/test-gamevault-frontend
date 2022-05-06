@@ -1,6 +1,7 @@
 import styled, { ThemeContext } from 'styled-components'
 
 export const Cards2 = styled.button<{ src?: string; bgColor?: string }>`
+  width: 100%;
   position: relative;
   min-width: 20rem;
   min-height: 12rem;

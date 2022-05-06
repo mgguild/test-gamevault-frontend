@@ -3,7 +3,8 @@ import BigNumber from 'bignumber.js'
 
 export interface Address {
   97?: string
-  56: string
+  1?: string
+  56?: string
 }
 
 export interface Token {
@@ -72,6 +73,7 @@ export interface FarmConfig {
   isMain?: true
   pid: number
   name?: string
+  chain?: string
   lpSymbol: string
   lpAddresses: Address
   stakingAddresses: Address
@@ -209,6 +211,7 @@ export interface Socials {
   medium?: string
   discord?: string
   youtube?: string
+  linkedin?: string
 }
 
 export interface UIProps {
@@ -244,7 +247,7 @@ interface GuildPadInformation {
   distribution?: string
   distributionDesc?: string
   round: string
-  type?: Type
+  type?: Type | string
   merged?: boolean
   nextRoundID?: number
   date?: { start: string; end: string }

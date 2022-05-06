@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Button, Flex } from '@metagg/mgg-uikit'
+import { Grid } from '@mui/material'
 
 export const ToggleWrapper = styled.div`
   display: flex;
@@ -29,4 +30,7 @@ export const Section = styled(Flex)`
 export const HeaderSection = styled(Section)``
 export const BodySection = styled(Section)`
   flex-direction: column;
+`
+export const StakeSection = styled(Flex)`
+  width: 100%;
 `

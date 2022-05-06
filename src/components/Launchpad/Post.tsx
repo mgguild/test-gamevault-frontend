@@ -59,7 +59,6 @@ const Post: React.FC<{ guildpad?: Guildpad }> = ({ guildpad }) => {
     new BigNumber(guildpad.totalSupply).minus(new BigNumber(guildpad.totalSold)),
   ).isGreaterThan(0)
   const hasToClaimNow = toBigNumber(guildpad.userData.vesting.availableToClaim).gt(0)
-  console.log(hasToClaimNow)
   const USER_CLAIMABLE: 'USER_CLAIMABLE' | 'NOT_USER_CLAIMABLE' = hasToClaimNow
     ? 'USER_CLAIMABLE'
     : 'NOT_USER_CLAIMABLE'
@@ -101,7 +100,7 @@ const Post: React.FC<{ guildpad?: Guildpad }> = ({ guildpad }) => {
               )}
             </div>
             <TokenProperty>
-              <Text>{type === TYPE.IDO ? TYPE.IGO : TYPE.INO}</Text>
+              <Text>{type}</Text>
             </TokenProperty>
             {!isMobile && (
               <Details onClick={() => setToggle(!toggle)}>

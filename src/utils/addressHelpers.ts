@@ -3,9 +3,8 @@ import addresses from 'config/constants/contracts'
 import tokens from 'config/constants/tokens'
 import { Address } from 'config/constants/types'
 
-export const getAddress = (address: Address): string => {
-  const chainId = process.env.REACT_APP_CHAIN_ID
-  return address[chainId] ? address[chainId] : address[MAINNET_CHAIN_ID]
+export const getAddress = (address: Address, chainId = MAINNET_CHAIN_ID): string => {
+  return address[chainId] ?? address[MAINNET_CHAIN_ID]
 }
 
 export const getCakeAddress = () => {
@@ -14,8 +13,8 @@ export const getCakeAddress = () => {
 export const getMasterChefAddress = () => {
   return getAddress(addresses.masterChef)
 }
-export const getMulticallAddress = () => {
-  return getAddress(addresses.multiCall)
+export const getMulticallAddress = (chainId = MAINNET_CHAIN_ID) => {
+  return getAddress(addresses.multiCall, chainId)
 }
 export const getWbnbAddress = () => {
   return getAddress(tokens.wbnb.address)

@@ -1,15 +1,9 @@
 import { Flex, Heading, Text } from '@sparkpointio/sparkswap-uikit'
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
-import { Globe, Send, Twitter } from 'react-feather'
-import { SiDiscord, SiYoutube } from 'react-icons/si'
 import { Socials, Token } from 'config/constants/types'
-import tokens from 'config/constants/tokens'
-import { getAddress } from 'utils/addressHelpers'
 import { getImageUrlFromToken } from 'utils/assetFetch'
-import Anchor from './Anchor'
-import { ReactComponent as MediumIcon } from './icons/MediumIcon.svg'
-import SvgIcon from './SvgIcon'
+import RenderSocials from './SocialGroup'
 
 const TokenLogo = styled.img<{ size?: string }>`
   border-radius: 50%;
@@ -35,55 +29,6 @@ type LogoProps = {
   socMedsSize?: number
   padding?: string
   color?: string
-}
-
-type SocialsProps = {
-  socials: Socials
-  size?: number
-  color?: string | null
-  center?: boolean
-}
-
-export const RenderSocials: React.FC<SocialsProps> = ({ socials, size = 16, color = null, center }) => {
-  const theme = useContext(ThemeContext)
-  const colour = color ?? theme.colors.text
-
-  return (
-    <>
-      <Flex style={{ justifyContent: center ? 'center' : 'left' }}>
-        {socials?.website && (
-          <Anchor href={socials?.website}>
-            <Globe size={`${size}px`} color={colour} />
-          </Anchor>
-        )}
-        {socials?.twitter && (
-          <Anchor href={socials?.twitter}>
-            <Twitter size={`${size}px`} color={colour} />
-          </Anchor>
-        )}
-        {socials?.telegram && (
-          <Anchor href={socials?.telegram}>
-            <Send size={`${size}px`} color={colour} />
-          </Anchor>
-        )}
-        {socials?.discord && (
-          <Anchor href={socials?.discord}>
-            <SiDiscord size={`${size}px`} color={colour} />
-          </Anchor>
-        )}
-        {socials?.medium && (
-          <Anchor href={socials?.medium}>
-            <SvgIcon width={size} Icon={MediumIcon} fill={colour} />
-          </Anchor>
-        )}
-        {socials?.youtube && (
-          <Anchor href={socials?.youtube}>
-            <SiYoutube size={`${size}px`} color={colour} />
-          </Anchor>
-        )}
-      </Flex>
-    </>
-  )
 }
 
 const Logo: React.FC<LogoProps> = ({

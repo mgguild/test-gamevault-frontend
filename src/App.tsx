@@ -1,16 +1,20 @@
 import React, { lazy } from 'react'
-import { HashRouter, Redirect, Route, Switch, Link } from 'react-router-dom'
+import { useWeb3React } from '@web3-react/core'
+import { HashRouter, Redirect, Route, Switch } from 'react-router-dom'
 import { ResetCSS } from '@metagg/mgg-uikit'
 import BigNumber from 'bignumber.js'
 import useEagerConnect from 'hooks/useEagerConnect'
 import { useFetchProfile, usePollBlockNumber, usePollCoreFarmData } from 'state/hooks'
-import { RedirectToFarms, RedirectToPools } from 'views/Farms/Redirects'
+import { RedirectToFarms } from 'views/Farms/Redirects'
 import GlobalStyle from './style/Global'
 import Menu from './components/Menu'
 import SuspenseWithChunkError from './components/SuspenseWithChunkError'
 import ToastListener from './components/ToastListener'
 import PageLoader from './components/PageLoader'
 import EasterEgg from './components/EasterEgg'
+import { MAINNET_CHAIN_ID, multiChainSupport } from './config'
+import NotSupported from './views/ComingSoon/notSupported'
+import { getSupportedChain, isChainSupported } from './utils/settings'
 // import Pools from './views/Pools'
 
 // Route-based code splitting
@@ -21,8 +25,6 @@ const Pools = lazy(() => import('./views/Pools'))
 const Gamefi = lazy(() => import('./views/Gamefi'))
 const ComingSoon = lazy(() => import('./views/ComingSoon'))
 const Guildpad = lazy(() => import('./views/GuildPad'))
-const Lottery = lazy(() => import('./views/Lottery'))
-const Ifos = lazy(() => import('./views/Ifos'))
 const NotFound = lazy(() => import('./views/NotFound'))
 const Pad = lazy(() => import('./views/GuildPad/Pad'))
 const FarmPage = lazy(() => import('./views/Farms/NewUI/FarmPage'))
@@ -44,6 +46,7 @@ const ExternalRedirect = ({ to, ...routeProps }) => {
 }
 
 const App: React.FC = () => {
+  const { chainId } = useWeb3React()
   usePollBlockNumber()
   useEagerConnect()
   useFetchProfile()
@@ -57,22 +60,52 @@ const App: React.FC = () => {
         <SuspenseWithChunkError fallback={<PageLoader />}>
           <Switch>
             <Route path="/farms">
-              <Farms />
+              {isChainSupported('LP_STAKING', chainId) ? (
+                <Farms />
+              ) : (
+                <NotSupported title="Farms" supportedChainId={getSupportedChain('LP_STAKING')} />
+              )}
             </Route>
             <Route path="/pools" exact>
-              <Pools />
+              {isChainSupported('POOL_STAKING', chainId) ? (
+                <Pools />
+              ) : (
+                <NotSupported title="Pools" supportedChainId={getSupportedChain('POOL_STAKING')} />
+              )}
               {/* <ComingSoon title="Pools" /> */}
             </Route>
             <Route path="/gamefi" exact>
               {/* <ComingSoon title="GameFi Vaults" /> */}
               <Gamefi />
             </Route>
+            <Route path="/gamefi/:type/:farmID" component={FarmPage} />
             <Route path="/launchpad" exact>
               {/* <ComingSoon title="Launchpad" /> */}
-              <Guildpad />
+              {isChainSupported('LAUNCHPAD', chainId) ? (
+                <Guildpad />
+              ) : (
+                <NotSupported title="Guildpad" supportedChainId={getSupportedChain('LAUNCHPAD')} />
+              )}
             </Route>
-            <Route path="/launchpad/:guildpadTitle" component={Pad} />
-            <Route path="/gamefi/:type/:farmID" component={FarmPage} />
+            <Route path="/" exact>
+              {/* <ComingSoon title="Launchpad" /> */}
+              {isChainSupported('LAUNCHPAD', chainId) ? (
+                <Guildpad />
+              ) : (
+                <NotSupported title="Guildpad" supportedChainId={getSupportedChain('LAUNCHPAD')} />
+              )}
+            </Route>
+            <Route
+              path="/launchpad/:guildpadTitle"
+              component={(props) => {
+                const { guildpadTitle } = props.match.params
+                return isChainSupported('LAUNCHPAD', chainId) ? (
+                  <Pad guildpadTitle={guildpadTitle} />
+                ) : (
+                  <NotSupported title="Guildpad" supportedChainId={getSupportedChain('LAUNCHPAD')} />
+                )
+              }}
+            />
             <Route path="/earning-dashboard" exact>
               <ComingSoon title="Earning Dashboard" />
             </Route>

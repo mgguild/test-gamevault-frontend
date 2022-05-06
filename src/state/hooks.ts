@@ -41,22 +41,23 @@ import { transformPool } from './pools/helpers'
 import { fetchPoolsStakingLimitsAsync } from './pools'
 import { fetchFarmUserDataAsync, nonArchivedFarms } from './farms'
 import { fetchGuildpadUserDataAsync, fetchPublicGuildpadDataAsync } from './guildpads'
+import { MAINNET_CHAIN_ID } from '../config'
 
 export const usePollFarmsData = (includeArchive = false) => {
   const dispatch = useAppDispatch()
   const { slowRefresh } = useRefresh()
-  const { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
 
   useEffect(() => {
     const farmsToFetch = includeArchive ? farmsConfig : nonArchivedFarms
     const pids = farmsToFetch.map((farmToFetch) => farmToFetch.pid)
-
-    dispatch(fetchFarmsPublicDataAsync(pids))
+    const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
+    dispatch(fetchFarmsPublicDataAsync({ pids, chain }))
 
     if (account) {
-      dispatch(fetchFarmUserDataAsync({ account, pids }))
+      dispatch(fetchFarmUserDataAsync({ account, pids, chain }))
     }
-  }, [includeArchive, dispatch, slowRefresh, account])
+  }, [includeArchive, dispatch, slowRefresh, account, chainId])
 }
 
 /**
@@ -67,10 +68,13 @@ export const usePollFarmsData = (includeArchive = false) => {
 export const usePollCoreFarmData = () => {
   const dispatch = useAppDispatch()
   const { fastRefresh } = useRefresh()
+  const { chainId } = useWeb3React()
 
   useEffect(() => {
-    dispatch(fetchFarmsPublicDataAsync([251]))
-  }, [dispatch, fastRefresh])
+    const pids = [251]
+    const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
+    dispatch(fetchFarmsPublicDataAsync({ pids, chain }))
+  }, [dispatch, fastRefresh, chainId])
 }
 
 export const usePollBlockNumber = () => {

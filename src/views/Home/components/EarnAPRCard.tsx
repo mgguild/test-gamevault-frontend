@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { Heading, Card, CardBody, Flex, ArrowForwardIcon, Skeleton } from '@pancakeswap/uikit'
+import { useWeb3React } from '@web3-react/core'
 import max from 'lodash/max'
 import { NavLink } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
@@ -36,12 +37,20 @@ const EarnAPRCard = () => {
   const cakePrice = usePriceCakeBusd()
   const dispatch = useAppDispatch()
   const { observerRef, isIntersecting } = useIntersectionObserver()
+  const { chainId } = useWeb3React()
+  const chain = chainId.toString()
 
   // Fetch farm data once to get the max APR
   useEffect(() => {
     const fetchFarmData = async () => {
+      const pids = nonArchivedFarms.map((nonArchivedFarm) => nonArchivedFarm.pid)
       try {
-        await dispatch(fetchFarmsPublicDataAsync(nonArchivedFarms.map((nonArchivedFarm) => nonArchivedFarm.pid)))
+        await dispatch(
+          fetchFarmsPublicDataAsync({
+            pids,
+            chain,
+          }),
+        )
       } finally {
         setIsFetchingFarmData(false)
       }
@@ -50,7 +59,7 @@ const EarnAPRCard = () => {
     if (isIntersecting) {
       fetchFarmData()
     }
-  }, [dispatch, setIsFetchingFarmData, isIntersecting])
+  }, [dispatch, setIsFetchingFarmData, isIntersecting, chain])
 
   const highestApr = useMemo(() => {
     if (cakePrice.gt(0)) {
