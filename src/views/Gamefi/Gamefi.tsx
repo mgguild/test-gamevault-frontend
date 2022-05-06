@@ -165,35 +165,35 @@ const Gamefi: React.FC = () => {
             <StakeSection>
               {stakedMemoized.inactiveFarms.length !== 0 ? (
                 <Grid container spacing={4}>
-                {stakedMemoized.inactiveFarms.map((farm) => (
-                  <Grid key={farm.pid} item md={11}>
-                  <FarmCard
-                    userDataReady={userDataReady}
-                    farm={farm}
-                    cakePrice={cakePrice}
-                    account={account}
-                    removed={false}
-                  />
-                  </Grid>
-                ))}
+                  {stakedMemoized.inactiveFarms.map((farm) => (
+                    <Grid key={farm.pid} item md={11}>
+                      <FarmCard
+                        userDataReady={userDataReady}
+                        farm={farm}
+                        cakePrice={cakePrice}
+                        account={account}
+                        removed={false}
+                      />
+                    </Grid>
+                  ))}
                 </Grid>
               ) : (
                 <NotAvailable title="Inactive Farms" />
               )}
               {stakedMemoized.inactivePools.length !== 0 ? (
                 <Grid container spacing={4}>
-                {stakedMemoized.inactivePools.map((pool) => (
-                  <Grid key={pool.sousId} item md={11}>
-                  <PoolCard
-                    userDataReady={userDataReady}
-                    pool={pool}
-                    cakePrice={cakePrice}
-                    account={account}
-                    removed={false}
-                    bgColor="#b10303d6"
-                  />
-                  </Grid>
-                ))}
+                  {stakedMemoized.inactivePools.map((pool) => (
+                    <Grid key={pool.sousId} item md={11}>
+                      <PoolCard
+                        userDataReady={userDataReady}
+                        pool={pool}
+                        cakePrice={cakePrice}
+                        account={account}
+                        removed={false}
+                        bgColor="#b10303d6"
+                      />
+                    </Grid>
+                  ))}
                 </Grid>
               ) : (
                 <NotAvailable title="Inactive Pools" />
@@ -206,37 +206,36 @@ const Gamefi: React.FC = () => {
           return stakedMemoized.activeFarms.length !== 0 && stakedMemoized.activePools.length !== 0 ? (
             <StakeSection>
               {stakedMemoized.activeFarms.length !== 0 ? (
-                <Grid container spacing={4}> 
-                {
-                stakedMemoized.activeFarms.map((farm) => (
-                  <Grid key={farm.pid} item md={11} >
-                  <FarmCard
-                    userDataReady={userDataReady}
-                    farm={farm}
-                    cakePrice={cakePrice}
-                    account={account}
-                    removed={false}
-                  />
-                  </Grid>
-                ))}
+                <Grid container spacing={4}>
+                  {stakedMemoized.activeFarms.map((farm) => (
+                    <Grid key={farm.pid} item md={11}>
+                      <FarmCard
+                        userDataReady={userDataReady}
+                        farm={farm}
+                        cakePrice={cakePrice}
+                        account={account}
+                        removed={false}
+                      />
+                    </Grid>
+                  ))}
                 </Grid>
               ) : (
                 <NotAvailable title="Active Farms" />
               )}
-               {stakedMemoized.activePools.length !== 0 ? (
+              {stakedMemoized.activePools.length !== 0 ? (
                 <Grid container spacing={2}>
-                {stakedMemoized.activePools.map((pool) => (
-                  <Grid key={pool.sousId} item md={11}>
-                  <PoolCard
-                    userDataReady={userDataReady}
-                    pool={pool}
-                    cakePrice={cakePrice}
-                    account={account}
-                    removed={false}
-                    bgColor="#b10303d6"
-                  />
-                  </Grid>
-                ))}
+                  {stakedMemoized.activePools.map((pool) => (
+                    <Grid key={pool.sousId} item md={11}>
+                      <PoolCard
+                        userDataReady={userDataReady}
+                        pool={pool}
+                        cakePrice={cakePrice}
+                        account={account}
+                        removed={false}
+                        bgColor="#b10303d6"
+                      />
+                    </Grid>
+                  ))}
                 </Grid>
               ) : (
                 <NotAvailable title="Active Pools" />
