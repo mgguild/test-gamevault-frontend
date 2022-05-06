@@ -29,9 +29,9 @@ export const Cards2 = styled.button<{ src?: string; bgColor?: string }>`
       background-position: center;
       background-size: cover;
     }`}
-    & > * {
-      flex: 1;
-    }
+  & > * {
+    flex: 1;
+  }
 `
 
 export const Card2Container = styled.div`
