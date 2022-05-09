@@ -1,7 +1,7 @@
 import React from 'react'
 import { ApexOptions } from 'apexcharts'
 import ReactApexChart from 'react-apexcharts' 
-import { Series } from './types'
+import { Series } from '../NewUI/types'
 
 class ApexChart extends React.Component<{ series: Series[] }, { options: ApexOptions; series: Series[] }> {
     constructor(props) {
