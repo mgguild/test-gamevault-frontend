@@ -2,258 +2,29 @@ import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } 
 import { Route, useLocation, useRouteMatch, RouteComponentProps } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
-import { Grid } from '@mui/material'
-import { RefreshCcw } from 'react-feather'
-import { Flex, Link, Text, Heading, Button, Input } from '@metagg/mgg-uikit'
+import { getImageUrlFromToken } from 'utils/assetFetch'
+import { Flex, Link, Text, Heading } from '@metagg/mgg-uikit'
 import styled, { ThemeContext } from 'styled-components'
-import FlexLayout from 'components/layout/Flex'
-import Page from 'components/layout/Page'
-import useMedia from 'use-media'
 import {
   useFarms,
   usePollFarmsData,
-  usePriceCakeBusd,
   usePools,
-  useFetchPublicPoolsData,
-  useCakeVault,
-  useFetchCakeVault,
 } from 'state/hooks'
-import usePersistState from 'hooks/usePersistState'
-import { useFarmPrice } from 'hooks/price'
-import usePrevious from 'utils/refHelpers'
-import { Farm, Pool } from 'state/types'
-import { useTranslation } from 'contexts/Localization'
-import { getBalanceNumber, getBalanceAmount } from 'utils/formatBalance'
-import { getFarmApr, getFarmV2Apr } from 'utils/apr'
-import useTokenBalance from 'hooks/useTokenBalance'
-import { orderBy } from 'lodash'
-import partition from 'lodash/partition'
-import tokens from 'config/constants/tokens'
-import { Token } from 'config/constants/types'
 import { getAddress } from 'utils/addressHelpers'
-import isArchivedPid from 'utils/farmHelpers'
-import { latinise } from 'utils/latinise'
 import UnlockButton from 'components/UnlockButton'
-import PageHeader from 'components/PageHeader'
-import SearchInput from 'components/SearchInput'
-import Select, { OptionProps } from 'components/Select/Select'
-import { ApexOptions } from 'apexcharts'
-import ReactApexChart from 'react-apexcharts'
-import { useTable } from 'react-table'
 import RenderSocials from 'components/Launchpad/SocialGroup'
-import FarmCard, { FarmWithStakedValue } from '../components/FarmCard/FarmCard'
-import Table from '../components/FarmTable/FarmTable'
-import FarmTabButtons from '../components/FarmTabButtons'
-import { RowProps } from '../components/FarmTable/Row'
-import { DesktopColumnSchema, ViewMode } from '../components/types'
-import { ReactComponent as FarmsDarkLogo } from '../components/assets/farm-dark.svg'
-import { ReactComponent as FarmsLightLogo } from '../components/assets/farm-light.svg'
-import { getAprData, getCakeVaultEarnings } from '../../Pools/helpers'
-import SvgIcon from '../../../components/Launchpad/SvgIcon'
 import { getBscScanAddressUrl } from '../../../utils/bscscan'
-import { Cards2, Card2Container, TokenLogo, Badge, LinearBG, PageContainer } from '../components/FarmCards/styles'
+import { Cards2, Card2Container, TokenLogo, Badge, LinearBG, PageContainer } from '../../Farms/components/FarmCards/styles'
 import InputComponent from './InputComponent'
+import {FlexC, ButtonSM, StatCard, Stats, TableStyle, ChartStyle } from './styled'
+import { Series } from './types'
+import ApexChart from './ApexCharts'
+import RenderTable from './Table'
 
-const FlexC = styled(Flex)`
-  padding: 2.5rem;
-  flex-flow column wrap;
-  row-gap: 1rem;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-`
-
-const ButtonSM = styled(Button)`
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  height: 2.5rem;
-  border-radius: 4px;
-`
-
-const StatCard = styled(Flex)`
-  padding: 1rem;
-  flex-flow: column;
-  row-gap: 1rem;
-  background-color: ${({ theme }) => theme.colors.MGG_mainBG};
-  text-align: start;
-  min-width: 21rem;
-  flex: 1;
-`
-
-const Stats = styled(Flex)`
-  justify-content: center;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  background-color: ${({ theme }) => theme.colors.MGG_container};
-  min-width: 11rem;
-`
-
-const TableStyle = styled.div`
-  display: flex;
-  position: relative;
-  min-height: 15rem;
-  width: 100%;
-  padding: 1rem;
-  overflow: auto;
-  background-color: ${({ theme }) => theme.colors.MGG_mainBG};
-  z-index: 2;
-
-  table {
-    width: 99%;
-    position: absolute;
-
-    th {
-      text-align: start;
-      margin: 0;
-      padding: 0.5rem;
-    }
-    td {
-      text-align: start;
-      margin: 0;
-      padding: 0.5rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
-`
-
-const ChartStyle = styled(Flex)`
-  width: 100%;
-  max-width: 100%;
-  background-color: ${({ theme }) => theme.colors.MGG_mainBG};
-  padding: 1rem;
-  z-index: 3;
-  .apexcharts-text {
-    fill: ${({ theme }) => theme.colors.text};
-  }
-`
-
-type Series = {
-  name: string
-  data: number[]
-}
-
-class ApexChart extends React.Component<{ series: Series[] }, { options: ApexOptions; series: Series[] }> {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      series: props.series,
-
-      options: {
-        chart: {
-          id: 'basic-area',
-          toolbar: {
-            show: true,
-            tools: {
-              download: false,
-              selection: false,
-              zoom: true,
-              zoomin: true,
-              zoomout: true,
-              pan: false,
-              reset: '<img src="/images/icons/refresh-ccw.svg" />',
-            },
-          },
-        },
-        xaxis: {
-          categories: ['03/15', '03/16', '03/17', '03/18', '03/19', '03/20', '03/21', '03/22', '03/23'],
-        },
-        markers: {
-          size: 5,
-          colors: ['#000524'],
-          strokeColors: ['#00BAEC'],
-          strokeWidth: 3,
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        // yaxis:{
-        //   labels:{
-        //     style:{
-        //       colors:[theme.colors.text]
-        //     }
-        //   }
-        // }
-      },
-    }
-  }
-
-  render() {
-    const { options, series } = this.state
-    return (
-      <div style={{ width: '100%', height: '100%' }}>
-        <ReactApexChart options={options} series={series} type="area" height={300} width="100%" />
-      </div>
-    )
-  }
-}
-
-const options: ApexOptions = {
-  chart: {
-    id: 'basic-area',
-    events: {
-      mounted: (chart) => {
-        chart.windowResizeHandler()
-      },
-    },
-    height: '100%',
-    width: '100%',
-  },
-  xaxis: {
-    categories: [0.001, 0.002, 0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.009],
-  },
-}
-
-const getImageUrlFromToken = (token: Token) => {
-  const address = getAddress(token.symbol === 'BNB' ? tokens.wbnb.address : token.address)
-  return `/images/tokens/${address}.${token.iconExtension ?? 'svg'}`
-}
-
-const RenderTable = ({ columns, data }) => {
-  const theme = useContext(ThemeContext)
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data })
-
-  return (
-    <table {...getTableProps()}>
-      <thead style={{ width: '100%' }}>
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>
-                <Text color={theme.colors.MGG_accent2}>{column.render('Header')}</Text>
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row, i) => {
-          prepareRow(row)
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => {
-                return (
-                  <td {...cell.getCellProps()}>
-                    <Text>{cell.render('Cell')}</Text>
-                  </td>
-                )
-              })}
-            </tr>
-          )
-        })}
-      </tbody>
-    </table>
-  )
-}
-
-const RenderFarm: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tblColumns }) => {
+const RenderFarm: React.FC<{ farmID: string; stakingType?: string; tblColumns: any}> = ({ farmID, tblColumns, stakingType }) => {
   const [dayDuration, setDayDuration] = useState<string>('')
   const theme = useContext(ThemeContext)
-  const { path } = useRouteMatch()
-  const { account, chainId } = useWeb3React()
+  const { account } = useWeb3React()
   const { pathname } = useLocation()
   const { data: farmsLP, userDataLoaded } = useFarms()
   const isArchived = pathname.includes('archived')
@@ -799,7 +570,7 @@ const FarmPage: React.FC<RouteComponentProps<{ type: string; farmID: string }>> 
   )
 
   return type === 'LP' ? (
-    <RenderFarm farmID={farmID} tblColumns={columns} />
+    <RenderFarm farmID={farmID} stakingType={type} tblColumns={columns} />
   ) : (
     <RenderPool farmID={farmID} tblColumns={columns} />
   )

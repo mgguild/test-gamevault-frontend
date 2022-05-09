@@ -6,15 +6,21 @@ interface farmUIProps {
 }
 
 const farmsUIProps: farmUIProps = {
-  mgg: {
+  LPmggBusd: {
     socials: tokensSocials.mgg,
     contain: false,
+    bgColor: '#030f62'
   },
-  mgg2: {
+  LPmggUsdc: {
+    socials: tokensSocials.mgg,
+    contain: false,
+    bgColor: '#030f62',
+  },
+  PBmggMgg: {
     socials: tokensSocials.mgg,
     contain: false,
     bgColor: '#b10303d6',
-  },
+  }
 }
 
 export default farmsUIProps

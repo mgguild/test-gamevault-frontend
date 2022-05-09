@@ -1,6 +1,6 @@
 import tokens from './tokens'
 import { PoolConfig, PoolCategory } from './types'
-import farmsUIProps from './farmsUIProps'
+import farmsUIProps from './LP-BP-UIProps'
 
 const pools: PoolConfig[] = [
   {
@@ -18,7 +18,7 @@ const pools: PoolConfig[] = [
     tokenPerBlock: '154320987654320987',
     sortOrder: 999,
     isFinished: false,
-    UIProps: farmsUIProps.mgg2,
+    UIProps: farmsUIProps.PBmggMgg,
   },
   // Dummy Contract #1
   // {

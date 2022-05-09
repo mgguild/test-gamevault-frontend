@@ -1,7 +1,7 @@
 import tokens from './tokens'
 import { FarmConfig } from './types'
 import { CAKE_INFO_URL, MAINNET_CHAIN_ID, MAINNET_ETH_CHAIN_ID, PANCAKE_ADD_LIQUIDITY_URL } from '../index'
-import farmsUIProps from './farmsUIProps'
+import farmsUIProps from './LP-BP-UIProps'
 
 const farms: FarmConfig[] = [
   /**
@@ -77,6 +77,7 @@ const farms: FarmConfig[] = [
     pairToken: tokens.busd,
     quoteToken: tokens.mgg,
     isPromoted: 1,
+    UIProps: farmsUIProps.LPmggBusd
   },
   {
     isMain: true,
@@ -95,7 +96,7 @@ const farms: FarmConfig[] = [
     pairToken: tokens.usdc,
     quoteToken: tokens.mgg,
     isPromoted: 1,
-    UIProps: farmsUIProps.mgg,
+    UIProps: farmsUIProps.LPmggUsdc,
   },
 ]
 
