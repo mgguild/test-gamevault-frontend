@@ -9,7 +9,7 @@ const farmsUIProps: farmUIProps = {
   LPmggBusd: {
     socials: tokensSocials.mgg,
     contain: false,
-    bgColor: '#030f62'
+    bgColor: '#030f62',
   },
   LPmggUsdc: {
     socials: tokensSocials.mgg,
@@ -20,7 +20,7 @@ const farmsUIProps: farmUIProps = {
     socials: tokensSocials.mgg,
     contain: false,
     bgColor: '#b10303d6',
-  }
+  },
 }
 
 export default farmsUIProps

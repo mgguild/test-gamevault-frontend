@@ -1,22 +1,25 @@
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { Route, useLocation, useRouteMatch, } from 'react-router-dom'
+import { Route, useLocation, useRouteMatch } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { getImageUrlFromToken } from 'utils/assetFetch'
 import { Flex, Link, Text, Heading } from '@metagg/mgg-uikit'
 import styled, { ThemeContext } from 'styled-components'
-import {
-  useFarms,
-  usePollFarmsData,
-  usePools,
-} from 'state/hooks'
+import { useFarms, usePollFarmsData, usePools } from 'state/hooks'
 import { getAddress } from 'utils/addressHelpers'
 import UnlockButton from 'components/UnlockButton'
 import RenderSocials from 'components/Launchpad/SocialGroup'
 import { getBscScanAddressUrl } from 'utils/bscscan'
-import { Cards2, Card2Container, TokenLogo, Badge, LinearBG, PageContainer } from 'views/Farms/components/FarmCards/styles'
+import {
+  Cards2,
+  Card2Container,
+  TokenLogo,
+  Badge,
+  LinearBG,
+  PageContainer,
+} from 'views/Farms/components/FarmCards/styles'
 import InputComponent from '../../components/InputComponent'
-import {FlexC, StatCard, Stats, TableStyle, ChartStyle } from '../styled'
+import { FlexC, StatCard, Stats, TableStyle, ChartStyle } from '../styled'
 import { Series } from '../types'
 import ApexChart from '../../components/ApexCharts'
 import RenderTable from '../Table'

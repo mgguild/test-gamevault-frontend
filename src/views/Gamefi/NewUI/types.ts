@@ -1,5 +1,4 @@
 export type Series = {
-    name: string
-    data: number[]
-  }
-  
+  name: string
+  data: number[]
+}
