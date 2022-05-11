@@ -19,7 +19,6 @@ import { getSupportedChain, isChainSupported } from './utils/settings'
 
 // Route-based code splitting
 // Only pool is included in the main bundle because of it's the most visited page
-// const Home = lazy(() => import('./views/Home'))
 const Farms = lazy(() => import('./views/Farms'))
 const Pools = lazy(() => import('./views/Pools'))
 const Gamefi = lazy(() => import('./views/Gamefi'))
@@ -27,13 +26,7 @@ const ComingSoon = lazy(() => import('./views/ComingSoon'))
 const Guildpad = lazy(() => import('./views/GuildPad'))
 const NotFound = lazy(() => import('./views/NotFound'))
 const Pad = lazy(() => import('./views/GuildPad/Pad'))
-const FarmPage = lazy(() => import('./views/Farms/NewUI/FarmPage'))
-// const Collectibles = lazy(() => import('./views/Collectibles'))
-// const Teams = lazy(() => import('./views/Teams'))
-// const Team = lazy(() => import('./views/Teams/Team'))
-// const Profile = lazy(() => import('./views/Profile'))
-// const TradingCompetition = lazy(() => import('./views/TradingCompetition'))
-// const Predictions = lazy(() => import('./views/Predictions'))
+const FarmPage = lazy(() => import('./views/Gamefi/NewUI/StakingPage'))
 
 // This config is required for number formatting
 BigNumber.config({
