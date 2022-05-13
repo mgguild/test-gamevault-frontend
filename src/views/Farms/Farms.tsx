@@ -144,9 +144,7 @@ const Farms: React.FC = () => {
   // const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid))
   // const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
   // const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
-  const activeFarms = farmsLP.filter(
-    (farm) => farm.pid !== 0 && farm.chain === chain,
-  )
+  const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.chain === chain)
   // const inactiveFarms = farmsLP.filter(
   //   (farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid) && farm.chain === chain,
   // )
@@ -435,12 +433,7 @@ const Farms: React.FC = () => {
   // const token1Balance = useTokenBalance(mggFarm.token.address[chainId], mggFarm.lpAddresses[chainId])
   // const token2Balance = useTokenBalance(mggFarm.pairToken.address[chainId], mggFarm.lpAddresses[chainId])
 
-
-  const { LPPrice, rewardPrice } = useFarmPrice(
-    mggFarm,
-    chain,
-    isFetchData,
-  )
+  const { LPPrice, rewardPrice } = useFarmPrice(mggFarm, chain, isFetchData)
   const prevLPPrice = usePrevious(LPPrice)
   const prevRewardPrice = usePrevious(rewardPrice)
   useEffect(() => {
@@ -462,17 +455,14 @@ const Farms: React.FC = () => {
   useEffect(() => {
     return setFetchData(null)
   }, [])
-  const totalDeposits = mggFarm? mggFarm.totalDeposits: 0
-  const rewardRate = mggFarm? mggFarm.rewardRate: 0
-  const lpSymbol = mggFarm? mggFarm.lpSymbol: 'N/A'
-  const lpTotalSupply = mggFarm? mggFarm.lpTotalSupply: 'N/A'
+  const totalDeposits = mggFarm ? mggFarm.totalDeposits : 0
+  const rewardRate = mggFarm ? mggFarm.rewardRate : 0
+  const lpSymbol = mggFarm ? mggFarm.lpSymbol : 'N/A'
+  const lpTotalSupply = mggFarm ? mggFarm.lpTotalSupply : 'N/A'
 
-  const farmV2Apr = useMemo(
-    () => {
-      return getFarmV2Apr(LPPrice, rewardPrice, Number(totalDeposits), Number(rewardRate))
-    },
-    [totalDeposits, rewardRate, LPPrice, rewardPrice],
-  )
+  const farmV2Apr = useMemo(() => {
+    return getFarmV2Apr(LPPrice, rewardPrice, Number(totalDeposits), Number(rewardRate))
+  }, [totalDeposits, rewardRate, LPPrice, rewardPrice])
 
   const apr = farmV2Apr > 0 ? `${farmV2Apr.toFixed(2)} %` : <Oval width="20px" height="20px" />
   const totalStaked =

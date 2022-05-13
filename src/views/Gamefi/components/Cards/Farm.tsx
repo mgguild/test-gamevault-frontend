@@ -59,11 +59,7 @@ const FarmCard2: React.FC<FarmCard2Props> = ({
   const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
 
   const lpTotalSupply = getBalanceNumber(new BigNumber(farm.totalDeposits ?? 0))
-  const { LPPrice, rewardPrice } = useFarmPrice(
-    farm,
-    chain,
-    isFetchData,
-  )
+  const { LPPrice, rewardPrice } = useFarmPrice(farm, chain, isFetchData)
   const prevLPPrice = usePrevious(LPPrice)
   const prevRewardPrice = usePrevious(rewardPrice)
 
