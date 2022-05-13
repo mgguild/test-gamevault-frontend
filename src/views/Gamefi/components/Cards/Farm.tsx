@@ -16,7 +16,7 @@ import { useFarmPrice } from 'hooks/price'
 import usePrevious from 'utils/refHelpers'
 import { getBalanceNumber, getBalanceAmount } from 'utils/formatBalance'
 import { Cards2, Card2Container, TokenLogo, Badge } from './styled'
-import { FarmWithStakedValue } from '../config'
+import { FarmWithStakedValue } from '../../config'
 import { MAINNET_CHAIN_ID } from '../../../../config'
 
 const getImageUrlFromToken = (token: Token) => {
