@@ -133,7 +133,6 @@ const Farms: React.FC = () => {
   const isActive = !isInactive && !isArchived
   const isMobile = useMedia({ maxWidth: 500 })
   usePollFarmsData(isArchived)
-
   // Users with no wallet connected should see 0 as Earned amount
   // Connected users should see loading indicator until first userData has loaded
   const userDataReady = !account || (!!account && userDataLoaded)
@@ -145,25 +144,23 @@ const Farms: React.FC = () => {
   // const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid))
   // const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
   // const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
-  const activeFarms = farmsLP.filter(
-    (farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid) && farm.chain === chain,
-  )
-  const inactiveFarms = farmsLP.filter(
-    (farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid) && farm.chain === chain,
-  )
-  const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid) && farm.chain === chain)
+  const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.chain === chain)
+  // const inactiveFarms = farmsLP.filter(
+  //   (farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid) && farm.chain === chain,
+  // )
+  // const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid) && farm.chain === chain)
 
   const stakedOnlyFarms = activeFarms.filter(
     (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
   )
 
-  const stakedInactiveFarms = inactiveFarms.filter(
-    (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
-  )
-
-  const stakedArchivedFarms = archivedFarms.filter(
-    (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
-  )
+  // const stakedInactiveFarms = inactiveFarms.filter(
+  //   (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
+  // )
+  //
+  // const stakedArchivedFarms = archivedFarms.filter(
+  //   (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
+  // )
 
   const farmsList = useCallback(
     (farmsToDisplay: Farm[]): FarmWithStakedValue[] => {
@@ -237,28 +234,27 @@ const Farms: React.FC = () => {
       }
     }
 
-    if (isActive) {
-      farmsStaked = stakedOnly ? farmsList(stakedOnlyFarms) : farmsList(activeFarms)
-    }
-    if (isInactive) {
-      farmsStaked = stakedOnly ? farmsList(stakedInactiveFarms) : farmsList(inactiveFarms)
-    }
-    if (isArchived) {
-      farmsStaked = stakedOnly ? farmsList(stakedArchivedFarms) : farmsList(archivedFarms)
-    }
-
+    farmsStaked = stakedOnly ? farmsList(stakedOnlyFarms) : farmsList(activeFarms)
+    // if (isActive) {
+    // }
+    // if (isInactive) {
+    //   farmsStaked = stakedOnly ? farmsList(stakedInactiveFarms) : farmsList(inactiveFarms)
+    // }
+    // if (isArchived) {
+    //   farmsStaked = stakedOnly ? farmsList(stakedArchivedFarms) : farmsList(archivedFarms)
+    // }
     return sortFarms(farmsStaked).slice(0, numberOfFarmsVisible)
   }, [
     sortOption,
     activeFarms,
     farmsList,
-    inactiveFarms,
-    archivedFarms,
-    isActive,
-    isInactive,
-    isArchived,
-    stakedArchivedFarms,
-    stakedInactiveFarms,
+    // inactiveFarms,
+    // archivedFarms,
+    // isActive,
+    // isInactive,
+    // isArchived,
+    // stakedArchivedFarms,
+    // stakedInactiveFarms,
     stakedOnly,
     stakedOnlyFarms,
     numberOfFarmsVisible,
@@ -405,46 +401,39 @@ const Farms: React.FC = () => {
     setSortOption(option.value)
   }
 
-  const renderInactiveContent = (): JSX.Element => {
-    return (
-      <div>
-        <div style={{ margin: '20px' }}>
-          <Text fontSize="24px" bold>
-            {' '}
-            Inactive Liquidity Pools{' '}
-          </Text>
-        </div>
-
-        <FlexLayout>
-          {farmsList(inactiveFarms).map((farm) => (
-            <FarmCard
-              userDataReady={userDataReady}
-              key={farm.pid}
-              farm={farm}
-              cakePrice={cakePrice}
-              account={account}
-              removed
-            />
-          ))}
-        </FlexLayout>
-      </div>
-    )
-  }
+  // const renderInactiveContent = (): JSX.Element => {
+  //   return (
+  //     <div>
+  //       <div style={{ margin: '20px' }}>
+  //         <Text fontSize="24px" bold>
+  //           {' '}
+  //           Inactive Liquidity Pools{' '}
+  //         </Text>
+  //       </div>
+  //
+  //       <FlexLayout>
+  //         {farmsList(inactiveFarms).map((farm) => (
+  //           <FarmCard
+  //             userDataReady={userDataReady}
+  //             key={farm.pid}
+  //             farm={farm}
+  //             cakePrice={cakePrice}
+  //             account={account}
+  //             removed
+  //           />
+  //         ))}
+  //       </FlexLayout>
+  //     </div>
+  //   )
+  // }
 
   const [isFetchData, setFetchData] = useState<boolean | null>(true)
   const mggFarm = farmsStakedMemoized.filter((farm) => farm.isMain)[0]
 
   // const token1Balance = useTokenBalance(mggFarm.token.address[chainId], mggFarm.lpAddresses[chainId])
   // const token2Balance = useTokenBalance(mggFarm.pairToken.address[chainId], mggFarm.lpAddresses[chainId])
-  const lpTotalSupply = getBalanceNumber(new BigNumber(mggFarm.totalDeposits ?? 0))
-  const { LPPrice, rewardPrice } = useFarmPrice(
-    Number(lpTotalSupply),
-    mggFarm.token.address[56],
-    mggFarm.pairToken.address[56],
-    mggFarm.quoteToken.address[56],
-    mggFarm.lpAddresses[56],
-    isFetchData,
-  )
+
+  const { LPPrice, rewardPrice } = useFarmPrice(mggFarm, chain, isFetchData)
   const prevLPPrice = usePrevious(LPPrice)
   const prevRewardPrice = usePrevious(rewardPrice)
   useEffect(() => {
@@ -466,23 +455,26 @@ const Farms: React.FC = () => {
   useEffect(() => {
     return setFetchData(null)
   }, [])
-  const farmV2Apr = useMemo(
-    () => getFarmV2Apr(LPPrice, rewardPrice, Number(mggFarm.totalDeposits), Number(mggFarm.rewardRate)),
-    [LPPrice, rewardPrice, mggFarm.totalDeposits, mggFarm.rewardRate],
-  )
+  const totalDeposits = mggFarm ? mggFarm.totalDeposits : 0
+  const rewardRate = mggFarm ? mggFarm.rewardRate : 0
+  const lpSymbol = mggFarm ? mggFarm.lpSymbol : 'N/A'
+  const lpTotalSupply = mggFarm ? mggFarm.lpTotalSupply : 'N/A'
+
+  const farmV2Apr = useMemo(() => {
+    return getFarmV2Apr(LPPrice, rewardPrice, Number(totalDeposits), Number(rewardRate))
+  }, [totalDeposits, rewardRate, LPPrice, rewardPrice])
 
   const apr = farmV2Apr > 0 ? `${farmV2Apr.toFixed(2)} %` : <Oval width="20px" height="20px" />
   const totalStaked =
-    getBalanceNumber(new BigNumber(mggFarm.totalDeposits)) > 0 ? (
-      `${getBalanceAmount(new BigNumber(mggFarm.totalDeposits)).toFormat(4)} ${mggFarm.lpSymbol}`
+    getBalanceNumber(new BigNumber(totalDeposits)) > 0 ? (
+      `${getBalanceAmount(new BigNumber(totalDeposits)).toFormat(4)} ${lpSymbol}`
     ) : (
       <Oval width="20px" height="20px" />
     )
   const tvr = useMemo(
-    () => getBalanceAmount(new BigNumber(mggFarm.lpTotalSupply)).times(LPPrice).toFixed(4),
-    [mggFarm.lpTotalSupply, LPPrice],
+    () => getBalanceAmount(new BigNumber(lpTotalSupply)).times(LPPrice).toFixed(4),
+    [lpTotalSupply, LPPrice],
   )
-
   return (
     <>
       <PageHeader>

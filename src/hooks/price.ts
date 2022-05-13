@@ -92,35 +92,37 @@ export const usePoolPrice = (stakingTokenAddress: string, rewardTokenAddress: st
   return { stakingPrice, rewardPrice }
 }
 
-export const useFarmPrice = (
-  lpTotalSupply: number,
-  token1Address: string,
-  token2Address: string,
-  rewardTokenAddress: string,
-  lpAddress: string,
-  isFetchData?: boolean,
-) => {
+export const useFarmPrice = (farm: any, chain: any, isFetchData?: boolean) => {
   const MoralisWeb3Api = useMoralisWeb3Api()
-  const { chainId } = useWeb3React()
   let chainName: 'eth' | 'ropsten' | 'bsc' | 'bsc testnet' = 'eth'
-  chainName = useChainFinder(chainId)
+  chainName = useChainFinder(chain)
   const [LPPrice, setLPPrice] = useState(0)
   const [rewardPrice, setRewardPrice] = useState(0)
   const web3 = useWeb3()
-  let _token1Address
-  let _token2Address
-  let _rewardTokenAddress
-  let _lpAddress
-  try {
-    _token1Address = web3.utils.toChecksumAddress(token1Address)
-    _token2Address = web3.utils.toChecksumAddress(token2Address)
-    _rewardTokenAddress = web3.utils.toChecksumAddress(rewardTokenAddress)
-    _lpAddress = web3.utils.toChecksumAddress(lpAddress)
-  } catch {
-    console.error('Invalid staking and reward address')
-  }
 
   useEffect(() => {
+    if (!farm) {
+      return
+    }
+    const lpTotalSupply = getBalanceNumber(new BigNumber(farm.totalDeposits ?? 0))
+    const token1Address = farm.token.address[chain]
+    const token2Address = farm.pairToken.address[chain]
+    const rewardTokenAddress = farm.quoteToken.address[chain]
+    const lpAddress = farm.lpAddresses[chain]
+
+    let _token1Address
+    let _token2Address
+    let _rewardTokenAddress
+    let _lpAddress
+    try {
+      _token1Address = web3.utils.toChecksumAddress(token1Address)
+      _token2Address = web3.utils.toChecksumAddress(token2Address)
+      _rewardTokenAddress = web3.utils.toChecksumAddress(rewardTokenAddress)
+      _lpAddress = web3.utils.toChecksumAddress(lpAddress)
+    } catch {
+      console.error('Invalid staking and reward address')
+    }
+
     const findPrice = async (tokenAddress: string) => {
       const result = await MoralisWeb3Api.token.getTokenPrice({ chain: chainName, address: tokenAddress })
       const price = result.usdPrice
@@ -165,18 +167,11 @@ export const useFarmPrice = (
     if (isFetchData) {
       fetchData()
     }
-  }, [
-    isFetchData,
-    setLPPrice,
-    setRewardPrice,
-    lpTotalSupply,
-    _token1Address,
-    _token2Address,
-    _rewardTokenAddress,
-    _lpAddress,
-    chainName,
-    MoralisWeb3Api,
-  ])
+  }, [web3.utils, farm, chain, isFetchData, setLPPrice, setRewardPrice, chainName, MoralisWeb3Api])
+
+  if (!farm) {
+    return { LPPrice: 0, rewardPrice: 0 }
+  }
 
   return { LPPrice, rewardPrice }
 }
