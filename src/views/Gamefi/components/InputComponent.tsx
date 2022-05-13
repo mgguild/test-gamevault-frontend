@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction, useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { Grid } from '@mui/material'
 import { Flex, Text, Button, Input } from '@metagg/mgg-uikit'
-import { FarmWithStakedValue } from 'views/Gamefi/components/config'
+import { FarmWithStakedValue } from 'views/Gamefi/config'
 import { Pool } from 'state/types'
 
 const ButtonSM = styled(Button)`
