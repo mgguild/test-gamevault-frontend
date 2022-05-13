@@ -4,6 +4,7 @@ import BigNumber from 'bignumber.js'
 import { Flex, Image, RowType, Toggle } from '@pancakeswap/uikit'
 import { Text, Heading } from '@metagg/mgg-uikit'
 import { Oval } from 'react-loading-icons'
+import { useWeb3React } from '@web3-react/core'
 import styled, { ThemeContext } from 'styled-components'
 import tokens from 'config/constants/tokens'
 import { Token } from 'config/constants/types'
@@ -16,6 +17,7 @@ import usePrevious from 'utils/refHelpers'
 import { getBalanceNumber, getBalanceAmount } from 'utils/formatBalance'
 import { Cards2, Card2Container, TokenLogo, Badge } from './styled'
 import { FarmWithStakedValue } from '../config'
+import { MAINNET_CHAIN_ID } from '../../../../config'
 
 const getImageUrlFromToken = (token: Token) => {
   const address = getAddress(token.symbol === 'BNB' ? tokens.wbnb.address : token.address)
@@ -53,14 +55,13 @@ const FarmCard2: React.FC<FarmCard2Props> = ({
   // })
   const [dummyState, setDummyState] = useState(null)
   const [isFetchData, setFetchData] = useState<boolean | null>(true)
+  const { chainId } = useWeb3React()
+  const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
 
   const lpTotalSupply = getBalanceNumber(new BigNumber(farm.totalDeposits ?? 0))
   const { LPPrice, rewardPrice } = useFarmPrice(
-    Number(lpTotalSupply),
-    farm.token.address[56],
-    farm.pairToken.address[56],
-    farm.quoteToken.address[56],
-    farm.lpAddresses[56],
+    farm,
+    chain,
     isFetchData,
   )
   const prevLPPrice = usePrevious(LPPrice)
