@@ -34,8 +34,8 @@ export const claimVesting = async (vestingContract, account) => {
   return vestingContract.methods.claimAll().send({ from: account })
 }
 
-export const stakeGamefi = async (gamefiContract, account, tier, amount) => {
-  return gamefiContract.methods
+export const stakeFixedAprPool = async (contract, account, tier, amount) => {
+  return contract.methods
         .stake(tier, getDecimalAmount(amount).toString())
         .send({ from: account })
 }
