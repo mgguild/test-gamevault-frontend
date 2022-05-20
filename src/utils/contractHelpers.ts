@@ -141,8 +141,8 @@ export const getLotteryTicketContract = (web3?: Web3) => {
 export const getLotteryV2Contract = (web3?: Web3) => {
   return getContract(lotteryV2Abi, getLotteryV2Address(), web3)
 }
-export const getMasterchefContract = (web3?: Web3) => {
-  return getContract(masterChef, getMasterChefAddress(), web3)
+export const getMasterchefContract = (web3?: Web3, chainId = MAINNET_CHAIN_ID) => {
+  return getContract(masterChef, getMasterChefAddress(chainId), web3)
 }
 export const getClaimRefundContract = (web3?: Web3) => {
   return getContract(claimRefundAbi, getClaimRefundAddress(), web3)

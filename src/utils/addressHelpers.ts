@@ -10,8 +10,8 @@ export const getAddress = (address: Address, chainId = MAINNET_CHAIN_ID): string
 export const getCakeAddress = () => {
   return getAddress(tokens.cake.address)
 }
-export const getMasterChefAddress = () => {
-  return getAddress(addresses.masterChef)
+export const getMasterChefAddress = (chainId = MAINNET_CHAIN_ID) => {
+  return getAddress(addresses.masterChef, chainId)
 }
 export const getMulticallAddress = (chainId = MAINNET_CHAIN_ID) => {
   return getAddress(addresses.multiCall, chainId)
