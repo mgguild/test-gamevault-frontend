@@ -40,6 +40,12 @@ export const stakeFixedAprPool = async (contract, account, tier, amount) => {
         .send({ from: account })
 }
 
+export const unstakeFixedAprPool = async (contract, account, id) => {
+  return contract.methods
+        .unstake(id)
+        .send({ from: account })
+}
+
 export const approveWithAmount = async (lpContract, masterChefContract, account, amount) => {
   return lpContract.methods.approve(masterChefContract.options.address, amount).send({ from: account })
 }
