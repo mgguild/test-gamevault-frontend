@@ -3,28 +3,42 @@ import poolsConfig from 'config/constants/pools'
 import sousChefABI from 'config/abi/sousChef.json'
 import wbnbABI from 'config/abi/weth.json'
 import sousChefV2 from 'config/abi/sousChefV2.json'
+import fixedAprPoolABI from 'config/abi/fixedAprPool.json'
 import multicall from 'utils/multicall'
 import { getAddress, getWbnbAddress } from 'utils/addressHelpers'
 import { BIG_ZERO } from 'utils/bigNumber'
 import { getSouschefV2Contract } from 'utils/contractHelpers'
+import { PoolCategory } from 'config/constants/types'
+import { MAINNET_CHAIN_ID, TESTNET_CHAIN_ID } from 'config'
+
+// Test or Main Mode
+const testnetMode = process.env.REACT_APP_BSC_TESTNETMODE === 'true'
+const chainMode = testnetMode ? TESTNET_CHAIN_ID : MAINNET_CHAIN_ID
 
 export const fetchPoolsBlockLimits = async () => {
-  const poolsWithEnd = poolsConfig.filter((p) => p.sousId !== 0)
+  const poolsWithEnd = poolsConfig.filter((p) => p.sousId !== 0 && p.poolCategory !== PoolCategory.FIXEDAPR)
+
+  // Return empty if empty
+  if(poolsWithEnd.length <= 0){
+    console.warn('EMPTY POOLS @ fetchPoolsBlockLimits')
+    return []
+  }
+
   const callsStartBlock = poolsWithEnd.map((poolConfig) => {
     return {
-      address: getAddress(poolConfig.contractAddress),
+      address: getAddress(poolConfig.contractAddress, testnetMode ? TESTNET_CHAIN_ID : poolConfig.chain),
       name: 'startBlock',
     }
   })
   const callsEndBlock = poolsWithEnd.map((poolConfig) => {
     return {
-      address: getAddress(poolConfig.contractAddress),
+      address: getAddress(poolConfig.contractAddress, testnetMode ? TESTNET_CHAIN_ID : poolConfig.chain),
       name: 'bonusEndBlock',
     }
   })
 
-  const starts = await multicall(sousChefABI, callsStartBlock)
-  const ends = await multicall(sousChefABI, callsEndBlock)
+  const starts = await multicall(sousChefABI, callsStartBlock, {}, chainMode)
+  const ends = await multicall(sousChefABI, callsEndBlock, {}, chainMode)
 
   return poolsWithEnd.map((cakePoolConfig, index) => {
     const startBlock = starts[index]
@@ -38,12 +52,13 @@ export const fetchPoolsBlockLimits = async () => {
 }
 
 export const fetchPoolsTotalStaking = async () => {
-  const nonBnbPools = poolsConfig.filter((p) => p.stakingToken.symbol !== 'BNB')
+  const nonBnbPools = poolsConfig.filter((p) => p.stakingToken.symbol !== 'BNB' && p.poolCategory !== PoolCategory.FIXEDAPR)
   const bnbPool = poolsConfig.filter((p) => p.stakingToken.symbol === 'BNB')
+  const fixedAprPools = poolsConfig.filter((p) => p.poolCategory === PoolCategory.FIXEDAPR)
 
   const callsNonBnbPools = nonBnbPools.map((poolConfig) => {
     return {
-      address: getAddress(poolConfig.contractAddress),
+      address: getAddress(poolConfig.contractAddress, testnetMode ? TESTNET_CHAIN_ID : poolConfig.chain),
       name: 'totalDeposit',
       params: [],
     }
@@ -53,12 +68,21 @@ export const fetchPoolsTotalStaking = async () => {
     return {
       address: getWbnbAddress(),
       name: 'balanceOf',
-      params: [getAddress(poolConfig.contractAddress)],
+      params: [getAddress(poolConfig.contractAddress, testnetMode ? TESTNET_CHAIN_ID : poolConfig.chain)],
     }
   })
 
-  const nonBnbPoolsTotalStaked = await multicall(sousChefV2, callsNonBnbPools)
-  const bnbPoolsTotalStaked = await multicall(wbnbABI, callsBnbPools)
+  const callsFixedAprPools = fixedAprPools.map((poolConfig) => {
+    return {
+      address: getAddress(poolConfig.contractAddress, testnetMode ? TESTNET_CHAIN_ID : poolConfig.chain),
+      name: 'totalStaked',
+      params: [],
+    }
+  })
+
+  const nonBnbPoolsTotalStaked = await multicall(sousChefV2, callsNonBnbPools, {}, chainMode)
+  const bnbPoolsTotalStaked = await multicall(wbnbABI, callsBnbPools, {}, chainMode)
+  const fixedAprPoolsTotalStaked = await multicall(fixedAprPoolABI, callsFixedAprPools, {}, chainMode)
 
   return [
     ...nonBnbPools.map((p, index) => ({
@@ -69,6 +93,10 @@ export const fetchPoolsTotalStaking = async () => {
       sousId: p.sousId,
       totalStaked: new BigNumber(bnbPoolsTotalStaked[index]).toJSON(),
     })),
+    ...fixedAprPools.map((p, index) => ({
+      sousId: p.sousId,
+      totalStaked: new BigNumber(fixedAprPoolsTotalStaked[index]).toJSON(),
+    }))
   ]
 }
 
