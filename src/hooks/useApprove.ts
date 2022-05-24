@@ -4,6 +4,7 @@ import { Contract } from 'web3-eth-contract'
 import { ethers } from 'ethers'
 import BigNumber from 'bignumber.js'
 import { useAppDispatch } from 'state'
+import { MAINNET_CHAIN_ID } from 'config'
 import { updateUserAllowance } from 'state/actions'
 import { approve, approveContract, approveWithAmount } from 'utils/callHelpers'
 import { useTranslation } from 'contexts/Localization'
@@ -46,14 +47,15 @@ export const useSousApprove = (lpContract: Contract, sousId, earningTokenSymbol)
   const { toastSuccess, toastError } = useToast()
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
-  const { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
   const sousChefContract = useSousChef(sousId)
 
   const handleApprove = useCallback(async () => {
     try {
       setRequestedApproval(true)
       const tx = await approve(lpContract, sousChefContract, account)
-      dispatch(updateUserAllowance(sousId, account))
+      const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
+      dispatch(updateUserAllowance(sousId, account, chain))
       if (tx) {
         toastSuccess(
           t('Contract Enabled'),
@@ -70,7 +72,7 @@ export const useSousApprove = (lpContract: Contract, sousId, earningTokenSymbol)
       toastError(t('Error'), e?.message)
       setRequestedApproval(false)
     }
-  }, [account, dispatch, lpContract, sousChefContract, sousId, earningTokenSymbol, t, toastError, toastSuccess])
+  }, [account, chainId, dispatch, lpContract, sousChefContract, sousId, earningTokenSymbol, t, toastError, toastSuccess])
 
   return { handleApprove, requestedApproval }
 }
@@ -80,14 +82,15 @@ export const useSousApproveWithAmount = (lpContract: Contract, sousId, earningTo
   const { toastSuccess, toastError } = useToast()
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
-  const { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
   const sousChefContract = useSousChef(sousId)
 
   const handleApprove = useCallback(async () => {
     try {
       setRequestedApproval(true)
       const tx = await approveWithAmount(lpContract, sousChefContract, account, stakingAmount.toString())
-      dispatch(updateUserAllowance(sousId, account))
+      const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
+      dispatch(updateUserAllowance(sousId, account, chain))
       if (tx) {
         toastSuccess(
           t('Contract Enabled'),
@@ -106,6 +109,7 @@ export const useSousApproveWithAmount = (lpContract: Contract, sousId, earningTo
     }
   }, [
     account,
+    chainId,
     dispatch,
     lpContract,
     sousChefContract,

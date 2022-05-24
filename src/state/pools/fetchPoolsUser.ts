@@ -10,9 +10,6 @@ import BigNumber from 'bignumber.js'
 import { PoolCategory } from 'config/constants/types'
 import { MAINNET_CHAIN_ID, TESTNET_CHAIN_ID } from 'config'
 
-// Test or Main Mode
-const testnetMode = process.env.REACT_APP_BSC_TESTNETMODE === 'true'
-const chainMode = testnetMode ? TESTNET_CHAIN_ID : MAINNET_CHAIN_ID
 
 // Pool 0, Cake / Cake is a different kind of contract (master chef)
 // BNB pools use the native BNB token (wrapping ? unwrapping is done at the contract level)
@@ -20,16 +17,16 @@ const nonBnbPools = poolsConfig.filter((p) => p.stakingToken.symbol !== 'BNB')
 const bnbPools = poolsConfig.filter((p) => p.stakingToken.symbol === 'BNB')
 const nonMasterPools = poolsConfig.filter((p) => p.sousId !== 0 && p.poolCategory !== PoolCategory.FIXEDAPR)
 const fixedAPRPools = poolsConfig.filter((p) => p.poolCategory === PoolCategory.FIXEDAPR)
-const masterChefContract = getMasterchefContract(null, chainMode)
+// const masterChefContract = getMasterchefContract()
 
-export const fetchPoolsAllowance = async (account) => {
+export const fetchPoolsAllowance = async (account, chain: string) => {
   const calls = nonBnbPools.map((p) => ({
-    address: getAddress(p.stakingToken.address, testnetMode ? TESTNET_CHAIN_ID : p.chain),
+    address: getAddress(p.stakingToken.address, p.chain),
     name: 'allowance',
-    params: [account, getAddress(p.contractAddress, testnetMode ? TESTNET_CHAIN_ID : p.chain)],
+    params: [account, getAddress(p.contractAddress, p.chain)],
   }))
 
-  const allowances = await multicall(erc20ABI, calls, {}, chainMode)
+  const allowances = await multicall(erc20ABI, calls, {}, chain)
 
   return nonBnbPools.reduce(
     (acc, pool, index) => ({ ...acc, [pool.sousId]: new BigNumber(allowances[index]).toJSON() }),
@@ -37,14 +34,14 @@ export const fetchPoolsAllowance = async (account) => {
   )
 }
 
-export const fetchUserBalances = async (account) => {
+export const fetchUserBalances = async (account, chain: string) => {
   // Non BNB pools
   const calls = nonBnbPools.map((p) => ({
-    address: getAddress(p.stakingToken.address, testnetMode ? TESTNET_CHAIN_ID : p.chain),
+    address: getAddress(p.stakingToken.address, p.chain),
     name: 'balanceOf',
     params: [account],
   }))
-  const tokenBalancesRaw = await multicall(erc20ABI, calls, {}, chainMode)
+  const tokenBalancesRaw = await multicall(erc20ABI, calls, {}, chain)
   const tokenBalances = nonBnbPools.reduce(
     (acc, pool, index) => ({ ...acc, [pool.sousId]: new BigNumber(tokenBalancesRaw[index]).toJSON() }),
     {},
@@ -60,13 +57,13 @@ export const fetchUserBalances = async (account) => {
   return { ...tokenBalances, ...bnbBalances }
 }
 
-export const fetchUserStakeBalances = async (account) => {
+export const fetchUserStakeBalances = async (account, chain: string) => {
   const calls = nonMasterPools.map((p) => ({
-    address: getAddress(p.contractAddress, testnetMode ? TESTNET_CHAIN_ID : p.chain),
+    address: getAddress(p.contractAddress, p.chain),
     name: 'userInfo',
     params: [account],
   }))
-  const userInfo = await multicall(sousChefABI, calls, {}, chainMode)
+  const userInfo = await multicall(sousChefABI, calls, {}, chain)
   const stakedBalances = nonMasterPools.reduce(
     (acc, pool, index) => ({
       ...acc,
@@ -76,18 +73,18 @@ export const fetchUserStakeBalances = async (account) => {
   )
 
   // Cake / Cake pool
-  const { amount: masterPoolAmount } = await masterChefContract.methods.userInfo('0', account).call()
+  const { amount: masterPoolAmount } = await getMasterchefContract(null, chain).methods.userInfo('0', account).call()
 
   return { ...stakedBalances, 0: new BigNumber(masterPoolAmount).toJSON() }
 }
 
-export const fetchUserPendingRewards = async (account) => {
+export const fetchUserPendingRewards = async (account, chain: string) => {
   const calls = nonMasterPools.map((p) => ({
-    address: getAddress(p.contractAddress, testnetMode ? TESTNET_CHAIN_ID : p.chain),
+    address: getAddress(p.contractAddress, p.chain),
     name: 'pendingReward',
     params: [account],
   }))
-  const res = await multicall(sousChefABI, calls, {}, chainMode)
+  const res = await multicall(sousChefABI, calls, {}, chain)
   const pendingRewards = nonMasterPools.reduce(
     (acc, pool, index) => ({
       ...acc,
@@ -97,15 +94,15 @@ export const fetchUserPendingRewards = async (account) => {
   )
 
   // Cake / Cake pool
-  const pendingReward = await masterChefContract.methods.pendingCake('0', account).call()
+  const pendingReward = await getMasterchefContract(null, chain).methods.pendingCake('0', account).call()
 
   return { ...pendingRewards, 0: new BigNumber(pendingReward).toJSON() }
 }
 
-export const fetchUserFixedAprDetails = async (account) => {
+export const fetchUserFixedAprDetails = async (account, chain: string) => {
   const callUserFixedAprStakedOf = fixedAPRPools.map((p) => (
     {
-      address: getAddress(p.contractAddress, testnetMode ? TESTNET_CHAIN_ID : p.chain),
+      address: getAddress(p.contractAddress, p.chain),
       name: 'stakedOf',
       params: [account],
     }
@@ -113,14 +110,14 @@ export const fetchUserFixedAprDetails = async (account) => {
 
   const callUserAllStakesDetails = fixedAPRPools.map((p) => (
     {
-      address: getAddress(p.contractAddress, testnetMode ? TESTNET_CHAIN_ID : p.chain),
+      address: getAddress(p.contractAddress, p.chain),
       name: 'getAllStakeDetails',
       params: [account],
     }
   ))
 
-  const userStakedOf = await multicall(fixedAprPoolABI, callUserFixedAprStakedOf, {}, chainMode)
-  const allStakesDetails = await multicall(fixedAprPoolABI, callUserAllStakesDetails, {}, chainMode)
+  const userStakedOf = await multicall(fixedAprPoolABI, callUserFixedAprStakedOf, {}, chain)
+  const allStakesDetails = await multicall(fixedAprPoolABI, callUserAllStakesDetails, {}, chain)
 
   const parseDetails = {}
 
