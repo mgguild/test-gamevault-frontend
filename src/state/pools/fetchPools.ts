@@ -17,13 +17,13 @@ export const fetchPoolsBlockLimits = async (chain: string) => {
 
   const callsStartBlock = poolsWithEnd.map((poolConfig) => {
     return {
-      address: getAddress(poolConfig.contractAddress, chain),
+      address: getAddress(poolConfig.contractAddress, poolConfig.chain),
       name: 'startBlock',
     }
   })
   const callsEndBlock = poolsWithEnd.map((poolConfig) => {
     return {
-      address: getAddress(poolConfig.contractAddress, chain),
+      address: getAddress(poolConfig.contractAddress, poolConfig.chain),
       name: 'bonusEndBlock',
     }
   })
@@ -49,7 +49,7 @@ export const fetchPoolsTotalStaking = async (chain: string) => {
 
   const callsNonBnbPools = nonBnbPools.map((poolConfig) => {
     return {
-      address: getAddress(poolConfig.contractAddress, chain),
+      address: getAddress(poolConfig.contractAddress, poolConfig.chain),
       name: 'totalDeposit',
       params: [],
     }
@@ -59,13 +59,13 @@ export const fetchPoolsTotalStaking = async (chain: string) => {
     return {
       address: getWbnbAddress(),
       name: 'balanceOf',
-      params: [getAddress(poolConfig.contractAddress, chain)],
+      params: [getAddress(poolConfig.contractAddress, poolConfig.chain)],
     }
   })
 
   const callsFixedAprPools = fixedAprPools.map((poolConfig) => {
     return {
-      address: getAddress(poolConfig.contractAddress, chain),
+      address: getAddress(poolConfig.contractAddress, poolConfig.chain),
       name: 'totalStaked',
       params: [],
     }
