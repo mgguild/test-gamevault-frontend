@@ -10,7 +10,6 @@ import BigNumber from 'bignumber.js'
 import { PoolCategory } from 'config/constants/types'
 import { MAINNET_CHAIN_ID, TESTNET_CHAIN_ID } from 'config'
 
-
 // Pool 0, Cake / Cake is a different kind of contract (master chef)
 // BNB pools use the native BNB token (wrapping ? unwrapping is done at the contract level)
 const nonBnbPools = poolsConfig.filter((p) => p.stakingToken.symbol !== 'BNB')
@@ -100,21 +99,17 @@ export const fetchUserPendingRewards = async (account, chain: string) => {
 }
 
 export const fetchUserFixedAprDetails = async (account, chain: string) => {
-  const callUserFixedAprStakedOf = fixedAPRPools.map((p) => (
-    {
-      address: getAddress(p.contractAddress, p.chain),
-      name: 'stakedOf',
-      params: [account],
-    }
-  ))
+  const callUserFixedAprStakedOf = fixedAPRPools.map((p) => ({
+    address: getAddress(p.contractAddress, p.chain),
+    name: 'stakedOf',
+    params: [account],
+  }))
 
-  const callUserAllStakesDetails = fixedAPRPools.map((p) => (
-    {
-      address: getAddress(p.contractAddress, p.chain),
-      name: 'getAllStakeDetails',
-      params: [account],
-    }
-  ))
+  const callUserAllStakesDetails = fixedAPRPools.map((p) => ({
+    address: getAddress(p.contractAddress, p.chain),
+    name: 'getAllStakeDetails',
+    params: [account],
+  }))
 
   const userStakedOf = await multicall(fixedAprPoolABI, callUserFixedAprStakedOf, {}, chain)
   const allStakesDetails = await multicall(fixedAprPoolABI, callUserAllStakesDetails, {}, chain)
@@ -124,23 +119,21 @@ export const fetchUserFixedAprDetails = async (account, chain: string) => {
   fixedAPRPools.forEach((p, index) => {
     const parseStakes = []
 
-    allStakesDetails[index][0].forEach(detail => {
-      parseStakes.push(
-        {
-          id: new BigNumber(detail.id._hex).toJSON(),
-          owner: detail.owner,
-          tier: new BigNumber(detail.tier._hex).toJSON(),
-          amount: new BigNumber(detail.amount._hex).toJSON(),
-          claimed: new BigNumber(detail.claimed._hex).toJSON(),
-          stakedAt: new BigNumber(detail.stakedAt._hex).toJSON(),
-          lastClaimedAt: new BigNumber(detail.lastClaimedAt._hex).toJSON(),
-        }
-      )
+    allStakesDetails[index][0].forEach((detail) => {
+      parseStakes.push({
+        id: new BigNumber(detail.id._hex).toJSON(),
+        owner: detail.owner,
+        tier: new BigNumber(detail.tier._hex).toJSON(),
+        amount: new BigNumber(detail.amount._hex).toJSON(),
+        claimed: new BigNumber(detail.claimed._hex).toJSON(),
+        stakedAt: new BigNumber(detail.stakedAt._hex).toJSON(),
+        lastClaimedAt: new BigNumber(detail.lastClaimedAt._hex).toJSON(),
+      })
     })
 
     parseDetails[p.sousId] = {
       totalStaked: new BigNumber(userStakedOf[index][0]._hex).toJSON(),
-      stakesDetails: parseStakes
+      stakesDetails: parseStakes,
     }
   })
 

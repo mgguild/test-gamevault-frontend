@@ -65,7 +65,7 @@ export const useSousUnstake = (sousId, enableEmergencyWithdraw = false) => {
   return { onUnstake: handleUnstake }
 }
 
-export const useFixedAprPoolUnstake = (sousId: number, contractAddress: string ) => {
+export const useFixedAprPoolUnstake = (sousId: number, contractAddress: string) => {
   const dispatch = useAppDispatch()
   const { account, chainId } = useWeb3React()
   const fixedAprPoolContract = useFixedAprPoolContract(contractAddress)
@@ -80,7 +80,7 @@ export const useFixedAprPoolUnstake = (sousId: number, contractAddress: string )
       dispatch(updateUserBalance(sousId, account, chain))
       dispatch(updateUserPendingReward(sousId, account, chain))
     },
-    [account, chainId, fixedAprPoolContract, sousId, dispatch]
+    [account, chainId, fixedAprPoolContract, sousId, dispatch],
   )
 
   return { onFixedAprUnstake: handleUnstake }

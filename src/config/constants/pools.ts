@@ -22,7 +22,8 @@ const pools: PoolConfig[] = [
     isFinished: false,
     UIProps: farmsUIProps.PBmggMgg,
   },
-  {// Fixed APR testnet contract
+  {
+    // Fixed APR testnet contract
     isMain: false,
     sousId: 10,
     name: 'Test stake MGG1',
@@ -39,36 +40,39 @@ const pools: PoolConfig[] = [
     sortOrder: 998,
     isFinished: false,
     UIProps: farmsUIProps.PBmggMgg,
-    fixedAprConfigs:{
-      tiers: [{
-        id: '0',
-        duration: 0,
-        APR: 0
-      },
-      {
-        id: '1',
-        duration: 30,
-        APR: 7
-      },
-      {
-        id: '2',
-        duration: 90,
-        APR: 12
-      },
-      {
-        id: '3',
-        duration: 180,
-        APR: 16
-      },
-      {
-        id: '4',
-        duration: 365,
-        APR: 25
-      }],
+    fixedAprConfigs: {
+      tiers: [
+        {
+          id: '0',
+          duration: 0,
+          APR: 0,
+        },
+        {
+          id: '1',
+          duration: 30,
+          APR: 7,
+        },
+        {
+          id: '2',
+          duration: 90,
+          APR: 12,
+        },
+        {
+          id: '3',
+          duration: 180,
+          APR: 16,
+        },
+        {
+          id: '4',
+          duration: 365,
+          APR: 25,
+        },
+      ],
       maxFine: 10,
-    }
+    },
   },
-  {// Fixed APR testnet contract 2
+  {
+    // Fixed APR testnet contract 2
     isMain: true,
     sousId: 11,
     name: 'Test stake MGG2',
@@ -85,34 +89,36 @@ const pools: PoolConfig[] = [
     sortOrder: 997,
     isFinished: false,
     UIProps: farmsUIProps.PBmggMgg,
-    fixedAprConfigs:{
-      tiers: [{
-        id: '0',
-        duration: 0,
-        APR: 0
-      },
-      {
-        id: '1',
-        duration: 30,
-        APR: 7
-      },
-      {
-        id: '2',
-        duration: 90,
-        APR: 12
-      },
-      {
-        id: '3',
-        duration: 180,
-        APR: 16
-      },
-      {
-        id: '4',
-        duration: 365,
-        APR: 25
-      }],
+    fixedAprConfigs: {
+      tiers: [
+        {
+          id: '0',
+          duration: 0,
+          APR: 0,
+        },
+        {
+          id: '1',
+          duration: 30,
+          APR: 7,
+        },
+        {
+          id: '2',
+          duration: 90,
+          APR: 12,
+        },
+        {
+          id: '3',
+          duration: 180,
+          APR: 16,
+        },
+        {
+          id: '4',
+          duration: 365,
+          APR: 25,
+        },
+      ],
       maxFine: 10,
-    }
+    },
   },
   // Dummy Contract #1
   // {

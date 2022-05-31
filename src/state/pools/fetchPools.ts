@@ -11,7 +11,6 @@ import { getSouschefV2Contract } from 'utils/contractHelpers'
 import { PoolCategory } from 'config/constants/types'
 import { MAINNET_CHAIN_ID, TESTNET_CHAIN_ID } from 'config'
 
-
 export const fetchPoolsBlockLimits = async (chain: string) => {
   const poolsWithEnd = poolsConfig.filter((p) => p.sousId !== 0 && p.poolCategory !== PoolCategory.FIXEDAPR)
 
@@ -43,7 +42,9 @@ export const fetchPoolsBlockLimits = async (chain: string) => {
 }
 
 export const fetchPoolsTotalStaking = async (chain: string) => {
-  const nonBnbPools = poolsConfig.filter((p) => p.stakingToken.symbol !== 'BNB' && p.poolCategory !== PoolCategory.FIXEDAPR)
+  const nonBnbPools = poolsConfig.filter(
+    (p) => p.stakingToken.symbol !== 'BNB' && p.poolCategory !== PoolCategory.FIXEDAPR,
+  )
   const bnbPool = poolsConfig.filter((p) => p.stakingToken.symbol === 'BNB')
   const fixedAprPools = poolsConfig.filter((p) => p.poolCategory === PoolCategory.FIXEDAPR)
 
@@ -87,7 +88,7 @@ export const fetchPoolsTotalStaking = async (chain: string) => {
     ...fixedAprPools.map((p, index) => ({
       sousId: p.sousId,
       totalStaked: new BigNumber(fixedAprPoolsTotalStaked[index]).toJSON(),
-    }))
+    })),
   ]
 }
 
