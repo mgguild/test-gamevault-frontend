@@ -51,69 +51,70 @@ const App: React.FC = () => {
       <Menu>
         <SuspenseWithChunkError fallback={<PageLoader />}>
           <Switch>
-            <Route path='/farms'>
+            <Route path="/farms">
               {isChainSupported('LP_STAKING', chainId) ? (
                 <Farms />
               ) : (
-                <NotSupported title='Farms' supportedChainId={getSupportedChain('LP_STAKING')} />
+                <NotSupported title="Farms" supportedChainId={getSupportedChain('LP_STAKING')} />
               )}
             </Route>
-            <Route path='/pools' exact>
+            <Route path="/pools" exact>
               {isChainSupported('POOL_STAKING', chainId) ? (
                 <Pools />
               ) : (
-                <NotSupported title='Pools' supportedChainId={getSupportedChain('POOL_STAKING')} />
+                <NotSupported title="Pools" supportedChainId={getSupportedChain('POOL_STAKING')} />
               )}
               {/* <ComingSoon title="Pools" /> */}
             </Route>
-            <Route path='/gamefi' exact>
+            <Route path="/gamefi" exact>
               <Gamefi />
             </Route>
-            <Route path='/gamefi/:type/:farmID'
-                   component={(props) => {
-                     return <GamefiPage {...props} />
-                   }}
+            <Route
+              path="/gamefi/:type/:farmID"
+              component={(props) => {
+                return <GamefiPage {...props} />
+              }}
             />
-              {/* <ComingSoon title="GameFi Vaults" /> */}
+            {/* <ComingSoon title="GameFi Vaults" /> */}
 
-            <Route path='/launchpad' exact>
+            <Route path="/launchpad" exact>
               {/* <ComingSoon title="Launchpad" /> */}
               {isChainSupported('LAUNCHPAD', chainId) ? (
                 <Guildpad />
               ) : (
-                <NotSupported title='Guildpad' supportedChainId={getSupportedChain('LAUNCHPAD')} />
+                <NotSupported title="Guildpad" supportedChainId={getSupportedChain('LAUNCHPAD')} />
               )}
             </Route>
-            <Route path='/' exact>
+            <Route path="/" exact>
               {/* <ComingSoon title="Launchpad" /> */}
               {isChainSupported('LAUNCHPAD', chainId) ? (
                 <Guildpad />
               ) : (
-                <NotSupported title='Guildpad' supportedChainId={getSupportedChain('LAUNCHPAD')} />
+                <NotSupported title="Guildpad" supportedChainId={getSupportedChain('LAUNCHPAD')} />
               )}
             </Route>
             <Route
-              path='/launchpad/:guildpadTitle'
+              path="/launchpad/:guildpadTitle"
               component={(props) => {
                 const { guildpadTitle } = props.match.params
                 return isChainSupported('LAUNCHPAD', chainId) ? (
                   <Pad guildpadTitle={guildpadTitle} />
                 ) : (
-                  <NotSupported title='Guildpad' supportedChainId={getSupportedChain('LAUNCHPAD')} />
+                  <NotSupported title="Guildpad" supportedChainId={getSupportedChain('LAUNCHPAD')} />
                 )
               }}
             />
-            <Route path='/earning-dashboard' exact>
-              <ComingSoon title='Earning Dashboard' />
+            <Route path="/earning-dashboard" exact>
+              <ComingSoon title="Earning Dashboard" />
             </Route>
-            <Route path='/staking'>
-              <Redirect to='/farms' />
+            <Route path="/staking">
+              <Redirect to="/farms" />
             </Route>
-            <Route path='/' component={RedirectToFarms} />
+            <Route path="/" component={RedirectToFarms} />
             {/* 404 */}
             <Route component={NotFound} />
             {/* External link for redirect */}
-            <ExternalRedirect exact path='/apply' to='https://www.google.com' />
+            <ExternalRedirect exact path="/apply" to="https://www.google.com" />
           </Switch>
         </SuspenseWithChunkError>
       </Menu>
