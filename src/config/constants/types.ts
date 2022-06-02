@@ -67,7 +67,7 @@ export enum PoolCategory {
   'CORE' = 'Core',
   'BINANCE' = 'Binance', // Pools using native BNB behave differently than pools using a token
   'AUTO' = 'Auto',
-  'FIXEDAPR' = 'FixedApr'
+  'FIXEDAPR' = 'FixedApr',
 }
 
 export interface FarmConfig {
@@ -113,7 +113,7 @@ export interface PoolConfig {
   isDepositDisabled?: boolean
   isWithdrawDisabled?: boolean
   UIProps?: UIProps
-  fixedAprConfigs?:{
+  fixedAprConfigs?: {
     tiers: Tiers[]
     maxFine: number
   }

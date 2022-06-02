@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { useAppDispatch } from 'state'
+import { MAINNET_CHAIN_ID } from 'config'
 import { updateUserBalance, updateUserPendingReward, updateUserStakedBalance } from 'state/actions'
 import { exit, sousEmergencyUnstake, sousUnstake, unstake, unstakeFixedAprPool } from 'utils/callHelpers'
 import { useLPStakingContract, useMasterchef, useSousChef, useFixedAprPoolContract } from './useContract'
@@ -37,7 +38,7 @@ const useUnstake = (pid: number) => {
 
 export const useSousUnstake = (sousId, enableEmergencyWithdraw = false) => {
   const dispatch = useAppDispatch()
-  const { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
   const masterChefContract = useMasterchef()
   const sousChefContract = useSousChef(sousId)
 
@@ -53,32 +54,34 @@ export const useSousUnstake = (sousId, enableEmergencyWithdraw = false) => {
         const txHash = await sousUnstake(sousChefContract, amount, decimals, account)
         console.info(txHash)
       }
-      dispatch(updateUserStakedBalance(sousId, account))
-      dispatch(updateUserBalance(sousId, account))
-      dispatch(updateUserPendingReward(sousId, account))
+      const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
+      dispatch(updateUserStakedBalance(sousId, account, chain))
+      dispatch(updateUserBalance(sousId, account, chain))
+      dispatch(updateUserPendingReward(sousId, account, chain))
     },
-    [account, dispatch, enableEmergencyWithdraw, masterChefContract, sousChefContract, sousId],
+    [account, chainId, dispatch, enableEmergencyWithdraw, masterChefContract, sousChefContract, sousId],
   )
 
   return { onUnstake: handleUnstake }
 }
 
-export const useFixedAprPoolUnstake = (sousId: number, contractAddress: string ) => {
+export const useFixedAprPoolUnstake = (sousId: number, contractAddress: string) => {
   const dispatch = useAppDispatch()
-  const { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
   const fixedAprPoolContract = useFixedAprPoolContract(contractAddress)
 
   const handleUnstake = useCallback(
     async (id: number) => {
       const txHash = await unstakeFixedAprPool(fixedAprPoolContract, account, id)
       console.info(txHash)
-    },
-    [account, fixedAprPoolContract]
-  )
 
-  dispatch(updateUserStakedBalance(sousId, account))
-  dispatch(updateUserBalance(sousId, account))
-  dispatch(updateUserPendingReward(sousId, account))
+      const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
+      dispatch(updateUserStakedBalance(sousId, account, chain))
+      dispatch(updateUserBalance(sousId, account, chain))
+      dispatch(updateUserPendingReward(sousId, account, chain))
+    },
+    [account, chainId, fixedAprPoolContract, sousId, dispatch],
+  )
 
   return { onFixedAprUnstake: handleUnstake }
 }

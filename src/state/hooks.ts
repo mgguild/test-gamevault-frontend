@@ -160,26 +160,30 @@ export const useLpTokenPrice = (symbol: string) => {
 export const useFetchPublicPoolsData = () => {
   const dispatch = useAppDispatch()
   const { slowRefresh } = useRefresh()
+  const { chainId } = useWeb3React()
 
   useEffect(() => {
     const fetchPoolsPublicData = async () => {
       const blockNumber = await web3NoAccount.eth.getBlockNumber()
-      dispatch(fetchPoolsPublicDataAsync(blockNumber))
+      const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
+      dispatch(fetchPoolsPublicDataAsync(blockNumber, chain))
     }
 
     fetchPoolsPublicData()
     dispatch(fetchPoolsStakingLimitsAsync())
-  }, [dispatch, slowRefresh])
+  }, [dispatch, chainId, slowRefresh])
 }
 
 export const usePools = (account): { pools: Pool[]; userDataLoaded: boolean } => {
   const { fastRefresh } = useRefresh()
   const dispatch = useAppDispatch()
+  const { chainId } = useWeb3React()
   useEffect(() => {
     if (account) {
-      dispatch(fetchPoolsUserDataAsync(account))
+      const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
+      dispatch(fetchPoolsUserDataAsync(account, chain))
     }
-  }, [account, dispatch, fastRefresh])
+  }, [account, dispatch, chainId, fastRefresh])
 
   const { pools, userDataLoaded } = useSelector((state: State) => ({
     pools: state.pools.data,
