@@ -63,6 +63,7 @@ export const Badge = styled.div<{ type?: number }>`
 `
 
 export const LinearBG = styled.div<{ src?: string; bgColor?: string; contain?: boolean }>`
+  height: 100%;
   background: linear-gradient(0deg, rgb(0 0 0) 0%, rgb(0 0 0 / 50%) 25%, rgba(36, 121, 9, 0) 75%);
 `
 

@@ -1,9 +1,18 @@
-import React, { Dispatch, SetStateAction, useContext } from 'react'
+import React, { Dispatch, SetStateAction, useContext, useState, useMemo, useCallback } from 'react'
+import BigNumber from 'bignumber.js'
+import moment from 'moment'
 import styled, { ThemeContext } from 'styled-components'
+import { getBalanceNumber, toBigNumber } from 'utils/formatBalance'
+import { BIG_ZERO } from 'utils/bigNumber'
 import { Grid } from '@mui/material'
-import { Flex, Text, Button, Input } from '@metagg/mgg-uikit'
+import { Flex, Text, Button, Heading, Input, useModal } from '@metagg/mgg-uikit'
 import { FarmWithStakedValue } from 'views/Gamefi/config'
 import { Pool } from 'state/types'
+import { Tiers } from 'config/constants/types'
+import useToast from 'hooks/useToast'
+import UnlockButton from 'components/UnlockButton'
+import StakeModal from './Modals/StakeModal'
+import { Stats } from '../NewUI/styled'
 
 const ButtonSM = styled(Button)`
   padding: 0.5rem 1rem;
@@ -25,11 +34,13 @@ const StyledDetails = styled(Flex)`
 `
 
 interface ComponentProps {
-  dayDuration: string
-  dayFunction: Dispatch<SetStateAction<string>>
+  dayDuration: number
+  dayFunction: Dispatch<SetStateAction<number>>
   currentFarm?: FarmWithStakedValue
   stakingType: string
   currentPoolBased?: Pool
+  account?: any
+  chainId?: number
 }
 
 const Component: React.FC<ComponentProps> = ({
@@ -38,18 +49,102 @@ const Component: React.FC<ComponentProps> = ({
   currentFarm,
   currentPoolBased,
   stakingType,
+  account,
+  chainId
 }) => {
   const theme = useContext(ThemeContext)
+  const { toastSuccess, toastError, toastWarning } = useToast()
   const pairSymbol = stakingType === 'farm' ? currentFarm.lpSymbol : currentPoolBased.stakingToken.symbol
+  const currentStake = stakingType === 'farm' ? currentFarm : currentPoolBased
+  const userData = currentStake.userData ?? null
+
+  const { userTotalStaked, userStakingBal, userAllowance } = useMemo(() => {
+    // if(userData){
+    //   console.log('currentStake: ', currentStake)
+    // }
+    return {
+      userTotalStaked: userData.fixedApr
+        ? new BigNumber(
+            getBalanceNumber(new BigNumber(userData.fixedApr.totalStaked), currentStake.stakingToken.decimals),
+          )
+        : BIG_ZERO,
+      userStakingBal: userData
+        ? new BigNumber(
+            getBalanceNumber(new BigNumber(userData.stakingTokenBalance), currentStake.stakingToken.decimals),
+          )
+        : BIG_ZERO,
+      userAllowance: userData
+        ? new BigNumber(getBalanceNumber(new BigNumber(userData.allowance), currentStake.stakingToken.decimals))
+        : BIG_ZERO,
+    }
+  }, [currentStake, userData])
+
+  const [tierSelected, setTierSelected] = useState<Tiers>({ id: '0', duration: 0, APR: 0 })
+  const [stakeAmount, setStakeAmount] = useState('')
+  const [percentage, setPercentage] = useState('0.0')
+  const [estimatedProfit, setEstimatedProfit] = useState('-')
+
+  const handleChange = useCallback(
+    (e: React.FormEvent<HTMLInputElement>) => {
+      if (e.currentTarget.validity.valid) {
+        const val = e.currentTarget.value.replace(/,/g, '.')
+        setStakeAmount(val)
+        setEstimatedProfit(new BigNumber(val).multipliedBy(new BigNumber(percentage)).toString())
+      }
+    },
+    [setStakeAmount, percentage],
+  )
+
+  const handleTierChange = useCallback(
+    (index: number) => {
+      dayFunction(currentStake.fixedAprConfigs.tiers[index].duration)
+      // APRFunction(currentStake.tiers[index].APR)
+      setTierSelected(currentStake.fixedAprConfigs.tiers[index])
+      setPercentage(new BigNumber(currentStake.fixedAprConfigs.tiers[index].APR).div(new BigNumber(100)).toString())
+    },
+    [
+      dayFunction,
+      // APRFunction,
+      setPercentage,
+      setTierSelected,
+      currentStake,
+    ],
+  )
+
+  const [onPresentStakeAction] = useModal(
+    <StakeModal
+      stakingType={stakingType}
+      currentStake={currentStake}
+      pairSymbol={pairSymbol}
+      tierSelected={tierSelected}
+      maxFine={currentStake.fixedAprConfigs.maxFine}
+      stakeAmount={stakeAmount}
+      // estimatedProfit={estimatedProfit}
+      userTotalStaked={userTotalStaked}
+      userStakingBal={userStakingBal}
+      userAllowance={userAllowance}
+      chainId={chainId}
+    />
+  )
+
+  const handleStakeClick = useCallback(() => {
+    if(!userStakingBal.lte(new BigNumber(stakeAmount))){
+      onPresentStakeAction()
+    }else{
+      toastWarning('Insufficient balance!', 'Staking amount is greater then your current balance')
+    }
+  },
+  [onPresentStakeAction, toastWarning, stakeAmount, userStakingBal])
+
   return (
     <>
       <Flex justifyContent="center" style={{ width: '100%' }}>
         <Grid container spacing={{ xs: 2, md: 1 }} justifyContent="center">
-          {['15', '90', '180', '365'].map((day) => (
+          {[1, 2, 3, 4].map((index) => (
             <>
-              <Grid item xs={12} sm={3} md={3}>
-                <ButtonSM fullWidth onClick={() => dayFunction(day)}>
-                  {`${day} Days`}
+              <Grid key={index} item xs={12} sm={3} md={3}>
+                <ButtonSM fullWidth onClick={() => handleTierChange(index)}>
+                  {`${currentStake.fixedAprConfigs.tiers[index].duration} Days`}
                 </ButtonSM>
               </Grid>
             </>
@@ -57,30 +152,48 @@ const Component: React.FC<ComponentProps> = ({
         </Grid>
       </Flex>
       <StyledDetails>
-        <Flex>
-          <Text>APY</Text>
-          <Text>2%</Text>
-        </Flex>
-        <Flex>
-          <Text>Max fine</Text>
-          <Text>60%</Text>
-        </Flex>
-        <Flex>
-          <Text>Max profit (estimated)</Text>
-          <Text>-</Text>
+        <Flex style={{ width: '100%', flexFlow: 'row wrap', gap: '1rem', justifyContent: 'space-evenly' }}>
+
+          {dayDuration !== 0 ?
+            <>
+              <Stats>
+                <div>
+                  <Heading size="l">{moment().add(tierSelected.duration, 'days').format('LL')}</Heading>
+                  <Text fontSize="0.8rem">Claim On</Text>
+                </div>
+              </Stats>
+              <Stats>
+                <div>
+                  <Heading size="l">{tierSelected.duration} days</Heading>
+                  <Text fontSize="0.8rem">Selected Duration</Text>
+                </div>
+              </Stats>
+              <Stats>
+                <div>
+                  <Heading size="l">{tierSelected.APR}%</Heading>
+                  <Text fontSize="0.8rem">Annual Percentage Rate</Text>
+                </div>
+              </Stats>
+            </>
+            :
+            <Stats style={{width: '100%', height: '3.3rem'}}>
+              <Text>Select duration</Text>
+            </Stats>
+          }
+
         </Flex>
         <hr style={{ width: '100%' }} />
         <Flex>
-          <Text>You staked</Text>
-          <Text>1000 {pairSymbol}</Text>
-        </Flex>
-        <Flex>
           <Text>Your balance</Text>
-          <Text>0 {pairSymbol}</Text>
+          <Text>
+            {userStakingBal.toFormat()} {pairSymbol}
+          </Text>
         </Flex>
         <Flex>
-          <Text>Total staked</Text>
-          <Text>10000.00 {pairSymbol}</Text>
+          <Text>Your total stake</Text>
+          <Text>
+            {userTotalStaked.toFormat()} {pairSymbol}
+          </Text>
         </Flex>
       </StyledDetails>
       <Flex style={{ flex: '0 50%' }}>
@@ -90,13 +203,27 @@ const Component: React.FC<ComponentProps> = ({
         <ButtonSM>Deposit Max</ButtonSM>
       </Flex>
       <Flex style={{ flex: '0 100%', position: 'relative' }}>
-        <Input style={{ padding: '1.5rem' }} placeholder="0" type="number" min="0" />
+        <Input
+          pattern={`^[0-9]*[.,]?[0-9]{0,${18}}$`}
+          inputMode="decimal"
+          step="any"
+          min="0"
+          value={stakeAmount}
+          onChange={handleChange}
+          style={{ padding: '1.5rem' }}
+          placeholder="0"
+          type="number"
+        />
         <div style={{ position: 'absolute', top: '0.7rem', right: '1.5rem' }}>
           <Text color={theme.colors.textSubtle}>{pairSymbol}</Text>
         </div>
       </Flex>
       <Flex style={{ flex: '0 100%', justifyContent: 'center' }}>
-        <Button fullWidth>Stake</Button>
+        {account?
+          <Button fullWidth onClick={handleStakeClick} disabled={tierSelected.duration === 0 || stakeAmount === '' } >Stake</Button>
+          :
+          <UnlockButton />
+        }
       </Flex>
     </>
   )
