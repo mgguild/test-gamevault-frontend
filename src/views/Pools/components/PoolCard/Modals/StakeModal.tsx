@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Button, Dropdown, Flex, Link, Modal, Text, useModal } from '@metagg/mgg-uikit'
+import { Button, Flex, Link, Modal, Text, useModal } from '@metagg/mgg-uikit'
+import { Dropdown } from '@sparkpointio/sparkswap-uikit'
 import { useTranslation } from 'contexts/Localization'
 import { useSousUnstake } from 'hooks/useUnstake'
 import { ChevronDown, ChevronUp } from 'react-feather'
@@ -12,7 +13,7 @@ import { formatNumber, getBalanceNumber, getFullDisplayBalance } from 'utils/for
 import useTokenBalance from 'hooks/useTokenBalance'
 import { Pool } from 'state/types'
 import { getAddress } from '../../../../../utils/addressHelpers'
-
+import { StyledDropdown } from './Styled'
 import StakeTokenModal from './Stake'
 import { BASE_SWAP_URL } from '../../../../../config'
 
@@ -115,6 +116,16 @@ const StakeModal: React.FC<StakeModalProps> = ({
     }
   }
 
+  
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const open = Boolean(anchorEl)
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
   return (
     <Modal title="" onDismiss={onDismiss}>
       <Flex flexDirection="column" style={{ marginTop: '-50px', width: '550px' }}>
@@ -193,29 +204,56 @@ const StakeModal: React.FC<StakeModalProps> = ({
             onMouseEnter={() => setActiveSelect(true)}
             onMouseLeave={() => setActiveSelect(false)}
           >
-            {userData.stakedBalance.eq(0) ? (
+            {!userData.stakedBalance.eq(0) ? (
               <Button disabled fullWidth>
                 {' '}
                 Withdraw{' '}
               </Button>
             ) : (
-              <Dropdown
-                position="top"
-                target={
-                  // Disable component if total staked tokens is empty
-                  <Button fullWidth variant="secondary" disabled={pool.isWithdrawDisabled}>
-                    <Text>Withdraw</Text> {activeSelect ? <ChevronDown /> : <ChevronUp />}
-                  </Button>
-                }
+              // <Dropdown
+              //   position="top"
+              //   target={
+              //     // Disable component if total staked tokens is empty
+              //     <Button fullWidth variant="secondary" disabled={pool.isWithdrawDisabled}>
+              //       <Text>Withdraw</Text> {activeSelect ? <ChevronDown /> : <ChevronUp />}
+              //     </Button>
+              //   }
+              // >
+              //   {/* Disable Claim & Withdraw if no staked tokens */}
+              //   <Button type="button" disabled={pool.isWithdrawDisabled} fullWidth onClick={handleHarvestConfirm}>
+              //     Claim
+              //   </Button>
+              //   <Button type="button" disabled={pool.isWithdrawDisabled} onClick={handleUnstake}>
+              //     Claim & Withdraw
+              //   </Button>
+              // </Dropdown>
+              <>
+              <Button
+                id="withdraw"
+                fullWidth
+                variant="secondary"
+                onClick={handleClick}
+                disabled={pool.isWithdrawDisabled}
               >
-                {/* Disable Claim & Withdraw if no staked tokens */}
+                <Text>Withdraws</Text> {activeSelect ? <ChevronDown /> : <ChevronUp />}
+              </Button>
+
+              <StyledDropdown
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'withdraw',
+                }}
+              >
                 <Button type="button" disabled={pool.isWithdrawDisabled} fullWidth onClick={handleHarvestConfirm}>
                   Claim
                 </Button>
-                <Button type="button" disabled={pool.isWithdrawDisabled} onClick={handleUnstake}>
+                <Button type="button" disabled={pool.isWithdrawDisabled} fullWidth onClick={handleUnstake}>
                   Claim & Withdraw
                 </Button>
-              </Dropdown>
+              </StyledDropdown>
+            </>
             )}
           </Flex>
         </StyledFlex>
