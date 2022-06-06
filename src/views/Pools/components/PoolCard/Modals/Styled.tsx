@@ -59,5 +59,5 @@ const StyledDropdown = MStyled(Menu)({
   },
 })
 
-export { StyledFlex, CancelButton, DepositButton, ActionDiv, DetailsCont, ModalFooter, StyledDropdown}
+export { StyledFlex, CancelButton, DepositButton, ActionDiv, DetailsCont, ModalFooter, StyledDropdown }
 export default Container

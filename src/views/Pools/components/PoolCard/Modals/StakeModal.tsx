@@ -116,7 +116,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
     }
   }
 
-  
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -228,32 +227,32 @@ const StakeModal: React.FC<StakeModalProps> = ({
               //   </Button>
               // </Dropdown>
               <>
-              <Button
-                id="withdraw"
-                fullWidth
-                variant="secondary"
-                onClick={handleClick}
-                disabled={pool.isWithdrawDisabled}
-              >
-                <Text>Withdraws</Text> {activeSelect ? <ChevronDown /> : <ChevronUp />}
-              </Button>
+                <Button
+                  id="withdraw"
+                  fullWidth
+                  variant="secondary"
+                  onClick={handleClick}
+                  disabled={pool.isWithdrawDisabled}
+                >
+                  <Text>Withdraws</Text> {activeSelect ? <ChevronDown /> : <ChevronUp />}
+                </Button>
 
-              <StyledDropdown
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                  'aria-labelledby': 'withdraw',
-                }}
-              >
-                <Button type="button" disabled={pool.isWithdrawDisabled} fullWidth onClick={handleHarvestConfirm}>
-                  Claim
-                </Button>
-                <Button type="button" disabled={pool.isWithdrawDisabled} fullWidth onClick={handleUnstake}>
-                  Claim & Withdraw
-                </Button>
-              </StyledDropdown>
-            </>
+                <StyledDropdown
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    'aria-labelledby': 'withdraw',
+                  }}
+                >
+                  <Button type="button" disabled={pool.isWithdrawDisabled} fullWidth onClick={handleHarvestConfirm}>
+                    Claim
+                  </Button>
+                  <Button type="button" disabled={pool.isWithdrawDisabled} fullWidth onClick={handleUnstake}>
+                    Claim & Withdraw
+                  </Button>
+                </StyledDropdown>
+              </>
             )}
           </Flex>
         </StyledFlex>
