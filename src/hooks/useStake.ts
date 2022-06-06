@@ -55,6 +55,7 @@ export const useFixedAprPoolStake = (contractAddress: string) => {
     async (tier: string, amount, contract?: Contract) => {
       const txHash = await stakeFixedAprPool(contract ?? fixedAprPoolContract, account, tier, amount)
       console.info(txHash)
+      return(txHash)
     },
     [account, fixedAprPoolContract],
   )
