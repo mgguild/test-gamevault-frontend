@@ -20,7 +20,6 @@ import { FarmWithStakedValue } from 'views/Gamefi/config'
 import { Pool } from 'state/types'
 import { Tiers } from 'config/constants/types'
 
-
 interface StakeModalProps {
   stakingType: string
   currentStake: Pool | FarmWithStakedValue
@@ -60,8 +59,7 @@ const ModalBody = styled.div`
   padding: 20px;
 `
 
-
-const StakeModal: React.FC<StakeModalProps> = (({
+const StakeModal: React.FC<StakeModalProps> = ({
   stakingType,
   currentStake,
   pairSymbol,
@@ -81,14 +79,17 @@ const StakeModal: React.FC<StakeModalProps> = (({
   const [isStaking, setStaking] = useState(false)
 
   const handleStake = async () => {
-    console.log("STAAAAAAKING!!!")
+    console.log('STAAAAAAKING!!!')
     setStaking(true)
-    try{
+    try {
       const tx = await onFixedAprPoolStake(tierSelected.id, stakeAmount)
       if (tx) {
         toastSuccess(
           t('Transaction Completed'),
-          t('Your %amount% %symbol% tokens has been staked!', { amount: stakeAmount, symbol: currentStake.stakingToken.symbol }),
+          t('Your %amount% %symbol% tokens has been staked!', {
+            amount: stakeAmount,
+            symbol: currentStake.stakingToken.symbol,
+          }),
         )
         setStaking(false)
         onDismiss()
@@ -98,7 +99,7 @@ const StakeModal: React.FC<StakeModalProps> = (({
         setStaking(false)
         onDismiss()
       }
-    }catch(e){
+    } catch (e) {
       console.error(e)
       toastError(t('Error'), e?.message)
       setStaking(false)
@@ -107,9 +108,7 @@ const StakeModal: React.FC<StakeModalProps> = (({
   }
 
   const balDifference = userStakingBal.minus(new BigNumber(stakeAmount))
-  const estimatedFee = new BigNumber(stakeAmount).multipliedBy(
-    new BigNumber(maxFine).div(new BigNumber(100))
-  )
+  const estimatedFee = new BigNumber(stakeAmount).multipliedBy(new BigNumber(maxFine).div(new BigNumber(100)))
   console.log('userAllowance: ', userAllowance)
   const stakingTokenContract = useERC20(getAddress(currentStake.stakingToken.address, chainId.toString()))
   console.log('stakingTokenContract: ', getAddress(currentStake.stakingToken.address, chainId.toString()))
@@ -127,74 +126,86 @@ const StakeModal: React.FC<StakeModalProps> = (({
 
   useEffect(() => {
     const decimalUserAllowance = getDecimalAmount(userAllowance, currentStake.stakingToken.decimals)
-    setIsApproved(decimalUserAllowance.gte(getDecimalAmount(new BigNumber(stakeAmount), currentStake.stakingToken.decimals)))
-  },[
-    requestedApproval,
-    userAllowance,
-    stakeAmount,
-    currentStake,
-  ])
+    setIsApproved(
+      decimalUserAllowance.gte(getDecimalAmount(new BigNumber(stakeAmount), currentStake.stakingToken.decimals)),
+    )
+  }, [requestedApproval, userAllowance, stakeAmount, currentStake])
 
-  const estimatedProfit = new BigNumber(stakeAmount).multipliedBy(new BigNumber(tierSelected.APR).dividedBy(new BigNumber(100))).toString()
+  const estimatedProfit = new BigNumber(stakeAmount)
+    .multipliedBy(new BigNumber(tierSelected.APR).dividedBy(new BigNumber(100)))
+    .toString()
 
   return (
     <>
-      <Modal title='' onDismiss={onDismiss}>
+      <Modal title="" onDismiss={onDismiss}>
         <Flex justifyContent="center">
-          <Heading size='lg' mt="-48px" style={{ textAlign: 'center' }}>Staking Summary</Heading>
+          <Heading size="lg" mt="-48px" style={{ textAlign: 'center' }}>
+            Staking Summary
+          </Heading>
         </Flex>
         <ModalBody>
           <StyledDetails>
             <Flex>
               <Text>Duration</Text>
-              <Text>{ tierSelected.duration } days</Text>
+              <Text>{tierSelected.duration} days</Text>
             </Flex>
             <Flex>
               <Text>APR</Text>
-              <Text>{ tierSelected.APR }%</Text>
+              <Text>{tierSelected.APR}%</Text>
             </Flex>
             <Flex>
               <Text>Max profit (estimated)</Text>
-              <Text>≈ { estimatedProfit } { pairSymbol }</Text>
+              <Text>
+                ≈ {estimatedProfit} {pairSymbol}
+              </Text>
             </Flex>
             <br />
             <HrBroken />
             <br />
             <Flex>
               <Text>Your Balance</Text>
-              <Text>{ userStakingBal.toFormat() } { pairSymbol }</Text>
+              <Text>
+                {userStakingBal.toFormat()} {pairSymbol}
+              </Text>
             </Flex>
             <Flex>
               <Text>To Stake</Text>
-              <Text>-{ new BigNumber(stakeAmount).toFormat() } { pairSymbol }</Text>
+              <Text>
+                -{new BigNumber(stakeAmount).toFormat()} {pairSymbol}
+              </Text>
             </Flex>
             <hr style={{ width: '100%' }} />
             <Flex>
               <Text>New Balance</Text>
-              <Text>{ balDifference.toFormat() } { pairSymbol }</Text>
+              <Text>
+                {balDifference.toFormat()} {pairSymbol}
+              </Text>
             </Flex>
             <br />
             <br />
             <Flex>
               <Text>Max Early Unstaking Fee</Text>
-              <Text>{ maxFine }%</Text>
+              <Text>{maxFine}%</Text>
             </Flex>
 
             <Flex>
               <Text>Unstaking Fee (estimated)</Text>
-              <Text>≈{ estimatedFee.toFormat() } { pairSymbol }</Text>
+              <Text>
+                ≈{estimatedFee.toFormat()} {pairSymbol}
+              </Text>
             </Flex>
-
           </StyledDetails>
-          {isApproved ?
+          {isApproved ? (
             <Button
               fullWidth
               isLoading={pendingTx}
               endIcon={isStaking ? <AutoRenewIcon spin color="currentColor" /> : null}
               onClick={handleStake}
               disabled={isStaking}
-            >Confirm</Button>
-            :
+            >
+              Confirm
+            </Button>
+          ) : (
             <Button
               fullWidth
               isLoading={pendingTx}
@@ -204,11 +215,11 @@ const StakeModal: React.FC<StakeModalProps> = (({
             >
               Approve
             </Button>
-          }
+          )}
         </ModalBody>
       </Modal>
     </>
   )
-})
+}
 
 export default StakeModal

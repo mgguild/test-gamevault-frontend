@@ -50,7 +50,7 @@ const Component: React.FC<ComponentProps> = ({
   currentPoolBased,
   stakingType,
   account,
-  chainId
+  chainId,
 }) => {
   const theme = useContext(ThemeContext)
   const { toastSuccess, toastError, toastWarning } = useToast()
@@ -124,17 +124,16 @@ const Component: React.FC<ComponentProps> = ({
       userStakingBal={userStakingBal}
       userAllowance={userAllowance}
       chainId={chainId}
-    />
+    />,
   )
 
   const handleStakeClick = useCallback(() => {
-    if(!userStakingBal.lte(new BigNumber(stakeAmount))){
+    if (!userStakingBal.lte(new BigNumber(stakeAmount))) {
       onPresentStakeAction()
-    }else{
+    } else {
       toastWarning('Insufficient balance!', 'Staking amount is greater then your current balance')
     }
-  },
-  [onPresentStakeAction, toastWarning, stakeAmount, userStakingBal])
+  }, [onPresentStakeAction, toastWarning, stakeAmount, userStakingBal])
 
   return (
     <>
@@ -153,8 +152,7 @@ const Component: React.FC<ComponentProps> = ({
       </Flex>
       <StyledDetails>
         <Flex style={{ width: '100%', flexFlow: 'row wrap', gap: '1rem', justifyContent: 'space-evenly' }}>
-
-          {dayDuration !== 0 ?
+          {dayDuration !== 0 ? (
             <>
               <Stats>
                 <div>
@@ -175,12 +173,11 @@ const Component: React.FC<ComponentProps> = ({
                 </div>
               </Stats>
             </>
-            :
-            <Stats style={{width: '100%', height: '3.3rem'}}>
+          ) : (
+            <Stats style={{ width: '100%', height: '3.3rem' }}>
               <Text>Select duration</Text>
             </Stats>
-          }
-
+          )}
         </Flex>
         <hr style={{ width: '100%' }} />
         <Flex>
@@ -219,11 +216,13 @@ const Component: React.FC<ComponentProps> = ({
         </div>
       </Flex>
       <Flex style={{ flex: '0 100%', justifyContent: 'center' }}>
-        {account?
-          <Button fullWidth onClick={handleStakeClick} disabled={tierSelected.duration === 0 || stakeAmount === '' } >Stake</Button>
-          :
+        {account ? (
+          <Button fullWidth onClick={handleStakeClick} disabled={tierSelected.duration === 0 || stakeAmount === ''}>
+            Stake
+          </Button>
+        ) : (
           <UnlockButton />
-        }
+        )}
       </Flex>
     </>
   )

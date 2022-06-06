@@ -201,7 +201,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
 
   return (
     <PageContainer bgColor={currentPool.UIProps.bgColor} contain={currentPool.UIProps.contain}>
-      <LinearBG style={{minHeight: '100vh'}}>
+      <LinearBG style={{ minHeight: '100vh' }}>
         <Flex>
           <Card2Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 3 }}>
             <Flex style={{ textAlign: 'center', flexFlow: 'column', rowGap: '1rem' }}>
@@ -228,7 +228,9 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
           </Card2Container>
         </Flex>
         <FlexC>
-          <FlexC style={{ backgroundColor: theme.colors.MGG_mainBG, maxWidth: '40rem', height: '31.7216875', zIndex: 3 }}>
+          <FlexC
+            style={{ backgroundColor: theme.colors.MGG_mainBG, maxWidth: '40rem', height: '31.7216875', zIndex: 3 }}
+          >
             <Heading style={{ fontSize: '1.875rem' }}>
               {currentPool.stakingToken.symbol} - {currentPool.earningToken.symbol} Pool Based Farm
             </Heading>
