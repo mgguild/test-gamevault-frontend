@@ -96,7 +96,7 @@ const Pools: React.FC = () => {
   const performanceFeeAsDecimal = performanceFee && performanceFee / 100
 
   const pools = useMemo(() => {
-    const filteredPool = poolsWithoutAutoVault.filter((pool) => pool.poolCategory !== PoolCategory.FIXEDAPR )
+    const filteredPool = poolsWithoutAutoVault.filter((pool) => pool.poolCategory !== PoolCategory.FIXEDAPR)
     const cakePool = filteredPool.map((pool) => pool.sousId === 0)
     const cakeAutoVault = { ...cakePool, isAutoVault: true }
 

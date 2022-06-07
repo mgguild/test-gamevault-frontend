@@ -46,7 +46,6 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
   const { pools: poolsWithoutAutoVault, userDataLoaded } = usePools(account)
   const [active, setActive] = useState(1)
 
-
   useFetchPublicPoolsData()
 
   const currentPool = useMemo(() => {
@@ -96,23 +95,20 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
   ]
 
   const renderStake = () => {
-    return <InputComponent
-      dayDuration={dayDuration}
-      dayFunction={setDayDuration}
-      stakingType="pool"
-      currentPoolBased={currentPool}
-      account={account}
-      chainId={chainId}
-    />
+    return (
+      <InputComponent
+        dayDuration={dayDuration}
+        dayFunction={setDayDuration}
+        stakingType="pool"
+        currentPoolBased={currentPool}
+        account={account}
+        chainId={chainId}
+      />
+    )
   }
 
   const renderClaim = () => {
-    return <ListStakesComponent
-      stakingType="pool"
-      currentPoolBased={currentPool}
-      account={account}
-      chainId={chainId}
-    />
+    return <ListStakesComponent stakingType="pool" currentPoolBased={currentPool} account={account} chainId={chainId} />
   }
 
   const renderTabs = (tab) => {
@@ -329,10 +325,10 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                     margin="10px 0px 20px 0px"
                     style={{ borderBottom: `0.5px solid ${theme.colors.primary}`, width: '100%' }}
                   >
-                    <NavOption style={{flex: 1}} onClick={() => setActive(1)} activeIndex={active === 1}>
+                    <NavOption style={{ flex: 1 }} onClick={() => setActive(1)} activeIndex={active === 1}>
                       Stake
                     </NavOption>
-                    <NavOption style={{flex: 1}} onClick={() => setActive(2)} activeIndex={active === 2}>
+                    <NavOption style={{ flex: 1 }} onClick={() => setActive(2)} activeIndex={active === 2}>
                       Withdraw
                     </NavOption>
                   </Flex>

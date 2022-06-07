@@ -96,12 +96,7 @@ const Component: React.FC<ComponentProps> = ({
       setTierSelected(currentStake.fixedAprConfigs.tiers[index])
       setPercentage(new BigNumber(currentStake.fixedAprConfigs.tiers[index].APR).div(new BigNumber(100)).toString())
     },
-    [
-      dayFunction,
-      setPercentage,
-      setTierSelected,
-      currentStake,
-    ],
+    [dayFunction, setPercentage, setTierSelected, currentStake],
   )
 
   const [onPresentStakeAction] = useModal(
@@ -189,7 +184,13 @@ const Component: React.FC<ComponentProps> = ({
         <Text>Amount</Text>
       </Flex>
       <Flex style={{ flex: '0 50%', justifyContent: 'end' }}>
-        <ButtonSM onClick={() => {setStakeAmount(userStakingBal.toString())}}>Deposit Max</ButtonSM>
+        <ButtonSM
+          onClick={() => {
+            setStakeAmount(userStakingBal.toString())
+          }}
+        >
+          Deposit Max
+        </ButtonSM>
       </Flex>
       <Flex style={{ flex: '0 100%', position: 'relative' }}>
         <Input

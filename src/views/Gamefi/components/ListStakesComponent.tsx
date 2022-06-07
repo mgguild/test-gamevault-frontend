@@ -49,9 +49,9 @@ const StakesContainer = styled.div`
 `
 
 const daysRemaining = (date: number, duration: number) => {
-  const eventdate = moment(date).add(duration, 'days');
-  const todaysdate = moment();
-  return eventdate.diff(todaysdate, 'days');
+  const eventdate = moment(date).add(duration, 'days')
+  const todaysdate = moment()
+  return eventdate.diff(todaysdate, 'days')
 }
 
 interface ComponentProps {
@@ -69,12 +69,7 @@ interface StakeProps {
   chainId: number
 }
 
-const StakesCard: React.FC<StakeProps> = ({
-  currentStake,
-  pairSymbol,
-  stakeDetails,
-  chainId,
-}) => {
+const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetails, chainId }) => {
   const thisTier = currentStake.fixedAprConfigs.tiers[new BigNumber(stakeDetails.tier).toNumber()]
   const stakedAt = getDecimalAmount(new BigNumber(stakeDetails.stakedAt), 3).toNumber()
   const amount = getBalanceNumber(new BigNumber(stakeDetails.amount), currentStake.stakingToken.decimals)
@@ -95,37 +90,45 @@ const StakesCard: React.FC<StakeProps> = ({
   //   />
   // )
 
-  return(
+  return (
     <>
-      <Flex style={{textAlign: 'left'}}>
+      <Flex style={{ textAlign: 'left' }}>
         <div>
-          <Text color="black" fontSize='0.8rem'>Duration:</Text>
-          <Heading color='black'>{thisTier.duration} days</Heading>
-          {daysLeft > 0 ?
-            <Text style={{color: 'white', textShadow: '1px 1px 1px black'}}>{ daysLeft } days left</Text>
-            :
-            <Text style={{color: 'white', textShadow: '1px 1px 1px black'}}>Claimable</Text>
-          }
+          <Text color="black" fontSize="0.8rem">
+            Duration:
+          </Text>
+          <Heading color="black">{thisTier.duration} days</Heading>
+          {daysLeft > 0 ? (
+            <Text style={{ color: 'white', textShadow: '1px 1px 1px black' }}>{daysLeft} days left</Text>
+          ) : (
+            <Text style={{ color: 'white', textShadow: '1px 1px 1px black' }}>Claimable</Text>
+          )}
         </div>
       </Flex>
       <Flex style={{ justifyContent: 'end' }}>
-        <div style={{textAlign: 'end'}}>
-          <Heading size='l' fontSize='0.9rem' color='black'>Staked At:</Heading>
-          <Text fontSize='0.9rem' color='black'>{ moment(stakedAt).format('LLL')} GMT</Text>
+        <div style={{ textAlign: 'end' }}>
+          <Heading size="l" fontSize="0.9rem" color="black">
+            Staked At:
+          </Heading>
+          <Text fontSize="0.9rem" color="black">
+            {moment(stakedAt).format('LLL')} GMT
+          </Text>
         </div>
       </Flex>
 
-      <Flex style={{textAlign: 'left'}}>
+      <Flex style={{ textAlign: 'left' }}>
         <div>
-          <Heading size='l' color='black'>Staked:</Heading>
-          <Text style={{color: 'white', textShadow: '1px 1px 1px black'}}>{ `${amount} ${pairSymbol}` }</Text>
+          <Heading size="l" color="black">
+            Staked:
+          </Heading>
+          <Text style={{ color: 'white', textShadow: '1px 1px 1px black' }}>{`${amount} ${pairSymbol}`}</Text>
         </div>
       </Flex>
 
       <Flex style={{ justifyContent: 'end', alignItems: 'end' }}>
         <div>
           <ButtonSM
-            color='black'
+            color="black"
             // onClick={() => onPresentUnstakeAction()}
           >
             <Text>CLAIM</Text>
@@ -136,21 +139,16 @@ const StakesCard: React.FC<StakeProps> = ({
   )
 }
 
-const Component: React.FC<ComponentProps> = ({
-  stakingType,
-  currentFarm,
-  currentPoolBased,
-  account,
-  chainId
-}) => {
+const Component: React.FC<ComponentProps> = ({ stakingType, currentFarm, currentPoolBased, account, chainId }) => {
   const theme = useContext(ThemeContext)
   const pairSymbol = stakingType === 'farm' ? currentFarm.lpSymbol : currentPoolBased.stakingToken.symbol
   const currentStake = stakingType === 'farm' ? currentFarm : currentPoolBased
 
   const userStakes = useMemo(() => {
-
-    if(currentStake.userData &&  currentStake.userData.fixedApr){
-      return currentStake.userData.fixedApr.stakesDetails.filter((stake) => new BigNumber(stake.amount).gt(new BigNumber(0)))
+    if (currentStake.userData && currentStake.userData.fixedApr) {
+      return currentStake.userData.fixedApr.stakesDetails.filter((stake) =>
+        new BigNumber(stake.amount).gt(new BigNumber(0)),
+      )
     }
 
     return null
@@ -158,7 +156,7 @@ const Component: React.FC<ComponentProps> = ({
 
   return (
     <>
-      {userStakes ?
+      {userStakes ? (
         <StakesContainer>
           {userStakes.map((stake, index) => {
             return (
@@ -175,11 +173,11 @@ const Component: React.FC<ComponentProps> = ({
             )
           })}
         </StakesContainer>
-        :
-        <Flex style={{textAlign: 'center', justifyContent: 'center', width: '100%'}}>
+      ) : (
+        <Flex style={{ textAlign: 'center', justifyContent: 'center', width: '100%' }}>
           <Text>No Stakes</Text>
         </Flex>
-      }
+      )}
     </>
   )
 }
