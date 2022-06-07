@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Flex, Button } from '@metagg/mgg-uikit'
+import { Menu } from '@mui/material'
+import { styled as MStyled } from '@mui/styles'
 
 // const Container = styled.div`
 //     margin-top: -30px;
@@ -44,6 +46,18 @@ const ModalFooter = styled.div`
   display: flex;
   justify-content: space-between;
 `
+const StyledDropdown = MStyled(Menu)({
+  '& .MuiMenu-list': {
+    padding: '0px',
+    flexDirection: 'column',
+    display: 'flex',
+    borderRadius: '0px',
+    '& > *': {
+      width: '163px',
+      border: '1px solid rgba(0,0,0, 0.2)',
+    },
+  },
+})
 
-export { StyledFlex, CancelButton, DepositButton, ActionDiv, DetailsCont, ModalFooter }
+export { StyledFlex, CancelButton, DepositButton, ActionDiv, DetailsCont, ModalFooter, StyledDropdown }
 export default Container
