@@ -79,7 +79,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const [isStaking, setStaking] = useState(false)
 
   const handleStake = async () => {
-    console.log('STAAAAAAKING!!!')
     setStaking(true)
     try {
       const tx = await onFixedAprPoolStake(tierSelected.id, stakeAmount)
@@ -109,11 +108,8 @@ const StakeModal: React.FC<StakeModalProps> = ({
 
   const balDifference = userStakingBal.minus(new BigNumber(stakeAmount))
   const estimatedFee = new BigNumber(stakeAmount).multipliedBy(new BigNumber(maxFine).div(new BigNumber(100)))
-  console.log('userAllowance: ', userAllowance)
   const stakingTokenContract = useERC20(getAddress(currentStake.stakingToken.address, chainId.toString()))
-  console.log('stakingTokenContract: ', getAddress(currentStake.stakingToken.address, chainId.toString()))
-  // const totalAllowance = useTokenAllowance(getAddress(currentStake.stakingToken.address), getAddress(currentStake.contractAddress, chainId.toString()))
-  // console.log('totalAllowance: ', totalAllowance)
+
   const [pendingTx, setPendingTx] = useState(false)
   const [isApproved, setIsApproved] = useState(false)
 
