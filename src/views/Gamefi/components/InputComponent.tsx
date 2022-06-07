@@ -59,9 +59,6 @@ const Component: React.FC<ComponentProps> = ({
   const userData = currentStake.userData ?? null
 
   const { userTotalStaked, userStakingBal, userAllowance } = useMemo(() => {
-    // if(userData){
-    //   console.log('currentStake: ', currentStake)
-    // }
     return {
       userTotalStaked: userData.fixedApr
         ? new BigNumber(
@@ -89,10 +86,10 @@ const Component: React.FC<ComponentProps> = ({
       if (e.currentTarget.validity.valid) {
         const val = e.currentTarget.value.replace(/,/g, '.')
         setStakeAmount(val)
-        setEstimatedProfit(new BigNumber(val).multipliedBy(new BigNumber(percentage)).toString())
+        // setEstimatedProfit(new BigNumber(val).multipliedBy(new BigNumber(percentage)).toString())
       }
     },
-    [setStakeAmount, percentage],
+    [setStakeAmount],
   )
 
   const handleTierChange = useCallback(
@@ -197,7 +194,7 @@ const Component: React.FC<ComponentProps> = ({
         <Text>Amount</Text>
       </Flex>
       <Flex style={{ flex: '0 50%', justifyContent: 'end' }}>
-        <ButtonSM>Deposit Max</ButtonSM>
+        <ButtonSM onClick={() => {setStakeAmount(userStakingBal.toString())}}>Deposit Max</ButtonSM>
       </Flex>
       <Flex style={{ flex: '0 100%', position: 'relative' }}>
         <Input
