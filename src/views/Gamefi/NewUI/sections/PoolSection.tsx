@@ -21,6 +21,7 @@ import {
   PageContainer,
 } from 'views/Farms/components/FarmCards/styles'
 import InputComponent from '../../components/InputComponent'
+import ListStakesComponent from '../../components/ListStakesComponent'
 import { FlexC, StatCard, Stats, TableStyle, ChartStyle } from '../styled'
 import { Series } from '../types'
 import ApexChart from '../../components/ApexCharts'
@@ -43,6 +44,8 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
   const { account, chainId } = useWeb3React()
   const { pathname } = useLocation()
   const { pools: poolsWithoutAutoVault, userDataLoaded } = usePools(account)
+  const [active, setActive] = useState(1)
+
 
   useFetchPublicPoolsData()
 
@@ -54,7 +57,6 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
     return getPool
   }, [poolsWithoutAutoVault, farmID])
 
-  // console.log('currentPool: ', currentPool)
   const overallStaked = new BigNumber(
     getBalanceNumber(new BigNumber(currentPool.totalStaked), currentPool.stakingToken.decimals),
   ).toFormat()
@@ -92,6 +94,42 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
       data: [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09],
     },
   ]
+
+  const renderStake = () => {
+    return <InputComponent
+      dayDuration={dayDuration}
+      dayFunction={setDayDuration}
+      stakingType="pool"
+      currentPoolBased={currentPool}
+      account={account}
+      chainId={chainId}
+    />
+  }
+
+  const renderClaim = () => {
+    return <ListStakesComponent
+      stakingType="pool"
+      currentPoolBased={currentPool}
+      account={account}
+      chainId={chainId}
+    />
+  }
+
+  const renderTabs = (tab) => {
+    switch (tab) {
+      case 1:
+        return renderStake()
+      case 2:
+        return renderClaim()
+
+      default:
+        return (
+          <Flex>
+            <Text margin="0px auto">Coming Soon</Text>
+          </Flex>
+        )
+    }
+  }
 
   const renderStats = () => {
     return (
@@ -285,14 +323,21 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                   <UnlockButton customTitle="Connect wallet to Stake" />
                 </Flex>
               ) : (
-                <InputComponent
-                  dayDuration={dayDuration}
-                  dayFunction={setDayDuration}
-                  stakingType="pool"
-                  currentPoolBased={currentPool}
-                  account={account}
-                  chainId={chainId}
-                />
+                <>
+                  <Flex
+                    alignItems="center"
+                    margin="10px 0px 20px 0px"
+                    style={{ borderBottom: `0.5px solid ${theme.colors.primary}`, width: '100%' }}
+                  >
+                    <NavOption style={{flex: 1}} onClick={() => setActive(1)} activeIndex={active === 1}>
+                      Stake
+                    </NavOption>
+                    <NavOption style={{flex: 1}} onClick={() => setActive(2)} activeIndex={active === 2}>
+                      Withdraw
+                    </NavOption>
+                  </Flex>
+                  {renderTabs(active)}
+                </>
               )}
               <Flex style={{ flex: '0 100%' }} />
               <Flex style={{ flex: '0 50%' }}>
