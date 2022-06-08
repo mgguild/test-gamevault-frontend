@@ -79,6 +79,8 @@ export const useFixedAprPoolUnstake = (sousId: number, contractAddress: string) 
       dispatch(updateUserStakedBalance(sousId, account, chain))
       dispatch(updateUserBalance(sousId, account, chain))
       dispatch(updateUserPendingReward(sousId, account, chain))
+
+      return txHash
     },
     [account, chainId, fixedAprPoolContract, sousId, dispatch],
   )
