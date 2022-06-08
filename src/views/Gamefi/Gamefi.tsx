@@ -5,6 +5,7 @@ import { Route, useLocation, useRouteMatch } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
 import { Grid } from '@mui/material'
 import { Farm, Pool } from 'state/types'
+import { PoolCategory } from 'config/constants/types'
 import {
   useFarms,
   usePollFarmsData,
@@ -99,13 +100,14 @@ const Gamefi: React.FC = () => {
     },
     [cakePrice, query, isActive],
   )
-
+  const fixedAprsOnly = poolsWithoutAutoVault.filter((pool) => pool.poolCategory === PoolCategory.FIXEDAPR)
+  console.log('fixedAprsOnly: ', fixedAprsOnly)
   const pools = useMemo(() => {
-    const cakePool = poolsWithoutAutoVault.map((pool) => pool.sousId === 0)
+    const cakePool = fixedAprsOnly.map((pool) => pool.sousId === 0)
     const cakeAutoVault = { ...cakePool, isAutoVault: true }
 
-    return [...poolsWithoutAutoVault]
-  }, [poolsWithoutAutoVault])
+    return [...fixedAprsOnly]
+  }, [fixedAprsOnly])
 
   const [finishedPools, openPools] = useMemo(() => partition(pools, (pool) => pool.isFinished), [pools])
   const stakedOnlyFinishedPools = useMemo(

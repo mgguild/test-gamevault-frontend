@@ -33,6 +33,7 @@ export interface Farm extends FarmConfig {
   isPromoted?: number
   userData?: {
     allowance: string
+    stakingTokenBalance?: BigNumber
     tokenBalance: string
     stakedBalance: string
     earnings: string
