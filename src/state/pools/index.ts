@@ -126,7 +126,7 @@ export const fetchPoolsUserDataAsync =
       pendingReward: pendingRewards[pool.sousId],
       fixedApr: fixedAprDetails[pool.sousId] ?? null,
     }))
-    console.log('userData: ', userData)
+
     dispatch(setPoolsUserData(userData))
   }
 
