@@ -57,10 +57,14 @@ export const fetchPoolsPublicDataAsync = (currentBlock: number, chain?: string) 
     const isPoolEndBlockExceeded = currentBlock > 0 && blockLimit ? currentBlock > Number(blockLimit.endBlock) : false
     const isPoolFinished = pool.isFinished || isPoolEndBlockExceeded
 
-    const stakingTokenAddress = pool.stakingToken.address ? getAddress(pool.stakingToken.address).toLowerCase() : null
+    const stakingTokenAddress = pool.stakingToken.address
+      ? getAddress(pool.stakingToken.address, pool.chain).toLowerCase()
+      : null
     const stakingTokenPrice = stakingTokenAddress ? prices[stakingTokenAddress] : 0
 
-    const earningTokenAddress = pool.earningToken.address ? getAddress(pool.earningToken.address).toLowerCase() : null
+    const earningTokenAddress = pool.earningToken.address
+      ? getAddress(pool.earningToken.address, pool.chain).toLowerCase()
+      : null
     const earningTokenPrice = earningTokenAddress ? prices[earningTokenAddress] : 0
     const apr = !isPoolFinished
       ? getPoolApr(
@@ -122,7 +126,7 @@ export const fetchPoolsUserDataAsync =
       pendingReward: pendingRewards[pool.sousId],
       fixedApr: fixedAprDetails[pool.sousId] ?? null,
     }))
-
+    console.log('userData: ', userData)
     dispatch(setPoolsUserData(userData))
   }
 
