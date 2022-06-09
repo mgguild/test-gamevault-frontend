@@ -158,6 +158,13 @@ export const updateUserPendingReward =
     dispatch(updatePoolsUserData({ sousId, field: 'pendingReward', value: pendingRewards[sousId] }))
   }
 
+export const updateUserFixedAprDetails =
+  (sousId: number, account: string, chain: string): AppThunk =>
+  async (dispatch) => {
+    const stakesDetails = await fetchUserFixedAprDetails(account, chain)
+    dispatch(updatePoolsUserData({ sousId, field: 'fixedApr', value: stakesDetails[sousId] }))
+  }
+
 export const fetchCakeVaultPublicData = createAsyncThunk<CakeVault>('cakeVault/fetchPublicData', async () => {
   const publicVaultInfo = await fetchPublicVaultData()
   return publicVaultInfo

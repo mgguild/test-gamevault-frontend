@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { useAppDispatch } from 'state'
 import { MAINNET_CHAIN_ID } from 'config'
-import { updateUserBalance, updateUserPendingReward, updateUserStakedBalance } from 'state/actions'
+import { updateUserBalance, updateUserPendingReward, updateUserStakedBalance, updateUserFixedAprDetails } from 'state/actions'
 import { exit, sousEmergencyUnstake, sousUnstake, unstake, unstakeFixedAprPool } from 'utils/callHelpers'
 import { useLPStakingContract, useMasterchef, useSousChef, useFixedAprPoolContract } from './useContract'
 
@@ -78,7 +78,7 @@ export const useFixedAprPoolUnstake = (sousId: number, contractAddress: string) 
       const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
       dispatch(updateUserStakedBalance(sousId, account, chain))
       dispatch(updateUserBalance(sousId, account, chain))
-      dispatch(updateUserPendingReward(sousId, account, chain))
+      dispatch(updateUserFixedAprDetails(sousId, account, chain))
 
       return txHash
     },
