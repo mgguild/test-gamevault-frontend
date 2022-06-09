@@ -78,7 +78,7 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
   const [onPresentUnstakeAction] = useModal(
     <ClaimModal
       chainId={chainId}
-      stakingType='pool'
+      stakingType="pool"
       currentStake={currentStake}
       pairSymbol={pairSymbol}
       maxFine={currentStake.fixedAprConfigs.maxFine}
@@ -87,7 +87,7 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
       amount={amount}
       stakedAt={stakedAt}
       daysLeft={daysLeft}
-    />
+    />,
   )
 
   return (
@@ -127,15 +127,8 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
 
       <Flex style={{ justifyContent: 'end', alignItems: 'end' }}>
         <div>
-          <ButtonSM
-            color="black"
-            onClick={() => onPresentUnstakeAction()}
-          >
-             { daysLeft > 0 ?
-                <Text>Unstake</Text>
-                :
-                <Text>CLAIM</Text>
-              }
+          <ButtonSM color="black" onClick={() => onPresentUnstakeAction()}>
+            {daysLeft > 0 ? <Text>Unstake</Text> : <Text>CLAIM</Text>}
           </ButtonSM>
         </div>
       </Flex>
@@ -160,7 +153,7 @@ const Component: React.FC<ComponentProps> = ({ stakingType, currentFarm, current
 
   return (
     <>
-      {userStakes ? (
+      {userStakes && userStakes.length > 0 ? (
         <StakesContainer>
           {userStakes.map((stake, index) => {
             return (

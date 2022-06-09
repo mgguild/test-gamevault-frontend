@@ -73,17 +73,20 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const theme = useContext(ThemeContext)
   const { toastSuccess, toastError, toastWarning } = useToast()
   const { t } = useTranslation()
-  const { onFixedAprUnstake } = useFixedAprPoolUnstake(currentStake.sousId, getAddress(currentStake.contractAddress, chainId.toString()))
+  const { onFixedAprUnstake } = useFixedAprPoolUnstake(
+    currentStake.sousId,
+    getAddress(currentStake.contractAddress, chainId.toString()),
+  )
   const [isUnstaking, setUnstaking] = useState(false)
 
   const handleUnstake = async () => {
     setUnstaking(true)
-    try{
+    try {
       const tx = await onFixedAprUnstake(stakeDetails.id)
-      if(tx){
+      if (tx) {
         toastSuccess(
           t('%action% Completed', {
-            action: daysLeft > 0 ? 'Unstaking' : 'Claiming'
+            action: daysLeft > 0 ? 'Unstaking' : 'Claiming',
           }),
           t('Your staked %symbol% tokens has been withdrawn/claimed!', {
             symbol: currentStake.stakingToken.symbol,
@@ -91,7 +94,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
         )
         setUnstaking(false)
         onDismiss()
-      }else{
+      } else {
         // user rejected tx or didn't go thru
         toastError(t('Error'), t('Please try again. Confirm the transaction and make sure you are paying enough gas!'))
         setUnstaking(false)
@@ -129,7 +132,9 @@ const StakeModal: React.FC<StakeModalProps> = ({
             </Flex>
             <Flex>
               <Text>{pairSymbol} Staked</Text>
-              <Text>{amount} {pairSymbol}</Text>
+              <Text>
+                {amount} {pairSymbol}
+              </Text>
             </Flex>
             <br />
             <hr style={{ width: '100%' }} />
@@ -138,15 +143,15 @@ const StakeModal: React.FC<StakeModalProps> = ({
                 <Text>Staked at</Text>
                 <Text>{moment(stakedAt).format('LLL')}</Text>
               </div>
-              <div style={{textAlign: 'right'}}>
+              <div style={{ textAlign: 'right' }}>
                 <Text>Can be clamed on</Text>
                 <Text>
                   {moment(stakedAt).add(tier.duration, 'days').format('LL')}
-                  {daysLeft > 0 ?
+                  {daysLeft > 0 ? (
                     <Text color={theme.colors.textSubtle}>({daysLeft} days left)</Text>
-                    :
+                  ) : (
                     <Text color={theme.colors.textSubtle}>(Claimable)</Text>
-                  }
+                  )}
                 </Text>
               </div>
             </Flex>
@@ -157,36 +162,34 @@ const StakeModal: React.FC<StakeModalProps> = ({
                 ≈ {estimatedProfit} {pairSymbol}
               </Text>
             </Flex>
-            { daysLeft > 0 &&
+            {daysLeft > 0 && (
               <>
                 <br />
                 <br />
                 <Flex>
-                  <Text style={{color: '#ff6c16'}}>Early Unstaking/Withdrawal will result in {maxFine}% fee penalty</Text>
+                  <Text style={{ color: '#ff6c16' }}>
+                    Early Unstaking/Withdrawal will result in {maxFine}% fee penalty
+                  </Text>
                 </Flex>
                 <Flex>
-                  <Text style={{color: '#ff6c16'}}>Max Fee penalty (estimated)</Text>
-                  <Text style={{color: '#ff6c16'}}>
-                    ≈ {new BigNumber(amount).multipliedBy(new BigNumber(maxFine).div(new BigNumber(100))).toFormat()} {pairSymbol}
+                  <Text style={{ color: '#ff6c16' }}>Max Fee penalty (estimated)</Text>
+                  <Text style={{ color: '#ff6c16' }}>
+                    ≈ {new BigNumber(amount).multipliedBy(new BigNumber(maxFine).div(new BigNumber(100))).toFormat()}{' '}
+                    {pairSymbol}
                   </Text>
                 </Flex>
               </>
-            }
+            )}
           </StyledDetails>
-            <Button
-              fullWidth
-              isLoading={isUnstaking}
-              endIcon={isUnstaking ? <AutoRenewIcon spin color="currentColor" /> : null}
-              onClick={() => handleUnstake()}
-              disabled={isUnstaking}
-            >
-              { daysLeft > 0 ?
-                <Text>Withdraw</Text>
-                :
-                <Text>Claim</Text>
-              }
-            </Button>
-
+          <Button
+            fullWidth
+            isLoading={isUnstaking}
+            endIcon={isUnstaking ? <AutoRenewIcon spin color="currentColor" /> : null}
+            onClick={() => handleUnstake()}
+            disabled={isUnstaking}
+          >
+            {daysLeft > 0 ? <Text>Withdraw</Text> : <Text>Claim</Text>}
+          </Button>
         </ModalBody>
       </Modal>
     </>
