@@ -100,8 +100,9 @@ const Gamefi: React.FC = () => {
     },
     [cakePrice, query, isActive],
   )
+
   const fixedAprsOnly = poolsWithoutAutoVault.filter((pool) => pool.poolCategory === PoolCategory.FIXEDAPR)
-  console.log('fixedAprsOnly: ', fixedAprsOnly)
+
   const pools = useMemo(() => {
     const cakePool = fixedAprsOnly.map((pool) => pool.sousId === 0)
     const cakeAutoVault = { ...cakePool, isAutoVault: true }

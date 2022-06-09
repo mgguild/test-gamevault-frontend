@@ -59,9 +59,6 @@ const Component: React.FC<ComponentProps> = ({
   const userData = currentStake.userData ?? null
 
   const { userTotalStaked, userStakingBal, userAllowance } = useMemo(() => {
-    // if(userData){
-    //   console.log('currentStake: ', currentStake)
-    // }
     return {
       userTotalStaked: userData.fixedApr
         ? new BigNumber(
@@ -82,33 +79,24 @@ const Component: React.FC<ComponentProps> = ({
   const [tierSelected, setTierSelected] = useState<Tiers>({ id: '0', duration: 0, APR: 0 })
   const [stakeAmount, setStakeAmount] = useState('')
   const [percentage, setPercentage] = useState('0.0')
-  const [estimatedProfit, setEstimatedProfit] = useState('-')
 
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
       if (e.currentTarget.validity.valid) {
         const val = e.currentTarget.value.replace(/,/g, '.')
         setStakeAmount(val)
-        setEstimatedProfit(new BigNumber(val).multipliedBy(new BigNumber(percentage)).toString())
       }
     },
-    [setStakeAmount, percentage],
+    [setStakeAmount],
   )
 
   const handleTierChange = useCallback(
     (index: number) => {
       dayFunction(currentStake.fixedAprConfigs.tiers[index].duration)
-      // APRFunction(currentStake.tiers[index].APR)
       setTierSelected(currentStake.fixedAprConfigs.tiers[index])
       setPercentage(new BigNumber(currentStake.fixedAprConfigs.tiers[index].APR).div(new BigNumber(100)).toString())
     },
-    [
-      dayFunction,
-      // APRFunction,
-      setPercentage,
-      setTierSelected,
-      currentStake,
-    ],
+    [dayFunction, setPercentage, setTierSelected, currentStake],
   )
 
   const [onPresentStakeAction] = useModal(
@@ -119,7 +107,6 @@ const Component: React.FC<ComponentProps> = ({
       tierSelected={tierSelected}
       maxFine={currentStake.fixedAprConfigs.maxFine}
       stakeAmount={stakeAmount}
-      // estimatedProfit={estimatedProfit}
       userTotalStaked={userTotalStaked}
       userStakingBal={userStakingBal}
       userAllowance={userAllowance}
@@ -197,7 +184,13 @@ const Component: React.FC<ComponentProps> = ({
         <Text>Amount</Text>
       </Flex>
       <Flex style={{ flex: '0 50%', justifyContent: 'end' }}>
-        <ButtonSM>Deposit Max</ButtonSM>
+        <ButtonSM
+          onClick={() => {
+            setStakeAmount(userStakingBal.toString())
+          }}
+        >
+          Deposit Max
+        </ButtonSM>
       </Flex>
       <Flex style={{ flex: '0 100%', position: 'relative' }}>
         <Input

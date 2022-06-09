@@ -94,6 +94,15 @@ const tokens = {
     decimals: 18,
     projectLink: 'https://tixl.org/',
   },
+  ttk: {
+    symbol: 'TTK',
+    address: {
+      56: '0xFc2dAfe72A1a893363CdE3c18E6C2159De7B7830',
+      97: '',
+    },
+    decimals: 18,
+    projectLink: 'https://tixl.org/',
+  },
   test: {
     symbol: 'TXL',
     address: {
