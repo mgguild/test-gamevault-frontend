@@ -2,7 +2,12 @@ import { useCallback } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { useAppDispatch } from 'state'
 import { MAINNET_CHAIN_ID } from 'config'
-import { updateUserBalance, updateUserPendingReward, updateUserStakedBalance, updateUserFixedAprDetails } from 'state/actions'
+import {
+  updateUserBalance,
+  updateUserPendingReward,
+  updateUserStakedBalance,
+  updateUserFixedAprDetails,
+} from 'state/actions'
 import { exit, sousEmergencyUnstake, sousUnstake, unstake, unstakeFixedAprPool } from 'utils/callHelpers'
 import { useLPStakingContract, useMasterchef, useSousChef, useFixedAprPoolContract } from './useContract'
 
