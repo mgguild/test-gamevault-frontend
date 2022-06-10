@@ -12,6 +12,7 @@ import { Tiers } from 'config/constants/types'
 import useToast from 'hooks/useToast'
 import UnlockButton from 'components/UnlockButton'
 import StakeModal from './Modals/StakeModal'
+import InsufficientModal from './Modals/InsufficientModal'
 import { Stats } from '../NewUI/styled'
 
 const ButtonSM = styled(Button)`
@@ -101,6 +102,7 @@ const Component: React.FC<ComponentProps> = ({
 
   const [onPresentStakeAction] = useModal(
     <StakeModal
+      chainId={chainId}
       stakingType={stakingType}
       currentStake={currentStake}
       pairSymbol={pairSymbol}
@@ -110,17 +112,26 @@ const Component: React.FC<ComponentProps> = ({
       userTotalStaked={userTotalStaked}
       userStakingBal={userStakingBal}
       userAllowance={userAllowance}
-      chainId={chainId}
     />,
+  )
+
+  const [onPresentInsufficientAction] = useModal(
+    <InsufficientModal
+      chainId={chainId}
+      pairSymbol={pairSymbol}
+      stakingType={stakingType}
+      currentStake={currentStake}
+    />
   )
 
   const handleStakeClick = useCallback(() => {
     if (!userStakingBal.lte(new BigNumber(stakeAmount))) {
       onPresentStakeAction()
     } else {
-      toastWarning('Insufficient balance!', 'Staking amount is greater then your current balance')
+      onPresentInsufficientAction()
+      // toastWarning('Insufficient balance!', 'Staking amount is greater then your current balance')
     }
-  }, [onPresentStakeAction, toastWarning, stakeAmount, userStakingBal])
+  }, [onPresentStakeAction, onPresentInsufficientAction, stakeAmount, userStakingBal])
 
   return (
     <>
@@ -210,7 +221,7 @@ const Component: React.FC<ComponentProps> = ({
       </Flex>
       <Flex style={{ flex: '0 100%', justifyContent: 'center' }}>
         {account ? (
-          <Button fullWidth onClick={handleStakeClick} disabled={tierSelected.duration === 0 || stakeAmount === ''}>
+          <Button fullWidth onClick={handleStakeClick} disabled={tierSelected.duration === 0 || stakeAmount === '' || parseFloat(stakeAmount) <= 0.0}>
             Stake
           </Button>
         ) : (
