@@ -67,14 +67,23 @@ const App: React.FC = () => {
               {/* <ComingSoon title="Pools" /> */}
             </Route>
             <Route path="/gamefi" exact>
-              <Gamefi />
+              {isChainSupported('GAMEFI', chainId)?
+                <Gamefi />
+                :
+                <NotSupported title="Gamefi" supportedChainId={getSupportedChain('GAMEFI')} />
+              }
             </Route>
-            <Route
-              path="/gamefi/:type/:farmID"
+            <Route path="/gamefi/:type/:farmID" component={isChainSupported('GAMEFI', chainId) ? GamefiPage : NotSupported } />
+            {/* <Route path="/gamefi/:type/:farmID"
               component={(props) => {
-                return <GamefiPage {...props} />
+                const { farmID, type } = props.match.params
+                return isChainSupported('LAUNCHPAD', chainId) ? (
+                  <GamefiPage farmID={farmID} type={type} />
+                ) : (
+                  <NotSupported title="Gamefi" supportedChainId={getSupportedChain('GAMEFI')} />
+                )
               }}
-            />
+            /> */}
             {/* <ComingSoon title="GameFi Vaults" /> */}
 
             <Route path="/launchpad" exact>
