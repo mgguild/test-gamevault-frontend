@@ -121,7 +121,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
   )
 
   useEffect(() => {
-    console.log('totalAllowance: ', totalAllowance)
     const decimalUserAllowance = getDecimalAmount(totalAllowance.balance, currentStake.stakingToken.decimals)
     if(totalAllowance.fetchStatus === 'success'){
       setIsApproved(
