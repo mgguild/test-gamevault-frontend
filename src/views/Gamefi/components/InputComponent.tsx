@@ -121,7 +121,7 @@ const Component: React.FC<ComponentProps> = ({
       pairSymbol={pairSymbol}
       stakingType={stakingType}
       currentStake={currentStake}
-    />
+    />,
   )
 
   const handleStakeClick = useCallback(() => {
@@ -221,7 +221,11 @@ const Component: React.FC<ComponentProps> = ({
       </Flex>
       <Flex style={{ flex: '0 100%', justifyContent: 'center' }}>
         {account ? (
-          <Button fullWidth onClick={handleStakeClick} disabled={tierSelected.duration === 0 || stakeAmount === '' || parseFloat(stakeAmount) <= 0.0}>
+          <Button
+            fullWidth
+            onClick={handleStakeClick}
+            disabled={tierSelected.duration === 0 || stakeAmount === '' || parseFloat(stakeAmount) <= 0.0}
+          >
             Stake
           </Button>
         ) : (

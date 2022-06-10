@@ -67,13 +67,16 @@ const App: React.FC = () => {
               {/* <ComingSoon title="Pools" /> */}
             </Route>
             <Route path="/gamefi" exact>
-              {isChainSupported('GAMEFI', chainId)?
+              {isChainSupported('GAMEFI', chainId) ? (
                 <Gamefi />
-                :
+              ) : (
                 <NotSupported title="Gamefi" supportedChainId={getSupportedChain('GAMEFI')} />
-              }
+              )}
             </Route>
-            <Route path="/gamefi/:type/:farmID" component={isChainSupported('GAMEFI', chainId) ? GamefiPage : NotSupported } />
+            <Route
+              path="/gamefi/:type/:farmID"
+              component={isChainSupported('GAMEFI', chainId) ? GamefiPage : NotSupported}
+            />
             {/* <Route path="/gamefi/:type/:farmID"
               component={(props) => {
                 const { farmID, type } = props.match.params

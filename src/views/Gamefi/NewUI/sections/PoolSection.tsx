@@ -344,10 +344,13 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
               </Flex>
               <Flex style={{ flex: '0 50%', justifyContent: 'end' }}>
                 <Text
-                  onClick={() => {window.open(`${BASE_SPARKSWAP_INFO}/${getAddress(currentPool.stakingToken.address)}`, '_blank')}}
-                  style={{cursor: 'pointer'}}
+                  onClick={() => {
+                    window.open(`${BASE_SPARKSWAP_INFO}/${getAddress(currentPool.stakingToken.address)}`, '_blank')
+                  }}
+                  style={{ cursor: 'pointer' }}
                   fontSize="0.7rem"
-                  color={theme.colors.MGG_accent2}>
+                  color={theme.colors.MGG_accent2}
+                >
                   Pool info on SparkSwap
                 </Text>
               </Flex>

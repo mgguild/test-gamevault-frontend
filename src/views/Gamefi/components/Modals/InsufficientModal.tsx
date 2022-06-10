@@ -53,9 +53,15 @@ const InsufficientModal: React.FC<InsufficientModalProps> = ({
         </Flex>
         <ModalBody>
           <Text>It appears that you are staking more than your current {pairSymbol} token balance </Text>
-          <br/>
-          <Flex style={{justifyContent: 'center'}}>
-            <Button onClick={() => {window.open(`${BASE_SWAP_URL}/${stakingTknAddress}`, '_blank')}}>Add More {pairSymbol} Tokens</Button>
+          <br />
+          <Flex style={{ justifyContent: 'center' }}>
+            <Button
+              onClick={() => {
+                window.open(`${BASE_SWAP_URL}/${stakingTknAddress}`, '_blank')
+              }}
+            >
+              Add More {pairSymbol} Tokens
+            </Button>
           </Flex>
         </ModalBody>
       </Modal>
