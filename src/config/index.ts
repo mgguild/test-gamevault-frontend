@@ -51,7 +51,7 @@ export const multiChainSupport = {
   LP_STAKING: ['1', '56'],
   POOL_STAKING: ['56', '97'],
   LAUNCHPAD: ['56'],
-  GAMEFI: ['56', '97']
+  GAMEFI: ['56']
 }
 
 export const BASE_BSC_SCAN_URLS = {
