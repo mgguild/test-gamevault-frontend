@@ -27,6 +27,7 @@ export const CAKE_INFO_URL = 'https://pancakeswap.finance/info/pool/'
 export const BASE_ADD_LIQUIDITY_URL = `${BASE_EXCHANGE_URL}/add`
 export const BASE_SWAP_URL = `${BASE_EXCHANGE_URL}/swap`
 export const BASE_LIQUIDITY_POOL_URL = `${BASE_EXCHANGE_URL}/pool`
+export const BASE_SPARKSWAP_INFO = 'https://sparkswap.info/#/token/'
 export const PANCAKE_EXCHANGE_URL = 'https://pancakeswap.finance'
 export const PANCAKE_ADD_LIQUIDITY_URL = `${PANCAKE_EXCHANGE_URL}/add`
 export const BASE_BSC_SCAN_URL = 'https://bscscan.com'
@@ -48,8 +49,9 @@ export const API_LIQUIDITY = 'liquidity'
 export const API_LASTPRICE = 'price'
 export const multiChainSupport = {
   LP_STAKING: ['1', '56'],
-  POOL_STAKING: ['56'],
+  POOL_STAKING: ['56', '97'],
   LAUNCHPAD: ['56'],
+  GAMEFI: ['56', '97']
 }
 
 export const BASE_BSC_SCAN_URLS = {
