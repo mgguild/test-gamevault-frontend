@@ -109,7 +109,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const balDifference = userStakingBal.minus(new BigNumber(stakeAmount))
   const estimatedFee = new BigNumber(stakeAmount).multipliedBy(new BigNumber(maxFine).div(new BigNumber(100)))
   const stakingTokenContract = useERC20(getAddress(currentStake.stakingToken.address, chainId.toString()))
-
+  const totalAllowance = useTokenAllowance(getAddress(currentStake.stakingToken.address, chainId.toString()), getAddress(currentStake.contractAddress, chainId.toString()))
   const [pendingTx, setPendingTx] = useState(false)
   const [isApproved, setIsApproved] = useState(false)
 
@@ -121,11 +121,14 @@ const StakeModal: React.FC<StakeModalProps> = ({
   )
 
   useEffect(() => {
-    const decimalUserAllowance = getDecimalAmount(userAllowance, currentStake.stakingToken.decimals)
-    setIsApproved(
-      decimalUserAllowance.gte(getDecimalAmount(new BigNumber(stakeAmount), currentStake.stakingToken.decimals)),
-    )
-  }, [requestedApproval, userAllowance, stakeAmount, currentStake])
+    console.log('totalAllowance: ', totalAllowance)
+    const decimalUserAllowance = getDecimalAmount(totalAllowance.balance, currentStake.stakingToken.decimals)
+    if(totalAllowance.fetchStatus === 'success'){
+      setIsApproved(
+        decimalUserAllowance.gte(getDecimalAmount(new BigNumber(stakeAmount), currentStake.stakingToken.decimals)),
+      )
+    }
+  }, [requestedApproval, totalAllowance, stakeAmount, currentStake])
 
   const estimatedProfit = new BigNumber(stakeAmount)
     .multipliedBy(new BigNumber(tierSelected.APR).dividedBy(new BigNumber(100)))

@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } 
 import { Route, useLocation, useRouteMatch } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import moment from 'moment'
+import { BASE_SPARKSWAP_INFO } from 'config'
 import { useWeb3React } from '@web3-react/core'
 import { getImageUrlFromToken } from 'utils/assetFetch'
 import { Flex, Link, Text, Heading } from '@metagg/mgg-uikit'
@@ -342,7 +343,11 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                 </Text>
               </Flex>
               <Flex style={{ flex: '0 50%', justifyContent: 'end' }}>
-                <Text fontSize="0.7rem" color={theme.colors.MGG_accent2}>
+                <Text
+                  onClick={() => {window.open(`${BASE_SPARKSWAP_INFO}/${getAddress(currentPool.stakingToken.address)}`, '_blank')}}
+                  style={{cursor: 'pointer'}}
+                  fontSize="0.7rem"
+                  color={theme.colors.MGG_accent2}>
                   Pool info on SparkSwap
                 </Text>
               </Flex>

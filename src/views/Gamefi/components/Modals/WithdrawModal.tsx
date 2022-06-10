@@ -57,7 +57,7 @@ const ModalBody = styled.div`
   padding: 20px;
 `
 
-const StakeModal: React.FC<StakeModalProps> = ({
+const WithdrawModal: React.FC<StakeModalProps> = ({
   chainId,
   stakingType,
   currentStake,
@@ -196,4 +196,4 @@ const StakeModal: React.FC<StakeModalProps> = ({
   )
 }
 
-export default StakeModal
+export default WithdrawModal
