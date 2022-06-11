@@ -270,7 +270,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
               {currentPool.stakingToken.symbol} - {currentPool.earningToken.symbol} Pool Based Farm
             </Heading>
             <Text>Deposit your {currentPool.stakingToken.symbol} Tokens to earn Extra Annual Percentage Rate</Text>
-            <Text color={theme.colors.MGG_accent2}>Total MGG staked</Text>
+            <Heading size='lg' color={theme.colors.MGG_accent2}>Total {currentPool.stakingToken.symbol} staked</Heading>
             <Flex
               style={{
                 width: '100%',
@@ -304,7 +304,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
             </Flex>
 
             <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
-              <em>*Neither stake nor rewards can be withdrawn before minimum staking time</em>
+              <em>*Staking rewards can NOT be redeemed before minimum staking time</em>
             </Text>
             <Flex
               style={{

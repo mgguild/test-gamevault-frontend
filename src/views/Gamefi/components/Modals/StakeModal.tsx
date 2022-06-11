@@ -134,7 +134,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
 
   const estimatedProfit = new BigNumber(stakeAmount)
     .multipliedBy(new BigNumber(tierSelected.APR).dividedBy(new BigNumber(100)))
-    .toString()
+    .toFormat()
 
   return (
     <>
@@ -195,6 +195,16 @@ const StakeModal: React.FC<StakeModalProps> = ({
                 ≈{estimatedFee.toFormat()} {pairSymbol}
               </Text>
             </Flex>
+            {isApproved &&
+              <>
+                <br />
+                <br />
+                <Flex>
+                  <Text>Approved {pairSymbol} spending</Text>
+                  <Text>{ getBalanceNumber(totalAllowance.balance, currentStake.stakingToken.decimals) } {pairSymbol}</Text>
+                </Flex>
+              </>
+            }
           </StyledDetails>
           {isApproved ? (
             <Button
@@ -203,8 +213,9 @@ const StakeModal: React.FC<StakeModalProps> = ({
               endIcon={isStaking ? <AutoRenewIcon spin color="currentColor" /> : null}
               onClick={handleStake}
               disabled={isStaking}
+              style={{backgroundColor: '#1c9f20'}}
             >
-              Confirm
+              Confirm Stake
             </Button>
           ) : (
             <Button
@@ -214,7 +225,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
               onClick={handleApprove}
               disabled={requestedApproval}
             >
-              Approve
+              Approve {stakeAmount} {pairSymbol} Stake
             </Button>
           )}
         </ModalBody>
