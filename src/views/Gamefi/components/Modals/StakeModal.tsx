@@ -195,16 +195,18 @@ const StakeModal: React.FC<StakeModalProps> = ({
                 ≈{estimatedFee.toFormat()} {pairSymbol}
               </Text>
             </Flex>
-            {isApproved &&
+            {isApproved && (
               <>
                 <br />
                 <br />
                 <Flex>
                   <Text>Approved {pairSymbol} spending</Text>
-                  <Text>{ getBalanceNumber(totalAllowance.balance, currentStake.stakingToken.decimals) } {pairSymbol}</Text>
+                  <Text>
+                    {getBalanceNumber(totalAllowance.balance, currentStake.stakingToken.decimals)} {pairSymbol}
+                  </Text>
                 </Flex>
               </>
-            }
+            )}
           </StyledDetails>
           {isApproved ? (
             <Button
@@ -213,7 +215,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
               endIcon={isStaking ? <AutoRenewIcon spin color="currentColor" /> : null}
               onClick={handleStake}
               disabled={isStaking}
-              style={{backgroundColor: '#1c9f20'}}
+              style={{ backgroundColor: '#1c9f20' }}
             >
               Confirm Stake
             </Button>

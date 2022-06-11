@@ -270,7 +270,9 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
               {currentPool.stakingToken.symbol} - {currentPool.earningToken.symbol} Pool Based Farm
             </Heading>
             <Text>Deposit your {currentPool.stakingToken.symbol} Tokens to earn Extra Annual Percentage Rate</Text>
-            <Heading size='lg' color={theme.colors.MGG_accent2}>Total {currentPool.stakingToken.symbol} staked</Heading>
+            <Heading size="lg" color={theme.colors.MGG_accent2}>
+              Total {currentPool.stakingToken.symbol} staked
+            </Heading>
             <Flex
               style={{
                 width: '100%',
