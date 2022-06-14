@@ -77,6 +77,7 @@ const PoolCard2: React.FC<PoolCard2Props> = ({
   const isBnbPool = poolCategory === PoolCategory.BINANCE
   const poolApr = getPoolApr(stakingPrice, rewardPrice, totalStaked, rewardPerBlock) ?? 0
   const apr = poolApr > 0 ? `${poolApr.toFixed(2)} %` : <Oval width="20px" height="20px" />
+  // const tiersLength = pool.poolCategory === PoolCategory.FIXEDAPR ? pool.fixedAprConfigs.tiers.length : null;
 
   return (
     <>
@@ -112,12 +113,22 @@ const PoolCard2: React.FC<PoolCard2Props> = ({
               </div>
             </Flex>
             <Flex style={{ justifyContent: 'end', alignItems: 'end' }}>
-              <div style={{ textAlign: 'end' }}>
-                <Text color="white">APR {apr}</Text>
-                <Heading color="white">
-                  {!isComingSoon && `${formatNumber(blocksRemaining, 0, 0)}`} {isComingSoon && '-'} blocks
-                </Heading>
-              </div>
+              { pool.poolCategory === PoolCategory.FIXEDAPR ? (
+                <div style={{ textAlign: 'end' }}>
+                  <Text color="white">FIXED APR</Text>
+                  {/* <Heading color="white">
+                    {pool.fixedAprConfigs.tiers[1].APR}% - {pool.fixedAprConfigs.tiers[tiersLength - 1].APR}%
+                  </Heading> */}
+                </div>
+                ):(
+                  <div style={{ textAlign: 'end' }}>
+                    <Text color="white">APR {apr}</Text>
+                    <Heading color="white">
+                      {!isComingSoon && `${formatNumber(blocksRemaining, 0, 0)}`} {isComingSoon && '-'} blocks
+                    </Heading>
+                  </div>
+                )
+              }
             </Flex>
           </Card2Container>
         </RLink>

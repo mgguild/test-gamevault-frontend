@@ -138,13 +138,11 @@ const Component: React.FC<ComponentProps> = ({
       <Flex justifyContent="center" style={{ width: '100%' }}>
         <Grid container spacing={{ xs: 2, md: 1 }} justifyContent="center">
           {[1, 2, 3, 4].map((index) => (
-            <>
-              <Grid key={index} item xs={12} sm={3} md={3}>
-                <ButtonSM fullWidth onClick={() => handleTierChange(index)}>
-                  {`${currentStake.fixedAprConfigs.tiers[index].duration} Days`}
-                </ButtonSM>
-              </Grid>
-            </>
+            <Grid key={index} item xs={12} sm={3} md={3}>
+              <ButtonSM fullWidth onClick={() => handleTierChange(index)}>
+                {`${currentStake.fixedAprConfigs.tiers[index].duration} Days`}
+              </ButtonSM>
+            </Grid>
           ))}
         </Grid>
       </Flex>

@@ -121,7 +121,7 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
           <Heading size="l" color="black">
             Staked:
           </Heading>
-          <Text style={{ color: 'white', textShadow: '1px 1px 1px black' }}>{`${amount} ${pairSymbol}`}</Text>
+          <Text style={{ color: 'white', textShadow: '1px 1px 1px black' }}>{`${new BigNumber(amount).toFormat()} ${pairSymbol}`}</Text>
         </div>
       </Flex>
 
@@ -157,16 +157,14 @@ const Component: React.FC<ComponentProps> = ({ stakingType, currentFarm, current
         <StakesContainer>
           {userStakes.map((stake, index) => {
             return (
-              <>
-                <Card key={stake.id}>
-                  <StakesCard
-                    currentStake={currentStake}
-                    pairSymbol={pairSymbol}
-                    stakeDetails={stake}
-                    chainId={chainId}
-                  />
-                </Card>
-              </>
+              <Card key={stake.id}>
+                <StakesCard
+                  currentStake={currentStake}
+                  pairSymbol={pairSymbol}
+                  stakeDetails={stake}
+                  chainId={chainId}
+                />
+              </Card>
             )
           })}
         </StakesContainer>

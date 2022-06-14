@@ -1,7 +1,9 @@
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState, lazy } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import RenderFarm from './sections/FarmsSection'
 import RenderPool from './sections/PoolSection'
+
+const ComingSoon = lazy(() => import('views/ComingSoon'))
 
 const FarmPage: React.FC<RouteComponentProps<{ type: string; farmID: string }>> = ({
   match: {
@@ -35,7 +37,8 @@ const FarmPage: React.FC<RouteComponentProps<{ type: string; farmID: string }>> 
   )
 
   return type === 'LP' ? (
-    <RenderFarm farmID={farmID} stakingType={type} tblColumns={columns} />
+    <ComingSoon title="GameFi | Farms" />
+    // <RenderFarm farmID={farmID} stakingType={type} tblColumns={columns} />
   ) : (
     <RenderPool farmID={farmID} tblColumns={columns} />
   )

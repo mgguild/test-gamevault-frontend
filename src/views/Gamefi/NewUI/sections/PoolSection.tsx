@@ -340,7 +340,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
               )}
               <Flex style={{ flex: '0 100%' }} />
               <Flex style={{ flex: '0 50%' }}>
-                <Text fontSize="0.7rem" color={theme.colors.MGG_accent2}>
+                <Text fontSize="0.7rem" color={theme.colors.textSubtle}>
                   Add Liquidity to get {currentPool.earningToken.symbol} Tokens
                 </Text>
               </Flex>
