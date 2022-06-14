@@ -111,7 +111,7 @@ const WithdrawModal: React.FC<StakeModalProps> = ({
   const estimatedProfit = new BigNumber(amount)
     .multipliedBy(new BigNumber(tier.APR).dividedBy(new BigNumber(100)))
     .toString()
-  console.log('stakeDetails:::::: ', stakeDetails)
+
   return (
     <>
       <Modal title="" onDismiss={onDismiss}>
