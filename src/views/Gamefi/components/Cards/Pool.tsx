@@ -113,22 +113,21 @@ const PoolCard2: React.FC<PoolCard2Props> = ({
               </div>
             </Flex>
             <Flex style={{ justifyContent: 'end', alignItems: 'end' }}>
-              { pool.poolCategory === PoolCategory.FIXEDAPR ? (
+              {pool.poolCategory === PoolCategory.FIXEDAPR ? (
                 <div style={{ textAlign: 'end' }}>
                   <Text color="white">FIXED APR</Text>
                   {/* <Heading color="white">
                     {pool.fixedAprConfigs.tiers[1].APR}% - {pool.fixedAprConfigs.tiers[tiersLength - 1].APR}%
                   </Heading> */}
                 </div>
-                ):(
-                  <div style={{ textAlign: 'end' }}>
-                    <Text color="white">APR {apr}</Text>
-                    <Heading color="white">
-                      {!isComingSoon && `${formatNumber(blocksRemaining, 0, 0)}`} {isComingSoon && '-'} blocks
-                    </Heading>
-                  </div>
-                )
-              }
+              ) : (
+                <div style={{ textAlign: 'end' }}>
+                  <Text color="white">APR {apr}</Text>
+                  <Heading color="white">
+                    {!isComingSoon && `${formatNumber(blocksRemaining, 0, 0)}`} {isComingSoon && '-'} blocks
+                  </Heading>
+                </div>
+              )}
             </Flex>
           </Card2Container>
         </RLink>
