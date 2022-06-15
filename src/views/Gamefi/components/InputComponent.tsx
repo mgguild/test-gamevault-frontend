@@ -148,7 +148,7 @@ const Component: React.FC<ComponentProps> = ({
       </Flex>
       <StyledDetails>
         <Flex style={{ width: '100%', flexFlow: 'row wrap', gap: '1rem', justifyContent: 'space-evenly' }}>
-          {dayDuration !== 0 ? (
+          {tierSelected.duration !== 0 ? (
             <>
               <Stats>
                 <div>
