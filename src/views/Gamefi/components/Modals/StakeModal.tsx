@@ -165,7 +165,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
               </Text>
             </Flex>
             <br />
-            <HrBroken />
+            <hr style={{ width: '100%' }} />
             <br />
             <Flex>
               <Text>Your Balance</Text>
@@ -188,10 +188,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
             </Flex>
             <br />
             <br />
-            <Flex>
-              <Text>Max Early Unstaking Fee</Text>
-              <Text>{maxFine}%</Text>
-            </Flex>
 
             <Flex>
               <Text>Unstaking Fee (estimated)</Text>

@@ -27,7 +27,6 @@ const ButtonSM = styled(Button)`
 
 const Card = styled.div`
   width: 100%;
-  height: 100%;
   border-radius: 0.5rem;
   flex: 1;
   background-color: ${({ theme }) => theme.colors.MGG_accent2};
@@ -45,6 +44,7 @@ const StakesContainer = styled.div`
   flex-flow: row wrap;
   column-gap: 1rem;
   row-gap: 1rem;
+  align-items: stretch;
 `
 
 const daysRemaining = (date: number, duration: number) => {
@@ -110,7 +110,7 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
             Staked At:
           </Heading>
           <Text fontSize="0.9rem" color="black">
-            {moment(stakedAt).format('LLL')} GMT
+            {moment(stakedAt).format('LLL')} UTC
           </Text>
         </div>
       </Flex>

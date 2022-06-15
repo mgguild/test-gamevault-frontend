@@ -145,7 +145,7 @@ const WithdrawModal: React.FC<StakeModalProps> = ({
             <Flex>
               <div>
                 <Text>Staked at</Text>
-                <Text>{moment(stakedAt).format('LLL')} GMT</Text>
+                <Text>{moment(stakedAt).format('LLL')} UTC</Text>
               </div>
               <div style={{ textAlign: 'right' }}>
                 <Text>Can be claimed on</Text>
@@ -159,7 +159,7 @@ const WithdrawModal: React.FC<StakeModalProps> = ({
                 </Text>
               </div>
             </Flex>
-            <HrBroken />
+            <hr style={{ width: '100%' }} />
             <Flex>
               <Text>Max profit (estimated)</Text>
               <Text>
