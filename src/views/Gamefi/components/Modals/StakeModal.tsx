@@ -206,7 +206,10 @@ const StakeModal: React.FC<StakeModalProps> = ({
                 <Flex>
                   <Text>Approved {pairSymbol} spending</Text>
                   <Text>
-                    {new BigNumber(getBalanceNumber(totalAllowance.balance, currentStake.stakingToken.decimals)).toFormat()} {pairSymbol}
+                    {new BigNumber(
+                      getBalanceNumber(totalAllowance.balance, currentStake.stakingToken.decimals),
+                    ).toFormat()}{' '}
+                    {pairSymbol}
                   </Text>
                 </Flex>
               </>
