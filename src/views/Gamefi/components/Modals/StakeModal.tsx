@@ -224,7 +224,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
               disabled={isStaking}
               style={{ backgroundColor: '#1c9f20' }}
             >
-              Confirm Stake
+              Stake
             </Button>
           ) : (
             <Button
@@ -234,7 +234,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
               onClick={handleApprove}
               disabled={requestedApproval}
             >
-              Approve {stakeAmount} {pairSymbol} Stake
+              Approve
             </Button>
           )}
         </ModalBody>

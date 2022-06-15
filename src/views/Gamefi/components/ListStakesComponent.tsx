@@ -40,12 +40,11 @@ const Card = styled.div`
 `
 
 const StakesContainer = styled.div`
-  display: grid;
+  display: flex;
   width: 100%;
   flex-flow: row wrap;
   column-gap: 1rem;
   row-gap: 1rem;
-  grid-template-columns: 1fr 1fr;
 `
 
 const daysRemaining = (date: number, duration: number) => {
