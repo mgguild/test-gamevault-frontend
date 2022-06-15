@@ -52,9 +52,13 @@ const HrBroken = styled.hr`
   border-bottom: none;
 `
 const ModalBody = styled.div`
-  width: 450px;
+  min-width: 450px;
   margin-top: -20px;
   padding: 20px;
+
+  @media (max-width: 477px) {
+    min-width: 0px;
+  }
 `
 
 const WithdrawModal: React.FC<StakeModalProps> = ({

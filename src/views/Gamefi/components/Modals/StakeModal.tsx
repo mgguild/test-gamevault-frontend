@@ -54,9 +54,13 @@ const HrBroken = styled.hr`
   border-bottom: none;
 `
 const ModalBody = styled.div`
-  width: 450px;
+  min-width: 450px;
   margin-top: -20px;
   padding: 20px;
+
+  @media (max-width: 477px) {
+    min-width: 0px;
+  }
 `
 
 const StakeModal: React.FC<StakeModalProps> = ({
@@ -202,7 +206,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
                 <Flex>
                   <Text>Approved {pairSymbol} spending</Text>
                   <Text>
-                    {getBalanceNumber(totalAllowance.balance, currentStake.stakingToken.decimals)} {pairSymbol}
+                    {new BigNumber(getBalanceNumber(totalAllowance.balance, currentStake.stakingToken.decimals)).toFormat()} {pairSymbol}
                   </Text>
                 </Flex>
               </>

@@ -33,7 +33,7 @@ const Gamefi: React.FC = () => {
   const { account } = useWeb3React()
   const { path } = useRouteMatch()
   const { pathname } = useLocation()
-  const { data: farmsLP, userDataLoaded } = useFarms()
+  // const { data: farmsLP, userDataLoaded } = useFarms()
   const { pools: poolsWithoutAutoVault } = usePools(account)
   const cakePrice = usePriceCakeBusd()
   const isArchived = pathname.includes('archived')
@@ -51,26 +51,29 @@ const Gamefi: React.FC = () => {
   useFetchPublicPoolsData()
   // Users with no wallet connected should see 0 as Earned amount
   // Connected users should see loading indicator until first userData has loaded
-  const userDataReady = !account || (!!account && userDataLoaded)
+  // Temporarily Hide Farms
+  const userDataReady = !account // || (!!account && userDataLoaded)
   const [stakedOnly, setStakedOnly] = useState(!isActive)
   useEffect(() => {
     setStakedOnly(!isActive)
   }, [isActive])
-  const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid))
-  const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
-  const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
+  // Temporarily Hide Farms
+  // const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid))
+  // const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
+  // const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
 
-  const stakedOnlyFarms = activeFarms.filter(
-    (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
-  )
+  // const stakedOnlyFarms = activeFarms.filter(
+  //   (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
+  // )
 
-  const stakedInactiveFarms = inactiveFarms.filter(
-    (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
-  )
+  // const stakedInactiveFarms = inactiveFarms.filter(
+  //   (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
+  // )
 
-  const stakedArchivedFarms = archivedFarms.filter(
-    (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
-  )
+  // const stakedArchivedFarms = archivedFarms.filter(
+  //   (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
+  // )
+
   const handleChangeQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value)
   }
@@ -136,24 +139,27 @@ const Gamefi: React.FC = () => {
     const stakingList = { activeFarms: [], inactiveFarms: [], activePools: [], inactivePools: [] }
 
     if (stakedOnly) {
-      stakingList.activeFarms = farmsList(stakedOnlyFarms)
-      stakingList.inactiveFarms = farmsList(stakedInactiveFarms)
+      // Temporarily Hide Farms
+      // stakingList.activeFarms = farmsList(stakedOnlyFarms)
+      // stakingList.inactiveFarms = farmsList(stakedInactiveFarms)
       stakingList.activePools = stakedOnlyOpenPools
       stakingList.inactivePools = stakedOnlyFinishedPools
     } else {
-      stakingList.activeFarms = farmsList(activeFarms)
-      stakingList.inactiveFarms = farmsList(inactiveFarms)
+      // Temporarily Hide Farms
+      // stakingList.activeFarms = farmsList(activeFarms)
+      // stakingList.inactiveFarms = farmsList(inactiveFarms)
       stakingList.activePools = openPools
       stakingList.inactivePools = finishedPools
     }
     return stakingList
   }, [
-    farmsList,
-    activeFarms,
-    inactiveFarms,
-    stakedInactiveFarms,
+    // Temporarily Hide Farms
+    // farmsList,
+    // activeFarms,
+    // inactiveFarms,
+    // stakedInactiveFarms,
     stakedOnly,
-    stakedOnlyFarms,
+    // stakedOnlyFarms,
     finishedPools,
     openPools,
     stakedOnlyOpenPools,
@@ -164,8 +170,9 @@ const Gamefi: React.FC = () => {
     const render = (type) => {
       switch (type) {
         case 'RENDER_ENDED':
-          return stakedMemoized.inactiveFarms.length !== 0 && stakedMemoized.inactivePools.length !== 0 ? (
+          return stakedMemoized.inactivePools.length !== 0 ? (
             <StakeSection>
+              {/* Temporarily Hide Farms
               {stakedMemoized.inactiveFarms.length !== 0 ? (
                 <Grid container spacing={4}>
                   {stakedMemoized.inactiveFarms.map((farm) => (
@@ -182,7 +189,7 @@ const Gamefi: React.FC = () => {
                 </Grid>
               ) : (
                 <NotAvailable title="Inactive Farms" />
-              )}
+              )} */}
               {stakedMemoized.inactivePools.length !== 0 ? (
                 <Grid container spacing={4}>
                   {stakedMemoized.inactivePools.map((pool) => (
@@ -206,8 +213,9 @@ const Gamefi: React.FC = () => {
             <NotAvailable title="inactive farms and pools" />
           )
         default:
-          return stakedMemoized.activeFarms.length !== 0 && stakedMemoized.activePools.length !== 0 ? (
+          return stakedMemoized.activePools.length !== 0 ? (
             <StakeSection>
+              {/* Temporarily Hide Farms
               {stakedMemoized.activeFarms.length !== 0 ? (
                 <Grid container spacing={4}>
                   {stakedMemoized.activeFarms.map((farm) => (
@@ -224,11 +232,11 @@ const Gamefi: React.FC = () => {
                 </Grid>
               ) : (
                 <NotAvailable title="Active Farms" />
-              )}
+              )} */}
               {stakedMemoized.activePools.length !== 0 ? (
                 <Grid container spacing={2}>
                   {stakedMemoized.activePools.map((pool) => (
-                    <Grid key={pool.sousId} item md={11}>
+                    <Grid key={pool.sousId} item md={11} style={{display: 'grid', gridTemplateColumns: '1fr 1fr'}}>
                       <PoolCard
                         userDataReady={userDataReady}
                         pool={pool}

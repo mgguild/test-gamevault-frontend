@@ -21,7 +21,6 @@ import { Pool } from 'state/types'
 import { Tiers } from 'config/constants/types'
 
 const ModalBody = styled.div`
-  min-width: 450px;
   margin-top: -20px;
   padding: 20px;
 `
