@@ -145,10 +145,10 @@ const WithdrawModal: React.FC<StakeModalProps> = ({
             <Flex>
               <div>
                 <Text>Staked at</Text>
-                <Text>{moment(stakedAt).format('LLL')}</Text>
+                <Text>{moment(stakedAt).format('LLL')} GMT</Text>
               </div>
               <div style={{ textAlign: 'right' }}>
-                <Text>Can be clamed on</Text>
+                <Text>Can be claimed on</Text>
                 <Text>
                   {moment(stakedAt).add(tier.duration, 'days').format('LL')}
                   {daysLeft > 0 ? (
