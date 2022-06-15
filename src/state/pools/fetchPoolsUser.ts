@@ -120,7 +120,7 @@ export const fetchUserFixedAprDetails = async (account, chain: string) => {
     const parseStakes = []
 
     allStakesDetails[index][0].forEach((detail) => {
-      parseStakes.push({
+      parseStakes.unshift({
         id: new BigNumber(detail.id._hex).toJSON(),
         owner: detail.owner,
         tier: new BigNumber(detail.tier._hex).toJSON(),
