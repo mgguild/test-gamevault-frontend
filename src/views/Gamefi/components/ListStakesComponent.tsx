@@ -5,7 +5,7 @@ import { Flex, Text, Button, Input, Heading, useModal } from '@metagg/mgg-uikit'
 import BigNumber from 'bignumber.js'
 import { getBalanceNumber, getDecimalAmount, toBigNumber } from 'utils/formatBalance'
 import { Pool } from 'state/types'
-// import ClaimModal from './Modals/WithdrawModal'
+import ClaimModal from './Modals/WithdrawModal'
 import { FarmWithStakedValue } from '../config'
 
 BigNumber.config({
@@ -75,20 +75,20 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
   const amount = getBalanceNumber(new BigNumber(stakeDetails.amount), currentStake.stakingToken.decimals)
   const daysLeft = daysRemaining(stakedAt, thisTier.duration)
 
-  // const [onPresentUnstakeAction] = useModal(
-  //   <ClaimModal
-  //     chainId={chainId}
-  //     stakingType='pool'
-  //     currentStake={currentStake}
-  //     pairSymbol={pairSymbol}
-  //     maxFine={currentStake.fixedAprConfigs.maxFine}
-  //     stakeDetails={stakeDetails}
-  //     tier={thisTier}
-  //     amount={amount}
-  //     stakedAt={stakedAt}
-  //     daysLeft={daysLeft}
-  //   />
-  // )
+  const [onPresentUnstakeAction] = useModal(
+    <ClaimModal
+      chainId={chainId}
+      stakingType="pool"
+      currentStake={currentStake}
+      pairSymbol={pairSymbol}
+      maxFine={currentStake.fixedAprConfigs.maxFine}
+      stakeDetails={stakeDetails}
+      tier={thisTier}
+      amount={amount}
+      stakedAt={stakedAt}
+      daysLeft={daysLeft}
+    />,
+  )
 
   return (
     <>
@@ -127,11 +127,8 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
 
       <Flex style={{ justifyContent: 'end', alignItems: 'end' }}>
         <div>
-          <ButtonSM
-            color="black"
-            // onClick={() => onPresentUnstakeAction()}
-          >
-            <Text>CLAIM</Text>
+          <ButtonSM color="black" onClick={() => onPresentUnstakeAction()}>
+            {daysLeft > 0 ? <Text>Unstake</Text> : <Text>CLAIM</Text>}
           </ButtonSM>
         </div>
       </Flex>
@@ -156,7 +153,7 @@ const Component: React.FC<ComponentProps> = ({ stakingType, currentFarm, current
 
   return (
     <>
-      {userStakes ? (
+      {userStakes && userStakes.length > 0 ? (
         <StakesContainer>
           {userStakes.map((stake, index) => {
             return (
