@@ -32,7 +32,7 @@ const Card = styled.div`
   background-color: ${({ theme }) => theme.colors.MGG_accent2};
   display: grid;
   position: relative;
-  padding: 1rem 1.5rem;
+  padding: 1rem 1rem;
   grid-template-columns: 1fr 1fr;
   column-gap: 1rem;
   row-gap: 1rem;
@@ -88,7 +88,7 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
       daysLeft={daysLeft}
     />,
   )
-
+  const stakedAtDate = new BigNumber(stakedAt).plus(new BigNumber(28800000)).toNumber()
   return (
     <>
       <Flex style={{ textAlign: 'left' }}>
@@ -110,7 +110,10 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
             Staked At:
           </Heading>
           <Text fontSize="0.9rem" color="black">
-            {moment(stakedAt).format('LLL')} UTC
+            {moment(stakedAtDate).format('ll')}
+          </Text>
+          <Text fontSize="0.9rem" color="black">
+            {moment(stakedAtDate).format('LT')} GMT + 8
           </Text>
         </div>
       </Flex>
