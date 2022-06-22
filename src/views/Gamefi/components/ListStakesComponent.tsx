@@ -3,6 +3,7 @@ import moment from 'moment'
 import styled, { ThemeContext } from 'styled-components'
 import { Flex, Text, Button, Input, Heading, useModal } from '@metagg/mgg-uikit'
 import BigNumber from 'bignumber.js'
+import { BIG_ZERO } from 'utils/bigNumber'
 import { getBalanceNumber, getDecimalAmount, toBigNumber } from 'utils/formatBalance'
 import { Pool } from 'state/types'
 import ClaimModal from './Modals/WithdrawModal'
@@ -88,7 +89,12 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
       daysLeft={daysLeft}
     />,
   )
-  const stakedAtDate = new BigNumber(stakedAt).plus(new BigNumber(28800000)).toNumber()
+
+  const timeZone = new Intl.DateTimeFormat('en-us', { timeZoneName: 'short' })
+  .formatToParts(new Date())
+  .find(part => part.type === "timeZoneName")
+  .value
+
   return (
     <>
       <Flex style={{ textAlign: 'left' }}>
@@ -110,10 +116,10 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
             Staked At:
           </Heading>
           <Text fontSize="0.9rem" color="black">
-            {moment(stakedAtDate).format('ll')}
+            {moment(stakedAt).format('ll')}
           </Text>
           <Text fontSize="0.9rem" color="black">
-            {moment(stakedAtDate).format('LT')} GMT + 8
+            {moment(stakedAt).format('LT')} {timeZone}
           </Text>
         </div>
       </Flex>

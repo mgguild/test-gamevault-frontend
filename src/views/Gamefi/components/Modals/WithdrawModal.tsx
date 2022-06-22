@@ -116,6 +116,11 @@ const WithdrawModal: React.FC<StakeModalProps> = ({
     .multipliedBy(new BigNumber(tier.APR).dividedBy(new BigNumber(100)))
     .toString()
 
+  const timeZone = new Intl.DateTimeFormat('en-us', { timeZoneName: 'short' })
+    .formatToParts(new Date())
+    .find(part => part.type === "timeZoneName")
+    .value
+
   return (
     <>
       <Modal title="" onDismiss={onDismiss}>
@@ -145,7 +150,7 @@ const WithdrawModal: React.FC<StakeModalProps> = ({
             <Flex>
               <div>
                 <Text>Staked at</Text>
-                <Text>{moment(stakedAt).format('LLL')} UTC</Text>
+                <Text>{moment(stakedAt).format('LLL')} {timeZone}</Text>
               </div>
               <div style={{ textAlign: 'right' }}>
                 <Text>Can be claimed on</Text>
