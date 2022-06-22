@@ -91,9 +91,8 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
   )
 
   const timeZone = new Intl.DateTimeFormat('en-us', { timeZoneName: 'short' })
-  .formatToParts(new Date())
-  .find(part => part.type === "timeZoneName")
-  .value
+    .formatToParts(new Date())
+    .find((part) => part.type === 'timeZoneName').value
 
   return (
     <>
