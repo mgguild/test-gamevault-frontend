@@ -17,9 +17,11 @@ import {
 import { getFarmApr, getFarmV2Apr } from 'utils/apr'
 import { latinise } from 'utils/latinise'
 import isArchivedPid from 'utils/farmHelpers'
+import usePersistState from 'hooks/usePersistState'
 import { Text, Flex, Heading } from '@metagg/mgg-uikit'
 import { Toggle } from '@pancakeswap/uikit'
 import SearchInput from 'components/SearchInput'
+import ToggleView, { ViewMode } from './components/ToggleView/ToggleView'
 import { FarmWithStakedValue } from './config'
 import TabButtons from './components/TabButtons'
 import NotAvailable from './components/NotAvailable'
@@ -32,6 +34,7 @@ const Gamefi: React.FC = () => {
   const { account } = useWeb3React()
   const { path } = useRouteMatch()
   const { pathname } = useLocation()
+  const [viewMode, setViewMode] = usePersistState(ViewMode.TABLE, { localStorageKey: 'mgg_vaults_view' })
   const { data: farmsLP, userDataLoaded } = useFarms()
   const { pools: poolsWithoutAutoVault } = usePools(account)
   const cakePrice = usePriceCakeBusd()
@@ -281,6 +284,10 @@ const Gamefi: React.FC = () => {
         <FilterItem>
           <Text textTransform="uppercase">Search</Text>
           <SearchInput onChange={handleChangeQuery} placeholder="Search Farms" />
+        </FilterItem>
+         <FilterItem>
+          <Text textTransform='uppercase'>View</Text>
+          <ToggleView viewMode={viewMode} onToggle={(mode: ViewMode) => setViewMode(mode)} />
         </FilterItem>
       </HeaderSection>
       <BodySection>
