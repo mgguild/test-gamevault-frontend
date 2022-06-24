@@ -7,7 +7,7 @@ import { getMasterchefContract } from 'utils/contractHelpers'
 import { getAddress } from 'utils/addressHelpers'
 import web3NoAccount from 'utils/web3'
 import BigNumber from 'bignumber.js'
-import { PoolCategory } from 'config/constants/types'
+import { PoolCategory, PoolConfig } from 'config/constants/types'
 import { MAINNET_CHAIN_ID, TESTNET_CHAIN_ID } from 'config'
 
 // Pool 0, Cake / Cake is a different kind of contract (master chef)
@@ -98,6 +98,28 @@ export const fetchUserPendingRewards = async (account, chain: string) => {
   return { ...pendingRewards, 0: new BigNumber(pendingReward).toJSON() }
 }
 
+export const fetchFixedAPRClaimables = async (account, chain: string, fixedAprDetails) => {
+  const newStakesDetails = { ...fixedAprDetails }
+
+  await fixedAPRPools.reduce(async (promise, pool) => {
+    await promise
+
+    const callGetClaimableAmount = fixedAprDetails[pool.sousId].stakesDetails.map((stake) => ({
+      address: getAddress(pool.contractAddress, pool.chain),
+      name: 'getClaimableAmount',
+      params: [stake.id],
+    }))
+
+    const claimables = await multicall(fixedAprPoolABI, callGetClaimableAmount, {}, chain)
+    claimables.forEach((profit, index) => {
+      newStakesDetails[pool.sousId].stakesDetails[index].profit = new BigNumber(profit[0]._hex).toJSON()
+    });
+
+  }, Promise.resolve())
+
+  return newStakesDetails
+}
+
 export const fetchUserFixedAprDetails = async (account, chain: string) => {
   const callUserFixedAprStakedOf = fixedAPRPools.map((p) => ({
     address: getAddress(p.contractAddress, p.chain),
@@ -121,7 +143,7 @@ export const fetchUserFixedAprDetails = async (account, chain: string) => {
 
     allStakesDetails[index][0].forEach((detail) => {
       parseStakes.unshift({
-        id: new BigNumber(detail.id._hex).toJSON(),
+        id: new BigNumber(detail.id._hex).toNumber(),
         owner: detail.owner,
         tier: new BigNumber(detail.tier._hex).toJSON(),
         amount: new BigNumber(detail.amount._hex).toJSON(),
