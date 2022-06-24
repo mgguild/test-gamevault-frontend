@@ -16,7 +16,7 @@ const NotAvailable = ({ title }) => {
   return (
     <StyledNotFound>
       <img src="/logo.png" alt="LogoIcon" width="64px" style={{ marginBottom: '8px' }} />
-      <Text mb="16px">{`No ${title} found`}</Text>
+      <Text mb="16px">{`No ${title} Found`}</Text>
     </StyledNotFound>
   )
 }

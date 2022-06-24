@@ -178,7 +178,7 @@ const Gamefi: React.FC = () => {
                   ))}
                 </Grid>
               ) : (
-                <NotAvailable title="Inactive Farms" />
+                <NotAvailable title="Inactive Vaults" />
               )}
               {stakedMemoized.inactivePools.length !== 0 ? (
                 <Grid container spacing={4}>
@@ -196,11 +196,11 @@ const Gamefi: React.FC = () => {
                   ))}
                 </Grid>
               ) : (
-                <NotAvailable title="Inactive Pools" />
+                <NotAvailable title="Inactive Vaults" />
               )}
             </StakeSection>
           ) : (
-            <NotAvailable title="inactive farms and pools" />
+            <NotAvailable title="Inactive Vaults" />
           )
         default:
           return stakedMemoized.activeFarms.length !== 0 && stakedMemoized.activePools.length !== 0 ? (
@@ -220,7 +220,7 @@ const Gamefi: React.FC = () => {
                   ))}
                 </Grid>
               ) : (
-                <NotAvailable title="Active Farms" />
+                <NotAvailable title="Active Vaults" />
               )}
               {stakedMemoized.activePools.length !== 0 ? (
                 <Grid container spacing={2}>
@@ -238,11 +238,11 @@ const Gamefi: React.FC = () => {
                   ))}
                 </Grid>
               ) : (
-                <NotAvailable title="Active Pools" />
+                <NotAvailable title="Active Vaults" />
               )}
             </StakeSection>
           ) : (
-            <NotAvailable title="active farms and pools" />
+            <NotAvailable title="Active Vaults" />
           )
       }
     }
@@ -284,11 +284,11 @@ const Gamefi: React.FC = () => {
         </FilterItem>
       </HeaderSection>
       <BodySection>
-        <Heading size="xl">Live Farms</Heading>
+        <Heading size="xl">Live Vaults</Heading>
         {renderContent({ RENDER_TYPE: '' })}
       </BodySection>
       <BodySection>
-        <Heading size="xl">Past Farms</Heading>
+        <Heading size="xl">Past Vaults</Heading>
         {renderContent({ RENDER_TYPE: 'RENDER_ENDED' })}
       </BodySection>
     </div>
