@@ -28,6 +28,7 @@ interface StakeModalProps {
   stakeDetails: any
   tier: any
   amount: number
+  profit: number
   stakedAt: number
   daysLeft: number
   onSelectMax?: () => void
@@ -70,6 +71,7 @@ const WithdrawModal: React.FC<StakeModalProps> = ({
   stakeDetails,
   tier,
   amount,
+  profit,
   stakedAt,
   daysLeft,
   onDismiss,
@@ -114,7 +116,7 @@ const WithdrawModal: React.FC<StakeModalProps> = ({
 
   const estimatedProfit = new BigNumber(amount)
     .multipliedBy(new BigNumber(tier.APR).dividedBy(new BigNumber(100)))
-    .toString()
+    .toFormat()
 
   const timeZone = new Intl.DateTimeFormat('en-us', { timeZoneName: 'short' })
     .formatToParts(new Date())
@@ -141,7 +143,7 @@ const WithdrawModal: React.FC<StakeModalProps> = ({
             <Flex>
               <Text>{pairSymbol} Staked</Text>
               <Text>
-                {amount} {pairSymbol}
+                {new BigNumber(amount).toFormat()} {pairSymbol}
               </Text>
             </Flex>
             <br />
@@ -167,7 +169,13 @@ const WithdrawModal: React.FC<StakeModalProps> = ({
             </Flex>
             <hr style={{ width: '100%' }} />
             <Flex>
-              <Text>Max profit (estimated)</Text>
+              <Text>Recent Token Profit</Text>
+              <Text>
+                {new BigNumber(profit).toFormat()} {pairSymbol}
+              </Text>
+            </Flex>
+            <Flex>
+              <Text>Max profit by end (estimated)</Text>
               <Text>
                 ≈ {estimatedProfit} {pairSymbol}
               </Text>

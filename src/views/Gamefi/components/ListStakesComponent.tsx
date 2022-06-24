@@ -28,8 +28,7 @@ const ButtonSM = styled(Button)`
 
 const Card = styled.div`
   width: 100%;
-  border-radius: 0.5rem;
-  flex: 1;
+  border-radius: 0.5rem 0.5rem 0 0;
   background-color: ${({ theme }) => theme.colors.MGG_accent2};
   display: grid;
   position: relative;
@@ -73,6 +72,7 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
   const thisTier = currentStake.fixedAprConfigs.tiers[new BigNumber(stakeDetails.tier).toNumber()]
   const stakedAt = getDecimalAmount(new BigNumber(stakeDetails.stakedAt), 3).toNumber()
   const amount = getBalanceNumber(new BigNumber(stakeDetails.amount), currentStake.stakingToken.decimals)
+  const profit = getBalanceNumber(new BigNumber(stakeDetails.profit), currentStake.stakingToken.decimals)
   const daysLeft = daysRemaining(stakedAt, thisTier.duration)
 
   const [onPresentUnstakeAction] = useModal(
@@ -85,6 +85,7 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
       stakeDetails={stakeDetails}
       tier={thisTier}
       amount={amount}
+      profit={profit}
       stakedAt={stakedAt}
       daysLeft={daysLeft}
     />,
@@ -96,51 +97,59 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
 
   return (
     <>
-      <Flex style={{ textAlign: 'left' }}>
-        <div>
-          <Text color="black" fontSize="0.8rem">
-            Duration:
-          </Text>
-          <Heading color="black">{thisTier.duration} days</Heading>
-          {daysLeft > 0 ? (
-            <Text style={{ color: 'white', textShadow: '1px 1px 1px black' }}>{daysLeft} days left</Text>
-          ) : (
-            <Text style={{ color: 'white', textShadow: '1px 1px 1px black' }}>Claimable</Text>
-          )}
-        </div>
-      </Flex>
-      <Flex style={{ justifyContent: 'end' }}>
-        <div style={{ textAlign: 'end' }}>
-          <Heading size="l" fontSize="0.9rem" color="black">
-            Staked At:
-          </Heading>
-          <Text fontSize="0.9rem" color="black">
-            {moment(stakedAt).format('ll')}
-          </Text>
-          <Text fontSize="0.9rem" color="black">
-            {moment(stakedAt).format('LT')} {timeZone}
-          </Text>
-        </div>
-      </Flex>
+      <Card>
+        <Flex style={{ textAlign: 'left' }}>
+          <div>
+            <Text color="black" fontSize="0.8rem">
+              Duration:
+            </Text>
+            <Heading color="black">{thisTier.duration} days</Heading>
+            {daysLeft > 0 ? (
+              <Text style={{ color: 'white', textShadow: '1px 1px 1px black' }}>{daysLeft} days left</Text>
+            ) : (
+              <Text style={{ color: 'white', textShadow: '1px 1px 1px black' }}>Claimable</Text>
+            )}
+          </div>
+        </Flex>
+        <Flex style={{ justifyContent: 'end' }}>
+          <div style={{ textAlign: 'end' }}>
+            <Heading size="l" fontSize="0.9rem" color="black">
+              Staked At:
+            </Heading>
+            <Text fontSize="0.9rem" color="black">
+              {moment(stakedAt).format('ll')}
+            </Text>
+            <Text fontSize="0.9rem" color="black">
+              {moment(stakedAt).format('LT')} {timeZone}
+            </Text>
+          </div>
+        </Flex>
 
-      <Flex style={{ textAlign: 'left' }}>
-        <div>
-          <Heading size="l" color="black">
-            Staked:
-          </Heading>
-          <Text style={{ color: 'white', textShadow: '1px 1px 1px black' }}>{`${new BigNumber(
-            amount,
-          ).toFormat()} ${pairSymbol}`}</Text>
-        </div>
-      </Flex>
+        <Flex style={{ textAlign: 'left' }}>
+          <div>
+            <Heading size="l" color="black">
+              Staked:
+            </Heading>
+            <Text style={{ color: 'white', textShadow: '1px 1px 1px black' }}>{`${new BigNumber(
+              amount,
+            ).toFormat()} ${pairSymbol}`}</Text>
+          </div>
+        </Flex>
 
-      <Flex style={{ justifyContent: 'end', alignItems: 'end' }}>
-        <div>
-          <ButtonSM color="black" onClick={() => onPresentUnstakeAction()}>
-            {daysLeft > 0 ? <Text>Unstake</Text> : <Text>CLAIM</Text>}
-          </ButtonSM>
-        </div>
-      </Flex>
+        <Flex style={{ justifyContent: 'end', alignItems: 'end', minWidth: '5.83rem', textAlign: 'right'  }}>
+          <div>
+            <Heading size="l" fontSize="0.9rem" color="black">
+              Recent Profit:
+            </Heading>
+            <Text style={{ color: 'white', textShadow: '1px 1px 1px black' }}>
+              {new BigNumber(profit).toFormat()} {pairSymbol}
+            </Text>
+          </div>
+        </Flex>
+      </Card>
+      <ButtonSM color="black" style={{width: '100%', borderRadius: '0 0 0.5rem 0.5rem'}} onClick={() => onPresentUnstakeAction()}>
+        {daysLeft > 0 ? <Text>Unstake</Text> : <Text>CLAIM</Text>}
+      </ButtonSM>
     </>
   )
 }
@@ -166,14 +175,14 @@ const Component: React.FC<ComponentProps> = ({ stakingType, currentFarm, current
         <StakesContainer>
           {userStakes.map((stake, index) => {
             return (
-              <Card key={stake.id}>
+              <div style={{width: '100%', flex: 1}} key={stake.id}>
                 <StakesCard
                   currentStake={currentStake}
                   pairSymbol={pairSymbol}
                   stakeDetails={stake}
                   chainId={chainId}
                 />
-              </Card>
+              </div>
             )
           })}
         </StakesContainer>
