@@ -136,7 +136,7 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
           </div>
         </Flex>
 
-        <Flex style={{ justifyContent: 'end', alignItems: 'end', minWidth: '5.83rem', textAlign: 'right'  }}>
+        <Flex style={{ justifyContent: 'end', alignItems: 'end', minWidth: '5.83rem', textAlign: 'right' }}>
           <div>
             <Heading size="l" fontSize="0.9rem" color="black">
               Recent Profit:
@@ -147,7 +147,11 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
           </div>
         </Flex>
       </Card>
-      <ButtonSM color="black" style={{width: '100%', borderRadius: '0 0 0.5rem 0.5rem'}} onClick={() => onPresentUnstakeAction()}>
+      <ButtonSM
+        color="black"
+        style={{ width: '100%', borderRadius: '0 0 0.5rem 0.5rem' }}
+        onClick={() => onPresentUnstakeAction()}
+      >
         {daysLeft > 0 ? <Text>Unstake</Text> : <Text>CLAIM</Text>}
       </ButtonSM>
     </>
@@ -175,7 +179,7 @@ const Component: React.FC<ComponentProps> = ({ stakingType, currentFarm, current
         <StakesContainer>
           {userStakes.map((stake, index) => {
             return (
-              <div style={{width: '100%', flex: 1}} key={stake.id}>
+              <div style={{ width: '100%', flex: 1 }} key={stake.id}>
                 <StakesCard
                   currentStake={currentStake}
                   pairSymbol={pairSymbol}

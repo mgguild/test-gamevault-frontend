@@ -14,7 +14,7 @@ import {
   fetchUserStakeBalances,
   fetchUserPendingRewards,
   fetchUserFixedAprDetails,
-  fetchFixedAPRClaimables
+  fetchFixedAPRClaimables,
 } from './fetchPoolsUser'
 import { fetchPublicVaultData, fetchVaultFees } from './fetchVaultPublic'
 import fetchVaultUser from './fetchVaultUser'
@@ -118,7 +118,9 @@ export const fetchPoolsUserDataAsync =
     const stakedBalances = await fetchUserStakeBalances(account, chain)
     const pendingRewards = await fetchUserPendingRewards(account, chain)
     const fixedAprDetails = await fetchUserFixedAprDetails(account, chain)
-    const fixedAPRDetailsProfit = fixedAprDetails ? await fetchFixedAPRClaimables(account, chain, fixedAprDetails) : null
+    const fixedAPRDetailsProfit = fixedAprDetails
+      ? await fetchFixedAPRClaimables(account, chain, fixedAprDetails)
+      : null
 
     const userData = poolsConfig.map((pool) => ({
       sousId: pool.sousId,

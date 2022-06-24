@@ -113,8 +113,7 @@ export const fetchFixedAPRClaimables = async (account, chain: string, fixedAprDe
     const claimables = await multicall(fixedAprPoolABI, callGetClaimableAmount, {}, chain)
     claimables.forEach((profit, index) => {
       newStakesDetails[pool.sousId].stakesDetails[index].profit = new BigNumber(profit[0]._hex).toJSON()
-    });
-
+    })
   }, Promise.resolve())
 
   return newStakesDetails
