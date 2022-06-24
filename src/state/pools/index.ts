@@ -130,7 +130,6 @@ export const fetchPoolsUserDataAsync =
     }))
 
     dispatch(setPoolsUserData(userData))
-    console.log('userData: ', userData)
   }
 
 export const updateUserAllowance =
