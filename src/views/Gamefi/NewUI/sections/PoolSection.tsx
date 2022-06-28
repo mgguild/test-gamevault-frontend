@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } 
 import { Route, useLocation, useRouteMatch } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import moment from 'moment'
+import { BASE_SPARKSWAP_INFO, BASE_SWAP_URL } from 'config'
 import { useWeb3React } from '@web3-react/core'
 import { getImageUrlFromToken } from 'utils/assetFetch'
 import { Flex, Link, Text, Heading } from '@metagg/mgg-uikit'
@@ -59,6 +60,8 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
   const overallStaked = new BigNumber(
     getBalanceNumber(new BigNumber(currentPool.totalStaked), currentPool.stakingToken.decimals),
   ).toFormat()
+
+  const stakingTknAddress = getAddress(currentPool.stakingToken.address)
 
   const data = React.useMemo(
     () => [
@@ -245,7 +248,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                   {currentPool.name} Token
                 </Heading>
               </Flex>
-              <Text color="white">Hold your {currentPool.stakingToken.symbol} tokens for great benefits</Text>
+              <Text color="white">Stake your {currentPool.stakingToken.symbol} tokens for great benefits</Text>
               <Flex>
                 <Text color="white">
                   Token address{' '}
@@ -269,7 +272,9 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
               {currentPool.stakingToken.symbol} - {currentPool.earningToken.symbol} Pool Based Farm
             </Heading>
             <Text>Deposit your {currentPool.stakingToken.symbol} Tokens to earn Extra Annual Percentage Rate</Text>
-            <Text color={theme.colors.MGG_accent2}>Total MGG staked</Text>
+            <Heading size="lg" color={theme.colors.MGG_accent2}>
+              Total {currentPool.stakingToken.symbol} staked
+            </Heading>
             <Flex
               style={{
                 width: '100%',
@@ -303,7 +308,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
             </Flex>
 
             <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
-              <em>*Neither stake nor rewards can be withdrawn before minimum staking time</em>
+              <em>*Staking rewards can NOT be redeemed before minimum staking time</em>
             </Text>
             <Flex
               style={{
@@ -337,12 +342,26 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
               )}
               <Flex style={{ flex: '0 100%' }} />
               <Flex style={{ flex: '0 50%' }}>
-                <Text fontSize="0.7rem" color={theme.colors.MGG_accent2}>
+                <Text
+                  onClick={() => {
+                    window.open(`${BASE_SWAP_URL}/${stakingTknAddress}`, '_blank')
+                  }}
+                  style={{ cursor: 'pointer' }}
+                  fontSize="0.7rem"
+                  color={theme.colors.MGG_accent2}
+                >
                   Add Liquidity to get {currentPool.earningToken.symbol} Tokens
                 </Text>
               </Flex>
               <Flex style={{ flex: '0 50%', justifyContent: 'end' }}>
-                <Text fontSize="0.7rem" color={theme.colors.MGG_accent2}>
+                <Text
+                  onClick={() => {
+                    window.open(`${BASE_SPARKSWAP_INFO}/${getAddress(currentPool.stakingToken.address)}`, '_blank')
+                  }}
+                  style={{ cursor: 'pointer' }}
+                  fontSize="0.7rem"
+                  color={theme.colors.MGG_accent2}
+                >
                   Pool info on SparkSwap
                 </Text>
               </Flex>

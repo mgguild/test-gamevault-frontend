@@ -52,12 +52,16 @@ const HrBroken = styled.hr`
   border-bottom: none;
 `
 const ModalBody = styled.div`
-  width: 450px;
+  min-width: 450px;
   margin-top: -20px;
   padding: 20px;
+
+  @media (max-width: 477px) {
+    min-width: 0px;
+  }
 `
 
-const StakeModal: React.FC<StakeModalProps> = ({
+const WithdrawModal: React.FC<StakeModalProps> = ({
   chainId,
   stakingType,
   currentStake,
@@ -111,7 +115,11 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const estimatedProfit = new BigNumber(amount)
     .multipliedBy(new BigNumber(tier.APR).dividedBy(new BigNumber(100)))
     .toString()
-  console.log('stakeDetails:::::: ', stakeDetails)
+
+  const timeZone = new Intl.DateTimeFormat('en-us', { timeZoneName: 'short' })
+    .formatToParts(new Date())
+    .find((part) => part.type === 'timeZoneName').value
+
   return (
     <>
       <Modal title="" onDismiss={onDismiss}>
@@ -141,10 +149,12 @@ const StakeModal: React.FC<StakeModalProps> = ({
             <Flex>
               <div>
                 <Text>Staked at</Text>
-                <Text>{moment(stakedAt).format('LLL')}</Text>
+                <Text>
+                  {moment(stakedAt).format('LLL')} {timeZone}
+                </Text>
               </div>
               <div style={{ textAlign: 'right' }}>
-                <Text>Can be clamed on</Text>
+                <Text>Can be claimed on</Text>
                 <Text>
                   {moment(stakedAt).add(tier.duration, 'days').format('LL')}
                   {daysLeft > 0 ? (
@@ -155,7 +165,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
                 </Text>
               </div>
             </Flex>
-            <HrBroken />
+            <hr style={{ width: '100%' }} />
             <Flex>
               <Text>Max profit (estimated)</Text>
               <Text>
@@ -196,4 +206,4 @@ const StakeModal: React.FC<StakeModalProps> = ({
   )
 }
 
-export default StakeModal
+export default WithdrawModal

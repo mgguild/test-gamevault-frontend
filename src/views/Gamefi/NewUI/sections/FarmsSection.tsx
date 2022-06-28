@@ -176,7 +176,7 @@ const RenderFarm: React.FC<{ farmID: string; stakingType?: string; tblColumns: a
 
   return (
     <PageContainer bgColor={currentFarm.UIProps.bgColor} contain={currentFarm.UIProps.contain}>
-      <LinearBG>
+      <LinearBG style={{ minHeight: '100vh' }}>
         <Flex>
           <>
             <Card2Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

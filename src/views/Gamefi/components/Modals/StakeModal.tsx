@@ -54,9 +54,13 @@ const HrBroken = styled.hr`
   border-bottom: none;
 `
 const ModalBody = styled.div`
-  width: 450px;
+  min-width: 450px;
   margin-top: -20px;
   padding: 20px;
+
+  @media (max-width: 477px) {
+    min-width: 0px;
+  }
 `
 
 const StakeModal: React.FC<StakeModalProps> = ({
@@ -109,7 +113,10 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const balDifference = userStakingBal.minus(new BigNumber(stakeAmount))
   const estimatedFee = new BigNumber(stakeAmount).multipliedBy(new BigNumber(maxFine).div(new BigNumber(100)))
   const stakingTokenContract = useERC20(getAddress(currentStake.stakingToken.address, chainId.toString()))
-
+  const totalAllowance = useTokenAllowance(
+    getAddress(currentStake.stakingToken.address, chainId.toString()),
+    getAddress(currentStake.contractAddress, chainId.toString()),
+  )
   const [pendingTx, setPendingTx] = useState(false)
   const [isApproved, setIsApproved] = useState(false)
 
@@ -121,15 +128,17 @@ const StakeModal: React.FC<StakeModalProps> = ({
   )
 
   useEffect(() => {
-    const decimalUserAllowance = getDecimalAmount(userAllowance, currentStake.stakingToken.decimals)
-    setIsApproved(
-      decimalUserAllowance.gte(getDecimalAmount(new BigNumber(stakeAmount), currentStake.stakingToken.decimals)),
-    )
-  }, [requestedApproval, userAllowance, stakeAmount, currentStake])
+    const decimalUserAllowance = getDecimalAmount(totalAllowance.balance, currentStake.stakingToken.decimals)
+    if (totalAllowance.fetchStatus === 'success') {
+      setIsApproved(
+        decimalUserAllowance.gte(getDecimalAmount(new BigNumber(stakeAmount), currentStake.stakingToken.decimals)),
+      )
+    }
+  }, [requestedApproval, totalAllowance, stakeAmount, currentStake])
 
   const estimatedProfit = new BigNumber(stakeAmount)
     .multipliedBy(new BigNumber(tierSelected.APR).dividedBy(new BigNumber(100)))
-    .toString()
+    .toFormat()
 
   return (
     <>
@@ -156,7 +165,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
               </Text>
             </Flex>
             <br />
-            <HrBroken />
+            <hr style={{ width: '100%' }} />
             <br />
             <Flex>
               <Text>Your Balance</Text>
@@ -179,10 +188,6 @@ const StakeModal: React.FC<StakeModalProps> = ({
             </Flex>
             <br />
             <br />
-            <Flex>
-              <Text>Max Early Unstaking Fee</Text>
-              <Text>{maxFine}%</Text>
-            </Flex>
 
             <Flex>
               <Text>Unstaking Fee (estimated)</Text>
@@ -190,6 +195,21 @@ const StakeModal: React.FC<StakeModalProps> = ({
                 ≈{estimatedFee.toFormat()} {pairSymbol}
               </Text>
             </Flex>
+            {isApproved && (
+              <>
+                <br />
+                <br />
+                <Flex>
+                  <Text>Approved {pairSymbol} spending</Text>
+                  <Text>
+                    {new BigNumber(
+                      getBalanceNumber(totalAllowance.balance, currentStake.stakingToken.decimals),
+                    ).toFormat()}{' '}
+                    {pairSymbol}
+                  </Text>
+                </Flex>
+              </>
+            )}
           </StyledDetails>
           {isApproved ? (
             <Button
@@ -198,8 +218,9 @@ const StakeModal: React.FC<StakeModalProps> = ({
               endIcon={isStaking ? <AutoRenewIcon spin color="currentColor" /> : null}
               onClick={handleStake}
               disabled={isStaking}
+              style={{ backgroundColor: '#1c9f20' }}
             >
-              Confirm
+              Stake
             </Button>
           ) : (
             <Button

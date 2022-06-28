@@ -53,8 +53,8 @@ const FarmCard2: React.FC<FarmCard2Props> = ({
   //   mainTokenAddress: farm.token.address,
   //   pairTokenAddress: farm.pairToken.address,
   // })
-  const [dummyState, setDummyState] = useState(null)
-  const [isFetchData, setFetchData] = useState<boolean | null>(true)
+
+  const [isFetchData, setFetchData] = useState<boolean>(false)
   const { chainId } = useWeb3React()
   const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
 
@@ -79,10 +79,6 @@ const FarmCard2: React.FC<FarmCard2Props> = ({
       setFetchData(false)
     }
   }, [LPPrice, rewardPrice, setFetchData, prevLPPrice, prevRewardPrice])
-
-  useEffect(() => {
-    return setFetchData(null)
-  }, [dummyState])
 
   const farmV2Apr = useMemo(
     () => getFarmV2Apr(LPPrice, rewardPrice, Number(farm.totalDeposits), Number(farm.rewardRate)),

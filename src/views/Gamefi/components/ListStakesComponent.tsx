@@ -3,6 +3,7 @@ import moment from 'moment'
 import styled, { ThemeContext } from 'styled-components'
 import { Flex, Text, Button, Input, Heading, useModal } from '@metagg/mgg-uikit'
 import BigNumber from 'bignumber.js'
+import { BIG_ZERO } from 'utils/bigNumber'
 import { getBalanceNumber, getDecimalAmount, toBigNumber } from 'utils/formatBalance'
 import { Pool } from 'state/types'
 import ClaimModal from './Modals/WithdrawModal'
@@ -27,25 +28,24 @@ const ButtonSM = styled(Button)`
 
 const Card = styled.div`
   width: 100%;
-  height: 100%;
   border-radius: 0.5rem;
   flex: 1;
   background-color: ${({ theme }) => theme.colors.MGG_accent2};
   display: grid;
   position: relative;
-  padding: 1rem 1.5rem;
+  padding: 1rem 1rem;
   grid-template-columns: 1fr 1fr;
   column-gap: 1rem;
   row-gap: 1rem;
 `
 
 const StakesContainer = styled.div`
-  display: grid;
+  display: flex;
   width: 100%;
   flex-flow: row wrap;
   column-gap: 1rem;
   row-gap: 1rem;
-  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
 `
 
 const daysRemaining = (date: number, duration: number) => {
@@ -90,6 +90,10 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
     />,
   )
 
+  const timeZone = new Intl.DateTimeFormat('en-us', { timeZoneName: 'short' })
+    .formatToParts(new Date())
+    .find((part) => part.type === 'timeZoneName').value
+
   return (
     <>
       <Flex style={{ textAlign: 'left' }}>
@@ -111,7 +115,10 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
             Staked At:
           </Heading>
           <Text fontSize="0.9rem" color="black">
-            {moment(stakedAt).format('LLL')} GMT
+            {moment(stakedAt).format('ll')}
+          </Text>
+          <Text fontSize="0.9rem" color="black">
+            {moment(stakedAt).format('LT')} {timeZone}
           </Text>
         </div>
       </Flex>
@@ -121,7 +128,9 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
           <Heading size="l" color="black">
             Staked:
           </Heading>
-          <Text style={{ color: 'white', textShadow: '1px 1px 1px black' }}>{`${amount} ${pairSymbol}`}</Text>
+          <Text style={{ color: 'white', textShadow: '1px 1px 1px black' }}>{`${new BigNumber(
+            amount,
+          ).toFormat()} ${pairSymbol}`}</Text>
         </div>
       </Flex>
 
@@ -157,16 +166,14 @@ const Component: React.FC<ComponentProps> = ({ stakingType, currentFarm, current
         <StakesContainer>
           {userStakes.map((stake, index) => {
             return (
-              <>
-                <Card key={stake.id}>
-                  <StakesCard
-                    currentStake={currentStake}
-                    pairSymbol={pairSymbol}
-                    stakeDetails={stake}
-                    chainId={chainId}
-                  />
-                </Card>
-              </>
+              <Card key={stake.id}>
+                <StakesCard
+                  currentStake={currentStake}
+                  pairSymbol={pairSymbol}
+                  stakeDetails={stake}
+                  chainId={chainId}
+                />
+              </Card>
             )
           })}
         </StakesContainer>

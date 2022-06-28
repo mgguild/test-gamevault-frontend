@@ -12,6 +12,7 @@ import { Tiers } from 'config/constants/types'
 import useToast from 'hooks/useToast'
 import UnlockButton from 'components/UnlockButton'
 import StakeModal from './Modals/StakeModal'
+import InsufficientModal from './Modals/InsufficientModal'
 import { Stats } from '../NewUI/styled'
 
 const ButtonSM = styled(Button)`
@@ -101,6 +102,7 @@ const Component: React.FC<ComponentProps> = ({
 
   const [onPresentStakeAction] = useModal(
     <StakeModal
+      chainId={chainId}
       stakingType={stakingType}
       currentStake={currentStake}
       pairSymbol={pairSymbol}
@@ -110,7 +112,15 @@ const Component: React.FC<ComponentProps> = ({
       userTotalStaked={userTotalStaked}
       userStakingBal={userStakingBal}
       userAllowance={userAllowance}
+    />,
+  )
+
+  const [onPresentInsufficientAction] = useModal(
+    <InsufficientModal
       chainId={chainId}
+      pairSymbol={pairSymbol}
+      stakingType={stakingType}
+      currentStake={currentStake}
     />,
   )
 
@@ -118,28 +128,27 @@ const Component: React.FC<ComponentProps> = ({
     if (!userStakingBal.lte(new BigNumber(stakeAmount))) {
       onPresentStakeAction()
     } else {
-      toastWarning('Insufficient balance!', 'Staking amount is greater then your current balance')
+      onPresentInsufficientAction()
+      // toastWarning('Insufficient balance!', 'Staking amount is greater then your current balance')
     }
-  }, [onPresentStakeAction, toastWarning, stakeAmount, userStakingBal])
+  }, [onPresentStakeAction, onPresentInsufficientAction, stakeAmount, userStakingBal])
 
   return (
     <>
       <Flex justifyContent="center" style={{ width: '100%' }}>
         <Grid container spacing={{ xs: 2, md: 1 }} justifyContent="center">
           {[1, 2, 3, 4].map((index) => (
-            <>
-              <Grid key={index} item xs={12} sm={3} md={3}>
-                <ButtonSM fullWidth onClick={() => handleTierChange(index)}>
-                  {`${currentStake.fixedAprConfigs.tiers[index].duration} Days`}
-                </ButtonSM>
-              </Grid>
-            </>
+            <Grid key={index} item xs={12} sm={3} md={3}>
+              <ButtonSM fullWidth onClick={() => handleTierChange(index)}>
+                {`${currentStake.fixedAprConfigs.tiers[index].duration} Days`}
+              </ButtonSM>
+            </Grid>
           ))}
         </Grid>
       </Flex>
       <StyledDetails>
         <Flex style={{ width: '100%', flexFlow: 'row wrap', gap: '1rem', justifyContent: 'space-evenly' }}>
-          {dayDuration !== 0 ? (
+          {tierSelected.duration !== 0 ? (
             <>
               <Stats>
                 <div>
@@ -210,7 +219,11 @@ const Component: React.FC<ComponentProps> = ({
       </Flex>
       <Flex style={{ flex: '0 100%', justifyContent: 'center' }}>
         {account ? (
-          <Button fullWidth onClick={handleStakeClick} disabled={tierSelected.duration === 0 || stakeAmount === ''}>
+          <Button
+            fullWidth
+            onClick={handleStakeClick}
+            disabled={tierSelected.duration === 0 || stakeAmount === '' || parseFloat(stakeAmount) <= 0.0}
+          >
             Stake
           </Button>
         ) : (
