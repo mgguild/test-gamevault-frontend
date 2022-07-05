@@ -14,6 +14,7 @@ import {
   fetchUserStakeBalances,
   fetchUserPendingRewards,
   fetchUserFixedAprDetails,
+  fetchFixedAPRClaimables,
 } from './fetchPoolsUser'
 import { fetchPublicVaultData, fetchVaultFees } from './fetchVaultPublic'
 import fetchVaultUser from './fetchVaultUser'
@@ -117,6 +118,9 @@ export const fetchPoolsUserDataAsync =
     const stakedBalances = await fetchUserStakeBalances(account, chain)
     const pendingRewards = await fetchUserPendingRewards(account, chain)
     const fixedAprDetails = await fetchUserFixedAprDetails(account, chain)
+    const fixedAPRDetailsProfit = fixedAprDetails
+      ? await fetchFixedAPRClaimables(account, chain, fixedAprDetails)
+      : null
 
     const userData = poolsConfig.map((pool) => ({
       sousId: pool.sousId,
@@ -124,7 +128,7 @@ export const fetchPoolsUserDataAsync =
       stakingTokenBalance: stakingTokenBalances[pool.sousId],
       stakedBalance: stakedBalances[pool.sousId],
       pendingReward: pendingRewards[pool.sousId],
-      fixedApr: fixedAprDetails[pool.sousId] ?? null,
+      fixedApr: fixedAPRDetailsProfit[pool.sousId] ?? null,
     }))
 
     dispatch(setPoolsUserData(userData))
@@ -134,6 +138,7 @@ export const updateUserAllowance =
   (sousId: number, account: string, chain: string): AppThunk =>
   async (dispatch) => {
     const allowances = await fetchPoolsAllowance(account, chain)
+    console.log('updateUserAllowance: ', allowances)
     dispatch(updatePoolsUserData({ sousId, field: 'allowance', value: allowances[sousId] }))
   }
 

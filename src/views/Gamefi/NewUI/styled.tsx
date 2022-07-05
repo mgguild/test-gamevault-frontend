@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { Flex, Button } from '@metagg/mgg-uikit'
 
 export const FlexC = styled(Flex)`
-  padding: 2.5rem;
+  padding: 2rem;
   flex-flow: row wrap;
   row-gap: 1rem;
   align-content: center;
