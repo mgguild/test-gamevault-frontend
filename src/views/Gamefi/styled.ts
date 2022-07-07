@@ -39,7 +39,8 @@ export const StakeSection = styled(Flex)`
 `
 
 export const FilterButton = styled(Button)`
-  background-color: ${({theme}) => theme.colors.MGG_active};
+  background-color: ${({theme}) => theme.colors.MGG_mainBG};
   border-radius: 5px;
   width: 200px;
+  border: 2px solid ${({theme}) => theme.colors.MGG_active};
 `
