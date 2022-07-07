@@ -157,7 +157,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
             Staking Summary
           </Heading>
         </Flex>
-        <ModalBody>
+        <ModalBody style={{ maxWidth: '25.625rem' }}>
           <StyledDetails>
             <Flex>
               <Text>Duration</Text>
