@@ -176,9 +176,9 @@ const Gamefi: React.FC = () => {
           return stakedMemoized.inactiveFarms.length !== 0 && stakedMemoized.inactivePools.length !== 0 ? (
             <StakeSection>
               {stakedMemoized.inactiveFarms.length !== 0 ? (
-                <Grid container spacing={4}>
+                <Grid container spacing={{md: 4}}>
                   {stakedMemoized.inactiveFarms.map((farm) => (
-                    <Grid key={farm.pid} item md={11}>
+                    <Grid key={farm.pid} item xs={12} md={11}>
                       <FarmCard
                         userDataReady={userDataReady}
                         farm={farm}
@@ -193,9 +193,9 @@ const Gamefi: React.FC = () => {
                 <NotAvailable title="Inactive Vaults" />
               )}
               {stakedMemoized.inactivePools.length !== 0 ? (
-                <Grid container spacing={4}>
+                <Grid container spacing={{md: 4}}>
                   {stakedMemoized.inactivePools.map((pool) => (
-                    <Grid key={pool.sousId} item md={11}>
+                    <Grid key={pool.sousId} item xs={12} md={11}>
                       <PoolCard
                         userDataReady={userDataReady}
                         pool={pool}

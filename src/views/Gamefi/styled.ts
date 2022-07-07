@@ -30,19 +30,25 @@ export const Section = styled(Flex)`
 
 export const HeaderSection = styled(Section)`
 flex-direction: column;
+padding: 1rem;
+align-items: center;
 ${({theme}) => theme.mediaQueries.sm} {
   flex-wrap: wrap;
   flex-direction: row;
+  padding: 0rem;
 }
 `
 export const BodySection = styled(Section)`
   flex-direction: column;
   min-height: 35vh;
-  // justifty-content: center;
 `
 export const StakeSection = styled(Flex)`
   width: 100%;
   align-items: center;
+  flex-direction: column;
+  ${({theme}) => theme.mediaQueries.sm} {
+    flex-direction: row;
+  }
 `
 
 export const FilterButton = styled(Button)`
@@ -53,8 +59,8 @@ export const FilterButton = styled(Button)`
 `
 
 export const Layout = styled.div`
-  padding: 1rem;
-  ${({theme}) => theme.mediaQueries.sm} {
+  padding: 0rem;
+  ${({theme}) => theme.mediaQueries.md} {
     padding: 3.5rem;
   }
 `

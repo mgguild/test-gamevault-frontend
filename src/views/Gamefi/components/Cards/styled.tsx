@@ -12,6 +12,7 @@ export const Cards2 = styled.button<{ src?: string; bgColor?: string }>`
   flex: 1;
   display: flex;
   align-items: stretch;
+  margin: 1rem 0rem;
   background-color: ${({ bgColor }) => bgColor ?? '#030f62'};
   ${({ src }) =>
     `&:before {
