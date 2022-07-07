@@ -30,7 +30,16 @@ export const Section = styled(Flex)`
 export const HeaderSection = styled(Section)``
 export const BodySection = styled(Section)`
   flex-direction: column;
+  min-height: 35vh;
+  // justifty-content: center;
 `
 export const StakeSection = styled(Flex)`
   width: 100%;
+  align-items: center;
+`
+
+export const FilterButton = styled(Button)`
+  background-color: ${({theme}) => theme.colors.MGG_active};
+  border-radius: 5px;
+  width: 200px;
 `

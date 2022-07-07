@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js'
 import { orderBy, partition } from 'lodash'
-import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
+import { ThemeContext } from 'styled-components'
+import React, { useState, useEffect, useCallback, useMemo, useRef, useContext } from 'react'
 import { Route, useLocation, useRouteMatch } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
-import { Grid } from '@mui/material'
 import { Farm, Pool } from 'state/types'
 import {
   useFarms,
@@ -18,22 +18,31 @@ import { getFarmApr, getFarmV2Apr } from 'utils/apr'
 import { latinise } from 'utils/latinise'
 import isArchivedPid from 'utils/farmHelpers'
 import usePersistState from 'hooks/usePersistState'
-import { Text, Flex, Heading } from '@metagg/mgg-uikit'
+import { Grid } from '@mui/material'
+import { SelectChangeEvent } from '@mui/material/Select';
+import { Text, Flex, Heading, Button} from '@metagg/mgg-uikit'
 import { Toggle } from '@pancakeswap/uikit'
 import SearchInput from 'components/SearchInput'
 import ToggleView, { ViewMode } from './components/ToggleView/ToggleView'
 import { FarmWithStakedValue } from './config'
 import TabButtons from './components/TabButtons'
 import NotAvailable from './components/NotAvailable'
-import { BodySection, FilterItem, HeaderSection, StakeSection, ToggleWrapper } from './styled'
+import { BodySection, FilterButton, FilterItem, HeaderSection, StakeSection, ToggleWrapper } from './styled'
 import FarmCard from './components/Cards/Farm'
 import PoolCard from './components/Cards/Pool'
+import Select from './components/Select'
+
 
 const Gamefi: React.FC = () => {
+  const theme = useContext(ThemeContext)
   const [query, setQuery] = useState('')
   const { account } = useWeb3React()
   const { path } = useRouteMatch()
   const { pathname } = useLocation()
+  const [sortBy, setSortBy] = useState('');
+  const handleChange = (event: SelectChangeEvent) => {
+    setSortBy(event.target.value);
+  };
   const [viewMode, setViewMode] = usePersistState(ViewMode.TABLE, { localStorageKey: 'mgg_vaults_view' })
   const { data: farmsLP, userDataLoaded } = useFarms()
   const { pools: poolsWithoutAutoVault } = usePools(account)
@@ -203,7 +212,9 @@ const Gamefi: React.FC = () => {
               )}
             </StakeSection>
           ) : (
+            <div style={{border: '1px solid red'}}>
             <NotAvailable title="Inactive Vaults" />
+            </div>
           )
         default:
           return stakedMemoized.activeFarms.length !== 0 && stakedMemoized.activePools.length !== 0 ? (
@@ -273,7 +284,16 @@ const Gamefi: React.FC = () => {
         padding: '5rem',
       }}
     >
+      <BodySection>
+        <Heading size="xl">Live Vaults</Heading>
+        {renderContent({ RENDER_TYPE: '' })}
+      </BodySection>
       <HeaderSection>
+        <FilterItem>
+          <FilterButton>
+            <Text>FILTER</Text>
+          </FilterButton>
+        </FilterItem>
         <FilterItem>
           <ToggleWrapper>
             <Toggle checked={stakedOnly} onChange={() => setStakedOnly(!stakedOnly)} scale="sm" />
@@ -285,15 +305,17 @@ const Gamefi: React.FC = () => {
           <Text textTransform="uppercase">Search</Text>
           <SearchInput onChange={handleChangeQuery} placeholder="Search Farms" />
         </FilterItem>
-         <FilterItem>
+        <FilterItem>
+          <Text>
+            SORT BY:
+          </Text>
+          <Select handleSortBy={setSortBy} sortBy={sortBy} />
+        </FilterItem>
+         {/* <FilterItem>
           <Text textTransform='uppercase'>View</Text>
           <ToggleView viewMode={viewMode} onToggle={(mode: ViewMode) => setViewMode(mode)} />
-        </FilterItem>
+        </FilterItem> */}
       </HeaderSection>
-      <BodySection>
-        <Heading size="xl">Live Vaults</Heading>
-        {renderContent({ RENDER_TYPE: '' })}
-      </BodySection>
       <BodySection>
         <Heading size="xl">Past Vaults</Heading>
         {renderContent({ RENDER_TYPE: 'RENDER_ENDED' })}
