@@ -13,7 +13,7 @@ const SelectComponent = ({handleSortBy, sortBy}:{handleSortBy: (string) => void;
     handleSortBy(event.target.value);
   };
   return (
-    <FormControl sx={{ m: 1, minWidth: 120 }} style={{border: 'none', backgroundColor: theme.colors.MGG_container }}>
+    <FormControl sx={{ m: 1, minWidth: 120, }} style={{border: 'none', backgroundColor: theme.colors.MGG_container, borderRadius: '5px',}} size='small'>
       <InputLabel id="select-helper-label">
         <Text color='textSubtle'>
         Select

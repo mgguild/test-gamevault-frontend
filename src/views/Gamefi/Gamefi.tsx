@@ -27,7 +27,7 @@ import ToggleView, { ViewMode } from './components/ToggleView/ToggleView'
 import { FarmWithStakedValue } from './config'
 import TabButtons from './components/TabButtons'
 import NotAvailable from './components/NotAvailable'
-import { BodySection, FilterButton, FilterItem, HeaderSection, StakeSection, ToggleWrapper } from './styled'
+import { BodySection, FilterButton, FilterItem, HeaderSection, Layout, StakeSection, ToggleWrapper } from './styled'
 import FarmCard from './components/Cards/Farm'
 import PoolCard from './components/Cards/Pool'
 import Select from './components/Select'
@@ -212,9 +212,7 @@ const Gamefi: React.FC = () => {
               )}
             </StakeSection>
           ) : (
-            <div style={{border: '1px solid red'}}>
             <NotAvailable title="Inactive Vaults" />
-            </div>
           )
         default:
           return stakedMemoized.activeFarms.length !== 0 && stakedMemoized.activePools.length !== 0 ? (
@@ -279,11 +277,7 @@ const Gamefi: React.FC = () => {
   }
 
   return (
-    <div
-      style={{
-        padding: '5rem',
-      }}
-    >
+    <Layout>
       <BodySection>
         <Heading size="xl">Live Vaults</Heading>
         {renderContent({ RENDER_TYPE: '' })}
@@ -320,7 +314,7 @@ const Gamefi: React.FC = () => {
         <Heading size="xl">Past Vaults</Heading>
         {renderContent({ RENDER_TYPE: 'RENDER_ENDED' })}
       </BodySection>
-    </div>
+    </Layout>
   )
 }
 

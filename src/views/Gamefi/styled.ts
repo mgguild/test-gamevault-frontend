@@ -19,6 +19,7 @@ export const FilterItem = styled(Flex)`
   text-align: center;
   flex-flow: row;
   column-gap: 0.5rem;
+  margin: 0.5rem 5px;
 `
 
 export const Section = styled(Flex)`
@@ -27,7 +28,13 @@ export const Section = styled(Flex)`
   margin-bottom: 2rem;
 `
 
-export const HeaderSection = styled(Section)``
+export const HeaderSection = styled(Section)`
+flex-direction: column;
+${({theme}) => theme.mediaQueries.sm} {
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+`
 export const BodySection = styled(Section)`
   flex-direction: column;
   min-height: 35vh;
@@ -43,4 +50,11 @@ export const FilterButton = styled(Button)`
   border-radius: 5px;
   width: 200px;
   border: 2px solid ${({theme}) => theme.colors.MGG_active};
+`
+
+export const Layout = styled.div`
+  padding: 1rem;
+  ${({theme}) => theme.mediaQueries.sm} {
+    padding: 3.5rem;
+  }
 `
