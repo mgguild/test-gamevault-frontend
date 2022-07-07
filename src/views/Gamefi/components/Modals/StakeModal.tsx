@@ -145,9 +145,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
     .multipliedBy(new BigNumber(tierSelected.APR).dividedBy(new BigNumber(100)))
     .toFormat()
 
-  const allowance = new BigNumber(
-    getBalanceNumber(totalAllowance.balance, currentStake.stakingToken.decimals),
-  )
+  const allowance = new BigNumber(getBalanceNumber(totalAllowance.balance, currentStake.stakingToken.decimals))
 
   return (
     <>
