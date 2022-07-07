@@ -12,7 +12,13 @@ import BigNumber from 'bignumber.js'
 import { useSousApprove, useSousApproveWithAmount } from 'hooks/useApprove'
 import { useTokenAllowance } from 'hooks/useTokenBalance'
 import { useERC20 } from 'hooks/useContract'
-import { getFullDisplayBalance, formatNumber, getDecimalAmount, getBalanceNumber } from 'utils/formatBalance'
+import {
+  getFullDisplayBalance,
+  formatNumber,
+  getDecimalAmount,
+  getBalanceNumber,
+  toBigNumber,
+} from 'utils/formatBalance'
 import { BIG_ZERO } from 'utils/bigNumber'
 import ModalInput from 'components/ModalInput'
 import { getAddress } from 'utils/addressHelpers'
@@ -120,11 +126,10 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const [pendingTx, setPendingTx] = useState(false)
   const [isApproved, setIsApproved] = useState(false)
 
-  const { handleApprove, requestedApproval } = useSousApproveWithAmount(
+  const { handleApprove, requestedApproval } = useSousApprove(
     stakingTokenContract,
     currentStake.sousId,
     currentStake.earningToken.symbol,
-    getDecimalAmount(new BigNumber(stakeAmount), currentStake.stakingToken.decimals),
   )
 
   useEffect(() => {
@@ -139,6 +144,10 @@ const StakeModal: React.FC<StakeModalProps> = ({
   const estimatedProfit = new BigNumber(stakeAmount)
     .multipliedBy(new BigNumber(tierSelected.APR).dividedBy(new BigNumber(100)))
     .toFormat()
+
+  const allowance = new BigNumber(
+    getBalanceNumber(totalAllowance.balance, currentStake.stakingToken.decimals),
+  )
 
   return (
     <>
@@ -195,23 +204,8 @@ const StakeModal: React.FC<StakeModalProps> = ({
                 ≈{estimatedFee.toFormat()} {pairSymbol}
               </Text>
             </Flex>
-            {isApproved && (
-              <>
-                <br />
-                <br />
-                <Flex>
-                  <Text>Approved {pairSymbol} spending</Text>
-                  <Text>
-                    {new BigNumber(
-                      getBalanceNumber(totalAllowance.balance, currentStake.stakingToken.decimals),
-                    ).toFormat()}{' '}
-                    {pairSymbol}
-                  </Text>
-                </Flex>
-              </>
-            )}
           </StyledDetails>
-          {isApproved ? (
+          {isApproved && allowance.gte(toBigNumber(stakeAmount)) ? (
             <Button
               fullWidth
               isLoading={pendingTx}

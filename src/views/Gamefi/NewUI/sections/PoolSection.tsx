@@ -1,29 +1,22 @@
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { Route, useLocation, useRouteMatch } from 'react-router-dom'
+import React, { useContext, useMemo, useState } from 'react'
+import { useLocation, useRouteMatch } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import moment from 'moment'
-import { BASE_SPARKSWAP_INFO, BASE_SWAP_URL } from 'config'
+import { BASE_SWAP_URL } from 'config'
 import { useWeb3React } from '@web3-react/core'
 import { getImageUrlFromToken } from 'utils/assetFetch'
-import { Flex, Link, Text, Heading } from '@metagg/mgg-uikit'
-import styled, { ThemeContext } from 'styled-components'
+import { Flex, Heading, Link, Text } from '@metagg/mgg-uikit'
+import { ThemeContext } from 'styled-components'
 import { useFetchPublicPoolsData, usePools } from 'state/hooks'
 import { getAddress } from 'utils/addressHelpers'
-import { getBalanceNumber, getBalanceAmount, toBigNumber } from 'utils/formatBalance'
+import { getBalanceNumber } from 'utils/formatBalance'
 import UnlockButton from 'components/UnlockButton'
 import RenderSocials from 'components/Launchpad/SocialGroup'
 import { getBscScanAddressUrl } from 'utils/bscscan'
-import {
-  Cards2,
-  Card2Container,
-  TokenLogo,
-  Badge,
-  LinearBG,
-  PageContainer,
-} from 'views/Farms/components/FarmCards/styles'
+import { Card2Container, LinearBG, PageContainer, TokenLogo } from 'views/Farms/components/FarmCards/styles'
 import InputComponent from '../../components/InputComponent'
 import ListStakesComponent from '../../components/ListStakesComponent'
-import { FlexC, StatCard, Stats, TableStyle, ChartStyle } from '../styled'
+import { ChartStyle, FlexC, StatCard, Stats, TableStyle } from '../styled'
 import { Series } from '../types'
 import ApexChart from '../../components/ApexCharts'
 import RenderTable from '../Table'
@@ -102,7 +95,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
       <InputComponent
         dayDuration={dayDuration}
         dayFunction={setDayDuration}
-        stakingType="pool"
+        stakingType='pool'
         currentPoolBased={currentPool}
         account={account}
         chainId={chainId}
@@ -111,7 +104,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
   }
 
   const renderClaim = () => {
-    return <ListStakesComponent stakingType="pool" currentPoolBased={currentPool} account={account} chainId={chainId} />
+    return <ListStakesComponent stakingType='pool' currentPoolBased={currentPool} account={account} chainId={chainId} />
   }
 
   const renderTabs = (tab) => {
@@ -124,7 +117,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
       default:
         return (
           <Flex>
-            <Text margin="0px auto">Coming Soon</Text>
+            <Text margin='0px auto'>Coming Soon</Text>
           </Flex>
         )
     }
@@ -174,7 +167,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                 borderBottom: `1px solid ${theme.colors.MGG_active}`,
               }}
             />
-            <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
+            <Text fontSize='0.8rem' color={theme.colors.textSubtle}>
               123.456789k LP Tokens
             </Text>
           </StatCard>
@@ -189,7 +182,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                 borderBottom: `1px solid ${theme.colors.MGG_active}`,
               }}
             />
-            <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
+            <Text fontSize='0.8rem' color={theme.colors.textSubtle}>
               26.21 {currentPool.earningToken.symbol} token per minute
             </Text>
           </StatCard>
@@ -204,7 +197,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                 borderBottom: `1px solid ${theme.colors.MGG_active}`,
               }}
             />
-            <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
+            <Text fontSize='0.8rem' color={theme.colors.textSubtle}>
               145402 Minutes Remaining
             </Text>
           </StatCard>
@@ -219,7 +212,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                 borderBottom: `1px solid ${theme.colors.MGG_active}`,
               }}
             />
-            <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
+            <Text fontSize='0.8rem' color={theme.colors.textSubtle}>
               0 Rewards Withdrawn
             </Text>
           </StatCard>
@@ -243,14 +236,14 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
           <Card2Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 3 }}>
             <Flex style={{ textAlign: 'center', flexFlow: 'column', rowGap: '1rem' }}>
               <Flex style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <TokenLogo size="3rem" src={getImageUrlFromToken(currentPool.stakingToken)} />
-                <Heading color="white" style={{ fontSize: '1.875rem', padding: '0 1rem' }}>
+                <TokenLogo size='3rem' src={getImageUrlFromToken(currentPool.stakingToken)} />
+                <Heading color='white' style={{ fontSize: '1.875rem', padding: '0 1rem' }}>
                   {currentPool.name} Token
                 </Heading>
               </Flex>
-              <Text color="white">Stake your {currentPool.stakingToken.symbol} tokens for great benefits</Text>
+              <Text color='white'>Stake your {currentPool.stakingToken.symbol} tokens for great benefits</Text>
               <Flex>
-                <Text color="white">
+                <Text color='white'>
                   Token address{' '}
                   <Link
                     style={{ display: 'contents' }}
@@ -260,7 +253,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                   </Link>
                 </Text>
               </Flex>
-              <RenderSocials socials={currentPool.UIProps.socials} center color="white" size={20} />
+              <RenderSocials socials={currentPool.UIProps.socials} center color='white' size={20} />
             </Flex>
           </Card2Container>
         </Flex>
@@ -271,10 +264,17 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
             <Heading style={{ fontSize: '1.875rem' }}>
               {currentPool.stakingToken.symbol} - {currentPool.earningToken.symbol} Pool Based Farm
             </Heading>
-            <Text>Deposit your {currentPool.stakingToken.symbol} Tokens to earn Extra Annual Percentage Rate</Text>
-            <Heading size="lg" color={theme.colors.MGG_accent2}>
-              Total {currentPool.stakingToken.symbol} staked
-            </Heading>
+            <Text>Deposit your {currentPool.stakingToken.symbol} Tokens to earn</Text>
+            <Flex
+              style={{
+                width: '100%',
+                justifyContent: 'center',
+              }}
+            >
+              <Heading size='lg' color={theme.colors.MGG_accent2}>
+                Total {currentPool.stakingToken.symbol} staked
+              </Heading>
+            </Flex>
             <Flex
               style={{
                 width: '100%',
@@ -289,25 +289,25 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
             <Flex style={{ width: '100%', flexFlow: 'row wrap', gap: '1rem', justifyContent: 'space-evenly' }}>
               <Stats>
                 <div>
-                  <Heading size="l">{moment(1652762969000).format('LL')}</Heading>
-                  <Text fontSize="0.8rem">Program Start</Text>
+                  <Heading size='l'>{moment().format('LL')}</Heading>
+                  <Text fontSize='0.8rem'>Program Start</Text>
                 </div>
               </Stats>
               <Stats>
                 <div>
-                  <Heading size="l">30 days</Heading>
-                  <Text fontSize="0.8rem">Minimum stake duration</Text>
+                  <Heading size='l'>30 days</Heading>
+                  <Text fontSize='0.8rem'>Minimum stake duration</Text>
                 </div>
               </Stats>
               <Stats>
                 <div>
-                  <Heading size="l">{currentPool.fixedAprConfigs.maxFine}%</Heading>
-                  <Text fontSize="0.8rem">Early Unstaking Fee</Text>
+                  <Heading size='l'>{currentPool.fixedAprConfigs.maxFine}%</Heading>
+                  <Text fontSize='0.8rem'>Early Unstaking Fee</Text>
                 </div>
               </Stats>
             </Flex>
 
-            <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
+            <Text fontSize='0.8rem' color={theme.colors.textSubtle}>
               <em>*Staking rewards can NOT be redeemed before minimum staking time</em>
             </Text>
             <Flex
@@ -321,13 +321,13 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
             >
               {!account ? (
                 <Flex style={{ flex: '0 100%', justifyContent: 'center' }}>
-                  <UnlockButton customTitle="Connect wallet to Stake" />
+                  <UnlockButton customTitle='Connect wallet to Stake' />
                 </Flex>
               ) : (
                 <>
                   <Flex
-                    alignItems="center"
-                    margin="10px 0px 20px 0px"
+                    alignItems='center'
+                    margin='10px 0px 20px 0px'
                     style={{ borderBottom: `0.5px solid ${theme.colors.primary}`, width: '100%' }}
                   >
                     <NavOption style={{ flex: 1 }} onClick={() => setActive(1)} activeIndex={active === 1}>
@@ -347,13 +347,13 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                     window.open(`${BASE_SWAP_URL}/${stakingTknAddress}`, '_blank')
                   }}
                   style={{ cursor: 'pointer' }}
-                  fontSize="0.7rem"
+                  fontSize='0.7rem'
                   color={theme.colors.MGG_accent2}
                 >
-                  Add Liquidity to get {currentPool.earningToken.symbol} Tokens
+                  Get more {currentPool.earningToken.symbol} Tokens
                 </Text>
               </Flex>
-              <Flex style={{ flex: '0 50%', justifyContent: 'end' }}>
+              {/* <Flex style={{ flex: '0 50%', justifyContent: 'end' }}>
                 <Text
                   onClick={() => {
                     window.open(`${BASE_SPARKSWAP_INFO}/${getAddress(currentPool.stakingToken.address)}`, '_blank')
@@ -364,7 +364,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                 >
                   Pool info on SparkSwap
                 </Text>
-              </Flex>
+              </Flex> */}
             </Flex>
           </FlexC>
 
