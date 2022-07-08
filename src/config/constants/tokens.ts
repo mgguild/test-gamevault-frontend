@@ -102,6 +102,7 @@ const tokens = {
     },
     decimals: 18,
     projectLink: 'https://tixl.org/',
+    iconExtension: 'png',
   },
   test: {
     symbol: 'TXL',
