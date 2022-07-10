@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction, useCallback, useContext, useMemo, useS
 import BigNumber from 'bignumber.js'
 import moment from 'moment'
 import styled, { ThemeContext } from 'styled-components'
-import { getBalanceNumber, toBigNumber } from 'utils/formatBalance'
+import { getBalanceAmount, toBigNumber } from 'utils/formatBalance'
 import { BIG_ZERO } from 'utils/bigNumber'
 import { Grid } from '@mui/material'
 import { Button, Flex, Heading, Input, Text, useModal } from '@metagg/mgg-uikit'
@@ -46,15 +46,16 @@ interface ComponentProps {
   chainId?: number
 }
 
-const Component: React.FC<ComponentProps> = ({
-  dayDuration,
-  dayFunction,
-  currentFarm,
-  currentPoolBased,
-  stakingType,
-  account,
-  chainId,
-}) => {
+const Component: React.FC<ComponentProps> = (
+  {
+    dayDuration,
+    dayFunction,
+    currentFarm,
+    currentPoolBased,
+    stakingType,
+    account,
+    chainId,
+  }) => {
   const theme = useContext(ThemeContext)
   const { toastSuccess, toastError, toastWarning } = useToast()
   const pairSymbol = stakingType === 'farm' ? currentFarm.lpSymbol : currentPoolBased.stakingToken.symbol
@@ -64,17 +65,13 @@ const Component: React.FC<ComponentProps> = ({
   const { userTotalStaked, userStakingBal, userAllowance } = useMemo(() => {
     return {
       userTotalStaked: userData.fixedApr
-        ? new BigNumber(
-            getBalanceNumber(new BigNumber(userData.fixedApr.totalStaked), currentStake.stakingToken.decimals),
-          )
+        ? getBalanceAmount(userData.fixedApr.totalStaked, currentStake.stakingToken.decimals)
         : BIG_ZERO,
       userStakingBal: userData
-        ? new BigNumber(
-            getBalanceNumber(new BigNumber(userData.stakingTokenBalance), currentStake.stakingToken.decimals),
-          )
+        ? getBalanceAmount(userData.stakingTokenBalance, currentStake.stakingToken.decimals)
         : BIG_ZERO,
       userAllowance: userData
-        ? new BigNumber(getBalanceNumber(new BigNumber(userData.allowance), currentStake.stakingToken.decimals))
+        ? getBalanceAmount(toBigNumber(userData.allowance.toString()), currentStake.stakingToken.decimals)
         : BIG_ZERO,
     }
   }, [currentStake, userData])
@@ -137,8 +134,8 @@ const Component: React.FC<ComponentProps> = ({
 
   return (
     <>
-      <Flex justifyContent="center" style={{ width: '100%' }}>
-        <Grid container spacing={{ xs: 2, md: 1 }} justifyContent="center">
+      <Flex justifyContent='center' style={{ width: '100%' }}>
+        <Grid container spacing={{ xs: 2, md: 1 }} justifyContent='center'>
           {[1, 2, 3, 4].map((index) => (
             <Grid key={index} item xs={12} sm={3} md={3}>
               <ButtonSM fullWidth onClick={() => handleTierChange(index)}>
@@ -154,20 +151,20 @@ const Component: React.FC<ComponentProps> = ({
             <>
               <Stats>
                 <div>
-                  <Heading size="l">{moment().add(tierSelected.duration, 'days').format('LL')}</Heading>
-                  <Text fontSize="0.8rem">Claim On</Text>
+                  <Heading size='l'>{moment().add(tierSelected.duration, 'days').format('LL')}</Heading>
+                  <Text fontSize='0.8rem'>Claim On</Text>
                 </div>
               </Stats>
               <Stats>
                 <div>
-                  <Heading size="l">{tierSelected.duration} days</Heading>
-                  <Text fontSize="0.8rem">Selected Duration</Text>
+                  <Heading size='l'>{tierSelected.duration} days</Heading>
+                  <Text fontSize='0.8rem'>Selected Duration</Text>
                 </div>
               </Stats>
               <Stats>
                 <div>
-                  <Heading size="l">{tierSelected.APR}%</Heading>
-                  <Text fontSize="0.8rem">Annual Percentage Rate</Text>
+                  <Heading size='l'>{tierSelected.APR}%</Heading>
+                  <Text fontSize='0.8rem'>Annual Percentage Rate</Text>
                 </div>
               </Stats>
             </>
@@ -205,13 +202,13 @@ const Component: React.FC<ComponentProps> = ({
       </Flex>
       <Flex style={{ flex: '0 100%', position: 'relative' }}>
         <Input
-          step="any"
-          min="0"
+          step='any'
+          min='0'
           value={stakeAmount}
           onChange={handleChange}
           style={{ padding: '1.5rem' }}
-          placeholder="0"
-          type="number"
+          placeholder='0'
+          type='number'
         />
         <div style={{ position: 'absolute', top: '0.7rem', right: '1.5rem' }}>
           <Text color={theme.colors.textSubtle}>{pairSymbol}</Text>

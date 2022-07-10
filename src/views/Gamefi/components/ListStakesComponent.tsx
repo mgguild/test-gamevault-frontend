@@ -9,15 +9,6 @@ import { Pool } from 'state/types'
 import ClaimModal from './Modals/WithdrawModal'
 import { FarmWithStakedValue } from '../config'
 
-BigNumber.config({
-  DECIMAL_PLACES: 4,
-  FORMAT: {
-    decimalSeparator: '.',
-    groupSeparator: ',',
-    groupSize: 3,
-  },
-})
-
 const ButtonSM = styled(Button)`
   padding: 0.5rem 1rem;
   font-size: 1rem;
