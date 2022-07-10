@@ -44,11 +44,11 @@ const TimerRows = styled(Flex)`
 `
 
 const CountDown: React.FC<{ status: string; round: string; start?: boolean; end?: number }> = ({
-                                                                                                 round,
-                                                                                                 start,
-                                                                                                 end,
-                                                                                                 status,
-                                                                                               }) => {
+  round,
+  start,
+  end,
+  status,
+}) => {
   const endDate = end
   const isStart = start
 
@@ -57,7 +57,7 @@ const CountDown: React.FC<{ status: string; round: string; start?: boolean; end?
   }
 
   return (
-    <TimerContainer justifyContent='right' padding={isStart ? '10px' : '0px'}>
+    <TimerContainer justifyContent="right" padding={isStart ? '10px' : '0px'}>
       <Timer dateSettings={{ isStart, end: endDate }} status={status} Renderer={Renderer} />
     </TimerContainer>
   )
@@ -101,7 +101,7 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
       <Grid container spacing={2}>
         <Grid item xs={4} md={6}>
           <CountDown status={status} round={guildpad.round} start end={guildpad.epochEndDate} />
-          <Text color='rgba(216, 209, 232, 1)' fontSize='17px' padding='10px 0px 0px 0px' margin='10px 0px 0px 0px'>
+          <Text color="rgba(216, 209, 232, 1)" fontSize="17px" padding="10px 0px 0px 0px" margin="10px 0px 0px 0px">
             {details}
           </Text>
         </Grid>
@@ -114,9 +114,9 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
               <div>
                 {/* <Progress variant="flat" primaryStep={toNumber(guildpad.percentage)} /> */}
                 <ProgressBar progress={toNumber(guildpad.percentage)} />
-                <Flex justifyContent='space-between'>
-                  <AnimText size='12px'>{progress.to((x) => `${x.toFixed(4)}%`)}</AnimText>
-                  <Text fontSize='12px'>
+                <Flex justifyContent="space-between">
+                  <AnimText size="12px">{progress.to((x) => `${x.toFixed(4)}%`)}</AnimText>
+                  <Text fontSize="12px">
                     {totalSold} / {totalSupply}
                   </Text>
                 </Flex>
@@ -150,15 +150,15 @@ const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ gu
               <Text>My Allocation</Text>
               <div>
                 <Logo
-                  tokenSize='35px'
+                  tokenSize="35px"
                   tokenName={`${guildpad.userData.details.rewardedAmount ?? '0'} ${guildpad.sellingCoin.symbol}`}
                   primaryToken={guildpad.sellingCoin}
-                  padding='0px'
+                  padding="0px"
                 />
               </div>
             </AllocSection>
             <ActionSection>
-              {!account && <UnlockButton customTitle='CONNECT WALLET TO PARTICIPATE' />}
+              {!account && <UnlockButton customTitle="CONNECT WALLET TO PARTICIPATE" />}
               {account && (
                 <Button
                   onClick={useBuyIDOModal}
