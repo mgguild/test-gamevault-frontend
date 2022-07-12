@@ -174,7 +174,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
             <Text color="textSubtle" marginBottom="24px">
               {pool.stakingToken.symbol} Staked
             </Text>
-            <Button fullWidth onClick={onPresentStakeAction} disabled={pool.isDepositDisabled}>
+            <Button fullWidth onClick={onPresentStakeAction} disabled={pool.isFinished}>
               Stake Tokens
             </Button>
           </Flex>
