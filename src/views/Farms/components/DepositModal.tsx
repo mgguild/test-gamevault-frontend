@@ -141,7 +141,7 @@ const DepositModal: React.FC<DepositModalProps> = ({
           </Text>
           <ActionDiv style={{ padding: '0px' }}>
             {isApproved ? (
-              <Button fullWidth onClick={onPresentStake}>
+              <Button fullWidth onClick={onPresentStake} disabled>
                 Stake {tokenName}
               </Button>
             ) : (
