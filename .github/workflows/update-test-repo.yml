@@ -1,30 +1,34 @@
 name: update-test-repo
-on: 
+on:
   push:
-    branches: [ test ]
+    branches: [ develop ]
   pull_request:
-    branches: [ test ]
+    branches: [ develop ]
+
   workflow_dispatch:
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.REMOTE_MERGE_ACCESS_TOKEN }}
+          fetch-depth: 0
       - name: Git-version
         run: git version
-        
+
       - name: Git-remote-add
-        run: git remote add testrepo git@github.com:mgguild/test-gamevault-frontend.git
-        
+        run: git remote add testrepo https://github.com/mgguild/test-gamevault-frontend.git
+
       - name: Git-fetch-all
         run: git fetch --all
-        
+
       - name: Git-checkout-test
-        run: git checkout -b test-repo-sync testrepo/test
-        
+        run: git checkout -b main testrepo/main
+
       - name: Git-merge
-        run: git merge test
-        
+        run: git merge develop
+
       - name: Git-push
-        run: git push testrepo test-repo-sync
+        run: git push testrepo main
