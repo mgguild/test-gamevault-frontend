@@ -28,7 +28,7 @@ jobs:
         run: git checkout -b main testrepo/main
 
       - name: Git-merge
-        run: git merge develop
+        run: git merge origin/develop
 
       - name: Git-push
         run: git push testrepo main
