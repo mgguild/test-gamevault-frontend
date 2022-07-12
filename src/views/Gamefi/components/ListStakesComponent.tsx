@@ -123,7 +123,7 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
             </Heading>
             <Text style={{ color: 'white', textShadow: '1px 1px 1px black' }}>{`${new BigNumber(
               amount,
-            ).toFormat()} ${pairSymbol}`}</Text>
+            ).toFormat(4)} ${pairSymbol}`}</Text>
           </div>
         </Flex>
 
@@ -133,7 +133,7 @@ const StakesCard: React.FC<StakeProps> = ({ currentStake, pairSymbol, stakeDetai
               Recent Profit:
             </Heading>
             <Text style={{ color: 'white', textShadow: '1px 1px 1px black' }}>
-              {new BigNumber(profit).toFormat()} {pairSymbol}
+              {new BigNumber(profit).toFormat(4)} {pairSymbol}
             </Text>
           </div>
         </Flex>

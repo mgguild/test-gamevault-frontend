@@ -143,7 +143,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
 
   const estimatedProfit = new BigNumber(stakeAmount)
     .multipliedBy(new BigNumber(tierSelected.APR).dividedBy(new BigNumber(100)))
-    .toFormat()
+    .toFormat(4)
 
   const allowance = new BigNumber(getBalanceNumber(totalAllowance.balance, currentStake.stakingToken.decimals))
 
@@ -177,20 +177,20 @@ const StakeModal: React.FC<StakeModalProps> = ({
             <Flex>
               <Text>Your Balance</Text>
               <Text>
-                {userStakingBal.toFormat()} {pairSymbol}
+                {userStakingBal.toFormat(4)} {pairSymbol}
               </Text>
             </Flex>
             <Flex>
               <Text>To Stake</Text>
               <Text>
-                -{new BigNumber(stakeAmount).toFormat()} {pairSymbol}
+                -{new BigNumber(stakeAmount).toFormat(4)} {pairSymbol}
               </Text>
             </Flex>
             <hr style={{ width: '100%' }} />
             <Flex>
               <Text>New Balance</Text>
               <Text>
-                {balDifference.toFormat()} {pairSymbol}
+                {balDifference.toFormat(4)} {pairSymbol}
               </Text>
             </Flex>
             <br />
@@ -199,7 +199,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
             <Flex>
               <Text>Unstaking Fee (estimated)</Text>
               <Text>
-                ≈{estimatedFee.toFormat()} {pairSymbol}
+                ≈{estimatedFee.toFormat(4)} {pairSymbol}
               </Text>
             </Flex>
           </StyledDetails>

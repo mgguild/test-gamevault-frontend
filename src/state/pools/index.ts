@@ -138,7 +138,6 @@ export const updateUserAllowance =
   (sousId: number, account: string, chain: string): AppThunk =>
   async (dispatch) => {
     const allowances = await fetchPoolsAllowance(account, chain)
-    console.log('updateUserAllowance: ', allowances)
     dispatch(updatePoolsUserData({ sousId, field: 'allowance', value: allowances[sousId] }))
   }
 

@@ -177,13 +177,13 @@ const Component: React.FC<ComponentProps> = ({
         <Flex>
           <Text>Your balance</Text>
           <Text>
-            {userStakingBal.toFormat()} {pairSymbol}
+            {userStakingBal.toFormat(4)} {pairSymbol}
           </Text>
         </Flex>
         <Flex>
           <Text>Your total stake</Text>
           <Text>
-            {userTotalStaked.toFormat()} {pairSymbol}
+            {userTotalStaked.toFormat(4)} {pairSymbol}
           </Text>
         </Flex>
       </StyledDetails>

@@ -42,8 +42,6 @@ export const setupNetwork = async () => {
 export const switchNetwork = async (chainId) => {
   const provider = (window as WindowChain).ethereum
   if (provider) {
-    console.log(provider)
-    console.log(chainId)
     let networkData
     switch (chainId) {
       case 97:
@@ -82,7 +80,6 @@ export const switchNetwork = async (chainId) => {
         break
     }
     try {
-      console.log(networkData)
       if (chainId === MAINNET_ETH_CHAIN_ID) {
         provider.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0x1' }] })
         return true
