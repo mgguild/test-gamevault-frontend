@@ -1,5 +1,6 @@
 {
   "name": "gamevault-frontend",
+  "homepage": "https://www.metagg.com/test-gamevault-frontend/"
   "version": "0.1.0",
   "private": true,
   "scripts": {
