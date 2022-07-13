@@ -116,7 +116,7 @@ const WithdrawModal: React.FC<StakeModalProps> = ({
 
   const estimatedProfit = new BigNumber(amount)
     .multipliedBy(new BigNumber(tier.APR).dividedBy(new BigNumber(100)))
-    .toFormat()
+    .toFormat(4)
 
   const timeZone = new Intl.DateTimeFormat('en-us', { timeZoneName: 'short' })
     .formatToParts(new Date())
@@ -143,7 +143,7 @@ const WithdrawModal: React.FC<StakeModalProps> = ({
             <Flex>
               <Text>{pairSymbol} Staked</Text>
               <Text>
-                {new BigNumber(amount).toFormat()} {pairSymbol}
+                {new BigNumber(amount).toFormat(4)} {pairSymbol}
               </Text>
             </Flex>
             <br />
@@ -171,7 +171,7 @@ const WithdrawModal: React.FC<StakeModalProps> = ({
             <Flex>
               <Text>Recent Token Profit</Text>
               <Text>
-                {new BigNumber(profit).toFormat()} {pairSymbol}
+                {new BigNumber(profit).toFormat(4)} {pairSymbol}
               </Text>
             </Flex>
             <Flex>
@@ -192,7 +192,7 @@ const WithdrawModal: React.FC<StakeModalProps> = ({
                 <Flex>
                   <Text style={{ color: '#ff6c16' }}>Max Fee penalty (estimated)</Text>
                   <Text style={{ color: '#ff6c16' }}>
-                    ≈ {new BigNumber(amount).multipliedBy(new BigNumber(maxFine).div(new BigNumber(100))).toFormat()}{' '}
+                    ≈ {new BigNumber(amount).multipliedBy(new BigNumber(maxFine).div(new BigNumber(100))).toFormat(4)}{' '}
                     {pairSymbol}
                   </Text>
                 </Flex>
