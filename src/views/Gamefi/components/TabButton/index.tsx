@@ -55,7 +55,7 @@ const Wrapper = styled.div`
     margin-left: 16px;
   }
   & :first-child {
-    border-radius: 5rem 0rem 0rem 5rem;
+    border-radius: 5rem;
   }
   & :last-child {
     border-radius: 0rem 5rem 5rem 0rem;
