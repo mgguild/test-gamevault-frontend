@@ -174,7 +174,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
             <Text color="textSubtle" marginBottom="24px">
               {pool.stakingToken.symbol} Staked
             </Text>
-            <Button fullWidth onClick={onPresentStakeAction} disabled={pool.isDepositDisabled}>
+            <Button fullWidth onClick={onPresentStakeAction} disabled={pool.isFinished}>
               Stake Tokens
             </Button>
           </Flex>
@@ -203,56 +203,29 @@ const StakeModal: React.FC<StakeModalProps> = ({
             onMouseEnter={() => setActiveSelect(true)}
             onMouseLeave={() => setActiveSelect(false)}
           >
-            {!userData.stakedBalance.eq(0) ? (
+            {userData.stakedBalance.eq(0) ? (
               <Button disabled fullWidth>
                 {' '}
                 Withdraw{' '}
               </Button>
             ) : (
-              // <Dropdown
-              //   position="top"
-              //   target={
-              //     // Disable component if total staked tokens is empty
-              //     <Button fullWidth variant="secondary" disabled={pool.isWithdrawDisabled}>
-              //       <Text>Withdraw</Text> {activeSelect ? <ChevronDown /> : <ChevronUp />}
-              //     </Button>
-              //   }
-              // >
-              //   {/* Disable Claim & Withdraw if no staked tokens */}
-              //   <Button type="button" disabled={pool.isWithdrawDisabled} fullWidth onClick={handleHarvestConfirm}>
-              //     Claim
-              //   </Button>
-              //   <Button type="button" disabled={pool.isWithdrawDisabled} onClick={handleUnstake}>
-              //     Claim & Withdraw
-              //   </Button>
-              // </Dropdown>
-              <>
-                <Button
-                  id="withdraw"
-                  fullWidth
-                  variant="secondary"
-                  onClick={handleClick}
-                  disabled={pool.isWithdrawDisabled}
-                >
-                  <Text>Withdraws</Text> {activeSelect ? <ChevronDown /> : <ChevronUp />}
+              <Dropdown
+                position="top"
+                target={
+                  // Disable component if total staked tokens is empty
+                  <Button fullWidth variant="secondary" disabled={pool.isWithdrawDisabled}>
+                    <Text>Withdraw</Text> {activeSelect ? <ChevronDown /> : <ChevronUp />}
+                  </Button>
+                }
+              >
+                {/* Disable Claim & Withdraw if no staked tokens */}
+                <Button type="button" disabled={pool.isWithdrawDisabled} fullWidth onClick={handleHarvestConfirm}>
+                  Claim
                 </Button>
-
-                <StyledDropdown
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                  MenuListProps={{
-                    'aria-labelledby': 'withdraw',
-                  }}
-                >
-                  <Button type="button" disabled={pool.isWithdrawDisabled} fullWidth onClick={handleHarvestConfirm}>
-                    Claim
-                  </Button>
-                  <Button type="button" disabled={pool.isWithdrawDisabled} fullWidth onClick={handleUnstake}>
-                    Claim & Withdraw
-                  </Button>
-                </StyledDropdown>
-              </>
+                <Button type="button" disabled={pool.isWithdrawDisabled} onClick={handleUnstake}>
+                  Claim & Withdraw
+                </Button>
+              </Dropdown>
             )}
           </Flex>
         </StyledFlex>

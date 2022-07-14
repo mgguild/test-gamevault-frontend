@@ -1,13 +1,14 @@
-import React from 'react'
-import { IconButton, AddIcon, MinusIcon, Skeleton, useTooltip } from '@pancakeswap/uikit'
-import { Button, Text, Flex, useModal } from '@metagg/mgg-uikit'
+import React, { useState } from 'react'
+import { Skeleton, useTooltip } from '@pancakeswap/uikit'
+import { Button, Flex, useModal } from '@metagg/mgg-uikit'
 import BigNumber from 'bignumber.js'
 import { useTranslation } from 'contexts/Localization'
-import { getBalanceNumber } from 'utils/formatBalance'
+import { getBalanceNumber, getFullDisplayBalance } from 'utils/formatBalance'
 import { Pool } from 'state/types'
-import Balance from 'components/Balance'
 import NotEnoughTokensModal from '../Modals/NotEnoughTokensModal'
 import StakeModal from '../Modals/StakeModal'
+import { useSousUnstake } from '../../../../../hooks/useUnstake'
+import useToast from '../../../../../hooks/useToast'
 
 interface StakeActionsProps {
   pool: Pool
@@ -29,6 +30,9 @@ const StakeAction: React.FC<StakeActionsProps> = ({
   const { stakingToken, stakingTokenPrice, stakingLimit, isFinished, userData } = pool
   const { t } = useTranslation()
   const stakedTokenBalance = getBalanceNumber(stakedBalance, stakingToken.decimals)
+  const [pendingTx, setPendingTx] = useState(false)
+  const { toastSuccess, toastError } = useToast()
+  const { onUnstake } = useSousUnstake(pool.sousId, false)
   const stakedTokenDollarBalance = getBalanceNumber(
     stakedBalance.multipliedBy(stakingTokenPrice),
     stakingToken.decimals,
@@ -45,15 +49,26 @@ const StakeAction: React.FC<StakeActionsProps> = ({
     />,
   )
 
-  const [onPresentUnstake] = useModal(
-    <StakeModal
-      stakingTokenBalance={stakingTokenBalance}
-      isBnbPool={isBnbPool}
-      pool={pool}
-      stakingTokenPrice={stakingTokenPrice}
-      isRemovingStake
-    />,
-  )
+  const handleUnstake = async () => {
+    setPendingTx(true)
+    // unstaking
+    try {
+      await onUnstake(
+        getFullDisplayBalance(new BigNumber(userData.stakedBalance), stakingToken.decimals, 18),
+        stakingToken.decimals,
+      )
+      toastSuccess(
+        `${t('Unstaked')}!`,
+        t('Your %symbol% earnings have also been claimed to your wallet!', {
+          symbol: pool.earningToken.symbol,
+        }),
+      )
+      setPendingTx(false)
+    } catch (e) {
+      toastError(t('Canceled'), t('Please try again and confirm the transaction.'))
+      setPendingTx(false)
+    }
+  }
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     t('You’ve already staked the maximum amount you can stake in this pool!'),
@@ -109,8 +124,12 @@ const StakeAction: React.FC<StakeActionsProps> = ({
     // Reserve function for future use
     // <Button disabled={isFinished} onClick={stakingTokenBalance.gt(0) ? onPresentStake : onPresentTokenRequired} fullWidth>
     return (
-      <Button fullWidth onClick={onPresentStake}>
-        {isFinished && stakedBalance.isGreaterThan(0) ? 'Withdraw' : 'Stake'}
+      <Button
+        fullWidth
+        disabled={isFinished && stakedBalance.isEqualTo(0)}
+        onClick={isFinished && stakedBalance.isGreaterThan(0) ? handleUnstake : onPresentStake}
+      >
+        {isFinished && stakedBalance.isGreaterThan(0) ? 'Withdraw' : 'Deposit'}
       </Button>
     )
   }
