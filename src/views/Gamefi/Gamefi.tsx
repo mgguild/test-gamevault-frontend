@@ -25,6 +25,7 @@ import { Toggle } from '@pancakeswap/uikit'
 import SearchInput from 'components/SearchInput'
 import ToggleView, { ViewMode } from './components/ToggleView/ToggleView'
 import { FarmWithStakedValue } from './config'
+import VaultBanner from './components/Banner'
 import TabButtons from './components/TabButtons'
 import NotAvailable from './components/NotAvailable'
 import { BodySection, FilterButton, FilterItem, HeaderSection, Layout, StakeSection, ToggleWrapper } from './styled'
@@ -278,6 +279,7 @@ const Gamefi: React.FC = () => {
 
   return (
     <Layout>
+      <VaultBanner />
       <BodySection>
         <Heading size="xl">Live Vaults</Heading>
         {renderContent({ RENDER_TYPE: '' })}
