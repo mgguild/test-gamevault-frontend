@@ -19,8 +19,8 @@ import { latinise } from 'utils/latinise'
 import isArchivedPid from 'utils/farmHelpers'
 import usePersistState from 'hooks/usePersistState'
 import { Grid } from '@mui/material'
-import { SelectChangeEvent } from '@mui/material/Select';
-import { Text, Flex, Heading, Button} from '@metagg/mgg-uikit'
+import { SelectChangeEvent } from '@mui/material/Select'
+import { Text, Flex, Heading, Button } from '@metagg/mgg-uikit'
 import { Toggle } from '@pancakeswap/uikit'
 import SearchInput from 'components/SearchInput'
 import ToggleView, { ViewMode } from './components/ToggleView/ToggleView'
@@ -33,22 +33,21 @@ import FarmCard from './components/Cards/Farm'
 import PoolCard from './components/Cards/Pool'
 import Select from './components/Select'
 
-
 const Gamefi: React.FC = () => {
   const theme = useContext(ThemeContext)
   const [query, setQuery] = useState('')
   const { account } = useWeb3React()
   const { path } = useRouteMatch()
   const { pathname } = useLocation()
-  const [sortBy, setSortBy] = useState('');
-  const [ isLiveVaults, setLiveVaults ] = useState('');
+  const [sortBy, setSortBy] = useState('')
+  const [isLiveVaults, setLiveVaults] = useState('')
 
-  const handleIsLiveVaults = (value:string) => {
-    setLiveVaults(value);
+  const handleIsLiveVaults = (value: string) => {
+    setLiveVaults(value)
   }
   const handleChange = (event: SelectChangeEvent) => {
-    setSortBy(event.target.value);
-  };
+    setSortBy(event.target.value)
+  }
   const [viewMode, setViewMode] = usePersistState(ViewMode.TABLE, { localStorageKey: 'mgg_vaults_view' })
   const { data: farmsLP, userDataLoaded } = useFarms()
   const { pools: poolsWithoutAutoVault } = usePools(account)
@@ -182,7 +181,7 @@ const Gamefi: React.FC = () => {
           return stakedMemoized.inactiveFarms.length !== 0 && stakedMemoized.inactivePools.length !== 0 ? (
             <StakeSection>
               {stakedMemoized.inactiveFarms.length !== 0 ? (
-                <Grid container spacing={{md: 4}}>
+                <Grid container spacing={{ md: 4 }}>
                   {stakedMemoized.inactiveFarms.map((farm) => (
                     <Grid key={farm.pid} item xs={12} md={11.5}>
                       <FarmCard
@@ -199,7 +198,7 @@ const Gamefi: React.FC = () => {
                 <NotAvailable title="Inactive Vaults" />
               )}
               {stakedMemoized.inactivePools.length !== 0 ? (
-                <Grid container spacing={{md: 4}}>
+                <Grid container spacing={{ md: 4 }}>
                   {stakedMemoized.inactivePools.map((pool) => (
                     <Grid key={pool.sousId} item xs={12} md={12}>
                       <PoolCard
@@ -283,53 +282,51 @@ const Gamefi: React.FC = () => {
   }
   return (
     <>
-    <VaultBanner />
-    <Layout>
-    <BodySection>
-        <Heading size="xl">MGG Vaults</Heading>
-        {/* Sample render for MGG, update with live mgg vault */}
-        {renderContent({ RENDER_TYPE: '' })}
-      </BodySection>
-      <HeaderSection>
-        <FilterItem>
-          <FilterButton>
-            <Text>FILTER</Text>
-          </FilterButton>
-        </FilterItem>
-        <FilterItem>
-          <TabButtons tabAction={handleIsLiveVaults} tabState={isLiveVaults}/>
-        </FilterItem>
-        <FilterItem>
-          <ToggleWrapper>
-            <Toggle checked={stakedOnly} onChange={() => setStakedOnly(!stakedOnly)} scale="sm" />
-            <Text marginLeft="10px"> Staked only</Text>
-          </ToggleWrapper>
-          {/* <TabButtons hasStakeInFinishedFarms={stakedInactiveFarms.length > 0} /> */}
-        </FilterItem>
-        <FilterItem>
-          <Text textTransform="uppercase">Search</Text>
-          <SearchInput onChange={handleChangeQuery} placeholder="Search Farms" />
-        </FilterItem>
-        <FilterItem>
-          <Text>
-            SORT BY:
-          </Text>
-          <Select handleSortBy={setSortBy} sortBy={sortBy} />
-        </FilterItem>
-         {/* <FilterItem>
+      <VaultBanner />
+      <Layout>
+        <BodySection>
+          <Heading size="xl">MGG Vaults</Heading>
+          {/* Sample render for MGG, update with live mgg vault */}
+          {renderContent({ RENDER_TYPE: '' })}
+        </BodySection>
+        <HeaderSection>
+          <FilterItem>
+            <FilterButton>
+              <Text>FILTER</Text>
+            </FilterButton>
+          </FilterItem>
+          <FilterItem>
+            <TabButtons tabAction={handleIsLiveVaults} tabState={isLiveVaults} />
+          </FilterItem>
+          <FilterItem>
+            <ToggleWrapper>
+              <Toggle checked={stakedOnly} onChange={() => setStakedOnly(!stakedOnly)} scale="sm" />
+              <Text marginLeft="10px"> Staked only</Text>
+            </ToggleWrapper>
+            {/* <TabButtons hasStakeInFinishedFarms={stakedInactiveFarms.length > 0} /> */}
+          </FilterItem>
+          <FilterItem>
+            <Text textTransform="uppercase">Search</Text>
+            <SearchInput onChange={handleChangeQuery} placeholder="Search Farms" />
+          </FilterItem>
+          <FilterItem>
+            <Text>SORT BY:</Text>
+            <Select handleSortBy={setSortBy} sortBy={sortBy} />
+          </FilterItem>
+          {/* <FilterItem>
           <Text textTransform='uppercase'>View</Text>
           <ToggleView viewMode={viewMode} onToggle={(mode: ViewMode) => setViewMode(mode)} />
         </FilterItem> */}
-      </HeaderSection>
-      <BodySection>
-        <Heading size="xl">{isLiveVaults === ''? 'Live':'Past'} Vaults</Heading>
-        {renderContent({ RENDER_TYPE: isLiveVaults })}
-      </BodySection>
-      {/* <BodySection>
+        </HeaderSection>
+        <BodySection>
+          <Heading size="xl">{isLiveVaults === '' ? 'Live' : 'Past'} Vaults</Heading>
+          {renderContent({ RENDER_TYPE: isLiveVaults })}
+        </BodySection>
+        {/* <BodySection>
         <Heading size="xl">Past Vaults</Heading>
         {renderContent({ RENDER_TYPE: 'RENDER_ENDED' })}
       </BodySection> */}
-    </Layout>
+      </Layout>
     </>
   )
 }

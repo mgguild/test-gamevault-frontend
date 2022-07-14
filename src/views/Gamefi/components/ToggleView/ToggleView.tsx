@@ -22,9 +22,11 @@ const Container = styled.div`
   }
 `
 
-const StyledIconButton = styled(IconButton)<{active?: boolean}>`
-border-radius: 5px;
-${({active, theme}) => active && `
+const StyledIconButton = styled(IconButton)<{ active?: boolean }>`
+  border-radius: 5px;
+  ${({ active, theme }) =>
+    active &&
+    `
   background-color: ${theme.colors.primary};
 `}
 `
@@ -38,10 +40,22 @@ const ToggleView: React.FunctionComponent<ToggleViewProps> = ({ viewMode, onTogg
 
   return (
     <Container>
-      <StyledIconButton active={viewMode === ViewMode.CARD} variant="text" scale="sm" id="clickPoolCardView" onClick={() => handleToggle(ViewMode.CARD)}>
+      <StyledIconButton
+        active={viewMode === ViewMode.CARD}
+        variant="text"
+        scale="sm"
+        id="clickPoolCardView"
+        onClick={() => handleToggle(ViewMode.CARD)}
+      >
         <CardViewIcon color={viewMode === ViewMode.CARD ? 'white' : 'textDisabled'} />
       </StyledIconButton>
-      <StyledIconButton active={viewMode === ViewMode.TABLE} variant="text" scale="sm" id="clickPoolTableView" onClick={() => handleToggle(ViewMode.TABLE)}>
+      <StyledIconButton
+        active={viewMode === ViewMode.TABLE}
+        variant="text"
+        scale="sm"
+        id="clickPoolTableView"
+        onClick={() => handleToggle(ViewMode.TABLE)}
+      >
         <ListViewIcon color={viewMode === ViewMode.TABLE ? 'white' : 'textDisabled'} />
       </StyledIconButton>
     </Container>

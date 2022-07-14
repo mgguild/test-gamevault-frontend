@@ -1,13 +1,13 @@
 /* eslint-disable import/prefer-default-export */
 import styled from 'styled-components'
 
-export const Container = styled.div<{src?: string}>`
-  background-color: ${({theme}) => theme.colors.MGG_active};
+export const Container = styled.div<{ src?: string }>`
+  background-color: ${({ theme }) => theme.colors.MGG_active};
   padding: 0px 0px;
   margin-bottom: 3rem;
   position: relative;
   ${({ src }) =>
-  `&:before {
+    `&:before {
     content: '';
     position: absolute;
     left: 0;

@@ -9,7 +9,6 @@ const StyledNotFound = styled.div`
   flex-direction: column;
   justify-content: center;
   margin: 60px auto;
-
 `
 
 const NotAvailable = ({ title }) => {

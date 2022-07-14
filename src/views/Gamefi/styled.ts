@@ -29,14 +29,14 @@ export const Section = styled(Flex)`
 `
 
 export const HeaderSection = styled(Section)`
-flex-direction: column;
-padding: 1rem;
-align-items: center;
-${({theme}) => theme.mediaQueries.sm} {
-  flex-wrap: wrap;
-  flex-direction: row;
-  padding: 0rem;
-}
+  flex-direction: column;
+  padding: 1rem;
+  align-items: center;
+  ${({ theme }) => theme.mediaQueries.sm} {
+    flex-wrap: wrap;
+    flex-direction: row;
+    padding: 0rem;
+  }
 `
 export const BodySection = styled(Section)`
   flex-direction: column;
@@ -46,21 +46,21 @@ export const StakeSection = styled(Flex)`
   width: 100%;
   align-items: center;
   flex-direction: column;
-  ${({theme}) => theme.mediaQueries.sm} {
+  ${({ theme }) => theme.mediaQueries.sm} {
     flex-direction: row;
   }
 `
 
 export const FilterButton = styled(Button)`
-  background-color: ${({theme}) => theme.colors.MGG_mainBG};
+  background-color: ${({ theme }) => theme.colors.MGG_mainBG};
   border-radius: 5px;
   width: 200px;
-  border: 2px solid ${({theme}) => theme.colors.MGG_active};
+  border: 2px solid ${({ theme }) => theme.colors.MGG_active};
 `
 
 export const Layout = styled.div`
   padding: 0rem;
-  ${({theme}) => theme.mediaQueries.md} {
+  ${({ theme }) => theme.mediaQueries.md} {
     padding: 3.5rem;
   }
 `
