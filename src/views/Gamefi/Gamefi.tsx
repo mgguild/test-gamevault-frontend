@@ -278,8 +278,10 @@ const Gamefi: React.FC = () => {
   }
 
   return (
+    <>
+    <VaultBanner />
     <Layout>
-      <VaultBanner />
+      
       <BodySection>
         <Heading size="xl">Live Vaults</Heading>
         {renderContent({ RENDER_TYPE: '' })}
@@ -317,6 +319,7 @@ const Gamefi: React.FC = () => {
         {renderContent({ RENDER_TYPE: 'RENDER_ENDED' })}
       </BodySection>
     </Layout>
+    </>
   )
 }
 
