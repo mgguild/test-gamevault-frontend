@@ -26,7 +26,7 @@ import SearchInput from 'components/SearchInput'
 import ToggleView, { ViewMode } from './components/ToggleView/ToggleView'
 import { FarmWithStakedValue } from './config'
 import VaultBanner from './components/Banner'
-import TabButtons from './components/TabButtons'
+import TabButtons from './components/TabButton'
 import NotAvailable from './components/NotAvailable'
 import { BodySection, FilterButton, FilterItem, HeaderSection, Layout, StakeSection, ToggleWrapper } from './styled'
 import FarmCard from './components/Cards/Farm'
@@ -41,6 +41,11 @@ const Gamefi: React.FC = () => {
   const { path } = useRouteMatch()
   const { pathname } = useLocation()
   const [sortBy, setSortBy] = useState('');
+  const [ isLiveVaults, setLiveVaults ] = useState('');
+
+  const handleIsLiveVaults = (value:string) => {
+    setLiveVaults(value);
+  }
   const handleChange = (event: SelectChangeEvent) => {
     setSortBy(event.target.value);
   };
@@ -276,7 +281,6 @@ const Gamefi: React.FC = () => {
       </div>
     )
   }
-
   return (
     <>
     <VaultBanner />
@@ -291,6 +295,9 @@ const Gamefi: React.FC = () => {
           <FilterButton>
             <Text>FILTER</Text>
           </FilterButton>
+        </FilterItem>
+        <FilterItem>
+          <TabButtons tabAction={handleIsLiveVaults} tabState={isLiveVaults}/>
         </FilterItem>
         <FilterItem>
           <ToggleWrapper>
@@ -315,13 +322,13 @@ const Gamefi: React.FC = () => {
         </FilterItem> */}
       </HeaderSection>
       <BodySection>
-        <Heading size="xl">Live Vaults</Heading>
-        {renderContent({ RENDER_TYPE: '' })}
+        <Heading size="xl">{isLiveVaults === ''? 'Live':'Past'} Vaults</Heading>
+        {renderContent({ RENDER_TYPE: isLiveVaults })}
       </BodySection>
-      <BodySection>
+      {/* <BodySection>
         <Heading size="xl">Past Vaults</Heading>
         {renderContent({ RENDER_TYPE: 'RENDER_ENDED' })}
-      </BodySection>
+      </BodySection> */}
     </Layout>
     </>
   )
