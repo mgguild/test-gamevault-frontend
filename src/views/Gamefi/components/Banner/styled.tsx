@@ -16,7 +16,7 @@ export const Container = styled.div<{src?: string}>`
     width: 100%;
     height: 100%;
     z-index: 0;
-    background-image: url(${src ?? `./MGG.png`});
+    background-image: url(${src ?? `/MGGblank.png`});
     background-repeat: no-repeat;
     // background-attachment: fixed;
     background-position: center;
