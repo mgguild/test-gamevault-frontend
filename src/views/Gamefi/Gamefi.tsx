@@ -281,9 +281,9 @@ const Gamefi: React.FC = () => {
     <>
     <VaultBanner />
     <Layout>
-      
-      <BodySection>
-        <Heading size="xl">Live Vaults</Heading>
+    <BodySection>
+        <Heading size="xl">MGG Vaults</Heading>
+        {/* Sample render for MGG, update with live mgg vault */}
         {renderContent({ RENDER_TYPE: '' })}
       </BodySection>
       <HeaderSection>
@@ -314,6 +314,10 @@ const Gamefi: React.FC = () => {
           <ToggleView viewMode={viewMode} onToggle={(mode: ViewMode) => setViewMode(mode)} />
         </FilterItem> */}
       </HeaderSection>
+      <BodySection>
+        <Heading size="xl">Live Vaults</Heading>
+        {renderContent({ RENDER_TYPE: '' })}
+      </BodySection>
       <BodySection>
         <Heading size="xl">Past Vaults</Heading>
         {renderContent({ RENDER_TYPE: 'RENDER_ENDED' })}
