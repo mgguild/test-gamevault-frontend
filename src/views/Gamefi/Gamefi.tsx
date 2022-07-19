@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js'
 import { orderBy, partition } from 'lodash'
-import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
+import { ThemeContext } from 'styled-components'
+import React, { useState, useEffect, useCallback, useMemo, useRef, useContext } from 'react'
 import { Route, useLocation, useRouteMatch } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
 import { Grid } from '@mui/material'
@@ -18,22 +19,38 @@ import {
 import { getFarmApr, getFarmV2Apr } from 'utils/apr'
 import { latinise } from 'utils/latinise'
 import isArchivedPid from 'utils/farmHelpers'
-import { Text, Flex, Heading } from '@metagg/mgg-uikit'
+import usePersistState from 'hooks/usePersistState'
+import { SelectChangeEvent } from '@mui/material/Select'
+import { Text, Flex, Heading, Button } from '@metagg/mgg-uikit'
 import { Toggle } from '@pancakeswap/uikit'
 import SearchInput from 'components/SearchInput'
+import ToggleView, { ViewMode } from './components/ToggleView/ToggleView'
 import { FarmWithStakedValue } from './config'
-import TabButtons from './components/TabButtons'
+import VaultBanner from './components/Banner'
+import TabButtons from './components/TabButton'
 import NotAvailable from './components/NotAvailable'
-import { BodySection, FilterItem, HeaderSection, StakeSection, ToggleWrapper } from './styled'
+import { BodySection, FilterButton, FilterItem, HeaderSection, Layout, StakeSection, ToggleWrapper } from './styled'
 import FarmCard from './components/Cards/Farm'
 import PoolCard from './components/Cards/Pool'
+import Select from './components/Select'
 
 const Gamefi: React.FC = () => {
+  const theme = useContext(ThemeContext)
   const [query, setQuery] = useState('')
   const { account } = useWeb3React()
   const { path } = useRouteMatch()
   const { pathname } = useLocation()
-  // const { data: farmsLP, userDataLoaded } = useFarms()
+  const [sortBy, setSortBy] = useState('')
+  const [isLiveVaults, setLiveVaults] = useState('')
+
+  const handleIsLiveVaults = (value: string) => {
+    setLiveVaults(value)
+  }
+  const handleChange = (event: SelectChangeEvent) => {
+    setSortBy(event.target.value)
+  }
+  const [viewMode, setViewMode] = usePersistState(ViewMode.TABLE, { localStorageKey: 'mgg_vaults_view' })
+  const { data: farmsLP, userDataLoaded } = useFarms()
   const { pools: poolsWithoutAutoVault } = usePools(account)
   const cakePrice = usePriceCakeBusd()
   const isArchived = pathname.includes('archived')
@@ -51,28 +68,26 @@ const Gamefi: React.FC = () => {
   useFetchPublicPoolsData()
   // Users with no wallet connected should see 0 as Earned amount
   // Connected users should see loading indicator until first userData has loaded
-  // Temporarily Hide Farms
   const userDataReady = !account // || (!!account && userDataLoaded)
   const [stakedOnly, setStakedOnly] = useState(!isActive)
   useEffect(() => {
     setStakedOnly(!isActive)
   }, [isActive])
-  // Temporarily Hide Farms
-  // const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid))
-  // const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
-  // const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
+  const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid))
+  const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
+  const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
 
-  // const stakedOnlyFarms = activeFarms.filter(
-  //   (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
-  // )
+  const stakedOnlyFarms = activeFarms.filter(
+    (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
+  )
 
-  // const stakedInactiveFarms = inactiveFarms.filter(
-  //   (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
-  // )
+  const stakedInactiveFarms = inactiveFarms.filter(
+    (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
+  )
 
-  // const stakedArchivedFarms = archivedFarms.filter(
-  //   (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
-  // )
+  const stakedArchivedFarms = archivedFarms.filter(
+    (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
+  )
 
   const handleChangeQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value)
@@ -139,27 +154,24 @@ const Gamefi: React.FC = () => {
     const stakingList = { activeFarms: [], inactiveFarms: [], activePools: [], inactivePools: [] }
 
     if (stakedOnly) {
-      // Temporarily Hide Farms
-      // stakingList.activeFarms = farmsList(stakedOnlyFarms)
-      // stakingList.inactiveFarms = farmsList(stakedInactiveFarms)
+      stakingList.activeFarms = farmsList(stakedOnlyFarms)
+      stakingList.inactiveFarms = farmsList(stakedInactiveFarms)
       stakingList.activePools = stakedOnlyOpenPools
       stakingList.inactivePools = stakedOnlyFinishedPools
     } else {
-      // Temporarily Hide Farms
-      // stakingList.activeFarms = farmsList(activeFarms)
-      // stakingList.inactiveFarms = farmsList(inactiveFarms)
+      stakingList.activeFarms = farmsList(activeFarms)
+      stakingList.inactiveFarms = farmsList(inactiveFarms)
       stakingList.activePools = openPools
       stakingList.inactivePools = finishedPools
     }
     return stakingList
   }, [
-    // Temporarily Hide Farms
-    // farmsList,
-    // activeFarms,
-    // inactiveFarms,
-    // stakedInactiveFarms,
+    farmsList,
+    activeFarms,
+    inactiveFarms,
+    stakedInactiveFarms,
     stakedOnly,
-    // stakedOnlyFarms,
+    stakedOnlyFarms,
     finishedPools,
     openPools,
     stakedOnlyOpenPools,
@@ -172,11 +184,10 @@ const Gamefi: React.FC = () => {
         case 'RENDER_ENDED':
           return stakedMemoized.inactivePools.length !== 0 ? (
             <StakeSection>
-              {/* Temporarily Hide Farms
               {stakedMemoized.inactiveFarms.length !== 0 ? (
-                <Grid container spacing={4}>
+                <Grid container spacing={{ md: 4 }}>
                   {stakedMemoized.inactiveFarms.map((farm) => (
-                    <Grid key={farm.pid} item md={11}>
+                    <Grid key={farm.pid} item xs={12} md={11.5}>
                       <FarmCard
                         userDataReady={userDataReady}
                         farm={farm}
@@ -188,12 +199,12 @@ const Gamefi: React.FC = () => {
                   ))}
                 </Grid>
               ) : (
-                <NotAvailable title="Inactive Farms" />
-              )} */}
+                <NotAvailable title="Inactive Vaults" />
+              )}
               {stakedMemoized.inactivePools.length !== 0 ? (
-                <Grid container spacing={4}>
+                <Grid container spacing={{ md: 4 }}>
                   {stakedMemoized.inactivePools.map((pool) => (
-                    <Grid key={pool.sousId} item md={11}>
+                    <Grid key={pool.sousId} item xs={12} md={12}>
                       <PoolCard
                         userDataReady={userDataReady}
                         pool={pool}
@@ -206,16 +217,15 @@ const Gamefi: React.FC = () => {
                   ))}
                 </Grid>
               ) : (
-                <NotAvailable title="Inactive Pools" />
+                <NotAvailable title="Inactive Vaults" />
               )}
             </StakeSection>
           ) : (
-            <NotAvailable title="inactive farms and pools" />
+            <NotAvailable title="Inactive Vaults" />
           )
         default:
           return stakedMemoized.activePools.length !== 0 ? (
             <StakeSection>
-              {/* Temporarily Hide Farms
               {stakedMemoized.activeFarms.length !== 0 ? (
                 <Grid container spacing={4}>
                   {stakedMemoized.activeFarms.map((farm) => (
@@ -231,8 +241,8 @@ const Gamefi: React.FC = () => {
                   ))}
                 </Grid>
               ) : (
-                <NotAvailable title="Active Farms" />
-              )} */}
+                <NotAvailable title="Active Vaults" />
+              )}
               {stakedMemoized.activePools.length !== 0 ? (
                 <Grid container spacing={2}>
                   {stakedMemoized.activePools.map((pool) => (
@@ -249,11 +259,11 @@ const Gamefi: React.FC = () => {
                   ))}
                 </Grid>
               ) : (
-                <NotAvailable title="Active Pools" />
+                <NotAvailable title="Active Vaults" />
               )}
             </StakeSection>
           ) : (
-            <NotAvailable title="active farms and pools" />
+            <NotAvailable title="Active Vaults" />
           )
       }
     }
@@ -274,35 +284,50 @@ const Gamefi: React.FC = () => {
       </div>
     )
   }
-
   return (
-    <div
-      style={{
-        padding: '5rem',
-      }}
-    >
-      <HeaderSection>
-        <FilterItem>
-          <ToggleWrapper>
-            <Toggle checked={stakedOnly} onChange={() => setStakedOnly(!stakedOnly)} scale="sm" />
-            <Text marginLeft="10px"> Staked only</Text>
-          </ToggleWrapper>
-          {/* <TabButtons hasStakeInFinishedFarms={stakedInactiveFarms.length > 0} /> */}
-        </FilterItem>
-        <FilterItem>
-          <Text textTransform="uppercase">Search</Text>
-          <SearchInput onChange={handleChangeQuery} placeholder="Search Farms" />
-        </FilterItem>
-      </HeaderSection>
-      <BodySection>
-        <Heading size="xl">Live Farms</Heading>
-        {renderContent({ RENDER_TYPE: '' })}
-      </BodySection>
-      <BodySection>
-        <Heading size="xl">Past Farms</Heading>
-        {renderContent({ RENDER_TYPE: 'RENDER_ENDED' })}
-      </BodySection>
-    </div>
+    <>
+      <VaultBanner />
+      <Layout>
+        <BodySection>
+          <Heading size="xl">MGG Vaults</Heading>
+          {/* Sample render for MGG, update with live mgg vault */}
+          {renderContent({ RENDER_TYPE: '' })}
+        </BodySection>
+        <HeaderSection>
+          <FilterItem>
+            <FilterButton>
+              <Text>FILTER</Text>
+            </FilterButton>
+          </FilterItem>
+          <FilterItem>
+            <TabButtons tabAction={handleIsLiveVaults} tabState={isLiveVaults} />
+          </FilterItem>
+          <FilterItem>
+            <ToggleWrapper>
+              <Toggle checked={stakedOnly} onChange={() => setStakedOnly(!stakedOnly)} scale="sm" />
+              <Text marginLeft="10px"> Staked only</Text>
+            </ToggleWrapper>
+            {/* <TabButtons hasStakeInFinishedFarms={stakedInactiveFarms.length > 0} /> */}
+          </FilterItem>
+          <FilterItem>
+            <Text textTransform="uppercase">Search</Text>
+            <SearchInput onChange={handleChangeQuery} placeholder="Search Farms" />
+          </FilterItem>
+          <FilterItem>
+            <Text>SORT BY:</Text>
+            <Select handleSortBy={setSortBy} sortBy={sortBy} />
+          </FilterItem>
+          {/* <FilterItem>
+          <Text textTransform='uppercase'>View</Text>
+          <ToggleView viewMode={viewMode} onToggle={(mode: ViewMode) => setViewMode(mode)} />
+        </FilterItem> */}
+        </HeaderSection>
+        <BodySection>
+          <Heading size="xl">{isLiveVaults === '' ? 'Live' : 'Past'} Vaults</Heading>
+          {renderContent({ RENDER_TYPE: isLiveVaults })}
+        </BodySection>
+      </Layout>
+    </>
   )
 }
 

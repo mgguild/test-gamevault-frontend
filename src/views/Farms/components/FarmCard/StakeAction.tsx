@@ -110,11 +110,7 @@ const StakeAction: React.FC<FarmCardActionsProps> = ({
     return (
       <Button
         onClick={farm.hasEnded && parseFloat(farm.userData.stakedBalance) ? onPresentWithdraw : onPresentDeposit}
-        disabled={
-          farm.hasEnded &&
-          !parseFloat(farm.userData.stakedBalance) &&
-          ['history', 'archived'].some((item) => location.pathname.includes(item))
-        }
+        disabled={farm.hasEnded && stakedBalance.eq(0)}
         fullWidth
       >
         {userDataReady ? buttonTxt : <Loading />}
