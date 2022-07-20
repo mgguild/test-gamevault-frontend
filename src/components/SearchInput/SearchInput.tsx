@@ -7,6 +7,8 @@ import { useTranslation } from 'contexts/Localization'
 const StyledInput = styled(Input)`
   margin-left: auto;
   background-color: ${({ theme }) => theme.colors.MGG_container};
+  border-radius: 5px;
+  width: 200px;
 `
 
 const InputWrapper = styled.div`
