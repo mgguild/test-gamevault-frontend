@@ -47,7 +47,7 @@ const InsufficientModal: React.FC<InsufficientModalProps> = ({
       <Modal title="" onDismiss={onDismiss}>
         <Flex justifyContent="center">
           <Heading size="lg" mt="-48px" style={{ textAlign: 'center' }}>
-            Insufficent {pairSymbol} Token
+            Insufficient {pairSymbol} Token
           </Heading>
         </Flex>
         <ModalBody>
