@@ -73,16 +73,17 @@ const Gamefi: React.FC = () => {
   useEffect(() => {
     setStakedOnly(!isActive)
   }, [isActive])
-  const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid))
+  const mggFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && farm.isMain && !isArchivedPid(farm.pid))
+  const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !farm.isMain && !isArchivedPid(farm.pid))
   const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
   const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
 
   const stakedOnlyFarms = activeFarms.filter(
-    (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
+    (farm) => farm.userData && !farm.isMain && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
   )
 
   const stakedInactiveFarms = inactiveFarms.filter(
-    (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
+    (farm) => farm.userData && !farm.isMain && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
   )
 
   const stakedArchivedFarms = archivedFarms.filter(
@@ -119,6 +120,23 @@ const Gamefi: React.FC = () => {
     [cakePrice, query, isActive],
   )
 
+  const mggList = useCallback(
+    (farmsToDisplay: Farm[]): FarmWithStakedValue[] => {
+      const farmsToDisplayWithAPR: FarmWithStakedValue[] = farmsToDisplay.map((farm) => {
+        if (!farm.lpTotalInQuoteToken || !farm.quoteToken.busdPrice) {
+          return farm
+        }
+        const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(farm.quoteToken.busdPrice)
+        const apr = isActive ? getFarmApr(new BigNumber(farm.poolWeight), cakePrice, totalLiquidity) : 0
+
+        return { ...farm, apr, liquidity: totalLiquidity }
+      })
+
+      return farmsToDisplayWithAPR
+    },
+    [cakePrice, isActive],
+  )
+
   const fixedAprsOnly = poolsWithoutAutoVault.filter((pool) => pool.poolCategory === PoolCategory.FIXEDAPR)
 
   const pools = useMemo(() => {
@@ -151,22 +169,25 @@ const Gamefi: React.FC = () => {
   )
 
   const stakedMemoized = useMemo(() => {
-    const stakingList = { activeFarms: [], inactiveFarms: [], activePools: [], inactivePools: [] }
-
+    const stakingList = { activeFarms: [], inactiveFarms: [], activePools: [], inactivePools: [], mggFarms: [], mggPools: [] }
     if (stakedOnly) {
       stakingList.activeFarms = farmsList(stakedOnlyFarms)
       stakingList.inactiveFarms = farmsList(stakedInactiveFarms)
-      stakingList.activePools = stakedOnlyOpenPools
-      stakingList.inactivePools = stakedOnlyFinishedPools
+      stakingList.activePools = stakedOnlyOpenPools.filter((pool) => !pool.isMain)
+      stakingList.inactivePools = stakedOnlyFinishedPools.filter((pool) => !pool.isMain)
     } else {
       stakingList.activeFarms = farmsList(activeFarms)
       stakingList.inactiveFarms = farmsList(inactiveFarms)
-      stakingList.activePools = openPools
-      stakingList.inactivePools = finishedPools
+      stakingList.activePools = openPools.filter((pool) => !pool.isMain)
+      stakingList.inactivePools = finishedPools.filter((pool) => !pool.isMain)
     }
+    stakingList.mggPools = openPools.filter((pool) => pool.isMain)
+    stakingList.mggFarms = mggList(mggFarms)
     return stakingList
   }, [
     farmsList,
+    mggList,
+    mggFarms,
     activeFarms,
     inactiveFarms,
     stakedInactiveFarms,
@@ -181,10 +202,43 @@ const Gamefi: React.FC = () => {
   const renderContent = ({ RENDER_TYPE }: { RENDER_TYPE?: string }): JSX.Element => {
     const render = (type) => {
       switch (type) {
+        case 'MGG_VAULTS':
+          return stakedMemoized.mggFarms.length !== 0 ? (
+            <StakeSection>
+                <Grid container spacing={{ md: 4 }}>
+                {stakedMemoized.mggFarms.map((farm) => (
+                  <Grid key={farm.pid} item xs={12} md={11.5}>
+                    <FarmCard
+                      userDataReady={userDataReady}
+                      farm={farm}
+                      cakePrice={cakePrice}
+                      account={account}
+                      removed={false}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+              <Grid container spacing={{ md: 4 }}>
+                  {stakedMemoized.mggPools.map((pool) => (
+                    <Grid key={pool.sousId} item xs={12} md={12}>
+                      <PoolCard
+                        userDataReady={userDataReady}
+                        pool={pool}
+                        cakePrice={cakePrice}
+                        account={account}
+                        removed={false}
+                        bgColor="#b10303d6"
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+            </StakeSection> 
+          ) :  (
+            <NotAvailable title="Inactive Vaults" />
+          )
         case 'RENDER_ENDED':
           return stakedMemoized.inactivePools.length !== 0 ? (
             <StakeSection>
-              {stakedMemoized.inactiveFarms.length !== 0 ? (
                 <Grid container spacing={{ md: 4 }}>
                   {stakedMemoized.inactiveFarms.map((farm) => (
                     <Grid key={farm.pid} item xs={12} md={11.5}>
@@ -198,10 +252,6 @@ const Gamefi: React.FC = () => {
                     </Grid>
                   ))}
                 </Grid>
-              ) : (
-                <NotAvailable title="Inactive Vaults" />
-              )}
-              {stakedMemoized.inactivePools.length !== 0 ? (
                 <Grid container spacing={{ md: 4 }}>
                   {stakedMemoized.inactivePools.map((pool) => (
                     <Grid key={pool.sousId} item xs={12} md={12}>
@@ -216,9 +266,6 @@ const Gamefi: React.FC = () => {
                     </Grid>
                   ))}
                 </Grid>
-              ) : (
-                <NotAvailable title="Inactive Vaults" />
-              )}
             </StakeSection>
           ) : (
             <NotAvailable title="Inactive Vaults" />
@@ -226,7 +273,6 @@ const Gamefi: React.FC = () => {
         default:
           return stakedMemoized.activePools.length !== 0 ? (
             <StakeSection>
-              {stakedMemoized.activeFarms.length !== 0 ? (
                 <Grid container spacing={4}>
                   {stakedMemoized.activeFarms.map((farm) => (
                     <Grid key={farm.pid} item xs={12} md={11.5}>
@@ -240,10 +286,6 @@ const Gamefi: React.FC = () => {
                     </Grid>
                   ))}
                 </Grid>
-              ) : (
-                <NotAvailable title="Active Vaults" />
-              )}
-              {stakedMemoized.activePools.length !== 0 ? (
                 <Grid container spacing={2}>
                   {stakedMemoized.activePools.map((pool) => (
                     <Grid key={pool.sousId} item xs={12} md={12}>
@@ -258,9 +300,6 @@ const Gamefi: React.FC = () => {
                     </Grid>
                   ))}
                 </Grid>
-              ) : (
-                <NotAvailable title="Active Vaults" />
-              )}
             </StakeSection>
           ) : (
             <NotAvailable title="Active Vaults" />
@@ -291,7 +330,7 @@ const Gamefi: React.FC = () => {
         <BodySection>
           <Heading size="xl">MGG Vaults</Heading>
           {/* Sample render for MGG, update with live mgg vault */}
-          {renderContent({ RENDER_TYPE: '' })}
+          {renderContent({ RENDER_TYPE: 'MGG_VAULTS' })}
         </BodySection>
         <HeaderSection>
           <FilterItem>
@@ -311,7 +350,7 @@ const Gamefi: React.FC = () => {
           </FilterItem>
           <FilterItem>
             <Text textTransform="uppercase">Search</Text>
-            <SearchInput onChange={handleChangeQuery} placeholder="Search Farms" />
+            <SearchInput onChange={handleChangeQuery} placeholder="Search Vaults" />
           </FilterItem>
           <FilterItem>
             <Text>SORT BY:</Text>
