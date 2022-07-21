@@ -6,6 +6,7 @@ import { PoolCategory } from 'config/constants/types'
 import inoAbi from 'config/abi/ino.json'
 import igoAbi from 'config/abi/ido.json'
 import vesting from 'config/abi/vesting.json'
+import fixedAprPoolABI from 'config/abi/fixedAprPool.json'
 
 // Addresses
 import {
@@ -98,13 +99,16 @@ export const getIgoContract = (address: string, web3?: Web3) => {
 export const getVestingContract = (address: string, web3?: Web3) => {
   return getContract(vesting, address, web3)
 }
+export const getFixedAprPoolContract = (address: string, web3?: Web3) => {
+  return getContract(fixedAprPoolABI, address, web3)
+}
 export const getIfoV2Contract = (address: string, web3?: Web3) => {
   return getContract(ifoV2Abi, address, web3)
 }
 export const getSouschefContract = (id: number, web3?: Web3) => {
   const config = poolsConfig.find((pool) => pool.sousId === id)
   const abi = config.poolCategory === PoolCategory.BINANCE ? sousChefBnb : sousChef
-  return getContract(abi, getAddress(config.contractAddress), web3)
+  return getContract(abi, getAddress(config.contractAddress, config.chain), web3)
 }
 export const getSouschefV2Contract = (id: number, web3?: Web3) => {
   const config = poolsConfig.find((pool) => pool.sousId === id)
@@ -137,8 +141,8 @@ export const getLotteryTicketContract = (web3?: Web3) => {
 export const getLotteryV2Contract = (web3?: Web3) => {
   return getContract(lotteryV2Abi, getLotteryV2Address(), web3)
 }
-export const getMasterchefContract = (web3?: Web3) => {
-  return getContract(masterChef, getMasterChefAddress(), web3)
+export const getMasterchefContract = (web3?: Web3, chainId = MAINNET_CHAIN_ID) => {
+  return getContract(masterChef, getMasterChefAddress(chainId), web3)
 }
 export const getClaimRefundContract = (web3?: Web3) => {
   return getContract(claimRefundAbi, getClaimRefundAddress(), web3)

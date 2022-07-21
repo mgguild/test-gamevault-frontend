@@ -22,7 +22,7 @@ const RenderFarm: React.FC<{ farmID: string; stakingType?: string; tblColumns: a
   tblColumns,
   stakingType,
 }) => {
-  const [dayDuration, setDayDuration] = useState<string>('')
+  const [dayDuration, setDayDuration] = useState<number>(0)
   const theme = useContext(ThemeContext)
   const { account } = useWeb3React()
   const { pathname } = useLocation()
@@ -65,9 +65,118 @@ const RenderFarm: React.FC<{ farmID: string; stakingType?: string; tblColumns: a
     },
   ]
 
+  const renderStats = () => {
+    return (
+      <>
+        <Flex style={{ margin: '2rem 0', zIndex: 3 }}>
+          <div>
+            <Heading style={{ fontSize: '1.875rem' }} color="white">
+              {' '}
+              LP Farming Stats
+            </Heading>
+            <Text color="white">Learn About {currentFarm.name} LP staking Farm, and track its results</Text>
+          </div>
+        </Flex>
+
+        <Flex
+          style={{
+            padding: '1rem 2rem',
+            width: '100%',
+            flexFlow: 'row wrap',
+            justifyContent: 'space-between',
+            backgroundColor: theme.colors.MGG_mainBG,
+            zIndex: 3,
+          }}
+        >
+          <Text>Current Total Value Locked - $100k</Text>
+          <Text>All Time High Value Locked - $120k</Text>
+          <Text color={theme.colors.MGG_accent2}>Farm Contract Address</Text>
+        </Flex>
+
+        <Flex
+          style={{
+            width: '100%',
+            flexFlow: 'row wrap',
+            justifyContent: 'space-between',
+            gap: '0.5rem',
+            zIndex: 3,
+          }}
+        >
+          <StatCard>
+            <Text color={theme.colors.MGG_accent2}>Total {currentFarm.lpSymbol} Staked</Text>
+            <Heading style={{ fontSize: '1.875rem' }}>2M</Heading>
+            <hr
+              style={{
+                width: '100%',
+                borderTop: `1px solid ${theme.colors.MGG_active}`,
+                borderBottom: `1px solid ${theme.colors.MGG_active}`,
+              }}
+            />
+            <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
+              123.456789k LP Tokens
+            </Text>
+          </StatCard>
+
+          <StatCard>
+            <Text color={theme.colors.MGG_accent2}>Total {currentFarm.quoteToken.symbol} Rewards Locked</Text>
+            <Heading style={{ fontSize: '1.875rem' }}>1.977M</Heading>
+            <hr
+              style={{
+                width: '100%',
+                borderTop: `1px solid ${theme.colors.MGG_active}`,
+                borderBottom: `1px solid ${theme.colors.MGG_active}`,
+              }}
+            />
+            <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
+              26.21 {currentFarm.token.symbol} token per minute
+            </Text>
+          </StatCard>
+
+          <StatCard>
+            <Text color={theme.colors.MGG_accent2}>Farming Program Ends</Text>
+            <Heading style={{ fontSize: '1.875rem' }}>100D 23H 22M</Heading>
+            <hr
+              style={{
+                width: '100%',
+                borderTop: `1px solid ${theme.colors.MGG_active}`,
+                borderBottom: `1px solid ${theme.colors.MGG_active}`,
+              }}
+            />
+            <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
+              145402 Minutes Remaining
+            </Text>
+          </StatCard>
+
+          <StatCard>
+            <Text color={theme.colors.MGG_accent2}>Total {currentFarm.quoteToken.symbol} Rewards Unlocked</Text>
+            <Heading style={{ fontSize: '1.875rem' }}>2M</Heading>
+            <hr
+              style={{
+                width: '100%',
+                borderTop: `1px solid ${theme.colors.MGG_active}`,
+                borderBottom: `1px solid ${theme.colors.MGG_active}`,
+              }}
+            />
+            <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
+              0 Rewards Withdrawn
+            </Text>
+          </StatCard>
+        </Flex>
+
+        <ChartStyle>
+          <ApexChart series={series} />
+        </ChartStyle>
+
+        <TableStyle>
+          <RenderTable columns={tblColumns} data={data} />
+        </TableStyle>
+      </>
+    )
+  }
+
   return (
     <PageContainer bgColor={currentFarm.UIProps.bgColor} contain={currentFarm.UIProps.contain}>
-      <LinearBG>
+      <LinearBG style={{ minHeight: '100vh' }}>
         <Flex>
           <>
             <Card2Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -114,8 +223,8 @@ const RenderFarm: React.FC<{ farmID: string; stakingType?: string; tblColumns: a
             <Flex style={{ width: '100%', flexFlow: 'row wrap', gap: '1rem', justifyContent: 'space-evenly' }}>
               <Stats>
                 <div>
-                  <Heading size="l">{dayDuration !== '' ? `${dayDuration} days` : 'Select Days'}</Heading>
-                  {dayDuration !== '' && <Text fontSize="0.8rem">Program duration</Text>}
+                  <Heading size="l">{dayDuration !== 0 ? `${dayDuration} days` : 'Select Days'}</Heading>
+                  {dayDuration !== 0 && <Text fontSize="0.8rem">Program duration</Text>}
                 </div>
               </Stats>
               <Stats>
@@ -154,6 +263,7 @@ const RenderFarm: React.FC<{ farmID: string; stakingType?: string; tblColumns: a
                   dayFunction={setDayDuration}
                   stakingType="farm"
                   currentFarm={currentFarm}
+                  account={account}
                 />
               )}
               <Flex style={{ flex: '0 100%' }} />
@@ -169,108 +279,7 @@ const RenderFarm: React.FC<{ farmID: string; stakingType?: string; tblColumns: a
               </Flex>
             </Flex>
           </FlexC>
-          <Flex style={{ margin: '2rem 0', zIndex: 3 }}>
-            <div>
-              <Heading style={{ fontSize: '1.875rem' }} color="white">
-                {' '}
-                LP Farming Stats
-              </Heading>
-              <Text color="white">Learn About {currentFarm.name} LP staking Farm, and track its results</Text>
-            </div>
-          </Flex>
-
-          <Flex
-            style={{
-              padding: '1rem 2rem',
-              width: '100%',
-              flexFlow: 'row wrap',
-              justifyContent: 'space-between',
-              backgroundColor: theme.colors.MGG_mainBG,
-              zIndex: 3,
-            }}
-          >
-            <Text>Current Total Value Locked - $100k</Text>
-            <Text>All Time High Value Locked - $120k</Text>
-            <Text color={theme.colors.MGG_accent2}>Farm Contract Address</Text>
-          </Flex>
-
-          <Flex
-            style={{
-              width: '100%',
-              flexFlow: 'row wrap',
-              justifyContent: 'space-between',
-              gap: '0.5rem',
-              zIndex: 3,
-            }}
-          >
-            <StatCard>
-              <Text color={theme.colors.MGG_accent2}>Total {currentFarm.lpSymbol} Staked</Text>
-              <Heading style={{ fontSize: '1.875rem' }}>2M</Heading>
-              <hr
-                style={{
-                  width: '100%',
-                  borderTop: `1px solid ${theme.colors.MGG_active}`,
-                  borderBottom: `1px solid ${theme.colors.MGG_active}`,
-                }}
-              />
-              <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
-                123.456789k LP Tokens
-              </Text>
-            </StatCard>
-
-            <StatCard>
-              <Text color={theme.colors.MGG_accent2}>Total {currentFarm.quoteToken.symbol} Rewards Locked</Text>
-              <Heading style={{ fontSize: '1.875rem' }}>1.977M</Heading>
-              <hr
-                style={{
-                  width: '100%',
-                  borderTop: `1px solid ${theme.colors.MGG_active}`,
-                  borderBottom: `1px solid ${theme.colors.MGG_active}`,
-                }}
-              />
-              <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
-                26.21 {currentFarm.token.symbol} token per minute
-              </Text>
-            </StatCard>
-
-            <StatCard>
-              <Text color={theme.colors.MGG_accent2}>Farming Program Ends</Text>
-              <Heading style={{ fontSize: '1.875rem' }}>100D 23H 22M</Heading>
-              <hr
-                style={{
-                  width: '100%',
-                  borderTop: `1px solid ${theme.colors.MGG_active}`,
-                  borderBottom: `1px solid ${theme.colors.MGG_active}`,
-                }}
-              />
-              <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
-                145402 Minutes Remaining
-              </Text>
-            </StatCard>
-
-            <StatCard>
-              <Text color={theme.colors.MGG_accent2}>Total {currentFarm.quoteToken.symbol} Rewards Unlocked</Text>
-              <Heading style={{ fontSize: '1.875rem' }}>2M</Heading>
-              <hr
-                style={{
-                  width: '100%',
-                  borderTop: `1px solid ${theme.colors.MGG_active}`,
-                  borderBottom: `1px solid ${theme.colors.MGG_active}`,
-                }}
-              />
-              <Text fontSize="0.8rem" color={theme.colors.textSubtle}>
-                0 Rewards Withdrawn
-              </Text>
-            </StatCard>
-          </Flex>
-
-          <ChartStyle>
-            <ApexChart series={series} />
-          </ChartStyle>
-
-          <TableStyle>
-            <RenderTable columns={tblColumns} data={data} />
-          </TableStyle>
+          {/* { renderStats() } */}
         </FlexC>
       </LinearBG>
     </PageContainer>

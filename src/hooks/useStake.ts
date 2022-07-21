@@ -2,9 +2,10 @@ import { useCallback } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { Contract } from 'web3-eth-contract'
 import { useAppDispatch } from 'state'
+import { MAINNET_CHAIN_ID } from 'config'
 import { updateUserStakedBalance, updateUserBalance } from 'state/actions'
-import { stake, sousStake, sousStakeBnb } from 'utils/callHelpers'
-import { useMasterchef, useSousChef } from './useContract'
+import { stake, sousStake, sousStakeBnb, stakeFixedAprPool } from 'utils/callHelpers'
+import { useMasterchef, useSousChef, useFixedAprPoolContract } from './useContract'
 
 const useStake = (pid: number) => {
   const { account } = useWeb3React()
@@ -23,7 +24,7 @@ const useStake = (pid: number) => {
 
 export const useSousStake = (sousId: number, isUsingBnb = false) => {
   const dispatch = useAppDispatch()
-  const { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
   const masterChefContract = useMasterchef()
   const sousChefContract = useSousChef(sousId)
 
@@ -36,13 +37,30 @@ export const useSousStake = (sousId: number, isUsingBnb = false) => {
       } else {
         await sousStake(sousChefContract, amount, decimals, account)
       }
-      dispatch(updateUserStakedBalance(sousId, account))
-      dispatch(updateUserBalance(sousId, account))
+      const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
+      dispatch(updateUserStakedBalance(sousId, account, chain))
+      dispatch(updateUserBalance(sousId, account, chain))
     },
-    [account, dispatch, isUsingBnb, masterChefContract, sousChefContract, sousId],
+    [account, dispatch, isUsingBnb, masterChefContract, sousChefContract, sousId, chainId],
   )
 
   return { onStake: handleStake }
+}
+
+export const useFixedAprPoolStake = (contractAddress: string) => {
+  const { account } = useWeb3React()
+  const fixedAprPoolContract = useFixedAprPoolContract(contractAddress)
+
+  const handleStake = useCallback(
+    async (tier: string, amount, contract?: Contract) => {
+      const txHash = await stakeFixedAprPool(contract ?? fixedAprPoolContract, account, tier, amount)
+      console.info(txHash)
+      return txHash
+    },
+    [account, fixedAprPoolContract],
+  )
+
+  return { onFixedAprPoolStake: handleStake }
 }
 
 export default useStake

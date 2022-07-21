@@ -33,9 +33,11 @@ export interface Farm extends FarmConfig {
   isPromoted?: number
   userData?: {
     allowance: string
+    stakingTokenBalance?: BigNumber
     tokenBalance: string
     stakedBalance: string
     earnings: string
+    fixedApr?: any
   }
 }
 
@@ -53,6 +55,7 @@ export interface Pool extends PoolConfig {
     stakingTokenBalance: BigNumber
     stakedBalance: BigNumber
     pendingReward: BigNumber
+    fixedApr?: any
   }
 }
 
