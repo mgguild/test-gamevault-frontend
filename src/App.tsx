@@ -12,7 +12,6 @@ import SuspenseWithChunkError from './components/SuspenseWithChunkError'
 import ToastListener from './components/ToastListener'
 import PageLoader from './components/PageLoader'
 import EasterEgg from './components/EasterEgg'
-import { MAINNET_CHAIN_ID, multiChainSupport } from './config'
 import NotSupported from './views/ComingSoon/notSupported'
 import { getSupportedChain, isChainSupported } from './utils/settings'
 // import Pools from './views/Pools'
@@ -26,7 +25,7 @@ const ComingSoon = lazy(() => import('./views/ComingSoon'))
 const Guildpad = lazy(() => import('./views/GuildPad'))
 const NotFound = lazy(() => import('./views/NotFound'))
 const Pad = lazy(() => import('./views/GuildPad/Pad'))
-const FarmPage = lazy(() => import('./views/Gamefi/NewUI/StakingPage'))
+const GamefiPage = lazy(() => import('./views/Gamefi/NewUI/StakingPage'))
 
 // This config is required for number formatting
 BigNumber.config({
@@ -68,10 +67,28 @@ const App: React.FC = () => {
               {/* <ComingSoon title="Pools" /> */}
             </Route>
             <Route path="/gamefi" exact>
-              {/* <ComingSoon title="GameFi Vaults" /> */}
-              <Gamefi />
+              {isChainSupported('GAMEFI', chainId) ? (
+                <Gamefi />
+              ) : (
+                <NotSupported title="Gamefi Vaults" supportedChainId={getSupportedChain('GAMEFI')} />
+              )}
             </Route>
-            <Route path="/gamefi/:type/:farmID" component={ComingSoon} />
+            <Route
+              path="/gamefi/:type/:farmID"
+              component={isChainSupported('GAMEFI', chainId) ? GamefiPage : NotSupported}
+            />
+            {/* <Route path="/gamefi/:type/:farmID"
+              component={(props) => {
+                const { farmID, type } = props.match.params
+                return isChainSupported('LAUNCHPAD', chainId) ? (
+                  <GamefiPage farmID={farmID} type={type} />
+                ) : (
+                  <NotSupported title="Gamefi" supportedChainId={getSupportedChain('GAMEFI')} />
+                )
+              }}
+            /> */}
+            {/* <ComingSoon title="GameFi Vaults" /> */}
+
             <Route path="/launchpad" exact>
               {/* <ComingSoon title="Launchpad" /> */}
               {isChainSupported('LAUNCHPAD', chainId) ? (

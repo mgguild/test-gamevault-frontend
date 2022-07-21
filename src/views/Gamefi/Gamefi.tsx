@@ -4,7 +4,9 @@ import { ThemeContext } from 'styled-components'
 import React, { useState, useEffect, useCallback, useMemo, useRef, useContext } from 'react'
 import { Route, useLocation, useRouteMatch } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
+import { Grid } from '@mui/material'
 import { Farm, Pool } from 'state/types'
+import { PoolCategory } from 'config/constants/types'
 import {
   useFarms,
   usePollFarmsData,
@@ -18,7 +20,6 @@ import { getFarmApr, getFarmV2Apr } from 'utils/apr'
 import { latinise } from 'utils/latinise'
 import isArchivedPid from 'utils/farmHelpers'
 import usePersistState from 'hooks/usePersistState'
-import { Grid } from '@mui/material'
 import { SelectChangeEvent } from '@mui/material/Select'
 import { Text, Flex, Heading, Button } from '@metagg/mgg-uikit'
 import { Toggle } from '@pancakeswap/uikit'
@@ -67,7 +68,7 @@ const Gamefi: React.FC = () => {
   useFetchPublicPoolsData()
   // Users with no wallet connected should see 0 as Earned amount
   // Connected users should see loading indicator until first userData has loaded
-  const userDataReady = !account || (!!account && userDataLoaded)
+  const userDataReady = !account // || (!!account && userDataLoaded)
   const [stakedOnly, setStakedOnly] = useState(!isActive)
   useEffect(() => {
     setStakedOnly(!isActive)
@@ -87,6 +88,7 @@ const Gamefi: React.FC = () => {
   const stakedArchivedFarms = archivedFarms.filter(
     (farm) => farm.userData && new BigNumber(farm.userData.stakedBalance).isGreaterThan(0),
   )
+
   const handleChangeQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value)
   }
@@ -117,12 +119,14 @@ const Gamefi: React.FC = () => {
     [cakePrice, query, isActive],
   )
 
+  const fixedAprsOnly = poolsWithoutAutoVault.filter((pool) => pool.poolCategory === PoolCategory.FIXEDAPR)
+
   const pools = useMemo(() => {
-    const cakePool = poolsWithoutAutoVault.map((pool) => pool.sousId === 0)
+    const cakePool = fixedAprsOnly.map((pool) => pool.sousId === 0)
     const cakeAutoVault = { ...cakePool, isAutoVault: true }
 
-    return [...poolsWithoutAutoVault]
-  }, [poolsWithoutAutoVault])
+    return [...fixedAprsOnly]
+  }, [fixedAprsOnly])
 
   const [finishedPools, openPools] = useMemo(() => partition(pools, (pool) => pool.isFinished), [pools])
   const stakedOnlyFinishedPools = useMemo(
@@ -178,7 +182,7 @@ const Gamefi: React.FC = () => {
     const render = (type) => {
       switch (type) {
         case 'RENDER_ENDED':
-          return stakedMemoized.inactiveFarms.length !== 0 && stakedMemoized.inactivePools.length !== 0 ? (
+          return stakedMemoized.inactivePools.length !== 0 ? (
             <StakeSection>
               {stakedMemoized.inactiveFarms.length !== 0 ? (
                 <Grid container spacing={{ md: 4 }}>
@@ -220,7 +224,7 @@ const Gamefi: React.FC = () => {
             <NotAvailable title="Inactive Vaults" />
           )
         default:
-          return stakedMemoized.activeFarms.length !== 0 && stakedMemoized.activePools.length !== 0 ? (
+          return stakedMemoized.activePools.length !== 0 ? (
             <StakeSection>
               {stakedMemoized.activeFarms.length !== 0 ? (
                 <Grid container spacing={4}>
@@ -242,7 +246,7 @@ const Gamefi: React.FC = () => {
               {stakedMemoized.activePools.length !== 0 ? (
                 <Grid container spacing={2}>
                   {stakedMemoized.activePools.map((pool) => (
-                    <Grid key={pool.sousId} item md={11}>
+                    <Grid key={pool.sousId} item md={11} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
                       <PoolCard
                         userDataReady={userDataReady}
                         pool={pool}
@@ -322,10 +326,6 @@ const Gamefi: React.FC = () => {
           <Heading size="xl">{isLiveVaults === '' ? 'Live' : 'Past'} Vaults</Heading>
           {renderContent({ RENDER_TYPE: isLiveVaults })}
         </BodySection>
-        {/* <BodySection>
-        <Heading size="xl">Past Vaults</Heading>
-        {renderContent({ RENDER_TYPE: 'RENDER_ENDED' })}
-      </BodySection> */}
       </Layout>
     </>
   )

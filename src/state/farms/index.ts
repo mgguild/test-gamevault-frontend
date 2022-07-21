@@ -99,7 +99,6 @@ export const farmsSlice = createSlice({
       action.payload.forEach((userDataEl) => {
         const { pid } = userDataEl
         const index = state.data.findIndex((farm) => farm.pid === pid)
-        console.log(userDataEl)
         state.data[index] = { ...state.data[index], userData: userDataEl }
       })
       state.userDataLoaded = true

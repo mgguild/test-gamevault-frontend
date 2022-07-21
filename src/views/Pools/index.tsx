@@ -24,6 +24,7 @@ import { StyledHr } from 'views/Farms/components/Divider'
 import SearchInput from 'components/SearchInput'
 import Select, { OptionProps } from 'components/Select/Select'
 import { Pool } from 'state/types'
+import { PoolCategory } from 'config/constants/types'
 import useMedia from 'use-media'
 import PoolCard from './components/PoolCard'
 import CakeVaultCard from './components/CakeVaultCard'
@@ -95,10 +96,11 @@ const Pools: React.FC = () => {
   const performanceFeeAsDecimal = performanceFee && performanceFee / 100
 
   const pools = useMemo(() => {
-    const cakePool = poolsWithoutAutoVault.map((pool) => pool.sousId === 0)
+    const filteredPool = poolsWithoutAutoVault.filter((pool) => pool.poolCategory !== PoolCategory.FIXEDAPR)
+    const cakePool = filteredPool.map((pool) => pool.sousId === 0)
     const cakeAutoVault = { ...cakePool, isAutoVault: true }
 
-    return [...poolsWithoutAutoVault]
+    return [...filteredPool]
   }, [poolsWithoutAutoVault])
 
   // TODO aren't arrays in dep array checked just by reference, i.e. it will rerender every time reference changes?

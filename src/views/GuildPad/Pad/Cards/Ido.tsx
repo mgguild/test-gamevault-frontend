@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { toNumber } from 'lodash'
 import { Guildpad } from 'state/types'
 import styled from 'styled-components'
 import { useSpring } from 'react-spring'
-import { Button, Flex, Heading, Progress, Text, useModal } from '@metagg/mgg-uikit'
+import { Button, Flex, Heading, Text, useModal } from '@metagg/mgg-uikit'
 import { Grid } from '@mui/material'
 import TimerRenderer from 'views/GuildPad/components/TimerRenderer'
 import Logo from 'components/Launchpad/Logo'
@@ -30,12 +29,15 @@ import { AnimText } from '../../../../components/animated/ProgressBar/styles'
 
 const TimerRows = styled(Flex)`
   text-align: center;
+
   & > * {
     flex: 1;
   }
+
   & :first-child {
     font-size: 3vw;
   }
+
   & :nth-child(2) {
     font-size: 1vw;
   }
@@ -60,15 +62,6 @@ const CountDown: React.FC<{ status: string; round: string; start?: boolean; end?
     </TimerContainer>
   )
 }
-
-BigNumber.config({
-  DECIMAL_PLACES: 4,
-  FORMAT: {
-    decimalSeparator: '.',
-    groupSeparator: ',',
-    groupSize: 3,
-  },
-})
 
 const IdoCard: React.FC<{ guildpad: Guildpad; userDataLoaded: boolean }> = ({ guildpad, userDataLoaded }) => {
   const { account } = useWeb3React()

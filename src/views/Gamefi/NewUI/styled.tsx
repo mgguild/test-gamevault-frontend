@@ -2,8 +2,8 @@ import styled from 'styled-components'
 import { Flex, Button } from '@metagg/mgg-uikit'
 
 export const FlexC = styled(Flex)`
-  padding: 2.5rem;
-  flex-flow column wrap;
+  padding: 2rem;
+  flex-flow: row wrap;
   row-gap: 1rem;
   align-content: center;
   align-items: center;
@@ -29,6 +29,7 @@ export const StatCard = styled(Flex)`
 `
 
 export const Stats = styled(Flex)`
+  flex: 1;
   justify-content: center;
   align-items: center;
   padding: 0.5rem 1rem;
