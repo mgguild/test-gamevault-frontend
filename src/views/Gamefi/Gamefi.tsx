@@ -246,7 +246,7 @@ const Gamefi: React.FC = () => {
               {stakedMemoized.activePools.length !== 0 ? (
                 <Grid container spacing={2}>
                   {stakedMemoized.activePools.map((pool) => (
-                    <Grid key={pool.sousId} item xs={12} md={12} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+                    <Grid key={pool.sousId} item xs={12} md={12}>
                       <PoolCard
                         userDataReady={userDataReady}
                         pool={pool}
