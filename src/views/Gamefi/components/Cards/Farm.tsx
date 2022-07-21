@@ -96,7 +96,7 @@ const FarmCard2: React.FC<FarmCard2Props> = ({
         style={{ cursor: 'pointer' }}
       >
         <Link to={`/gamefi/${`LP`}/${farm.pid}`}>
-          <Card2Container style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+          <Card2Container>
             <TokenLogo size="3.5rem" src={getImageUrlFromToken(farm.quoteToken)} />
             <Flex
               style={{
