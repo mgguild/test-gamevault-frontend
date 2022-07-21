@@ -74,7 +74,9 @@ const Gamefi: React.FC = () => {
     setStakedOnly(!isActive)
   }, [isActive])
   const mggFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && farm.isMain && !isArchivedPid(farm.pid))
-  const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !farm.isMain && !isArchivedPid(farm.pid))
+  const activeFarms = farmsLP.filter(
+    (farm) => farm.pid !== 0 && !farm.hasEnded && !farm.isMain && !isArchivedPid(farm.pid),
+  )
   const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
   const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
 
@@ -169,7 +171,14 @@ const Gamefi: React.FC = () => {
   )
 
   const stakedMemoized = useMemo(() => {
-    const stakingList = { activeFarms: [], inactiveFarms: [], activePools: [], inactivePools: [], mggFarms: [], mggPools: [] }
+    const stakingList = {
+      activeFarms: [],
+      inactiveFarms: [],
+      activePools: [],
+      inactivePools: [],
+      mggFarms: [],
+      mggPools: [],
+    }
     if (stakedOnly) {
       stakingList.activeFarms = farmsList(stakedOnlyFarms)
       stakingList.inactiveFarms = farmsList(stakedInactiveFarms)
@@ -203,22 +212,25 @@ const Gamefi: React.FC = () => {
     const render = (type) => {
       switch (type) {
         case 'MGG_VAULTS':
-          return stakedMemoized.mggFarms.length !== 0 ? (
+          return stakedMemoized.mggFarms.length !== 0 || stakedMemoized.mggPools.length !== 0 ? (
             <StakeSection>
+              {stakedMemoized.mggFarms.length !== 0 && (
                 <Grid container spacing={{ md: 4 }}>
-                {stakedMemoized.mggFarms.map((farm) => (
-                  <Grid key={farm.pid} item xs={12} md={11.5}>
-                    <FarmCard
-                      userDataReady={userDataReady}
-                      farm={farm}
-                      cakePrice={cakePrice}
-                      account={account}
-                      removed={false}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-              <Grid container spacing={{ md: 4 }}>
+                  {stakedMemoized.mggFarms.map((farm) => (
+                    <Grid key={farm.pid} item xs={12} md={12}>
+                      <FarmCard
+                        userDataReady={userDataReady}
+                        farm={farm}
+                        cakePrice={cakePrice}
+                        account={account}
+                        removed={false}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+              )}
+              {stakedMemoized.mggPools.length !== 0 && (
+                <Grid container spacing={{ md: 4 }}>
                   {stakedMemoized.mggPools.map((pool) => (
                     <Grid key={pool.sousId} item xs={12} md={12}>
                       <PoolCard
@@ -232,16 +244,18 @@ const Gamefi: React.FC = () => {
                     </Grid>
                   ))}
                 </Grid>
-            </StakeSection> 
-          ) :  (
-            <NotAvailable title="Inactive Vaults" />
+              )}
+            </StakeSection>
+          ) : (
+            <NotAvailable title="MGG Vaults" />
           )
         case 'RENDER_ENDED':
-          return stakedMemoized.inactivePools.length !== 0 ? (
+          return stakedMemoized.inactiveFarms.length !== 0 || stakedMemoized.inactivePools.length !== 0 ? (
             <StakeSection>
+              {stakedMemoized.inactiveFarms.length !== 0 && (
                 <Grid container spacing={{ md: 4 }}>
                   {stakedMemoized.inactiveFarms.map((farm) => (
-                    <Grid key={farm.pid} item xs={12} md={11.5}>
+                    <Grid key={farm.pid} item xs={12} md={12}>
                       <FarmCard
                         userDataReady={userDataReady}
                         farm={farm}
@@ -252,6 +266,8 @@ const Gamefi: React.FC = () => {
                     </Grid>
                   ))}
                 </Grid>
+              )}
+              {stakedMemoized.inactivePools.length !== 0 && (
                 <Grid container spacing={{ md: 4 }}>
                   {stakedMemoized.inactivePools.map((pool) => (
                     <Grid key={pool.sousId} item xs={12} md={12}>
@@ -266,16 +282,18 @@ const Gamefi: React.FC = () => {
                     </Grid>
                   ))}
                 </Grid>
+              )}
             </StakeSection>
           ) : (
             <NotAvailable title="Inactive Vaults" />
           )
         default:
-          return stakedMemoized.activePools.length !== 0 ? (
+          return stakedMemoized.activeFarms.length !== 0 || stakedMemoized.activePools.length !== 0 ? (
             <StakeSection>
+              {stakedMemoized.activeFarms.length !== 0 && (
                 <Grid container spacing={4}>
                   {stakedMemoized.activeFarms.map((farm) => (
-                    <Grid key={farm.pid} item xs={12} md={11.5}>
+                    <Grid key={farm.pid} item xs={12} md={12}>
                       <FarmCard
                         userDataReady={userDataReady}
                         farm={farm}
@@ -286,6 +304,8 @@ const Gamefi: React.FC = () => {
                     </Grid>
                   ))}
                 </Grid>
+              )}
+              {stakedMemoized.activePools.length !== 0 && (
                 <Grid container spacing={2}>
                   {stakedMemoized.activePools.map((pool) => (
                     <Grid key={pool.sousId} item xs={12} md={12}>
@@ -300,6 +320,7 @@ const Gamefi: React.FC = () => {
                     </Grid>
                   ))}
                 </Grid>
+              )}
             </StakeSection>
           ) : (
             <NotAvailable title="Active Vaults" />

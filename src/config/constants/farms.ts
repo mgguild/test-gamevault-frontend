@@ -59,26 +59,26 @@ const farms: FarmConfig[] = [
   /**
    * EXTERNAL STAKING POOLS
    */
-  {
-    isMain: true,
-    pid: 253,
-    name: 'MetaGaming Guild',
-    lpSymbol: 'MGG-BUSD LP',
-    lpAddresses: {
-      97: '',
-      56: '0x709eE9F39F1eC7aAcB05234C64d32b6DD5626309',
-    },
-    stakingAddresses: {
-      97: '',
-      56: '0xc5A228b9Ec0605944ee7a7cf5CBE528F310257DF',
-    },
-    chain: MAINNET_CHAIN_ID,
-    token: tokens.mgg,
-    pairToken: tokens.busd,
-    quoteToken: tokens.mgg,
-    isPromoted: 1,
-    UIProps: farmsUIProps.LPmggBusd,
-  },
+  // {
+  //   isMain: false,
+  //   pid: 253,
+  //   name: 'MetaGaming Guild',
+  //   lpSymbol: 'MGG-BUSD LP',
+  //   lpAddresses: {
+  //     97: '',
+  //     56: '0x709eE9F39F1eC7aAcB05234C64d32b6DD5626309',
+  //   },
+  //   stakingAddresses: {
+  //     97: '',
+  //     56: '0xc5A228b9Ec0605944ee7a7cf5CBE528F310257DF',
+  //   },
+  //   chain: MAINNET_CHAIN_ID,
+  //   token: tokens.mgg,
+  //   pairToken: tokens.busd,
+  //   quoteToken: tokens.mgg,
+  //   isPromoted: 1,
+  //   UIProps: farmsUIProps.LPmggBusd,
+  // },
   {
     isMain: true,
     pid: 252,

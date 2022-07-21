@@ -71,7 +71,7 @@ export enum PoolCategory {
 }
 
 export interface FarmConfig {
-  isMain?: true
+  isMain?: boolean
   pid: number
   name?: string
   chain?: string
