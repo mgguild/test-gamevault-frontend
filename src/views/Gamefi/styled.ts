@@ -48,10 +48,13 @@ export const StakeSection = styled(Flex)`
   justify-content: center;
   flex-direction: column;
   & > * {
-    margin: 1rem;
+    margin: 0rem;
   }
   ${({ theme }) => theme.mediaQueries.sm} {
     flex-direction: row;
+    & > * {
+      margin: 1rem;
+    }
   }
 `
 
