@@ -229,7 +229,7 @@ const Gamefi: React.FC = () => {
               {stakedMemoized.activeFarms.length !== 0 ? (
                 <Grid container spacing={4}>
                   {stakedMemoized.activeFarms.map((farm) => (
-                    <Grid key={farm.pid} item md={11}>
+                    <Grid key={farm.pid} item xs={12} md={11.5}>
                       <FarmCard
                         userDataReady={userDataReady}
                         farm={farm}
@@ -246,7 +246,7 @@ const Gamefi: React.FC = () => {
               {stakedMemoized.activePools.length !== 0 ? (
                 <Grid container spacing={2}>
                   {stakedMemoized.activePools.map((pool) => (
-                    <Grid key={pool.sousId} item md={11} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+                    <Grid key={pool.sousId} item xs={12} md={11} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
                       <PoolCard
                         userDataReady={userDataReady}
                         pool={pool}
