@@ -44,8 +44,6 @@ export const BodySection = styled(Section)`
 `
 export const StakeSection = styled(Flex)`
   width: 100%;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
   & > * {
     margin: 0rem;
@@ -53,7 +51,7 @@ export const StakeSection = styled(Flex)`
   ${({ theme }) => theme.mediaQueries.sm} {
     flex-direction: row;
     & > * {
-      margin: 1rem;
+      margin: 0rem 1rem;
     }
   }
 `
