@@ -83,7 +83,7 @@ const PoolCard2: React.FC<PoolCard2Props> = ({
     <>
       <Cards2 src={src} bgColor={pool.UIProps.bgColor} className="shodow-pop" style={{ cursor: 'pointer' }}>
         <RLink to={`/gamefi/${`Pools`}/${pool.sousId}`}>
-          <Card2Container style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+          <Card2Container>
             <TokenLogo size="3.5rem" src={getImageUrlFromToken(stakingToken)} />
             <Flex
               style={{

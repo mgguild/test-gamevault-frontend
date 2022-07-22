@@ -53,14 +53,15 @@ const Wrapper = styled.div`
   ${({ theme }) => theme.mediaQueries.sm} {
     margin-left: 16px;
   }
-  & :first-child {
-    border-radius: 5rem;
-  }
-  & :last-child {
-    border-radius: 0rem 5rem 5rem 0rem;
-  }
+  // & :first-child {
+  //   border-radius: 5rem;
+  // }
+  // & :last-child {
+  //   border-radius: 0rem 5rem 5rem 0rem;
+  // }
 `
 const ButtonMenu = styled(Button)<{ activeIndex?: boolean }>`
   background-color: ${({ activeIndex, theme }) => (activeIndex ? theme.colors.MGG_active : 'transparent')};
   border: none;
+  border-radius: 5rem;
 `

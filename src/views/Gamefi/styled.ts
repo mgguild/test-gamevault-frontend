@@ -44,10 +44,15 @@ export const BodySection = styled(Section)`
 `
 export const StakeSection = styled(Flex)`
   width: 100%;
-  align-items: center;
   flex-direction: column;
+  & > * {
+    margin: 0rem;
+  }
   ${({ theme }) => theme.mediaQueries.sm} {
     flex-direction: row;
+    & > * {
+      margin: 0rem 1rem;
+    }
   }
 `
 
