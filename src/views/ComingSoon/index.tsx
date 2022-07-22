@@ -15,7 +15,7 @@ const StyledComingSoon = styled.div`
   }
 `
 
-const ComingSoon: React.FC<{ title: string }> = ({ title }) => {
+const ComingSoon: React.FC<{ title: string; link?: string }> = ({ title, link }) => {
   return (
     <Page>
       <StyledComingSoon>
@@ -24,9 +24,9 @@ const ComingSoon: React.FC<{ title: string }> = ({ title }) => {
           <Heading>Coming Soon</Heading>
           <Text> {title} </Text>
         </Flex>
-        <Button as="a" href={`/#/${title.toLowerCase()}`} size="sm">
+        <Button as="a" href={link ? `/#${link.toLowerCase()}` : '/'} size="sm">
           {' '}
-          Back to {title}{' '}
+          Back to { link? title : 'Staking'}
         </Button>
       </StyledComingSoon>
     </Page>
