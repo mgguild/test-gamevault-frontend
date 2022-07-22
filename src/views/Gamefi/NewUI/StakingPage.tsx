@@ -37,7 +37,7 @@ const FarmPage: React.FC<RouteComponentProps<{ type: string; farmID: string }>> 
   )
 
   return type === 'LP' ? (
-    <ComingSoon title="GameFi Vaults" link='/gamefi' />
+    <ComingSoon title="GameFi Vaults" link="/gamefi" />
   ) : (
     // <RenderFarm farmID={farmID} stakingType={type} tblColumns={columns} />
     <RenderPool farmID={farmID} tblColumns={columns} />

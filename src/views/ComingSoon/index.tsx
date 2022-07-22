@@ -26,7 +26,7 @@ const ComingSoon: React.FC<{ title: string; link?: string }> = ({ title, link })
         </Flex>
         <Button as="a" href={link ? `/#${link.toLowerCase()}` : '/'} size="sm">
           {' '}
-          Back to { link? title : 'Staking'}
+          Back to {link ? title : 'Staking'}
         </Button>
       </StyledComingSoon>
     </Page>
