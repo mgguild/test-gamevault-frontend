@@ -24,9 +24,9 @@ const ComingSoon: React.FC<{ title: string }> = ({ title }) => {
           <Heading>Coming Soon</Heading>
           <Text> {title} </Text>
         </Flex>
-        <Button as="a" href="/" size="sm">
+        <Button as="a" href={`/#/${title.toLowerCase()}`} size="sm">
           {' '}
-          Back to Staking{' '}
+          Back to {title}{' '}
         </Button>
       </StyledComingSoon>
     </Page>
