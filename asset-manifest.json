@@ -13,10 +13,10 @@
     "static/js/5.26b10711.chunk.js": "/test-gamevault-frontend/static/js/5.26b10711.chunk.js",
     "static/js/5.26b10711.chunk.js.map": "/test-gamevault-frontend/static/js/5.26b10711.chunk.js.map",
     "main.css": "/test-gamevault-frontend/static/css/main.dee5dda5.chunk.css",
-    "main.js": "/test-gamevault-frontend/static/js/main.29f118f8.chunk.js",
-    "main.js.map": "/test-gamevault-frontend/static/js/main.29f118f8.chunk.js.map",
-    "runtime-main.js": "/test-gamevault-frontend/static/js/runtime-main.264f8245.js",
-    "runtime-main.js.map": "/test-gamevault-frontend/static/js/runtime-main.264f8245.js.map",
+    "main.js": "/test-gamevault-frontend/static/js/main.66ddde3f.chunk.js",
+    "main.js.map": "/test-gamevault-frontend/static/js/main.66ddde3f.chunk.js.map",
+    "runtime-main.js": "/test-gamevault-frontend/static/js/runtime-main.4ad35347.js",
+    "runtime-main.js.map": "/test-gamevault-frontend/static/js/runtime-main.4ad35347.js.map",
     "static/js/8.0975d6a5.chunk.js": "/test-gamevault-frontend/static/js/8.0975d6a5.chunk.js",
     "static/js/8.0975d6a5.chunk.js.map": "/test-gamevault-frontend/static/js/8.0975d6a5.chunk.js.map",
     "static/js/9.f47a6fab.chunk.js": "/test-gamevault-frontend/static/js/9.f47a6fab.chunk.js",
@@ -35,8 +35,8 @@
     "static/js/15.d7f557db.chunk.js.map": "/test-gamevault-frontend/static/js/15.d7f557db.chunk.js.map",
     "static/js/16.2749f426.chunk.js": "/test-gamevault-frontend/static/js/16.2749f426.chunk.js",
     "static/js/16.2749f426.chunk.js.map": "/test-gamevault-frontend/static/js/16.2749f426.chunk.js.map",
-    "static/js/17.7dd18164.chunk.js": "/test-gamevault-frontend/static/js/17.7dd18164.chunk.js",
-    "static/js/17.7dd18164.chunk.js.map": "/test-gamevault-frontend/static/js/17.7dd18164.chunk.js.map",
+    "static/js/17.d644216b.chunk.js": "/test-gamevault-frontend/static/js/17.d644216b.chunk.js",
+    "static/js/17.d644216b.chunk.js.map": "/test-gamevault-frontend/static/js/17.d644216b.chunk.js.map",
     "static/js/18.56fc8780.chunk.js": "/test-gamevault-frontend/static/js/18.56fc8780.chunk.js",
     "static/js/18.56fc8780.chunk.js.map": "/test-gamevault-frontend/static/js/18.56fc8780.chunk.js.map",
     "index.html": "/test-gamevault-frontend/index.html",
@@ -72,9 +72,9 @@
     "static/media/Tier5Legendary.bbee1977.png": "/test-gamevault-frontend/static/media/Tier5Legendary.bbee1977.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.264f8245.js",
+    "static/js/runtime-main.4ad35347.js",
     "static/js/8.0975d6a5.chunk.js",
     "static/css/main.dee5dda5.chunk.css",
-    "static/js/main.29f118f8.chunk.js"
+    "static/js/main.66ddde3f.chunk.js"
   ]
 }
