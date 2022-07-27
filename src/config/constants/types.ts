@@ -72,6 +72,7 @@ export enum PoolCategory {
 
 export interface FarmConfig {
   isMain?: boolean
+  comingSoon?: boolean
   pid: number
   name?: string
   chain?: string
@@ -96,6 +97,7 @@ export interface FarmConfig {
 
 export interface PoolConfig {
   isMain?: boolean
+  comingSoon?: boolean
   name?: string
   chain?: string
   sousId: number

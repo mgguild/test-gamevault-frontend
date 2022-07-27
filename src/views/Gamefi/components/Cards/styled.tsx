@@ -45,7 +45,6 @@ export const Card2Container = styled.div`
   height: 100%;
   z-index: 2;
   grid-template-columns: 1fr 1fr;
-  border: 1px solid red;
 `
 export const TokenLogo = styled.img<{ size?: string }>`
   border-radius: 50%;
@@ -63,17 +62,20 @@ export const StatusContainer = styled.div`
   margin: 0 auto;
   left: 0;
   right: 0;
-  top: 40%;
+  top: 35%;
   text-align: center;
-  border: 1px solid red;
   font-size: 12px;
   ${({theme}) => theme.mediaQueries.md}{
     font-size: 17px;
   }
 `
-export const StatusText = styled(Heading)`
-  font-size: 2em;
-  -webkit-text-stroke: 2px black;
+export const StatusText = styled(Heading)<{comingSoon?: boolean}>`
+  font-size: 2.3em;
+  
+  ${({comingSoon, theme}) => !comingSoon ? `
+  -webkit-text-stroke: 1px ${theme.colors.MGG_accent2};
+  ` : ` opacity: 0.5; `}
+  
 
 `
 

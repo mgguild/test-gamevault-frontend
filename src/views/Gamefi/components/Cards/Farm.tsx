@@ -121,7 +121,7 @@ const FarmCard2: React.FC<FarmCard2Props> = ({
               </div>
             </Flex>
             <StatusContainer>
-            <StatusText>LIVE NOW</StatusText>
+            <StatusText comingSoon={farm.comingSoon}>{farm.comingSoon ? `COMING SOON...` : 'LIVE NOW'}</StatusText>
             </StatusContainer>
             <Flex style={{ alignItems: 'end' }}>
               <div>
