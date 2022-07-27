@@ -15,7 +15,7 @@ import { getFarmApr, getFarmV2Apr } from 'utils/apr'
 import { useFarmPrice } from 'hooks/price'
 import usePrevious from 'utils/refHelpers'
 import { getBalanceNumber, getBalanceAmount } from 'utils/formatBalance'
-import { Cards2, Card2Container, TokenLogo, Badge } from './styled'
+import { Cards2, Card2Container, TokenLogo, Badge, StatusContainer, StatusText } from './styled'
 import { FarmWithStakedValue } from '../../config'
 import { MAINNET_CHAIN_ID } from '../../../../config'
 
@@ -112,6 +112,7 @@ const FarmCard2: React.FC<FarmCard2Props> = ({
                   </Badge>
                 </div>
               )}
+              
               <TokenLogo size="2rem" src={getImageUrlFromToken(farm.pairToken)} />
               <div>
                 <Badge type={1}>
@@ -119,6 +120,9 @@ const FarmCard2: React.FC<FarmCard2Props> = ({
                 </Badge>
               </div>
             </Flex>
+            <StatusContainer>
+            <StatusText>LIVE NOW</StatusText>
+            </StatusContainer>
             <Flex style={{ alignItems: 'end' }}>
               <div>
                 <Text color="white">{farm.lpSymbol}</Text>

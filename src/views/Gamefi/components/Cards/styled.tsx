@@ -1,3 +1,4 @@
+import { Heading } from '@metagg/mgg-uikit';
 import styled, { ThemeContext } from 'styled-components'
 
 export const Cards2 = styled.button<{ src?: string; bgColor?: string }>`
@@ -44,6 +45,7 @@ export const Card2Container = styled.div`
   height: 100%;
   z-index: 2;
   grid-template-columns: 1fr 1fr;
+  border: 1px solid red;
 `
 export const TokenLogo = styled.img<{ size?: string }>`
   border-radius: 50%;
@@ -54,6 +56,25 @@ export const TokenLogo = styled.img<{ size?: string }>`
     height: ${({ size }) => (!size ? '50px' : size)};
     width: ${({ size }) => (!size ? '50px' : size)};
   }
+`
+
+export const StatusContainer = styled.div`
+  position: absolute;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 40%;
+  text-align: center;
+  border: 1px solid red;
+  font-size: 12px;
+  ${({theme}) => theme.mediaQueries.md}{
+    font-size: 17px;
+  }
+`
+export const StatusText = styled(Heading)`
+  font-size: 2em;
+  -webkit-text-stroke: 2px black;
+
 `
 
 export const Badge = styled.div<{ type?: number }>`
