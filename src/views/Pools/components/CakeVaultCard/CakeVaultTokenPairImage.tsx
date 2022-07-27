@@ -6,7 +6,7 @@ import { getAddress } from 'utils/addressHelpers'
 const CakeVaultTokenPairImage: React.FC<Omit<ImageProps, 'src'>> = (props) => {
   const primaryTokenSrc = `/images/tokens/${getAddress(tokens.cake.address)}.svg`
 
-  return <TokenPairImage primarySrc={primaryTokenSrc} secondarySrc="/images/tokens/autorenew.svg" {...props} />
+  return <TokenPairImage primarySrc={primaryTokenSrc} secondarySrc="./images/tokens/autorenew.svg" {...props} />
 }
 
 export default CakeVaultTokenPairImage

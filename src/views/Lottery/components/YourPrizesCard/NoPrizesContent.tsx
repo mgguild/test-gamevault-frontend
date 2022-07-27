@@ -38,7 +38,7 @@ const NoPrizesContent: React.FC = () => {
 
   return (
     <Wrapper>
-      <Image src="/images/no-prize.svg" alt="no prizes won" />
+      <Image src="./images/no-prize.svg" alt="no prizes won" />
       <TextWrapper>
         <StyledText color="textDisabled">{t('Sorry, no prizes to collect')}</StyledText>
         <StyledButton variant="text" onClick={onPresentMyTickets}>
