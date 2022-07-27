@@ -88,7 +88,7 @@ const PoolCard2: React.FC<PoolCard2Props> = ({
             <Flex
               style={{
                 flexFlow: 'row wrap',
-                columnGap: '0.5rem',
+                columnGap: '0.3rem',
                 justifyContent: 'end',
               }}
             >

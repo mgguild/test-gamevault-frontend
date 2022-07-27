@@ -62,11 +62,12 @@ export const StatusContainer = styled.div`
   margin: 0 auto;
   left: 0;
   right: 0;
-  top: 35%;
+  top: 40%;
   text-align: center;
   font-size: 12px;
   ${({theme}) => theme.mediaQueries.md}{
     font-size: 17px;
+    top: 35%
   }
 `
 export const StatusText = styled(Heading)<{comingSoon?: boolean}>`
