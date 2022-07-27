@@ -107,7 +107,7 @@ const PoolCard2: React.FC<PoolCard2Props> = ({
               </div>
             </Flex>
             <StatusContainer>
-            <StatusText comingSoon={pool.comingSoon}>{pool.comingSoon ? `COMING SOON...` : 'LIVE NOW'}</StatusText>
+              <StatusText comingSoon={pool.comingSoon}>{pool.comingSoon ? `COMING SOON...` : ''}</StatusText>
             </StatusContainer>
             <Flex style={{ alignItems: 'end' }}>
               <div>

@@ -1,4 +1,4 @@
-import { Heading } from '@metagg/mgg-uikit';
+import { Heading } from '@metagg/mgg-uikit'
 import styled, { ThemeContext } from 'styled-components'
 
 export const Cards2 = styled.button<{ src?: string; bgColor?: string }>`
@@ -65,19 +65,20 @@ export const StatusContainer = styled.div`
   top: 40%;
   text-align: center;
   font-size: 12px;
-  ${({theme}) => theme.mediaQueries.md}{
+  ${({ theme }) => theme.mediaQueries.md} {
     font-size: 17px;
-    top: 35%
+    top: 35%;
   }
 `
-export const StatusText = styled(Heading)<{comingSoon?: boolean}>`
+export const StatusText = styled(Heading)<{ comingSoon?: boolean }>`
   font-size: 2.3em;
-  
-  ${({comingSoon, theme}) => !comingSoon ? `
-  -webkit-text-stroke: 1px ${theme.colors.MGG_accent2};
-  ` : ` opacity: 0.5; `}
-  
 
+  ${({ comingSoon, theme }) =>
+    !comingSoon
+      ? `
+  -webkit-text-stroke: 1px ${theme.colors.MGG_accent2};
+  `
+      : ` opacity: 0.5; `}
 `
 
 export const Badge = styled.div<{ type?: number }>`
