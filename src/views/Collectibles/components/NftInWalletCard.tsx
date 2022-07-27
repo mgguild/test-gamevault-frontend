@@ -9,7 +9,7 @@ const NftInWalletCard = () => {
   return (
     <Card>
       <CardBody>
-        <CardContent imgSrc="/images/present.svg">
+        <CardContent imgSrc="./images/present.svg">
           <Heading mb="8px">{t('NFT in wallet')}</Heading>
           <Text>{t('Trade in your NFT for CAKE, or just keep it for your collection.')}</Text>
         </CardContent>

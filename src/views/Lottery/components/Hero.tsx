@@ -95,7 +95,7 @@ const Hero = () => {
           </LinkExternal>
         </LeftWrapper>
         <RightWrapper>
-          <img src="/images/tombola.png" alt="lottery bunny" />
+          <img src="./images/tombola.png" alt="lottery bunny" />
         </RightWrapper>
       </StyledContainer>
     </StyledHero>
