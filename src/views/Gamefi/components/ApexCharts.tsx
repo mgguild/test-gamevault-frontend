@@ -22,7 +22,7 @@ class ApexChart extends React.Component<{ series: Series[] }, { options: ApexOpt
               zoomin: true,
               zoomout: true,
               pan: false,
-              reset: '<img src="/images/icons/refresh-ccw.svg" />',
+              reset: '<img src="./images/icons/refresh-ccw.svg" />',
             },
           },
         },

@@ -92,8 +92,8 @@ const renderLogos = () => {
           EXCLUSIVELY ON MULTIPLE CHAINS
         </Text>
         <Flex justifyContent="space-around" style={{ width: '100%' }} flexWrap="wrap">
-          <img src="/images/icons/exclusive_binance.png" alt="ex-binance" style={{ verticalAlign: 'middle' }} />
-          <img src="/images/icons/exclusive_eth.png" alt="ex-binance" style={{ verticalAlign: 'middle' }} />
+          <img src="./images/icons/exclusive_binance.png" alt="ex-binance" style={{ verticalAlign: 'middle' }} />
+          <img src="./images/icons/exclusive_eth.png" alt="ex-binance" style={{ verticalAlign: 'middle' }} />
         </Flex>
       </Flex>
     </HomeContainer>
