@@ -112,7 +112,7 @@ const FarmCard2: React.FC<FarmCard2Props> = ({
                   </Badge>
                 </div>
               )}
-              
+
               <TokenLogo size="2rem" src={getImageUrlFromToken(farm.pairToken)} />
               <div>
                 <Badge type={1}>
@@ -121,7 +121,7 @@ const FarmCard2: React.FC<FarmCard2Props> = ({
               </div>
             </Flex>
             <StatusContainer>
-            <StatusText comingSoon={farm.comingSoon}>{farm.comingSoon ? `COMING SOON...` : 'LIVE NOW'}</StatusText>
+            <StatusText comingSoon={farm.comingSoon}>{farm.comingSoon ? `COMING SOON...` : ''}</StatusText>
             </StatusContainer>
             <Flex style={{ alignItems: 'end' }}>
               <div>
