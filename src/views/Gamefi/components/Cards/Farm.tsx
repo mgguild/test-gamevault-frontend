@@ -1,21 +1,17 @@
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
-import { Flex, Image, RowType, Toggle } from '@pancakeswap/uikit'
-import { Text, Heading } from '@metagg/mgg-uikit'
-import { Oval } from 'react-loading-icons'
+import { Flex } from '@pancakeswap/uikit'
+import { Heading, Text } from '@metagg/mgg-uikit'
 import { useWeb3React } from '@web3-react/core'
-import styled, { ThemeContext } from 'styled-components'
 import tokens from 'config/constants/tokens'
 import { Token } from 'config/constants/types'
-import { Farm, Pool } from 'state/types'
-import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts'
 import { getAddress } from 'utils/addressHelpers'
-import { getFarmApr, getFarmV2Apr } from 'utils/apr'
+import { getFarmV2Apr } from 'utils/apr'
 import { useFarmPrice } from 'hooks/price'
 import usePrevious from 'utils/refHelpers'
-import { getBalanceNumber, getBalanceAmount } from 'utils/formatBalance'
-import { Cards2, Card2Container, TokenLogo, Badge, StatusContainer, StatusText } from './styled'
+import { getBalanceNumber } from 'utils/formatBalance'
+import { Badge, Card2Container, Cards2, StatusContainer, StatusText, TokenLogo } from './styled'
 import { FarmWithStakedValue } from '../../config'
 import { MAINNET_CHAIN_ID } from '../../../../config'
 
@@ -35,16 +31,17 @@ interface FarmCard2Props {
   isNew?: boolean
 }
 
-const FarmCard2: React.FC<FarmCard2Props> = ({
-  bgColor = '#030f62',
-  src = './MGG.png',
-  userDataReady,
-  farm,
-  removed,
-  cakePrice,
-  account,
-  isNew,
-}) => {
+const FarmCard2: React.FC<FarmCard2Props> = (
+  {
+    bgColor = '#030f62',
+    src = './MGG.png',
+    userDataReady,
+    farm,
+    removed,
+    cakePrice,
+    account,
+    isNew,
+  }) => {
   // const farmImage = farm.lpSymbol.split(' ')[0].toLocaleLowerCase()
   // const formatTotalRewardRate = getBalanceAmount(new BigNumber(farm.totalRewardRate ?? 0)).toFormat(4)
   // const lpLabel = farm.lpSymbol && farm.lpSymbol.toUpperCase().replace('PANCAKE', '')
@@ -85,19 +82,19 @@ const FarmCard2: React.FC<FarmCard2Props> = ({
     [LPPrice, rewardPrice, farm.totalDeposits, farm.rewardRate],
   )
 
-  const apr = farmV2Apr > 0 ? `${farmV2Apr.toFixed(2)} %` : <Oval width="20px" height="20px" />
+  const apr = farmV2Apr > 0 ? `${farmV2Apr.toFixed(2)} %` : 0
 
   return (
     <>
       <Cards2
         src={src}
         bgColor={farm.UIProps ? farm.UIProps.bgColor : null}
-        className="shodow-pop"
+        className='shodow-pop'
         style={{ cursor: 'pointer' }}
       >
-        <Link to={`/gamefi/${`LP`}/${farm.pid}`}>
+        <Link to={`/gamefi/${`LP`}/${farm.pid}`} style={farm.comingSoon ? { pointerEvents: 'none' } : {}}>
           <Card2Container>
-            <TokenLogo size="3.5rem" src={getImageUrlFromToken(farm.quoteToken)} />
+            <TokenLogo size='3.5rem' src={getImageUrlFromToken(farm.quoteToken)} />
             <Flex
               style={{
                 flexFlow: 'row wrap',
@@ -108,15 +105,15 @@ const FarmCard2: React.FC<FarmCard2Props> = ({
               {isNew && (
                 <div>
                   <Badge>
-                    <Text color="white">New</Text>
+                    <Text color='white'>New</Text>
                   </Badge>
                 </div>
               )}
 
-              <TokenLogo size="2rem" src={getImageUrlFromToken(farm.pairToken)} />
+              <TokenLogo size='2rem' src={getImageUrlFromToken(farm.pairToken)} />
               <div>
                 <Badge type={1}>
-                  <Text color="white">LP Staking</Text>
+                  <Text color='white'>LP Staking</Text>
                 </Badge>
               </div>
             </Flex>
@@ -125,14 +122,14 @@ const FarmCard2: React.FC<FarmCard2Props> = ({
             </StatusContainer>
             <Flex style={{ alignItems: 'end' }}>
               <div>
-                <Text color="white">{farm.lpSymbol}</Text>
-                <Heading color="white">{farm.name}</Heading>
+                <Text color='white'>{farm.lpSymbol}</Text>
+                <Heading color='white'>{farm.name}</Heading>
               </div>
             </Flex>
             <Flex style={{ justifyContent: 'end', alignItems: 'end' }}>
               <div style={{ textAlign: 'end' }}>
-                <Text color="white">APR {apr}</Text>
-                <Heading color="white">{farm.remainingDays} Days Left</Heading>
+                <Text color='white'> {apr ? `APR: ${apr}` : ''}</Text>
+                <Heading color='white'>{farm.remainingDays} Days Left</Heading>
               </div>
             </Flex>
           </Card2Container>

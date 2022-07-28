@@ -62,12 +62,9 @@ export interface Ino {
   [PoolIds.poolUnlimited]: IfoPoolInfo
 }
 
-export enum PoolCategory {
-  'COMMUNITY' = 'Community',
+export enum FarmCategory {
+  'VAULT' = 'Vault',
   'CORE' = 'Core',
-  'BINANCE' = 'Binance', // Pools using native BNB behave differently than pools using a token
-  'AUTO' = 'Auto',
-  'FIXEDAPR' = 'FixedApr',
 }
 
 export interface FarmConfig {
@@ -82,6 +79,7 @@ export interface FarmConfig {
   token: Token
   pairToken: Token
   quoteToken: Token
+  farmCategory?: FarmCategory
   multiplier?: string
   isCommunity?: boolean
   liquidityUrl?: string
@@ -93,6 +91,14 @@ export interface FarmConfig {
     endBlock: number
   }
   UIProps?: UIProps
+}
+
+export enum PoolCategory {
+  'COMMUNITY' = 'Community',
+  'CORE' = 'Core',
+  'BINANCE' = 'Binance', // Pools using native BNB behave differently than pools using a token
+  'AUTO' = 'Auto',
+  'FIXEDAPR' = 'FixedApr',
 }
 
 export interface PoolConfig {

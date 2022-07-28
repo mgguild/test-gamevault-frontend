@@ -33,11 +33,13 @@ import { BodySection, FilterButton, FilterItem, HeaderSection, Layout, StakeSect
 import FarmCard from './components/Cards/Farm'
 import PoolCard from './components/Cards/Pool'
 import Select from './components/Select'
+import { MAINNET_CHAIN_ID } from '../../config'
 
 const Gamefi: React.FC = () => {
   const theme = useContext(ThemeContext)
   const [query, setQuery] = useState('')
-  const { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
+  const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
   const { path } = useRouteMatch()
   const { pathname } = useLocation()
   const [sortBy, setSortBy] = useState('')
@@ -73,11 +75,13 @@ const Gamefi: React.FC = () => {
   useEffect(() => {
     setStakedOnly(!isActive)
   }, [isActive])
-  const mggFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && farm.isMain && !isArchivedPid(farm.pid))
-  const activeFarms = farmsLP.filter(
-    (farm) => farm.pid !== 0 && !farm.hasEnded && !farm.isMain && !isArchivedPid(farm.pid),
+
+  const vaultFarms = farmsLP.filter((farm) => farm.pid !== 0 && (farm.chain === chain) && !isArchivedPid(farm.pid))
+  const mainVaultFarms = vaultFarms.filter((farm) => farm.isMain)
+  const activeFarms = vaultFarms.filter(
+    (farm) => !farm.hasEnded && !farm.isMain
   )
-  const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
+  const inactiveFarms = vaultFarms.filter((farm) => farm.hasEnded && !farm.isMain)
   const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
 
   const stakedOnlyFarms = activeFarms.filter(
@@ -176,7 +180,7 @@ const Gamefi: React.FC = () => {
       inactiveFarms: [],
       activePools: [],
       inactivePools: [],
-      mggFarms: [],
+      mainVaultFarms: [],
       mggPools: [],
     }
     if (stakedOnly) {
@@ -191,12 +195,12 @@ const Gamefi: React.FC = () => {
       stakingList.inactivePools = finishedPools.filter((pool) => !pool.isMain)
     }
     stakingList.mggPools = openPools.filter((pool) => pool.isMain)
-    stakingList.mggFarms = mggList(mggFarms)
+    stakingList.mainVaultFarms = mggList(mainVaultFarms)
     return stakingList
   }, [
     farmsList,
     mggList,
-    mggFarms,
+    mainVaultFarms,
     activeFarms,
     inactiveFarms,
     stakedInactiveFarms,
@@ -212,11 +216,11 @@ const Gamefi: React.FC = () => {
     const render = (type) => {
       switch (type) {
         case 'MGG_VAULTS':
-          return stakedMemoized.mggFarms.length !== 0 || stakedMemoized.mggPools.length !== 0 ? (
+          return stakedMemoized.mainVaultFarms.length !== 0 || stakedMemoized.mggPools.length !== 0 ? (
             <StakeSection>
-              {stakedMemoized.mggFarms.length !== 0 && (
+              {stakedMemoized.mainVaultFarms.length !== 0 && (
                 <Grid container spacing={{ md: 4 }}>
-                  {stakedMemoized.mggFarms.map((farm) => (
+                  {stakedMemoized.mainVaultFarms.map((farm) => (
                     <Grid key={farm.pid} item xs={12} md={12}>
                       <FarmCard
                         userDataReady={userDataReady}
