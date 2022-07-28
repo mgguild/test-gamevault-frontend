@@ -21,7 +21,7 @@ import { MAINNET_CHAIN_ID } from '../../../../config'
 
 const getImageUrlFromToken = (token: Token) => {
   const address = getAddress(token.symbol === 'BNB' ? tokens.wbnb.address : token.address)
-  return `/images/tokens/${address}.${token.iconExtension ?? 'svg'}`
+  return `./images/tokens/${address}.${token.iconExtension ?? 'svg'}`
 }
 
 interface FarmCard2Props {

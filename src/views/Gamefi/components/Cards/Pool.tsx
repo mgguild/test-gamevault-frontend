@@ -23,7 +23,7 @@ import { Cards2, Card2Container, TokenLogo, Badge, StatusContainer, StatusText }
 
 const getImageUrlFromToken = (token: Token) => {
   const address = getAddress(token.symbol === 'BNB' ? tokens.wbnb.address : token.address)
-  return `/images/tokens/${address}.${token.iconExtension ?? 'svg'}`
+  return `./images/tokens/${address}.${token.iconExtension ?? 'svg'}`
 }
 
 interface PoolCard2Props {

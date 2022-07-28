@@ -180,7 +180,7 @@ const BoxCard: React.FC<{ guildpad: Guildpad; imgProps: ImgProps; userDataLoaded
   const { account } = useWeb3React()
   const theme = useContext(ThemeContext)
   const { src, size } = imgProps
-  const img = `/images/guildpad-assets/${src}`
+  const img = `./images/guildpad-assets/${src}`
   const dispatch = useAppDispatch()
   const { onBuyBox } = useBuyBox(getAddress(guildpad.contractAddress))
   const handleBuy = async () => {
