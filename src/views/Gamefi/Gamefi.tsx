@@ -76,11 +76,12 @@ const Gamefi: React.FC = () => {
     setStakedOnly(!isActive)
   }, [isActive])
 
-  const vaultFarms = farmsLP.filter((farm) => farm.pid !== 0 && (farm.chain === chain) && !isArchivedPid(farm.pid) && farm.farmCategory === FarmCategory.VAULT)
-  const mainVaultFarms = vaultFarms.filter((farm) => farm.isMain)
-  const activeFarms = vaultFarms.filter(
-    (farm) => !farm.hasEnded && !farm.isMain
+  const vaultFarms = farmsLP.filter(
+    (farm) =>
+      farm.pid !== 0 && farm.chain === chain && !isArchivedPid(farm.pid) && farm.farmCategory === FarmCategory.VAULT,
   )
+  const mainVaultFarms = vaultFarms.filter((farm) => farm.isMain)
+  const activeFarms = vaultFarms.filter((farm) => !farm.hasEnded && !farm.isMain)
   const inactiveFarms = vaultFarms.filter((farm) => farm.hasEnded && !farm.isMain)
   const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
 

@@ -145,7 +145,9 @@ const Farms: React.FC = () => {
   // const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid))
   // const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
   // const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
-  const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.chain === chain && farm.farmCategory === FarmCategory.VAULT)
+  const activeFarms = farmsLP.filter(
+    (farm) => farm.pid !== 0 && farm.chain === chain && farm.farmCategory === FarmCategory.VAULT,
+  )
   // const inactiveFarms = farmsLP.filter(
   //   (farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid) && farm.chain === chain,
   // )
