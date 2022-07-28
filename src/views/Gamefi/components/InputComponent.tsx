@@ -218,7 +218,7 @@ const Component: React.FC<ComponentProps> = ({
           <Button
             fullWidth
             onClick={handleStakeClick}
-            disabled={tierSelected.duration === 0 || stakeAmount === '' || toBigNumber(stakeAmount).lt(0)}
+            disabled={tierSelected.duration === 0 || stakeAmount === '' || toBigNumber(stakeAmount).lte(0)}
           >
             Stake
           </Button>
