@@ -14,6 +14,7 @@ import { getBalanceNumber } from 'utils/formatBalance'
 import { Badge, Card2Container, Cards2, StatusContainer, StatusText, TokenLogo } from './styled'
 import { FarmWithStakedValue } from '../../config'
 import { MAINNET_CHAIN_ID } from '../../../../config'
+import { getFarmStatus } from '../../../../utils/farmHelpers'
 
 const getImageUrlFromToken = (token: Token) => {
   const address = getAddress(token.symbol === 'BNB' ? tokens.wbnb.address : token.address)
@@ -117,7 +118,7 @@ const FarmCard2: React.FC<FarmCard2Props> = ({
               </div>
             </Flex>
             <StatusContainer>
-              <StatusText comingSoon={farm.comingSoon}>{farm.comingSoon ? `COMING SOON...` : ''}</StatusText>
+              <StatusText comingSoon={farm.comingSoon || farm.hasEnded}>{getFarmStatus(farm)}</StatusText>
             </StatusContainer>
             <Flex style={{ alignItems: 'end' }}>
               <div>

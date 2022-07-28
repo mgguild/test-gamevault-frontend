@@ -1,5 +1,6 @@
 import { JSBI, Pair, Token, TokenAmount } from '@pancakeswap-libs/sdk'
 import { getAddress } from './addressHelpers'
+import { Farm } from '../state/types'
 
 const ARCHIVED_FARMS_START_PID = 139
 const ARCHIVED_FARMS_END_PID = 250
@@ -31,6 +32,17 @@ export const calculateUserRewardRate = (
   )
     ?.multiply(`${60 * 60 * 24 * 7}`)
     ?.toSignificant(4)
+}
+
+export const getFarmStatus = (farm: Farm) => {
+  if (farm.comingSoon) {
+    return 'COMING SOON...'
+  }
+  if (farm.hasEnded) {
+    return 'ENDED...'
+  }
+
+  return ''
 }
 
 // export const calcuLateApy = () => {

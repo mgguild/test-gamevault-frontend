@@ -20,6 +20,7 @@ import { useBlock } from 'state/block/hooks'
 import { getBscScanLink } from 'utils'
 import { getAddress } from 'utils/addressHelpers'
 import { Cards2, Card2Container, TokenLogo, Badge, StatusContainer, StatusText } from './styled'
+import getPoolStatus from '../../../../utils/poolHelpers'
 
 const getImageUrlFromToken = (token: Token) => {
   const address = getAddress(token.symbol === 'BNB' ? tokens.wbnb.address : token.address)
@@ -107,7 +108,7 @@ const PoolCard2: React.FC<PoolCard2Props> = ({
               </div>
             </Flex>
             <StatusContainer>
-              <StatusText comingSoon={pool.comingSoon}>{pool.comingSoon ? `COMING SOON...` : ''}</StatusText>
+              <StatusText comingSoon={pool.comingSoon || pool.isFinished}>{getPoolStatus(pool)}</StatusText>
             </StatusContainer>
             <Flex style={{ alignItems: 'end' }}>
               <div>
