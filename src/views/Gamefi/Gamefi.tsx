@@ -1,30 +1,30 @@
 import BigNumber from 'bignumber.js'
-import { orderBy, partition } from 'lodash'
+import { partition } from 'lodash'
 import { ThemeContext } from 'styled-components'
-import React, { useState, useEffect, useCallback, useMemo, useRef, useContext } from 'react'
-import { Route, useLocation, useRouteMatch } from 'react-router-dom'
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { useLocation, useRouteMatch } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
 import { Grid } from '@mui/material'
-import { Farm, Pool } from 'state/types'
-import { PoolCategory } from 'config/constants/types'
+import { Farm } from 'state/types'
+import { FarmCategory, PoolCategory } from 'config/constants/types'
 import {
-  useFarms,
-  usePollFarmsData,
-  usePriceCakeBusd,
-  usePools,
-  useFetchPublicPoolsData,
   useCakeVault,
+  useFarms,
   useFetchCakeVault,
+  useFetchPublicPoolsData,
+  usePollFarmsData,
+  usePools,
+  usePriceCakeBusd,
 } from 'state/hooks'
-import { getFarmApr, getFarmV2Apr } from 'utils/apr'
+import { getFarmApr } from 'utils/apr'
 import { latinise } from 'utils/latinise'
 import isArchivedPid from 'utils/farmHelpers'
 import usePersistState from 'hooks/usePersistState'
 import { SelectChangeEvent } from '@mui/material/Select'
-import { Text, Flex, Heading, Button } from '@metagg/mgg-uikit'
+import { Heading, Text } from '@metagg/mgg-uikit'
 import { Toggle } from '@pancakeswap/uikit'
 import SearchInput from 'components/SearchInput'
-import ToggleView, { ViewMode } from './components/ToggleView/ToggleView'
+import { ViewMode } from './components/ToggleView/ToggleView'
 import { FarmWithStakedValue } from './config'
 import VaultBanner from './components/Banner'
 import TabButtons from './components/TabButton'
@@ -76,7 +76,7 @@ const Gamefi: React.FC = () => {
     setStakedOnly(!isActive)
   }, [isActive])
 
-  const vaultFarms = farmsLP.filter((farm) => farm.pid !== 0 && (farm.chain === chain) && !isArchivedPid(farm.pid))
+  const vaultFarms = farmsLP.filter((farm) => farm.pid !== 0 && (farm.chain === chain) && !isArchivedPid(farm.pid) && farm.farmCategory === FarmCategory.VAULT)
   const mainVaultFarms = vaultFarms.filter((farm) => farm.isMain)
   const activeFarms = vaultFarms.filter(
     (farm) => !farm.hasEnded && !farm.isMain

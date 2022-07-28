@@ -33,6 +33,7 @@ import { DesktopColumnSchema, ViewMode } from './components/types'
 import { ReactComponent as FarmsDarkLogo } from './components/assets/farm-dark.svg'
 import { ReactComponent as FarmsLightLogo } from './components/assets/farm-light.svg'
 import { MAINNET_CHAIN_ID } from '../../config'
+import { FarmCategory } from '../../config/constants/types'
 
 const ControlContainer = styled.div`
   display: flex;
@@ -144,7 +145,7 @@ const Farms: React.FC = () => {
   // const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && !isArchivedPid(farm.pid))
   // const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
   // const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
-  const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.chain === chain)
+  const activeFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.chain === chain && farm.farmCategory === FarmCategory.VAULT)
   // const inactiveFarms = farmsLP.filter(
   //   (farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid) && farm.chain === chain,
   // )
