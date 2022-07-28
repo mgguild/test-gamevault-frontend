@@ -23,35 +23,11 @@ export const getCustomMeta = (path: string, t: ContextApi['t']): PageMeta => {
       }
     case '/launchpad':
       return {
-        title: `${t('MGG')} ${t('MetaGaming Pad')}`,
-      }
-    case '/liquidity':
-      return {
-        title: `${t('Pools')} | ${t('MGG')} - ${t('Stake MGG and earn LP tokens!')}`,
-      }
-    case '/lottery':
-      return {
-        title: `${t('Lottery')} | ${t('MGG')}`,
+        title: `${t('MetaGaming Pad')} | ${t('MGG')}`,
       }
     case '/collectibles':
       return {
         title: `${t('Collectibles')} | ${t('MGG')}`,
-      }
-    case '/ifo':
-      return {
-        title: `${t('Initial Farm Offering')} | ${t('MGG')}`,
-      }
-    case '/teams':
-      return {
-        title: `${t('Leaderboard')} | ${t('MGG')}`,
-      }
-    case '/profile/tasks':
-      return {
-        title: `${t('Task Center')} | ${t('MGG')}`,
-      }
-    case '/profile':
-      return {
-        title: `${t('Your Profile')} | ${t('MGG')}`,
       }
     default:
       return null
