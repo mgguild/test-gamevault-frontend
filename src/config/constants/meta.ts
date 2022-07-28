@@ -2,7 +2,7 @@ import { ContextApi } from 'contexts/Localization/types'
 import { PageMeta } from './types'
 
 export const DEFAULT_META: PageMeta = {
-  title: 'Meta Gaming Guild',
+  title: 'MetaGaming Guild',
   description: 'Stake MGG and earn token rewards',
   image: 'https://app.metagg.com/MGG.png',
 }
