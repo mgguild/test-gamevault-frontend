@@ -1,5 +1,5 @@
 import tokens from './tokens'
-import { FarmConfig } from './types'
+import { FarmCategory as farmCategory, FarmConfig } from './types'
 import { CAKE_INFO_URL, MAINNET_CHAIN_ID, MAINNET_ETH_CHAIN_ID, PANCAKE_ADD_LIQUIDITY_URL } from '../index'
 import farmsUIProps from './LP-BP-UIProps'
 
@@ -59,29 +59,29 @@ const farms: FarmConfig[] = [
   /**
    * EXTERNAL STAKING POOLS
    */
-  // {
-  //   isMain: false,
-  //   pid: 253,
-  //   name: 'MetaGaming Guild',
-  //   lpSymbol: 'MGG-BUSD LP',
-  //   lpAddresses: {
-  //     97: '',
-  //     56: '0x709eE9F39F1eC7aAcB05234C64d32b6DD5626309',
-  //   },
-  //   stakingAddresses: {
-  //     97: '',
-  //     56: '0xc5A228b9Ec0605944ee7a7cf5CBE528F310257DF',
-  //   },
-  //   chain: MAINNET_CHAIN_ID,
-  //   token: tokens.mgg,
-  //   pairToken: tokens.busd,
-  //   quoteToken: tokens.mgg,
-  //   isPromoted: 1,
-  //   UIProps: farmsUIProps.LPmggBusd,
-  // },
   {
-    isMain: true,
+    isMain: false,
     pid: 252,
+    name: 'MetaGaming Guild',
+    lpSymbol: 'MGG-BUSD LP',
+    lpAddresses: {
+      97: '',
+      56: '0x709eE9F39F1eC7aAcB05234C64d32b6DD5626309',
+    },
+    stakingAddresses: {
+      97: '',
+      56: '0xc5A228b9Ec0605944ee7a7cf5CBE528F310257DF',
+    },
+    chain: MAINNET_CHAIN_ID,
+    token: tokens.mgg,
+    pairToken: tokens.busd,
+    quoteToken: tokens.mgg,
+    isPromoted: 1,
+    UIProps: farmsUIProps.LPmggBusd,
+  },
+  {
+    isMain: false,
+    pid: 253,
     lpSymbol: 'MGG-USDC LP',
     lpAddresses: {
       97: '',
@@ -97,6 +97,28 @@ const farms: FarmConfig[] = [
     quoteToken: tokens.mgg,
     isPromoted: 1,
     UIProps: farmsUIProps.LPmggUsdc,
+  },
+  {
+    isMain: true,
+    pid: 254,
+    comingSoon: true,
+    farmCategory: farmCategory.VAULT,
+    name: 'MetaGaming Guild',
+    lpSymbol: 'MGG-BUSD LP',
+    lpAddresses: {
+      97: '',
+      56: '0x709eE9F39F1eC7aAcB05234C64d32b6DD5626309',
+    },
+    stakingAddresses: {
+      97: '',
+      56: '0xc5A228b9Ec0605944ee7a7cf5CBE528F310257DF',
+    },
+    chain: MAINNET_CHAIN_ID,
+    token: tokens.mgg,
+    pairToken: tokens.busd,
+    quoteToken: tokens.mgg,
+    isPromoted: 1,
+    UIProps: farmsUIProps.LPmggBusd,
   },
 ]
 

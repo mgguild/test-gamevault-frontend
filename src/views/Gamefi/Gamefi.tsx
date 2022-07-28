@@ -1,30 +1,30 @@
 import BigNumber from 'bignumber.js'
-import { orderBy, partition } from 'lodash'
+import { partition } from 'lodash'
 import { ThemeContext } from 'styled-components'
-import React, { useState, useEffect, useCallback, useMemo, useRef, useContext } from 'react'
-import { Route, useLocation, useRouteMatch } from 'react-router-dom'
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { useLocation, useRouteMatch } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
 import { Grid } from '@mui/material'
-import { Farm, Pool } from 'state/types'
-import { PoolCategory } from 'config/constants/types'
+import { Farm } from 'state/types'
+import { FarmCategory, PoolCategory } from 'config/constants/types'
 import {
-  useFarms,
-  usePollFarmsData,
-  usePriceCakeBusd,
-  usePools,
-  useFetchPublicPoolsData,
   useCakeVault,
+  useFarms,
   useFetchCakeVault,
+  useFetchPublicPoolsData,
+  usePollFarmsData,
+  usePools,
+  usePriceCakeBusd,
 } from 'state/hooks'
-import { getFarmApr, getFarmV2Apr } from 'utils/apr'
+import { getFarmApr } from 'utils/apr'
 import { latinise } from 'utils/latinise'
 import isArchivedPid from 'utils/farmHelpers'
 import usePersistState from 'hooks/usePersistState'
 import { SelectChangeEvent } from '@mui/material/Select'
-import { Text, Flex, Heading, Button } from '@metagg/mgg-uikit'
+import { Heading, Text } from '@metagg/mgg-uikit'
 import { Toggle } from '@pancakeswap/uikit'
 import SearchInput from 'components/SearchInput'
-import ToggleView, { ViewMode } from './components/ToggleView/ToggleView'
+import { ViewMode } from './components/ToggleView/ToggleView'
 import { FarmWithStakedValue } from './config'
 import VaultBanner from './components/Banner'
 import TabButtons from './components/TabButton'
@@ -33,11 +33,13 @@ import { BodySection, FilterButton, FilterItem, HeaderSection, Layout, StakeSect
 import FarmCard from './components/Cards/Farm'
 import PoolCard from './components/Cards/Pool'
 import Select from './components/Select'
+import { MAINNET_CHAIN_ID } from '../../config'
 
 const Gamefi: React.FC = () => {
   const theme = useContext(ThemeContext)
   const [query, setQuery] = useState('')
-  const { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
+  const chain = chainId ? chainId.toString() : MAINNET_CHAIN_ID
   const { path } = useRouteMatch()
   const { pathname } = useLocation()
   const [sortBy, setSortBy] = useState('')
@@ -73,11 +75,14 @@ const Gamefi: React.FC = () => {
   useEffect(() => {
     setStakedOnly(!isActive)
   }, [isActive])
-  const mggFarms = farmsLP.filter((farm) => farm.pid !== 0 && !farm.hasEnded && farm.isMain && !isArchivedPid(farm.pid))
-  const activeFarms = farmsLP.filter(
-    (farm) => farm.pid !== 0 && !farm.hasEnded && !farm.isMain && !isArchivedPid(farm.pid),
+
+  const vaultFarms = farmsLP.filter(
+    (farm) =>
+      farm.pid !== 0 && farm.chain === chain && !isArchivedPid(farm.pid) && farm.farmCategory === FarmCategory.VAULT,
   )
-  const inactiveFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.hasEnded && !isArchivedPid(farm.pid))
+  const mainVaultFarms = vaultFarms.filter((farm) => farm.isMain)
+  const activeFarms = vaultFarms.filter((farm) => !farm.hasEnded && !farm.isMain)
+  const inactiveFarms = vaultFarms.filter((farm) => farm.hasEnded && !farm.isMain)
   const archivedFarms = farmsLP.filter((farm) => isArchivedPid(farm.pid))
 
   const stakedOnlyFarms = activeFarms.filter(
@@ -176,7 +181,7 @@ const Gamefi: React.FC = () => {
       inactiveFarms: [],
       activePools: [],
       inactivePools: [],
-      mggFarms: [],
+      mainVaultFarms: [],
       mggPools: [],
     }
     if (stakedOnly) {
@@ -191,12 +196,12 @@ const Gamefi: React.FC = () => {
       stakingList.inactivePools = finishedPools.filter((pool) => !pool.isMain)
     }
     stakingList.mggPools = openPools.filter((pool) => pool.isMain)
-    stakingList.mggFarms = mggList(mggFarms)
+    stakingList.mainVaultFarms = mggList(mainVaultFarms)
     return stakingList
   }, [
     farmsList,
     mggList,
-    mggFarms,
+    mainVaultFarms,
     activeFarms,
     inactiveFarms,
     stakedInactiveFarms,
@@ -212,11 +217,11 @@ const Gamefi: React.FC = () => {
     const render = (type) => {
       switch (type) {
         case 'MGG_VAULTS':
-          return stakedMemoized.mggFarms.length !== 0 || stakedMemoized.mggPools.length !== 0 ? (
+          return stakedMemoized.mainVaultFarms.length !== 0 || stakedMemoized.mggPools.length !== 0 ? (
             <StakeSection>
-              {stakedMemoized.mggFarms.length !== 0 && (
+              {stakedMemoized.mainVaultFarms.length !== 0 && (
                 <Grid container spacing={{ md: 4 }}>
-                  {stakedMemoized.mggFarms.map((farm) => (
+                  {stakedMemoized.mainVaultFarms.map((farm) => (
                     <Grid key={farm.pid} item xs={12} md={12}>
                       <FarmCard
                         userDataReady={userDataReady}

@@ -25,7 +25,7 @@ const pools: PoolConfig[] = [
   {
     // Fixed APR mainnet contract test
     isMain: true,
-    comingSoon: true,
+    comingSoon: false,
     sousId: 11,
     name: 'Test Fixed APR',
     chain: MAINNET_CHAIN_ID,
