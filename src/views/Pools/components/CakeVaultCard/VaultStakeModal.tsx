@@ -164,7 +164,7 @@ const VaultStakeModal: React.FC<VaultStakeModalProps> = ({ pool, stakingMax, isR
         <Text bold>{isRemovingStake ? t('Unstake') : t('Stake')}:</Text>
         <Flex alignItems="center" minWidth="70px">
           <Image
-            src={`/images/tokens/${getAddress(stakingToken.address)}.png`}
+            src={`./images/tokens/${getAddress(stakingToken.address)}.png`}
             width={24}
             height={24}
             alt={stakingToken.symbol}

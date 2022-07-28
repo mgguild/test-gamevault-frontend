@@ -43,7 +43,7 @@ const Form: React.FC<FormInterface> = ({ max }) => {
   const theme = useContext(ThemeContext)
   const getImageUrlFromToken = (token: Token) => {
     const address = getAddress(token.symbol === 'BNB' ? tokens.wbnb.address : token.address)
-    return `/images/tokens/${address}.${token.iconExtension ?? 'svg'}`
+    return `./images/tokens/${address}.${token.iconExtension ?? 'svg'}`
   }
   // temp userbalance checker
   const userBalance = 0
