@@ -86,7 +86,7 @@ const Footer: React.FC = () => {
       <StyledDiv>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <img src={MGGIcon} alt="mgg-icon" width="40px" style={{ margin: '0px 10px' }} />
-          <Text>Meta Gaming Guild</Text>
+          <Text>MetaGaming Guild</Text>
         </div>
         <HelperLinks margin="20px 0px" justifyContent="space-evenly">
           <CustomLink target="_blank" rel="noreferrer" href="#">
@@ -108,7 +108,7 @@ const Footer: React.FC = () => {
           <SocMed icon={<SiDiscord fill="#ffff" />} link="https://discord.gg/5a7Ca7JFD2" />
         </Icons>
         <div style={{ textAlign: 'right' }}>
-          <Text>&copy; Meta Gaming Guild 2022</Text>
+          <Text>&copy; MetaGaming Guild 2022</Text>
         </div>
       </SocMeds>
     </Container>
