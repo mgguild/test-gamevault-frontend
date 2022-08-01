@@ -6,7 +6,7 @@ import { useLocation, useRouteMatch } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
 import { Grid } from '@mui/material'
 import { Farm } from 'state/types'
-import { FarmCategory, PoolCategory } from 'config/constants/types'
+import { FarmCategory, PoolCategory, PoolConfig } from 'config/constants/types'
 import {
   useCakeVault,
   useFarms,
@@ -118,7 +118,8 @@ const Gamefi: React.FC = () => {
         farmsToDisplayWithAPR = farmsToDisplayWithAPR.filter((farm: FarmWithStakedValue) => {
           return (
             latinise(farm.lpSymbol.toLowerCase()).includes(lowercaseQuery) ||
-            latinise(farm.quoteToken.symbol.toLowerCase()).includes(lowercaseQuery)
+            latinise(farm.quoteToken.symbol.toLowerCase()).includes(lowercaseQuery) ||
+            latinise(farm.name.toLowerCase()).includes(lowercaseQuery)
           )
         })
       }
@@ -142,6 +143,23 @@ const Gamefi: React.FC = () => {
       return farmsToDisplayWithAPR
     },
     [cakePrice, isActive],
+  )
+  const poolList = useCallback(
+    (poolsToDisplay) => {
+      let list = poolsToDisplay.filter((pool) => !pool.isMain)
+      if (query) {
+        const lowercaseQuery = latinise(query.toLowerCase())
+        list = list.filter((item) => {
+          return (
+            latinise(item.earningToken.symbol.toLowerCase()).includes(lowercaseQuery) ||
+            latinise(item.stakingToken.symbol.toLowerCase()).includes(lowercaseQuery) ||
+            latinise(item.name.toLowerCase()).includes(lowercaseQuery)
+          )
+        })
+      }
+      return list
+    },
+    [query],
   )
 
   const fixedAprsOnly = poolsWithoutAutoVault.filter((pool) => pool.poolCategory === PoolCategory.FIXEDAPR)
@@ -187,13 +205,13 @@ const Gamefi: React.FC = () => {
     if (stakedOnly) {
       stakingList.activeFarms = farmsList(stakedOnlyFarms)
       stakingList.inactiveFarms = farmsList(stakedInactiveFarms)
-      stakingList.activePools = stakedOnlyOpenPools.filter((pool) => !pool.isMain)
-      stakingList.inactivePools = stakedOnlyFinishedPools.filter((pool) => !pool.isMain)
+      stakingList.activePools = poolList(stakedOnlyOpenPools)
+      stakingList.inactivePools = poolList(stakedOnlyFinishedPools)
     } else {
       stakingList.activeFarms = farmsList(activeFarms)
       stakingList.inactiveFarms = farmsList(inactiveFarms)
-      stakingList.activePools = openPools.filter((pool) => !pool.isMain)
-      stakingList.inactivePools = finishedPools.filter((pool) => !pool.isMain)
+      stakingList.activePools = poolList(openPools)
+      stakingList.inactivePools = poolList(finishedPools)
     }
     stakingList.mggPools = openPools.filter((pool) => pool.isMain)
     stakingList.mainVaultFarms = mggList(mainVaultFarms)
@@ -201,6 +219,7 @@ const Gamefi: React.FC = () => {
   }, [
     farmsList,
     mggList,
+    poolList,
     mainVaultFarms,
     activeFarms,
     inactiveFarms,
