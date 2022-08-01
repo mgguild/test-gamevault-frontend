@@ -118,7 +118,8 @@ const Gamefi: React.FC = () => {
         farmsToDisplayWithAPR = farmsToDisplayWithAPR.filter((farm: FarmWithStakedValue) => {
           return (
             latinise(farm.lpSymbol.toLowerCase()).includes(lowercaseQuery) ||
-            latinise(farm.quoteToken.symbol.toLowerCase()).includes(lowercaseQuery)
+            latinise(farm.quoteToken.symbol.toLowerCase()).includes(lowercaseQuery) ||
+            latinise(farm.name.toLowerCase()).includes(lowercaseQuery)
           )
         })
       }
@@ -151,7 +152,8 @@ const Gamefi: React.FC = () => {
         list = list.filter((item) => {
           return (
             latinise(item.earningToken.symbol.toLowerCase()).includes(lowercaseQuery) ||
-            latinise(item.stakingToken.symbol.toLowerCase()).includes(lowercaseQuery)
+            latinise(item.stakingToken.symbol.toLowerCase()).includes(lowercaseQuery) ||
+            latinise(item.name.toLowerCase()).includes(lowercaseQuery)
           )
         })
       }
