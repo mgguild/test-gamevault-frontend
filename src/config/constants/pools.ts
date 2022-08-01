@@ -72,7 +72,7 @@ const pools: PoolConfig[] = [
       maxFine: 10,
     },
   },
-  
+
   // Dummy Contract #1
   // {
   //   sousId: 4,

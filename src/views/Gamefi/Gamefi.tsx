@@ -143,20 +143,23 @@ const Gamefi: React.FC = () => {
     },
     [cakePrice, isActive],
   )
-  const poolList = useCallback((poolsToDisplay) => {
-    let list = poolsToDisplay.filter((pool) => !pool.isMain);
-    if (query) {
-      const lowercaseQuery = latinise(query.toLowerCase())
-      list = list.filter((item) => {
-        return (
-          latinise(item.earningToken.symbol.toLowerCase()).includes(lowercaseQuery) ||
-          latinise(item.stakingToken.symbol.toLowerCase()).includes(lowercaseQuery)
-        )
-      })
-    }
-    return list
-  }, [query])
-  
+  const poolList = useCallback(
+    (poolsToDisplay) => {
+      let list = poolsToDisplay.filter((pool) => !pool.isMain)
+      if (query) {
+        const lowercaseQuery = latinise(query.toLowerCase())
+        list = list.filter((item) => {
+          return (
+            latinise(item.earningToken.symbol.toLowerCase()).includes(lowercaseQuery) ||
+            latinise(item.stakingToken.symbol.toLowerCase()).includes(lowercaseQuery)
+          )
+        })
+      }
+      return list
+    },
+    [query],
+  )
+
   const fixedAprsOnly = poolsWithoutAutoVault.filter((pool) => pool.poolCategory === PoolCategory.FIXEDAPR)
 
   const pools = useMemo(() => {
