@@ -166,7 +166,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
               <Text>{tierSelected.APR}%</Text>
             </Flex>
             <Flex>
-              <Text>Max profit (estimated)</Text>
+              <Text>Max Profit per year (estimated)</Text>
               <Text>
                 ≈ {estimatedProfit} {pairSymbol}
               </Text>
