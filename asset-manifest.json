@@ -13,8 +13,8 @@
     "static/js/5.26b10711.chunk.js": "/test-gamevault-frontend/static/js/5.26b10711.chunk.js",
     "static/js/5.26b10711.chunk.js.map": "/test-gamevault-frontend/static/js/5.26b10711.chunk.js.map",
     "main.css": "/test-gamevault-frontend/static/css/main.dee5dda5.chunk.css",
-    "main.js": "/test-gamevault-frontend/static/js/main.2c4e9e69.chunk.js",
-    "main.js.map": "/test-gamevault-frontend/static/js/main.2c4e9e69.chunk.js.map",
+    "main.js": "/test-gamevault-frontend/static/js/main.600b29d6.chunk.js",
+    "main.js.map": "/test-gamevault-frontend/static/js/main.600b29d6.chunk.js.map",
     "runtime-main.js": "/test-gamevault-frontend/static/js/runtime-main.86c2d589.js",
     "runtime-main.js.map": "/test-gamevault-frontend/static/js/runtime-main.86c2d589.js.map",
     "static/js/8.51c4cc92.chunk.js": "/test-gamevault-frontend/static/js/8.51c4cc92.chunk.js",
@@ -75,6 +75,6 @@
     "static/js/runtime-main.86c2d589.js",
     "static/js/8.51c4cc92.chunk.js",
     "static/css/main.dee5dda5.chunk.css",
-    "static/js/main.2c4e9e69.chunk.js"
+    "static/js/main.600b29d6.chunk.js"
   ]
 }
