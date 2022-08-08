@@ -27,6 +27,55 @@ const pools: PoolConfig[] = [
     isMain: true,
     comingSoon: false,
     sousId: 11,
+    name: 'MGG Fixed Staking',
+    chain: MAINNET_CHAIN_ID,
+    stakingToken: tokens.mgg,
+    earningToken: tokens.mgg,
+    contractAddress: {
+      56: '0x5D8376744B6c0E387a2018DEeC18C8de32f3D73a',
+    },
+    poolCategory: PoolCategory.FIXEDAPR,
+    harvest: true,
+    tokenPerBlock: '154320987654320987',
+    sortOrder: 998,
+    isFinished: false,
+    UIProps: farmsUIProps.PBmggMgg,
+    fixedAprConfigs: {
+      tiers: [
+        {
+          id: '0',
+          duration: 0,
+          APR: 0,
+        },
+        {
+          id: '1',
+          duration: 30,
+          APR: 7,
+        },
+        {
+          id: '2',
+          duration: 90,
+          APR: 12,
+        },
+        {
+          id: '3',
+          duration: 180,
+          APR: 16,
+        },
+        {
+          id: '4',
+          duration: 365,
+          APR: 25,
+        },
+      ],
+      maxFine: 10,
+    },
+  },
+  /* {
+    // Fixed APR mainnet contract test
+    isMain: true,
+    comingSoon: false,
+    sousId: 11,
     name: 'Test Fixed APR',
     chain: MAINNET_CHAIN_ID,
     stakingToken: tokens.ttk,
@@ -71,40 +120,7 @@ const pools: PoolConfig[] = [
       ],
       maxFine: 10,
     },
-  },
-
-  // Dummy Contract #1
-  // {
-  //   sousId: 4,
-  //   stakingToken: tokens.sfuel,
-  //   earningToken: tokens.sfuel,
-  //   contractAddress: {
-  //     97: '0xa4bf8a4abb7fd91971854ac0aade50c61afd9f1a',
-  //     56: '0x9c03326543bf9a927a5ff51c407fbc444f19ca1a',
-  //   },
-  //   poolCategory: PoolCategory.CORE,
-  //   harvest: true,
-  //   tokenPerBlock: '49603174603174603',
-  //   sortOrder: 999,
-  //   isFinished: true,
-  //   isComingSoon: true,
-  // },
-  // Dummy Contract #2
-  // {
-  //   sousId: 5,
-  //   stakingToken: tokens.srkb,
-  //   earningToken: tokens.sfuel,
-  //   contractAddress: {
-  //     97: '0xa4bf8a4abb7fd91971854ac0aade50c61afd9f3a',
-  //     56: '0x9c03326543bf9a927a5ff51c407fbc444f19ca3a',
-  //   },
-  //   poolCategory: PoolCategory.CORE,
-  //   harvest: true,
-  //   tokenPerBlock: '49603174603174603',
-  //   sortOrder: 999,
-  //   isFinished: true,
-  //   isComingSoon: false,
-  // }
+  }, */
 ]
 
 export default pools
