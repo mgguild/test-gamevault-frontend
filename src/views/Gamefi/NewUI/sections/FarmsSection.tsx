@@ -11,12 +11,13 @@ import UnlockButton from 'components/UnlockButton'
 import RenderSocials from 'components/Launchpad/SocialGroup'
 import { getBscScanAddressUrl } from 'utils/bscscan'
 import { Card2Container, TokenLogo, Badge, LinearBG, PageContainer } from 'views/Farms/components/FarmCards/styles'
+import CopyToClipboard from 'views/Gamefi/components/CopyToClipboard'
 import InputComponent from '../../components/InputComponent'
 import { FlexC, StatCard, Stats, TableStyle, ChartStyle } from '../styled'
 import { Series } from '../types'
 import ApexChart from '../../components/ApexCharts'
 import RenderTable from '../Table'
-import CopyToClipboard from 'views/Gamefi/components/CopyToClipboard'
+
 
 const RenderFarm: React.FC<{ farmID: string; stakingType?: string; tblColumns: any }> = ({
   farmID,
