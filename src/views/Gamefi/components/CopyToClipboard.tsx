@@ -35,7 +35,7 @@ const CopyToClipboard: React.FC<Props> = ({ toCopy, children, ...props }) => {
       small
       bold
       onClick={() => {
-        navigator.clipboard.writeText(JSON.stringify(toCopy))
+        navigator.clipboard.writeText(toCopy.toString())
         setIsTooltipDisplayed(true)
         setTimeout(() => {
           setIsTooltipDisplayed(false)
