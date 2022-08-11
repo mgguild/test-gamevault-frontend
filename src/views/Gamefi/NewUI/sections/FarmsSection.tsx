@@ -16,6 +16,7 @@ import { FlexC, StatCard, Stats, TableStyle, ChartStyle } from '../styled'
 import { Series } from '../types'
 import ApexChart from '../../components/ApexCharts'
 import RenderTable from '../Table'
+import CopyToClipboard from 'views/Gamefi/components/CopyToClipboard'
 
 const RenderFarm: React.FC<{ farmID: string; stakingType?: string; tblColumns: any }> = ({
   farmID,
@@ -174,6 +175,9 @@ const RenderFarm: React.FC<{ farmID: string; stakingType?: string; tblColumns: a
     )
   }
 
+  const tokenAddress = getAddress(currentFarm.token.address);
+  const shortenedTokenAddress =  `${tokenAddress.substring(0, 4)}...${tokenAddress.substring(tokenAddress.length - 4)}`;
+
   return (
     <PageContainer bgColor={currentFarm.UIProps.bgColor} contain={currentFarm.UIProps.contain}>
       <LinearBG style={{ minHeight: '100vh' }}>
@@ -191,13 +195,16 @@ const RenderFarm: React.FC<{ farmID: string; stakingType?: string; tblColumns: a
                 <Flex>
                   <Text color="white">
                     Token address{' '}
-                    <Link
+                  </Text>
+                  <Flex flexDirection='column'>
+                  <Link
                       style={{ display: 'contents' }}
                       href={getBscScanAddressUrl(getAddress(currentFarm.token.address))}
                     >
-                      {getAddress(currentFarm.token.address)}
+                      {shortenedTokenAddress}
                     </Link>
-                  </Text>
+                    <CopyToClipboard toCopy={tokenAddress} />
+                  </Flex>
                 </Flex>
                 <RenderSocials socials={currentFarm.UIProps.socials} center color="white" size={20} />
               </Flex>
