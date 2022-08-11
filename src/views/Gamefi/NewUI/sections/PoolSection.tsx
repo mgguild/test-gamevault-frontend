@@ -14,6 +14,7 @@ import UnlockButton from 'components/UnlockButton'
 import RenderSocials from 'components/Launchpad/SocialGroup'
 import { getBscScanAddressUrl } from 'utils/bscscan'
 import { Card2Container, LinearBG, PageContainer, TokenLogo } from 'views/Farms/components/FarmCards/styles'
+import CopyToClipboard from 'views/Gamefi/components/CopyToClipboard'
 import InputComponent from '../../components/InputComponent'
 import ListStakesComponent from '../../components/ListStakesComponent'
 import { ChartStyle, FlexC, StatCard, Stats, TableStyle } from '../styled'
@@ -21,6 +22,7 @@ import { Series } from '../types'
 import ApexChart from '../../components/ApexCharts'
 import RenderTable from '../Table'
 import { NavOption } from '../../../../components/Launchpad/styled'
+
 
 const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tblColumns }) => {
   const [dayDuration, setDayDuration] = useState<number>(0)
@@ -216,6 +218,9 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
     )
   }
 
+  const tokenAddress = getAddress(currentPool.stakingToken.address);
+  const shortenedTokenAddress =  `${tokenAddress.substring(0, 4)}...${tokenAddress.substring(tokenAddress.length - 4)}`;
+
   return (
     <PageContainer bgColor={currentPool.UIProps.bgColor} contain={currentPool.UIProps.contain}>
       <LinearBG style={{ minHeight: '100vh' }}>
@@ -229,16 +234,19 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                 </Heading>
               </Flex>
               <Text color="white">Stake your {currentPool.stakingToken.symbol} tokens for great benefits</Text>
-              <Flex>
+              <Flex flexDirection='column'>
                 <Text color="white">
-                  Token address{' '}
+                  Token address
+                </Text>
+                <Flex justifyContent='center'>
                   <Link
                     style={{ display: 'contents' }}
                     href={getBscScanAddressUrl(getAddress(currentPool.stakingToken.address))}
                   >
-                    {getAddress(currentPool.stakingToken.address)}
+                    {shortenedTokenAddress}
                   </Link>
-                </Text>
+                  <CopyToClipboard toCopy={tokenAddress}/>
+                </Flex>
               </Flex>
               <RenderSocials socials={currentPool.UIProps.socials} center color="white" size={20} />
             </Flex>
