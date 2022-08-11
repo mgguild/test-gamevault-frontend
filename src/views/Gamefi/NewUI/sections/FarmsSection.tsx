@@ -18,7 +18,6 @@ import { Series } from '../types'
 import ApexChart from '../../components/ApexCharts'
 import RenderTable from '../Table'
 
-
 const RenderFarm: React.FC<{ farmID: string; stakingType?: string; tblColumns: any }> = ({
   farmID,
   tblColumns,
@@ -176,8 +175,8 @@ const RenderFarm: React.FC<{ farmID: string; stakingType?: string; tblColumns: a
     )
   }
 
-  const tokenAddress = getAddress(currentFarm.token.address);
-  const shortenedTokenAddress =  `${tokenAddress.substring(0, 4)}...${tokenAddress.substring(tokenAddress.length - 4)}`;
+  const tokenAddress = getAddress(currentFarm.token.address)
+  const shortenedTokenAddress = `${tokenAddress.substring(0, 4)}...${tokenAddress.substring(tokenAddress.length - 4)}`
 
   return (
     <PageContainer bgColor={currentFarm.UIProps.bgColor} contain={currentFarm.UIProps.contain}>
@@ -194,11 +193,9 @@ const RenderFarm: React.FC<{ farmID: string; stakingType?: string; tblColumns: a
                 </Flex>
                 <Text color="white">Hold your {currentFarm.token.symbol} tokens for great benefits</Text>
                 <Flex>
-                  <Text color="white">
-                    Token address{' '}
-                  </Text>
-                  <Flex flexDirection='column'>
-                  <Link
+                  <Text color="white">Token address </Text>
+                  <Flex flexDirection="column">
+                    <Link
                       style={{ display: 'contents' }}
                       href={getBscScanAddressUrl(getAddress(currentFarm.token.address))}
                     >

@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { CopyIcon, Text } from "@metagg/mgg-uikit";
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { CopyIcon, Text } from '@metagg/mgg-uikit'
 
 interface Props {
-  toCopy?: string | number;
+  toCopy?: string | number
 }
 
-const StyleButton = styled(Text).attrs({ role: "button" })`
+const StyleButton = styled(Text).attrs({ role: 'button' })`
   position: relative;
   display: flex;
   align-items: center;
   color: ${({ theme }) => theme.colors.primary};
-`;
+`
 
 const Tooltip = styled.div<{ isTooltipDisplayed: boolean }>`
-  display: ${({ isTooltipDisplayed }) => (isTooltipDisplayed ? "block" : "none")};
+  display: ${({ isTooltipDisplayed }) => (isTooltipDisplayed ? 'block' : 'none')};
   position: absolute;
   bottom: -22px;
   right: 0;
@@ -25,21 +25,21 @@ const Tooltip = styled.div<{ isTooltipDisplayed: boolean }>`
   border-radius: 16px;
   opacity: 0.7;
   width: 60px;
-`;
+`
 
 const CopyToClipboard: React.FC<Props> = ({ toCopy, children, ...props }) => {
-  const [isTooltipDisplayed, setIsTooltipDisplayed] = useState(false);
+  const [isTooltipDisplayed, setIsTooltipDisplayed] = useState(false)
 
   return (
     <StyleButton
       small
       bold
       onClick={() => {
-        navigator.clipboard.writeText(JSON.stringify(toCopy));
-        setIsTooltipDisplayed(true);
+        navigator.clipboard.writeText(JSON.stringify(toCopy))
+        setIsTooltipDisplayed(true)
         setTimeout(() => {
-          setIsTooltipDisplayed(false);
-        }, 1000);
+          setIsTooltipDisplayed(false)
+        }, 1000)
       }}
       {...props}
     >
@@ -47,7 +47,7 @@ const CopyToClipboard: React.FC<Props> = ({ toCopy, children, ...props }) => {
       <CopyIcon width="20px" color="primary" ml="4px" />
       <Tooltip isTooltipDisplayed={isTooltipDisplayed}>Copied</Tooltip>
     </StyleButton>
-  );
-};
+  )
+}
 
-export default CopyToClipboard;
+export default CopyToClipboard

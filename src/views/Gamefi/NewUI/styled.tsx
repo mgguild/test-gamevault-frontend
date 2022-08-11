@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Flex, Button } from '@metagg/mgg-uikit'
 
-export const FlexC = styled(Flex)<{pd?: string}>`
+export const FlexC = styled(Flex)<{ pd?: string }>`
   flex-flow: row wrap;
   row-gap: 1rem;
   align-content: center;
@@ -10,15 +10,17 @@ export const FlexC = styled(Flex)<{pd?: string}>`
   text-align: center;
   padding: 0rem;
 
-  ${({pd}) => pd && `
+  ${({ pd }) =>
+    pd &&
+    `
     padding: ${pd};
   `}
 
-  ${({theme}) => theme.mediaQueries.sm} {
+  ${({ theme }) => theme.mediaQueries.sm} {
     padding: 2rem;
   }
-  
-  ${({theme}) => theme.mediaQueries.xs} {
+
+  ${({ theme }) => theme.mediaQueries.xs} {
     font-size: 12px;
   }
 `

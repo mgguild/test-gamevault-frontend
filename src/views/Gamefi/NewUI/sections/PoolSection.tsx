@@ -23,7 +23,6 @@ import ApexChart from '../../components/ApexCharts'
 import RenderTable from '../Table'
 import { NavOption } from '../../../../components/Launchpad/styled'
 
-
 const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tblColumns }) => {
   const [dayDuration, setDayDuration] = useState<number>(0)
   const theme = useContext(ThemeContext)
@@ -218,8 +217,8 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
     )
   }
 
-  const tokenAddress = getAddress(currentPool.stakingToken.address);
-  const shortenedTokenAddress =  `${tokenAddress.substring(0, 4)}...${tokenAddress.substring(tokenAddress.length - 4)}`;
+  const tokenAddress = getAddress(currentPool.stakingToken.address)
+  const shortenedTokenAddress = `${tokenAddress.substring(0, 4)}...${tokenAddress.substring(tokenAddress.length - 4)}`
 
   return (
     <PageContainer bgColor={currentPool.UIProps.bgColor} contain={currentPool.UIProps.contain}>
@@ -234,18 +233,16 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                 </Heading>
               </Flex>
               <Text color="white">Stake your {currentPool.stakingToken.symbol} tokens for great benefits</Text>
-              <Flex flexDirection='column'>
-                <Text color="white">
-                  Token address
-                </Text>
-                <Flex justifyContent='center'>
+              <Flex flexDirection="column">
+                <Text color="white">Token address</Text>
+                <Flex justifyContent="center">
                   <Link
                     style={{ display: 'contents' }}
                     href={getBscScanAddressUrl(getAddress(currentPool.stakingToken.address))}
                   >
                     {shortenedTokenAddress}
                   </Link>
-                  <CopyToClipboard toCopy={tokenAddress}/>
+                  <CopyToClipboard toCopy={tokenAddress} />
                 </Flex>
               </Flex>
               <RenderSocials socials={currentPool.UIProps.socials} center color="white" size={20} />
@@ -255,7 +252,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
         <FlexC>
           <FlexC
             style={{ backgroundColor: theme.colors.MGG_mainBG, maxWidth: '40rem', height: '31.7216875', zIndex: 3 }}
-            pd='1rem'
+            pd="1rem"
           >
             <Heading style={{ fontSize: '1.875rem' }}>
               {currentPool.stakingToken.symbol} - {currentPool.earningToken.symbol} Pool Based Farm
