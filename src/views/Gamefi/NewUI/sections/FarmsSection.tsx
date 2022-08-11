@@ -11,6 +11,7 @@ import UnlockButton from 'components/UnlockButton'
 import RenderSocials from 'components/Launchpad/SocialGroup'
 import { getBscScanAddressUrl } from 'utils/bscscan'
 import { Card2Container, TokenLogo, Badge, LinearBG, PageContainer } from 'views/Farms/components/FarmCards/styles'
+import CopyToClipboard from 'views/Gamefi/components/CopyToClipboard'
 import InputComponent from '../../components/InputComponent'
 import { FlexC, StatCard, Stats, TableStyle, ChartStyle } from '../styled'
 import { Series } from '../types'
@@ -70,7 +71,7 @@ const RenderFarm: React.FC<{ farmID: string; stakingType?: string; tblColumns: a
       <>
         <Flex style={{ margin: '2rem 0', zIndex: 3 }}>
           <div>
-            <Heading style={{ fontSize: '1.875rem' }} color="white">
+            <Heading style={{ fontSize: '1.5rem' }} color="white">
               {' '}
               LP Farming Stats
             </Heading>
@@ -174,6 +175,9 @@ const RenderFarm: React.FC<{ farmID: string; stakingType?: string; tblColumns: a
     )
   }
 
+  const tokenAddress = getAddress(currentFarm.token.address)
+  const shortenedTokenAddress = `${tokenAddress.substring(0, 4)}...${tokenAddress.substring(tokenAddress.length - 4)}`
+
   return (
     <PageContainer bgColor={currentFarm.UIProps.bgColor} contain={currentFarm.UIProps.contain}>
       <LinearBG style={{ minHeight: '100vh' }}>
@@ -189,15 +193,16 @@ const RenderFarm: React.FC<{ farmID: string; stakingType?: string; tblColumns: a
                 </Flex>
                 <Text color="white">Hold your {currentFarm.token.symbol} tokens for great benefits</Text>
                 <Flex>
-                  <Text color="white">
-                    Token address{' '}
+                  <Text color="white">Token address </Text>
+                  <Flex flexDirection="column">
                     <Link
                       style={{ display: 'contents' }}
                       href={getBscScanAddressUrl(getAddress(currentFarm.token.address))}
                     >
-                      {getAddress(currentFarm.token.address)}
+                      {shortenedTokenAddress}
                     </Link>
-                  </Text>
+                    <CopyToClipboard toCopy={tokenAddress} />
+                  </Flex>
                 </Flex>
                 <RenderSocials socials={currentFarm.UIProps.socials} center color="white" size={20} />
               </Flex>
