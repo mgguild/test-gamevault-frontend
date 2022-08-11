@@ -72,7 +72,7 @@ const RenderFarm: React.FC<{ farmID: string; stakingType?: string; tblColumns: a
       <>
         <Flex style={{ margin: '2rem 0', zIndex: 3 }}>
           <div>
-            <Heading style={{ fontSize: '1.875rem' }} color="white">
+            <Heading style={{ fontSize: '1.5rem' }} color="white">
               {' '}
               LP Farming Stats
             </Heading>
