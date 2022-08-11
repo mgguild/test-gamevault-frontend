@@ -255,6 +255,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
         <FlexC>
           <FlexC
             style={{ backgroundColor: theme.colors.MGG_mainBG, maxWidth: '40rem', height: '31.7216875', zIndex: 3 }}
+            pd='1rem'
           >
             <Heading style={{ fontSize: '1.875rem' }}>
               {currentPool.stakingToken.symbol} - {currentPool.earningToken.symbol} Pool Based Farm
@@ -278,7 +279,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                 backgroundColor: theme.colors.MGG_container,
               }}
             >
-              <Heading style={{ fontSize: '1.875rem' }}>{overallStaked}</Heading>
+              <Heading style={{ fontSize: '1.55rem' }}>{overallStaked}</Heading>
             </Flex>
 
             <Flex style={{ width: '100%', flexFlow: 'row wrap', gap: '1rem', justifyContent: 'space-evenly' }}>

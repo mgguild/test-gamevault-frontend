@@ -1,14 +1,26 @@
 import styled from 'styled-components'
 import { Flex, Button } from '@metagg/mgg-uikit'
 
-export const FlexC = styled(Flex)`
-  padding: 2rem;
+export const FlexC = styled(Flex)<{pd?: string}>`
   flex-flow: row wrap;
   row-gap: 1rem;
   align-content: center;
   align-items: center;
   justify-content: center;
   text-align: center;
+  padding: 0rem;
+
+  ${({pd}) => pd && `
+    padding: ${pd};
+  `}
+
+  ${({theme}) => theme.mediaQueries.sm} {
+    padding: 2rem;
+  }
+  
+  ${({theme}) => theme.mediaQueries.xs} {
+    font-size: 12px;
+  }
 `
 
 export const ButtonSM = styled(Button)`
