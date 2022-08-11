@@ -229,7 +229,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
             <Flex style={{ textAlign: 'center', flexFlow: 'column', rowGap: '1rem' }}>
               <Flex style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <TokenLogo size="3rem" src={getImageUrlFromToken(currentPool.stakingToken)} />
-                <Heading color="white" style={{ fontSize: '1.875rem', padding: '0 1rem' }}>
+                <Heading color="white" style={{ fontSize: '1.5rem', padding: '0 1rem' }}>
                   {currentPool.name} Token
                 </Heading>
               </Flex>
