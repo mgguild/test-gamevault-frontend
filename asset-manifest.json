@@ -15,8 +15,8 @@
     "main.css": "/test-gamevault-frontend/static/css/main.dee5dda5.chunk.css",
     "main.js": "/test-gamevault-frontend/static/js/main.e551b5e1.chunk.js",
     "main.js.map": "/test-gamevault-frontend/static/js/main.e551b5e1.chunk.js.map",
-    "runtime-main.js": "/test-gamevault-frontend/static/js/runtime-main.c8d153d5.js",
-    "runtime-main.js.map": "/test-gamevault-frontend/static/js/runtime-main.c8d153d5.js.map",
+    "runtime-main.js": "/test-gamevault-frontend/static/js/runtime-main.9959057a.js",
+    "runtime-main.js.map": "/test-gamevault-frontend/static/js/runtime-main.9959057a.js.map",
     "static/js/8.20f77304.chunk.js": "/test-gamevault-frontend/static/js/8.20f77304.chunk.js",
     "static/js/8.20f77304.chunk.js.map": "/test-gamevault-frontend/static/js/8.20f77304.chunk.js.map",
     "static/js/9.b3523de4.chunk.js": "/test-gamevault-frontend/static/js/9.b3523de4.chunk.js",
@@ -35,8 +35,8 @@
     "static/js/15.131c8481.chunk.js.map": "/test-gamevault-frontend/static/js/15.131c8481.chunk.js.map",
     "static/js/16.b48de402.chunk.js": "/test-gamevault-frontend/static/js/16.b48de402.chunk.js",
     "static/js/16.b48de402.chunk.js.map": "/test-gamevault-frontend/static/js/16.b48de402.chunk.js.map",
-    "static/js/17.dc21a141.chunk.js": "/test-gamevault-frontend/static/js/17.dc21a141.chunk.js",
-    "static/js/17.dc21a141.chunk.js.map": "/test-gamevault-frontend/static/js/17.dc21a141.chunk.js.map",
+    "static/js/17.0d729344.chunk.js": "/test-gamevault-frontend/static/js/17.0d729344.chunk.js",
+    "static/js/17.0d729344.chunk.js.map": "/test-gamevault-frontend/static/js/17.0d729344.chunk.js.map",
     "static/js/18.56fc8780.chunk.js": "/test-gamevault-frontend/static/js/18.56fc8780.chunk.js",
     "static/js/18.56fc8780.chunk.js.map": "/test-gamevault-frontend/static/js/18.56fc8780.chunk.js.map",
     "index.html": "/test-gamevault-frontend/index.html",
@@ -72,7 +72,7 @@
     "static/media/Tier5Legendary.bbee1977.png": "/test-gamevault-frontend/static/media/Tier5Legendary.bbee1977.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.c8d153d5.js",
+    "static/js/runtime-main.9959057a.js",
     "static/js/8.20f77304.chunk.js",
     "static/css/main.dee5dda5.chunk.css",
     "static/js/main.e551b5e1.chunk.js"
