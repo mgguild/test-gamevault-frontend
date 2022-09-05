@@ -27,9 +27,9 @@ const config: MenuEntry[] = [
     href: '/launchpad',
   },
   {
-    label: 'Earning Dashboard',
+    label: 'Marketplace',
     icon: '',
-    href: '/earning-dashboard',
+    href: '/marketplace',
   },
   {
     label: 'Bridge',
