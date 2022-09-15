@@ -217,7 +217,7 @@ export const GUILDPAD_STATUS: { ongoing: Status; upcoming: Status; completed: St
   upcoming: 'upcoming',
   completed: 'completed',
 }
-export const TYPE: { INO: Type; IDO: Type; IGO: Type } = { INO: 'INO', IDO: 'IDO', IGO: 'IGO' }
+export const TYPE: { INO: Type; IDO: Type; IGO: Type } = { INO: 'INO', IDO: 'IGO', IGO: 'IGO' }
 export const DISTRIBUTION: { VESTING: Distribution; SELF_CLAIM: Distribution; AIRDROP: Distribution } = {
   VESTING: 'VESTING',
   SELF_CLAIM: 'SELF-CLAIM',

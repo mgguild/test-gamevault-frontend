@@ -16,7 +16,7 @@ const GuildpadsLaunched: GuildpadConfig[] = [
       telegram: 'https://t.me/ookeenga_global',
       youtube: 'https://www.youtube.com/channel/UCqQpViSkkAq_aFP3hj3GL8w',
     },
-    type: 'IDO',
+    type: 'IGO',
     round: 'MERGED Ookeenga',
     distribution: DISTRIBUTION.VESTING,
     distributionDesc: '5% up-front at TGE, 3 month cliff, then quarterly vesting over 4 quarters',
