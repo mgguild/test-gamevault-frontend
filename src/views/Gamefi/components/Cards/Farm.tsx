@@ -126,12 +126,15 @@ const FarmCard2: React.FC<FarmCard2Props> = ({
                 <Heading color="white">{farm.name}</Heading>
               </div>
             </Flex>
-            <Flex style={{ justifyContent: 'end', alignItems: 'end' }}>
-              <div style={{ textAlign: 'end' }}>
-                <Text color="white"> {apr ? `APR: ${apr}` : ''}</Text>
-                <Heading color="white">{farm.remainingDays} Days Left</Heading>
-              </div>
-            </Flex>
+            {farm.comingSoon ||
+              (farm.hasEnded && (
+                <Flex style={{ justifyContent: 'end', alignItems: 'end' }}>
+                  <div style={{ textAlign: 'end' }}>
+                    <Text color="white"> {apr ? `APR: ${apr}` : ''}</Text>
+                    <Heading color="white">{farm.remainingDays} Days Left</Heading>
+                  </div>
+                </Flex>
+              ))}
           </Card2Container>
         </Link>
       </Cards2>

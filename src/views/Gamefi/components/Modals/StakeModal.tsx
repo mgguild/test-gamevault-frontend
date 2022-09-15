@@ -197,7 +197,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
             <br />
 
             <Flex>
-              <Text>Unstaking Fee (estimated)</Text>
+              <Text>Early Unstaking Fee ( estimated )</Text>
               <Text>
                 ≈ {estimatedFee.toFormat(4)} {pairSymbol}
               </Text>

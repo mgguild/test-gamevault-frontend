@@ -14,6 +14,7 @@ import UnlockButton from 'components/UnlockButton'
 import RenderSocials from 'components/Launchpad/SocialGroup'
 import { getBscScanAddressUrl } from 'utils/bscscan'
 import { Card2Container, LinearBG, PageContainer, TokenLogo } from 'views/Farms/components/FarmCards/styles'
+import CopyToClipboard from 'views/Gamefi/components/CopyToClipboard'
 import InputComponent from '../../components/InputComponent'
 import ListStakesComponent from '../../components/ListStakesComponent'
 import { ChartStyle, FlexC, StatCard, Stats, TableStyle } from '../styled'
@@ -216,6 +217,9 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
     )
   }
 
+  const tokenAddress = getAddress(currentPool.stakingToken.address)
+  const shortenedTokenAddress = `${tokenAddress.substring(0, 4)}...${tokenAddress.substring(tokenAddress.length - 4)}`
+
   return (
     <PageContainer bgColor={currentPool.UIProps.bgColor} contain={currentPool.UIProps.contain}>
       <LinearBG style={{ minHeight: '100vh' }}>
@@ -224,21 +228,22 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
             <Flex style={{ textAlign: 'center', flexFlow: 'column', rowGap: '1rem' }}>
               <Flex style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <TokenLogo size="3rem" src={getImageUrlFromToken(currentPool.stakingToken)} />
-                <Heading color="white" style={{ fontSize: '1.875rem', padding: '0 1rem' }}>
-                  {currentPool.name} Token
+                <Heading color="white" style={{ fontSize: '1.5rem', padding: '0 1rem' }}>
+                  {currentPool.name}
                 </Heading>
               </Flex>
               <Text color="white">Stake your {currentPool.stakingToken.symbol} tokens for great benefits</Text>
-              <Flex>
-                <Text color="white">
-                  Token address{' '}
+              <Flex flexDirection="column">
+                <Text color="white">Token address</Text>
+                <Flex justifyContent="center">
                   <Link
                     style={{ display: 'contents' }}
                     href={getBscScanAddressUrl(getAddress(currentPool.stakingToken.address))}
                   >
-                    {getAddress(currentPool.stakingToken.address)}
+                    {shortenedTokenAddress}
                   </Link>
-                </Text>
+                  <CopyToClipboard toCopy={tokenAddress} />
+                </Flex>
               </Flex>
               <RenderSocials socials={currentPool.UIProps.socials} center color="white" size={20} />
             </Flex>
@@ -247,6 +252,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
         <FlexC>
           <FlexC
             style={{ backgroundColor: theme.colors.MGG_mainBG, maxWidth: '40rem', height: '31.7216875', zIndex: 3 }}
+            pd="1rem"
           >
             <Heading style={{ fontSize: '1.875rem' }}>
               {currentPool.stakingToken.symbol} - {currentPool.earningToken.symbol} Pool Based Farm
@@ -270,7 +276,7 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                 backgroundColor: theme.colors.MGG_container,
               }}
             >
-              <Heading style={{ fontSize: '1.875rem' }}>{overallStaked}</Heading>
+              <Heading style={{ fontSize: '1.55rem' }}>{overallStaked}</Heading>
             </Flex>
 
             <Flex style={{ width: '100%', flexFlow: 'row wrap', gap: '1rem', justifyContent: 'space-evenly' }}>
