@@ -5,7 +5,7 @@ const GuildpadsLaunched: GuildpadConfig[] = [
   {
     id: 2,
     title: 'Ookeenga',
-    isStatic: true,
+    isStatic: false,
     nextRoundID: 0,
     hasEnded: true,
     description:

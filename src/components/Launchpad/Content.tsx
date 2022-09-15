@@ -31,6 +31,8 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
 
+  console.log(guildpad)
+
   const renderDescription = () => {
     const description = guildpad.description !== '' ? guildpad.description : 'No description'
 
