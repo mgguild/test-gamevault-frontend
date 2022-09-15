@@ -25,6 +25,10 @@ const GuildpadsLaunched: GuildpadConfig[] = [
       56: '0x1858211ebb67b81cAa2ef740143a0D864B7339f3',
       97: '0x002',
     },
+    vestingAddress: {
+      97: '0x002',
+      56: '0x682Eed4Ee750e23d80FDA04b7CA23b8D60C1487f',
+    },
     buyingCoin: tokens.busd,
     sellingCoin: tokens.Ookeenga,
     igoDetails: {
