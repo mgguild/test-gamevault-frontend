@@ -1,13 +1,17 @@
-import { Flex, Text } from '@metagg/mgg-uikit'
-import { NavOption, PostBody } from 'components/Launchpad/styled'
+import { Flex, Text, Button} from '@metagg/mgg-uikit'
+import { useWeb3React } from '@web3-react/core'
+import { NavOption, PostBody, SaleContainer, SaleRow } from 'components/Launchpad/styled'
+import UnlockButton from 'components/UnlockButton'
 import useTheme from 'hooks/useTheme'
 import React, { useState } from 'react'
+import styled from 'styled-components'
 
 interface Props {
   description?: string
 }
 
 const Content:React.FC<{details: Props}> = ({details}) => {
+  const { account } = useWeb3React()
   const [active, setActive] = useState<number>(0)
   const { theme } = useTheme()
 
@@ -18,12 +22,54 @@ const Content:React.FC<{details: Props}> = ({details}) => {
     )
   }
 
+  const renderClaim = () => {
+    return (
+      <SaleContainer justifyContent="space-between" alignItems="center">
+        <StyleSaleRow>
+          <Text color='textSubtle'>
+            Total Allocation
+          </Text>
+          <Text>
+            000 MGG
+          </Text>
+        </StyleSaleRow>
+        <StyleSaleRow>
+          <Text color='textSubtle'>
+           Claimed
+          </Text>
+          <Text>
+            000 MGG
+          </Text>
+        </StyleSaleRow>
+        <StyleSaleRow>
+          <Text color='textSubtle'>
+            Available
+          </Text>
+          <Text>
+            000 MGG
+          </Text>
+        </StyleSaleRow>
+        <StyleSaleRow>
+          <Text color='textSubtle'>
+            Next vesting date
+          </Text>
+          <Text>
+            N/A
+          </Text>
+        </StyleSaleRow>
+        { !account ? <UnlockButton margin='20px auto 0 auto' /> : (
+          <ClaimBtn disabled> Claim </ClaimBtn>
+        )}
+      </SaleContainer>
+    )
+  }
+
   const renderTabs = (tab) => {
     switch(tab) {
       case 0:
         return renderDescription()
       case 1:
-        return 'claim'
+        return renderClaim()
       default:
         return 'coming soon'
     }
@@ -56,3 +102,11 @@ Content.defaultProps = {
 
 export default Content
 
+const StyleSaleRow = styled(SaleRow)`
+  justify-content: space-between;
+`
+
+const ClaimBtn = styled(Button)`
+  margin: 20px auto 0 auto;
+  background: ${({theme}) => theme.colors.MGG_accent1}!important;
+`
