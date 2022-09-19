@@ -58,10 +58,9 @@ export const StatusColor = {
 export const StatusBox = styled(Flex)<{ status: string }>`
   background-color: ${({ status, theme }) => (status ? StatusColor[status] : theme.colors.primary)};
   border-radius: 3px;
-  
 `
 
-export const PostHeader = styled(Header)<{ background?: string; fullBorder?: boolean}>`
+export const PostHeader = styled(Header)<{ background?: string; fullBorder?: boolean }>`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -70,7 +69,9 @@ export const PostHeader = styled(Header)<{ background?: string; fullBorder?: boo
   border-bottom: 3px solid ${({ theme }) => theme.colors.MGG_active};
   background: #101010;
 
-  ${({fullBorder, theme}) => fullBorder && `
+  ${({ fullBorder, theme }) =>
+    fullBorder &&
+    `
     border: 3px solid ${theme.colors.MGG_active};
   `}
 
@@ -115,10 +116,12 @@ export const PostBody = styled(Flex)`
     background-color: ${({ theme }) => theme.card.background};
   }
 `
-export const PostContainer = styled.div<{fullBorder?: boolean}>`
+export const PostContainer = styled.div<{ fullBorder?: boolean }>`
   width: 100%;
-  position: relative;  
-  ${({fullBorder, theme}) => fullBorder && `
+  position: relative;
+  ${({ fullBorder, theme }) =>
+    fullBorder &&
+    `
     border: 3px solid ${theme.colors.MGG_active};
   `}
 `

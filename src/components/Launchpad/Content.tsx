@@ -23,7 +23,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
   rarity = '1',
   component,
 }) => {
-  const { theme} = useTheme();
+  const { theme } = useTheme()
   const [active, setActive] = useState(4)
   const { account } = useWeb3React()
   const { login, logout } = useAuth()
@@ -413,7 +413,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
 export default Content
 
 const Navigation = styled(Flex)`
-  @media screen and (max-width: 400px){
+  @media screen and (max-width: 400px) {
     flex-wrap: wrap;
     justify-content: center;
   }

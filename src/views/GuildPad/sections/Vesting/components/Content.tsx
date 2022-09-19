@@ -1,4 +1,4 @@
-import { Flex, Text, Button} from '@metagg/mgg-uikit'
+import { Flex, Text, Button } from '@metagg/mgg-uikit'
 import { useWeb3React } from '@web3-react/core'
 import { NavOption, PostBody, SaleContainer, SaleRow } from 'components/Launchpad/styled'
 import UnlockButton from 'components/UnlockButton'
@@ -10,7 +10,7 @@ interface Props {
   description?: string
 }
 
-const Content:React.FC<{details: Props}> = ({details}) => {
+const Content: React.FC<{ details: Props }> = ({ details }) => {
   const { account } = useWeb3React()
   const [active, setActive] = useState<number>(0)
   const { theme } = useTheme()
@@ -18,7 +18,10 @@ const Content:React.FC<{details: Props}> = ({details}) => {
   const renderDescription = () => {
     const description = details.description
     return (
-      <Text color="textSubtle" padding="30px" style={{ lineHeight: '2em' }}> { description} </Text>
+      <Text color="textSubtle" padding="30px" style={{ lineHeight: '2em' }}>
+        {' '}
+        {description}{' '}
+      </Text>
     )
   }
 
@@ -26,46 +29,28 @@ const Content:React.FC<{details: Props}> = ({details}) => {
     return (
       <SaleContainer justifyContent="space-between" alignItems="space-between">
         <StyleSaleRow>
-          <Text color='textSubtle'>
-            Total Allocation
-          </Text>
-          <Text>
-            000 MGG
-          </Text>
+          <Text color="textSubtle">Total Allocation</Text>
+          <Text>000 MGG</Text>
         </StyleSaleRow>
         <StyleSaleRow>
-          <Text color='textSubtle'>
-           Claimed
-          </Text>
-          <Text>
-            000 MGG
-          </Text>
+          <Text color="textSubtle">Claimed</Text>
+          <Text>000 MGG</Text>
         </StyleSaleRow>
         <StyleSaleRow>
-          <Text color='textSubtle'>
-            Available
-          </Text>
-          <Text>
-            000 MGG
-          </Text>
+          <Text color="textSubtle">Available</Text>
+          <Text>000 MGG</Text>
         </StyleSaleRow>
         <StyleSaleRow>
-          <Text color='textSubtle'>
-            Next vesting date
-          </Text>
-          <Text>
-            N/A
-          </Text>
+          <Text color="textSubtle">Next vesting date</Text>
+          <Text>N/A</Text>
         </StyleSaleRow>
-        { !account ? <UnlockButton margin='20px auto 0 auto' /> : (
-          <ClaimBtn disabled> Claim </ClaimBtn>
-        )}
+        {!account ? <UnlockButton margin="20px auto 0 auto" /> : <ClaimBtn disabled> Claim </ClaimBtn>}
       </SaleContainer>
     )
   }
 
   const renderTabs = (tab) => {
-    switch(tab) {
+    switch (tab) {
       case 0:
         return renderDescription()
       case 1:
@@ -89,15 +74,15 @@ const Content:React.FC<{details: Props}> = ({details}) => {
           Claim
         </NavOption>
       </Flex>
-      { renderTabs(active) }
+      {renderTabs(active)}
     </PostBody>
   )
 }
 
 Content.defaultProps = {
   details: {
-    description: ''
-  }
+    description: '',
+  },
 }
 
 export default Content
@@ -108,5 +93,5 @@ const StyleSaleRow = styled(SaleRow)`
 
 const ClaimBtn = styled(Button)`
   margin: 20px auto 0 auto;
-  background: ${({theme}) => theme.colors.MGG_accent1}!important;
+  background: ${({ theme }) => theme.colors.MGG_accent1}!important;
 `

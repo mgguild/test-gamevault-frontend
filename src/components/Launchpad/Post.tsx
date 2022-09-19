@@ -42,7 +42,7 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  @media screen and (max-width: 600px){
+  @media screen and (max-width: 600px) {
     margin: 0 0 2rem 0;
   }
   @media screen and (max-width: 425px) {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Details, PadActions, PadTitles, PostContainer, PostHeader } from 'components/Launchpad/styled'
-import { Token, Socials} from 'config/constants/types'
+import { Token, Socials } from 'config/constants/types'
 import styled from 'styled-components'
 import useMedia from 'use-media'
 import TokenLogo from 'components/Launchpad/Logo'
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const Card: React.FC<{ details: Props }> = ({ details }) => {
-  const [ toggle, setToggle ] = useState<boolean>(false)
+  const [toggle, setToggle] = useState<boolean>(false)
   const { name, description, socials, token } = details
   const isMobile = useMedia({ maxWidth: 600 })
   return (
@@ -27,33 +27,36 @@ const Card: React.FC<{ details: Props }> = ({ details }) => {
             alignItems="center"
             style={isMobile ? { flexDirection: 'column', rowGap: '1.5px' } : { flexDirection: 'row' }}
           >
-            <TokenLogo tokenName="MGG" nameSize="xl" primaryToken={token} padding="0px" socMeds={socials} socMedsSize={22} color="white" />
+            <TokenLogo
+              tokenName="MGG"
+              nameSize="xl"
+              primaryToken={token}
+              padding="0px"
+              socMeds={socials}
+              socMedsSize={22}
+              color="white"
+            />
           </PadTitles>
           <PadActions>
-            { !isMobile && (
-               <Details onClick={() => setToggle(!toggle)}>
-               <Text bold>
-                 Details
-               </Text>
-               &nbsp;
-               <Text style={{ display: 'flex', alignItems: 'center' }}>
-                 { toggle? <ChevronUp /> : <ChevronDown /> }
-               </Text>
-             </Details>
-            )
-          }
+            {!isMobile && (
+              <Details onClick={() => setToggle(!toggle)}>
+                <Text bold>Details</Text>
+                &nbsp;
+                <Text style={{ display: 'flex', alignItems: 'center' }}>
+                  {toggle ? <ChevronUp /> : <ChevronDown />}
+                </Text>
+              </Details>
+            )}
           </PadActions>
         </Container>
-        {
-          isMobile && (
-            <DetailsM onClick={() => setToggle(!toggle)}>
-              <Text bold>Details</Text> &nbsp;
+        {isMobile && (
+          <DetailsM onClick={() => setToggle(!toggle)}>
+            <Text bold>Details</Text> &nbsp;
             <Text style={{ display: 'flex', alignItems: 'center' }}>{toggle ? <ChevronUp /> : <ChevronDown />}</Text>
-            </DetailsM>
-          )
-        }
+          </DetailsM>
+        )}
       </PostHeader>
-      { toggle && <Content details={{description}}/> }
+      {toggle && <Content details={{ description }} />}
     </PostContainer>
   )
 }
@@ -84,4 +87,3 @@ const DetailsM = styled.div`
   width: 100%;
   background: ${({ theme }) => theme.colors.MGG_mainBG};
 `
-

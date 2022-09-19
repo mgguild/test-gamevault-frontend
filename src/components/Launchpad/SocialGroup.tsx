@@ -19,21 +19,19 @@ const RenderSocials: React.FC<SocialsProps> = ({ socials, size, color, center })
   const colour = color ?? theme.colors.text
 
   return (
-      <Flex style={{ justifyContent: center ? 'center' : 'left' }}>
-       { 
-        Object.entries(socials).map((value, key) => {
-          const iconName = value[0].charAt(0).toUpperCase() + value[0].slice(1)
-          const Icon = SocIcons[`Fa${iconName}`] ?? IconModule.FaRocket
-          const iconElement = <Icon color='white' size={size} /> 
-          const identifier = key + 1
-          return (
-            <Anchor key={identifier} href={value[1]}>
-              {iconElement}
-            </Anchor>
-          )
-        })
-       }
-      </Flex>
+    <Flex style={{ justifyContent: center ? 'center' : 'left' }}>
+      {Object.entries(socials).map((value, key) => {
+        const iconName = value[0].charAt(0).toUpperCase() + value[0].slice(1)
+        const Icon = SocIcons[`Fa${iconName}`] ?? IconModule.FaRocket
+        const iconElement = <Icon color="white" size={size} />
+        const identifier = key + 1
+        return (
+          <Anchor key={identifier} href={value[1]}>
+            {iconElement}
+          </Anchor>
+        )
+      })}
+    </Flex>
   )
 }
 
