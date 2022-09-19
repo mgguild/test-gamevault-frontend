@@ -1,9 +1,10 @@
-import React, { useContext, useState, useMemo } from 'react'
+import React, { useState, useMemo } from 'react'
 import moment from 'moment'
 import { useWeb3React } from '@web3-react/core'
 import { Button, Flex, Text, useWalletModal } from '@metagg/mgg-uikit'
 import useAuth from 'hooks/useAuth'
-import { ThemeContext } from 'styled-components'
+import useTheme from 'hooks/useTheme'
+import styled from 'styled-components'
 import { GUILDPAD_STATUS, TYPE } from 'config/constants/types'
 import { NavOption, PostBody, SaleContainer, SaleRow } from './styled'
 import { Guildpad } from '../../state/types'
@@ -22,7 +23,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
   rarity = '1',
   component,
 }) => {
-  const theme = useContext(ThemeContext)
+  const { theme} = useTheme();
   const [active, setActive] = useState(4)
   const { account } = useWeb3React()
   const { login, logout } = useAuth()
@@ -362,7 +363,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
     <PostBody>
       {guildpad.type === TYPE.INO || component === 'post' ? (
         <>
-          <Flex
+          <Navigation
             alignItems="center"
             margin="10px 0px 20px 0px"
             style={{ borderBottom: `0.5px solid ${theme.colors.primary}`, width: '100%' }}
@@ -381,13 +382,13 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
                 Claim
               </NavOption>
             )}
-          </Flex>
+          </Navigation>
           {renderTabs(active)}
           {/* {active === 1 ? renderDescription() : active === 2 && renderSale()} */}
         </>
       ) : (
         <>
-          <Flex
+          <Navigation
             alignItems="center"
             margin="10px 0px 20px 0px"
             style={{ borderBottom: `0.5px solid ${theme.colors.primary}`, width: '100%' }}
@@ -401,7 +402,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
             <NavOption onClick={() => setActive(3)} activeIndex={active === 3}>
               Allocation
             </NavOption>
-          </Flex>
+          </Navigation>
           {renderTabs(active)}
         </>
       )}
@@ -410,3 +411,10 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
 }
 
 export default Content
+
+const Navigation = styled(Flex)`
+  @media screen and (max-width: 400px){
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+`
