@@ -42,6 +42,9 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
 
+  @media screen and (max-width: 600px){
+    margin: 0 0 2rem 0;
+  }
   @media screen and (max-width: 425px) {
     flex-direction: column;
   }
@@ -65,7 +68,7 @@ const Post: React.FC<{ guildpad?: Guildpad }> = ({ guildpad }) => {
   return (
     <PostContainer style={{ position: 'relative', overflow: 'hidden' }}>
       <PostHeader background={srcs}>
-        <Container style={{ margin: isMobile ? '0 0 2rem 0' : '0 0 0 0' }}>
+        <Container>
           <PadTitles
             alignItems="center"
             style={isMobile ? { flexDirection: 'column', rowGap: '1.5px' } : { flexDirection: 'row' }}

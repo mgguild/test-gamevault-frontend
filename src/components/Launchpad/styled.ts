@@ -58,19 +58,21 @@ export const StatusColor = {
 export const StatusBox = styled(Flex)<{ status: string }>`
   background-color: ${({ status, theme }) => (status ? StatusColor[status] : theme.colors.primary)};
   border-radius: 3px;
+  
 `
 
-export const PostHeader = styled(Header)<{ background?: string }>`
+export const PostHeader = styled(Header)<{ background?: string; fullBorder?: boolean}>`
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // background-position: 50% 78%;
-  // background-size: cover;
-  // background-repeat: no-repeat;
   border-top: 3px solid ${({ theme }) => theme.colors.MGG_active};
   border-bottom: 3px solid ${({ theme }) => theme.colors.MGG_active};
   background: #101010;
+
+  ${({fullBorder, theme}) => fullBorder && `
+    border: 3px solid ${theme.colors.MGG_active};
+  `}
 
   @media screen and (max-width: 425px) {
     flex-direction: column;
