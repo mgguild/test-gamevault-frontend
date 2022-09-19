@@ -115,9 +115,12 @@ export const PostBody = styled(Flex)`
     background-color: ${({ theme }) => theme.card.background};
   }
 `
-export const PostContainer = styled.div`
+export const PostContainer = styled.div<{fullBorder?: boolean}>`
   width: 100%;
-  position: relative;
+  position: relative;  
+  ${({fullBorder, theme}) => fullBorder && `
+    border: 3px solid ${theme.colors.MGG_active};
+  `}
 `
 
 export const TokenProperty = styled(Flex)<{ claimable?: string }>`

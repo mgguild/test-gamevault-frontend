@@ -1,13 +1,12 @@
-import React from 'react'
-import { PadTitles, PostContainer, PostHeader } from 'components/Launchpad/styled'
-import { Token } from 'config/constants/types'
+import React, { useState } from 'react'
+import { Details, PadActions, PadTitles, PostContainer, PostHeader } from 'components/Launchpad/styled'
+import { Token, Socials} from 'config/constants/types'
 import styled from 'styled-components'
 import useMedia from 'use-media'
 import TokenLogo from 'components/Launchpad/Logo'
-
-interface Socials {
-  [key: string]: string
-}
+import { Text } from '@metagg/mgg-uikit'
+import { ChevronDown, ChevronUp } from 'react-feather'
+import Content from './Content'
 
 interface Props {
   name: string
@@ -17,11 +16,12 @@ interface Props {
 }
 
 const Card: React.FC<{ details: Props }> = ({ details }) => {
+  const [ toggle, setToggle ] = useState<boolean>(false)
   const { name, description, socials, token } = details
   const isMobile = useMedia({ maxWidth: 600 })
   return (
-    <PostContainer style={{ position: 'relative', overflow: 'hidden' }}>
-      <PostHeader fullBorder>
+    <PostContainer style={{ position: 'relative', overflow: 'hidden' }} fullBorder>
+      <PostHeader>
         <Container>
           <PadTitles
             alignItems="center"
@@ -29,8 +29,20 @@ const Card: React.FC<{ details: Props }> = ({ details }) => {
           >
             <TokenLogo tokenName="MGG" nameSize="xl" primaryToken={token} padding="0px" socMeds={socials} socMedsSize={22} color="white" />
           </PadTitles>
+          <PadActions>
+            <Details onClick={() => setToggle(!toggle)}>
+              <Text bold>
+                Details
+              </Text>
+              &nbsp;
+              <Text style={{ display: 'flex', alignItems: 'center' }}>
+                { toggle? <ChevronUp /> : <ChevronDown /> }
+              </Text>
+            </Details>
+          </PadActions>
         </Container>
       </PostHeader>
+      { toggle && <Content details={{description}}/> }
     </PostContainer>
   )
 }

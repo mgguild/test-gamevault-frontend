@@ -107,7 +107,7 @@ const Post: React.FC<{ guildpad?: Guildpad }> = ({ guildpad }) => {
             </TokenProperty>
             {!isMobile && (
               <Details onClick={() => setToggle(!toggle)}>
-                <Text bold>Details</Text> &nbsp;{' '}
+                <Text bold>Details</Text> &nbsp;
                 <Text style={{ display: 'flex', alignItems: 'center' }}>
                   {toggle ? <ChevronUp /> : <ChevronDown />}
                 </Text>
