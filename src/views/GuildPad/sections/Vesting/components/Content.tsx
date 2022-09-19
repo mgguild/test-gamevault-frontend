@@ -18,13 +18,13 @@ const Content:React.FC<{details: Props}> = ({details}) => {
   const renderDescription = () => {
     const description = details.description
     return (
-      <Text> { description} </Text>
+      <Text color="textSubtle" padding="30px" style={{ lineHeight: '2em' }}> { description} </Text>
     )
   }
 
   const renderClaim = () => {
     return (
-      <SaleContainer justifyContent="space-between" alignItems="center">
+      <SaleContainer justifyContent="space-between" alignItems="space-between">
         <StyleSaleRow>
           <Text color='textSubtle'>
             Total Allocation

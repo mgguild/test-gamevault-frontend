@@ -247,7 +247,7 @@ const Content: React.FC<{ guildpad: Guildpad; rarity?: string; component?: strin
     const totalClaimed = getBalanceAmount(guildpad.userData.vesting.totalClaimed).toFormat(2)
     const availableToClaim = getBalanceAmount(guildpad.userData.vesting.availableToClaim).toFormat(2)
     return (
-      <SaleContainer justifyContent="space-between" alignItems="center">
+      <SaleContainer justifyContent="space-between" alignItems="space-between">
         <Flex flexDirection="column">
           <SaleRow justifyContent="space-between">
             <Text color="textSubtle">Total Allocation</Text>

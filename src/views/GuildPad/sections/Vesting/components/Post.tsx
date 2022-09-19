@@ -30,17 +30,28 @@ const Card: React.FC<{ details: Props }> = ({ details }) => {
             <TokenLogo tokenName="MGG" nameSize="xl" primaryToken={token} padding="0px" socMeds={socials} socMedsSize={22} color="white" />
           </PadTitles>
           <PadActions>
-            <Details onClick={() => setToggle(!toggle)}>
-              <Text bold>
-                Details
-              </Text>
-              &nbsp;
-              <Text style={{ display: 'flex', alignItems: 'center' }}>
-                { toggle? <ChevronUp /> : <ChevronDown /> }
-              </Text>
-            </Details>
+            { !isMobile && (
+               <Details onClick={() => setToggle(!toggle)}>
+               <Text bold>
+                 Details
+               </Text>
+               &nbsp;
+               <Text style={{ display: 'flex', alignItems: 'center' }}>
+                 { toggle? <ChevronUp /> : <ChevronDown /> }
+               </Text>
+             </Details>
+            )
+          }
           </PadActions>
         </Container>
+        {
+          isMobile && (
+            <DetailsM onClick={() => setToggle(!toggle)}>
+              <Text bold>Details</Text> &nbsp;
+            <Text style={{ display: 'flex', alignItems: 'center' }}>{toggle ? <ChevronUp /> : <ChevronDown />}</Text>
+            </DetailsM>
+          )
+        }
       </PostHeader>
       { toggle && <Content details={{description}}/> }
     </PostContainer>
@@ -62,3 +73,15 @@ const Container = styled.div`
     margin: 0 0 2rem 0;
   }
 `
+
+const DetailsM = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: ${({ theme }) => theme.colors.MGG_mainBG};
+`
+
