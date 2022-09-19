@@ -9,7 +9,7 @@ import Post from './components/Post';
 
 const Details = {
   name: 'MGG',
-  description: 'Sample',
+  description: 'MetaGaming Guild is a unified DAO-based ecosystem of Gaming Guild, INO/IGO Launchpad, GameFi Vaults, Game Yield Farming and Play-to-Earn Game aimed at democratizing game finance. MetaGaming Guild envisions to become the primary and most community-centric DAO in the GameFi metaverse!',
   token: tokens.mgg,
   socials: {
     facebook: 'https://www.facebook.com/MetaGamingGuild/',
