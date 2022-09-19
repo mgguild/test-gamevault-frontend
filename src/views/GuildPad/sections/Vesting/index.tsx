@@ -12,8 +12,10 @@ const Details = {
   description: 'Sample',
   token: tokens.mgg,
   socials: {
-    facebook: 'facebook',
-    twitter: 'twitter'
+    facebook: 'https://www.facebook.com/MetaGamingGuild/',
+    twitter: 'https://twitter.com/MetaGamingGuild',
+    telegram: 'https://t.me/MetaGamingGuild',
+    discord: 'https://discord.com/invite/5a7Ca7JFD2'
   }
   
 }
