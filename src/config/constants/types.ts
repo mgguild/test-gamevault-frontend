@@ -225,13 +225,7 @@ export const DISTRIBUTION: { VESTING: Distribution; SELF_CLAIM: Distribution; AI
 }
 
 export interface Socials {
-  website?: string
-  twitter?: string
-  telegram?: string
-  medium?: string
-  discord?: string
-  youtube?: string
-  linkedin?: string
+  [key: string]: string
 }
 
 export interface UIProps {
