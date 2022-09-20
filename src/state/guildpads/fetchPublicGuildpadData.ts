@@ -14,11 +14,8 @@ const fetchPublicGuildpadData = async (guildpad: Guildpad) => {
   let data = {}
 
   switch (guildpad.type) {
-    case 'IDO':
-      data = await fetchIDODetails(guildpad)
-      break
     case 'IGO':
-      return guildpad
+      data = await fetchIDODetails(guildpad)
       break
     default:
       data = await fetchINODetails(guildpad)

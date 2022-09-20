@@ -60,13 +60,13 @@ export const fetchGuildpadIgoUserDetails = async (account: string, guildpadsToFe
       }
     })
     .filter((gpad) => {
-      return isAddress(gpad.address) && gpad.type === 'IDO'
+      return isAddress(gpad.address) && gpad.type === 'IGO'
     })
   const rawValues = await multicall(ido, calls)
 
   const parsedValues = guildpadsToFetch
     .filter((gpad) => {
-      return gpad.type === 'IDO' && isAddress(getAddress(gpad.contractAddress))
+      return gpad.type === 'IGO' && isAddress(getAddress(gpad.contractAddress))
     })
     .map((guildpad, index) => {
       return {
@@ -107,7 +107,7 @@ export const fetchUserHasClaimable = async (account: string, guildpadsToFetch: G
       }
     })
     .filter((gpad) => {
-      return isAddress(gpad.address) && gpad.type === 'IDO' && isAddress(getAddress(gpad.vestingAddress))
+      return isAddress(gpad.address) && gpad.type === 'IGO' && isAddress(getAddress(gpad.vestingAddress))
     })
   const rawValues = await multicall(vesting, calls)
 
