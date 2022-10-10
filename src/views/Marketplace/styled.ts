@@ -6,10 +6,10 @@ import GridGradientFlipped from 'assets/background/gridwgradientFlipped.png'
 
 const padding = '24px';
 
-export const Section = styled.section<{ direction?: string; bgColor?: string; justify?: string; align?: string}>`
+export const Section = styled.section<{ direction?: string; bgColor?: string; justify?: string; align?: string; padding?: string}>`
   min-height: calc(90vh - 64px);
   display: flex;
-  padding: ${padding};
+  padding: ${props => props.padding ?? padding};
   width: 100%;
   align-items: ${props => props.align};
   justify-content: ${props => props.justify ?? 'center'};
@@ -17,7 +17,8 @@ export const Section = styled.section<{ direction?: string; bgColor?: string; ju
   background-color: ${(props) => props.bgColor};
 `
 
-export const TextWrap = styled.div`
+export const TextWrap = styled.div<{textAlign?: string}>`
+  text-align: ${props => props.textAlign};
   font-size: 12px;
   ${(props) => props.theme.mediaQueries.lg} {
     font-size: 16px;
