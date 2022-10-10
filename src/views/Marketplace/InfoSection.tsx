@@ -8,7 +8,7 @@ import { Section } from './styled';
 const InfoSection:React.FC = () => {
   const { theme } = useTheme()
   return (
-    <Section bgColor='#00011c' justify='center' align='center' padding='20px'>
+    <Section bgColor={theme.isDark ? '#00011c': theme.colors.MGG_mainBG} justify='center' align='center' padding='20px'>
       <Heading size="xl" color={theme.colors.primary} style={{textAlign: 'center'}}>Create, buy , sell, swap, and farm NFTs</Heading>
       <CardGroup>
         <Card />

@@ -1,4 +1,5 @@
 import React from 'react'
+import useTheme from 'hooks/useTheme'
 import { Text, Flex } from '@metagg/mgg-uikit'
 import styled from 'styled-components'
 import GrowthBg from 'assets/background/GrowthBG.png'
@@ -8,9 +9,10 @@ import { BgSection, TextWrap } from './styled'
 
 
 const Marketplace: React.FC = () => {
+  const { theme } = useTheme();
   return (
     <>
-    <BgSection src={GrowthBg} bgColor="#140937">
+    <BgSection src={GrowthBg} bgColor={theme.isDark? '#140937' : theme.colors.MGG_container}>
       <TextWrap style={{ textAlign: 'center' }}>
         <Text fontSize="3rem" bold>
           Lorem. Ipsum. Dolor.

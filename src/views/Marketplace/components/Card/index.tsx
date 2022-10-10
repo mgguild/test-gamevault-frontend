@@ -41,7 +41,7 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   border: 1px inset ${(props) => props.theme.colors.MGG_accent2};
-  background-color: #0c012c;
+  background-color: ${props => props.theme.isDark? '#0c012c' : props.theme.colors.MGG_container};
   margin: 1rem 0;
   padding: 1.5rem;
   min-height: 200px;
