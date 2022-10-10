@@ -22,6 +22,7 @@ const Farms = lazy(() => import('./views/Farms'))
 const Pools = lazy(() => import('./views/Pools'))
 const Gamefi = lazy(() => import('./views/Gamefi'))
 const ComingSoon = lazy(() => import('./views/ComingSoon'))
+const Marketplace = lazy(() => import('./views/Marketplace'))
 const Guildpad = lazy(() => import('./views/GuildPad'))
 const NotFound = lazy(() => import('./views/NotFound'))
 const Pad = lazy(() => import('./views/GuildPad/Pad'))
@@ -64,7 +65,11 @@ const App: React.FC = () => {
               ) : (
                 <NotSupported title="Pools" supportedChainId={getSupportedChain('POOL_STAKING')} />
               )}
-              {/* <ComingSoon title="Pools" /> */}
+            </Route>
+            <Route path='/marketplace' exact>
+                {
+                  isChainSupported('MARKETPLACE', chainId) ? (<Marketplace />) : <NotSupported title="Marketplace" supportedChainId={getSupportedChain('MARKETPLACE')}/>
+                }
             </Route>
             <Route path="/gamefi" exact>
               {isChainSupported('GAMEFI', chainId) ? (
