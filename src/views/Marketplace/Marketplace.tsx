@@ -6,6 +6,7 @@ import GrowthBg from 'assets/background/GrowthBG.png'
 import Button from './components/Button'
 import InfoSection from './InfoSection'
 import { BgSection, TextWrap } from './styled'
+import ExclusiveSection from './Exclusive'
 
 
 const Marketplace: React.FC = () => {
@@ -25,6 +26,7 @@ const Marketplace: React.FC = () => {
       </TextWrap>
     </BgSection>
     <InfoSection />
+    <ExclusiveSection />
     </>
   )
 }

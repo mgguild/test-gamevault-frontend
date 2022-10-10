@@ -6,11 +6,11 @@ import GridGradientFlipped from 'assets/background/gridwgradientFlipped.png'
 
 const padding = '24px';
 
-export const Section = styled.section<{ direction?: string; bgColor?: string; justify?: string; align?: string; padding?: string}>`
-  min-height: calc(90vh - 64px);
+export const Section = styled.section<{ direction?: string; bgColor?: string; justify?: string; align?: string; padding?: string, height?: string}>`
+  min-height: ${props => `calc(${props.height ?? '90vh'} - 64px)`};
+  max-width: 100%;
   display: flex;
   padding: ${props => props.padding ?? padding};
-  width: 100%;
   align-items: ${props => props.align};
   justify-content: ${props => props.justify ?? 'center'};
   flex-direction: ${(props) => props.direction ?? 'column'};
