@@ -3,7 +3,7 @@ import { ArrowRight } from 'react-feather'
 import NftAlbumImg from 'assets/marketplace/0.png'
 import styled from 'styled-components'
 import useTheme from 'hooks/useTheme'
-import React from 'react'
+import React, { useState } from 'react'
 import { Carousel1Data } from 'config/constants/Marketplace'
 import Images from './fetchImage'
 import { BgPage, BgSection, TextWrap } from './styled'
@@ -14,9 +14,9 @@ const ExclusiveSection: React.FC = () => {
   const { theme } = useTheme()
 
   const NftAlbum = () => <img alt="nft-album" src={NftAlbumImg} style={{ width: '400px' }} />
-  const NftImage = ({ title, description, image }: { title: string; description: string; image: string }) => {
+  const NftImage = ({ title, description, image, size }: { title: string; description: string; image: string; size?: string }) => {
     return (
-      <NftImg src={image}>
+      <NftImg src={image} size={size}>
         <TextWrap textAlign="center">
           <Text fontSize="1.5em">{title}</Text>
           <Text fontSize="0.9em">{description}</Text>
@@ -24,23 +24,33 @@ const ExclusiveSection: React.FC = () => {
       </NftImg>
     )
   }
+  NftImage.defaultProps = {
+    size: ''
+  }
+
   const Carousel1 = () => {
+    const [ showAll, setShowAll] = useState<boolean>(false)
     const renderItems = () => {
-      return Carousel1Data.map((data) => {
+      return Carousel1Data.map((data, ind) => {
+        const key = ind+1
         const icn = Images[data.image]
-        return <NftImage key={data.title} title={data.title} description={data.description} image={icn} />
+        return <NftImage key={key} title={data.title} description={data.description} image={icn} size="350px"/>
       })
     }
     return (
       <Flex flexDirection="column" style={{ overflow: 'hidden' }}>
         <TextWrap textAlign="left" style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Text fontSize="2em">Lorem Ipsum Dolor</Text>
-          <Button variant="secondary" style={{ border: 'none', color: theme.colors.MGG_accent2 }}>
+          <Button onClick={() => setShowAll(!showAll)} variant="secondary" style={{ border: 'none', color: theme.colors.MGG_accent2 }}>
             View all <ArrowRight />
           </Button>
         </TextWrap>
         <div style={{ marginTop: '3rem' }}>
-          <AppCarousel components={[renderItems]} breakpoints={Car1breakpoints} />
+          { !showAll? <AppCarousel breakpoints={Car1breakpoints}>{renderItems()}</AppCarousel>: (
+            <Flex flexWrap='wrap' justifyContent='space-between' alignItems='space-between'>
+              {renderItems()}
+            </Flex>
+          )}
         </div>
       </Flex>
     )
@@ -113,14 +123,17 @@ const ExclusiveSection: React.FC = () => {
 
 export default ExclusiveSection
 
-const NftImg = styled.div<{ src?: string }>`
+const NftImg = styled.div<{ src?: string; size?:string }>`
   display: flex;
   align-items: flex-end;
-  border-radius: 12px;
+  border-radius: 15px;
   justify-content: center;
   padding: 12px;
-  width: 300px;
-  height: 300px;
+  margin: 2rem 0;
+  ${props => `
+    width: ${props.size ?? '250px'};
+    height: ${props.size ?? '250px'};
+  `}
   position: relative;
   text-align: center;
   overflow: hidden;
