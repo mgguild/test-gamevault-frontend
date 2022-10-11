@@ -151,6 +151,11 @@ const NftImg = styled.div<{ src?: string; size?:string }>`
     background-position: center;
     background-size: cover;
   }
+  &:hover {
+    &:before {
+      opacity: 1;
+    }
+  }
 `
 
 const NftAlbumWrapper = styled(Flex)`
