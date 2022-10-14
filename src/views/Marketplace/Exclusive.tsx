@@ -8,7 +8,7 @@ import { Carousel1Data } from 'config/constants/Marketplace'
 import Images from './fetchImage'
 import { BgPage, BgSection, TextWrap } from './styled'
 import AppCarousel from './components/Carousel'
-import { Car1breakpoints } from './config'
+import { Car1breakpoints, Car2breakpoints, Car3breakpoints } from './config'
 
 const ExclusiveSection: React.FC = () => {
   const { theme } = useTheme()
@@ -34,7 +34,7 @@ const ExclusiveSection: React.FC = () => {
       return Carousel1Data.map((data, ind) => {
         const key = ind+1
         const icn = Images[data.image]
-        return <NftImage key={key} title={data.title} description={data.description} image={icn} size="350px"/>
+        return <NftImage key={key} title={data.title} description={data.description} image={icn} size="200px"/>
       })
     }
     return (
@@ -55,6 +55,61 @@ const ExclusiveSection: React.FC = () => {
       </Flex>
     )
   }
+  const Carousel2 = () => {
+    const [ showAll, setShowAll] = useState<boolean>(false)
+    const renderItems = () => {
+      return Carousel1Data.map((data, ind) => {
+        const key = ind+1
+        const icn = Images[data.image]
+        return <NftImage key={key} title={data.title} description={data.description} image={icn} size="150px"/>
+      })
+    }
+    return (
+      <Flex flexDirection="column" style={{ overflow: 'hidden' }}>
+        <TextWrap textAlign="left" style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Text fontSize="2em">Lorem Ipsum Dolor</Text>
+          <Button onClick={() => setShowAll(!showAll)} variant="secondary" style={{ border: 'none', color: theme.colors.MGG_accent2 }}>
+            View all <ArrowRight />
+          </Button>
+        </TextWrap>
+        <div style={{ marginTop: '3rem' }}>
+          { !showAll? <AppCarousel breakpoints={Car2breakpoints}>{renderItems()}</AppCarousel>: (
+            <Flex flexWrap='wrap' justifyContent='space-between' alignItems='space-between'>
+              {renderItems()}
+            </Flex>
+          )}
+        </div>
+      </Flex>
+    )
+  }
+  const Carousel3 = () => {
+    const [ showAll, setShowAll] = useState<boolean>(false)
+    const renderItems = () => {
+      return Carousel1Data.map((data, ind) => {
+        const key = ind+1
+        const icn = Images[data.image]
+        return <NftImage key={key} title={data.title} description={data.description} image={icn} size="150px"/>
+      })
+    }
+    return (
+      <Flex flexDirection="column" style={{ overflow: 'hidden' }}>
+        <TextWrap textAlign="left" style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Text fontSize="2em">Lorem Ipsum Dolor</Text>
+          <Button onClick={() => setShowAll(!showAll)} variant="secondary" style={{ border: 'none', color: theme.colors.MGG_accent2 }}>
+            View all <ArrowRight />
+          </Button>
+        </TextWrap>
+        <div style={{ marginTop: '3rem' }}>
+          { !showAll? <AppCarousel breakpoints={Car3breakpoints}>{renderItems()}</AppCarousel>: (
+            <Flex flexWrap='wrap' justifyContent='space-between' alignItems='space-between'>
+              {renderItems()}
+            </Flex>
+          )}
+        </div>
+      </Flex>
+    )
+  }
+
 
   return (
     <BgSection
@@ -115,6 +170,8 @@ const ExclusiveSection: React.FC = () => {
             </NftBox>
           </NftAlbumWrapper>
           {Carousel1()}
+          {Carousel2()}
+          {Carousel3()}
         </div>
       </BgPage>
     </BgSection>
@@ -155,6 +212,18 @@ const NftImg = styled.div<{ src?: string; size?:string }>`
     &:before {
       opacity: 1;
     }
+  }
+  @media screen and (min-width: 768px) {
+    ${props => `
+      width: calc(${props.size} + 100px);
+      height: calc(${props.size} + 100px);
+  `}
+  }
+  @media screen and (min-width: 2560px) {
+    ${props => `
+      width: calc(${props.size} + 200px);
+      height: calc(${props.size} + 200px);
+  `}
   }
 `
 

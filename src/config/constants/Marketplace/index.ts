@@ -18,5 +18,14 @@ export const Carousel1Data:CarouselDataConfig[] = [
     description: 'Lorem ipsum',
     image: 'PlaceHolder1'
   },
-
+  {
+    title: 'Lorem Ipsum',
+    description: 'Lorem ipsum',
+    image: 'PlaceHolder1'
+  },
+  {
+    title: 'Lorem Ipsum',
+    description: 'Lorem ipsum',
+    image: 'PlaceHolder1'
+  },
 ]
