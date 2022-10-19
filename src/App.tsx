@@ -23,6 +23,7 @@ const Pools = lazy(() => import('./views/Pools'))
 const Gamefi = lazy(() => import('./views/Gamefi'))
 const ComingSoon = lazy(() => import('./views/ComingSoon'))
 const Marketplace = lazy(() => import('./views/Marketplace'))
+const NftMarket = lazy(() => import('./views/Marketplace/Market'))
 const Guildpad = lazy(() => import('./views/GuildPad'))
 const NotFound = lazy(() => import('./views/NotFound'))
 const Pad = lazy(() => import('./views/GuildPad/Pad'))
@@ -66,10 +67,19 @@ const App: React.FC = () => {
                 <NotSupported title="Pools" supportedChainId={getSupportedChain('POOL_STAKING')} />
               )}
             </Route>
-            <Route path='/marketplace' exact>
-                {
-                  isChainSupported('MARKETPLACE', chainId) ? (<Marketplace />) : <NotSupported title="Marketplace" supportedChainId={getSupportedChain('MARKETPLACE')}/>
-                }
+            <Route path="/marketplace" exact>
+              {isChainSupported('MARKETPLACE', chainId) ? (
+                <Marketplace />
+              ) : (
+                <NotSupported title="Marketplace" supportedChainId={getSupportedChain('MARKETPLACE')} />
+              )}
+            </Route>
+            <Route path="/marketplace/nft-market">
+              {isChainSupported('MARKETPLACE', chainId) ? (
+                <NftMarket />
+              ) : (
+                <NotSupported title="Marketplace" supportedChainId={getSupportedChain('MARKETPLACE')} />
+              )}
             </Route>
             <Route path="/gamefi" exact>
               {isChainSupported('GAMEFI', chainId) ? (

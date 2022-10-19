@@ -35,7 +35,7 @@ const StyledInput = styled.input<{ error?: boolean; align?: string }>`
 
 const inputRegex = RegExp(`^\\d*(?:\\\\[.])?\\d*$`) // match escaped "." characters via in a non-capturing group
 
-export const Input = React.memo(function InnerInput({
+const Input = React.memo(function InnerInput({
   value,
   onUserInput,
   placeholder,
