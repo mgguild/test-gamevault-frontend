@@ -9,9 +9,9 @@ const SelectComponent = () => {
     <SelectDiv>
       <Select>
         <SelectItem>Recently Listed</SelectItem>
-        <SelectItem>STATUS</SelectItem>
-        <SelectItem>STATUS</SelectItem>
-        <SelectItem>STATUS</SelectItem>
+        <SelectItem>Price Low to High</SelectItem>
+        <SelectItem>Price High to Low</SelectItem>
+        <SelectItem>Oldest</SelectItem>
       </Select>
       <ChevronDown color={theme.colors.MGG_accent2} />
     </SelectDiv>
@@ -30,7 +30,7 @@ border: 1px solid ${({theme}) => theme.colors.MGG_accent2};
 `
 const Select = styled.select`
   width: 100%;
-  padding: 0 5px;
+  padding: 0 10px;
   background-color: transparent;
   text-align: center;
   appearance: none;
@@ -46,5 +46,4 @@ const Select = styled.select`
 const SelectItem = styled.option`
   color: ${({theme}) => theme.colors.text};
   background-color:  ${({theme}) => theme.isDark? '#0c012c' : theme.colors.MGG_mainBG};
-  outline: none;
 `
