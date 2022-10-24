@@ -1,7 +1,7 @@
-import { Button, Flex, Text } from '@metagg/mgg-uikit'
+import { Button, Flex, IconButton, Text } from '@metagg/mgg-uikit'
 import React, { useState } from 'react'
 import useTheme from 'hooks/useTheme'
-import { ChevronDown } from 'react-feather'
+import { ChevronDown, RotateCw } from 'react-feather'
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
@@ -9,6 +9,7 @@ import Input from '../Input'
 import Checkbox from '../Checkbox'
 import Container, { FilterContainer, FilterMenu, FilterCard, FilterSection, Main } from './styled'
 import SearchField from '../Input/SearchField'
+import SelectComponent from '../Select'
 
 const Filters = ({ children }: { children?: React.ReactNode }) => {
   const { theme } = useTheme()
@@ -123,7 +124,16 @@ const Filters = ({ children }: { children?: React.ReactNode }) => {
           </Accordion>
         </FilterCard>
       </FilterContainer>
-      <Main>{children}</Main>
+      <Main>
+        <Flex flexDirection='column'>
+        <FilterMenu justify='flex-end'>
+          <Text fontSize='2em' bold>Sort by</Text>
+          <SelectComponent />
+          <IconButton style={{borderRadius: '50px'}}><RotateCw color='black'/></IconButton>
+        </FilterMenu>
+        {children}
+        </Flex>
+      </Main>
     </Container>
   )
 }
