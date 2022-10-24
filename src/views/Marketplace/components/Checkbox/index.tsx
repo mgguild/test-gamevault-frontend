@@ -48,7 +48,7 @@ const BpCheckedIcon = styled(BpIcon)({
 });
 
 
-const CheckboxComponent = ({ items, handleCheck }: { items: string[], handleCheck: any }) => {
+const CheckboxComponent = ({ items, handleCheck, boxValue }: { items: string[]; handleCheck: any; boxValue: Record<string, boolean> }) => {
   const { theme } = useTheme()
   return (
     <FormGroup>
@@ -58,6 +58,7 @@ const CheckboxComponent = ({ items, handleCheck }: { items: string[], handleChec
           sx={{ color: theme.colors.text }}
           control={
             <Checkbox
+              checked={boxValue[`${item}`] ?? false}
               disableRipple
               checkedIcon={<BpCheckedIcon />}
               sx={{
