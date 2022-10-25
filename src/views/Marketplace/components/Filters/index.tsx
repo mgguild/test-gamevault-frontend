@@ -36,7 +36,7 @@ const Filters = ({ children }: { children?: React.ReactNode }) => {
     <Container>
       <FilterContainer>
         <FilterMenu>
-          <Text fontSize="2em" bold>
+          <Text fontSize="1.75em" bold>
             FILTERS
           </Text>
           <Button onClick={() => handleClear()} style={{ border: 'none' }} variant="secondary">
@@ -127,7 +127,7 @@ const Filters = ({ children }: { children?: React.ReactNode }) => {
         <Flex flexDirection='column' flexWrap='wrap'>
         <FilterMenu justify='flex-end'>
           {
-            !mobileS && ( <Text fontSize='2em' bold> Sort by </Text> )
+            !mobileS && ( <Text fontSize='1.75em' bold> Sort by </Text> )
           }
           <SelectComponent />
           <IconButton style={{borderRadius: '50px'}}><RotateCw color='black'/></IconButton>
