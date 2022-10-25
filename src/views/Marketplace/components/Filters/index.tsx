@@ -1,5 +1,6 @@
 import { Button, Flex, IconButton, Text } from '@metagg/mgg-uikit'
 import React, { useState } from 'react'
+import { useMedia } from 'use-media'
 import useTheme from 'hooks/useTheme'
 import { ChevronDown, RotateCw } from 'react-feather'
 import Accordion from '@mui/material/Accordion'
@@ -13,10 +14,9 @@ import SelectComponent from '../Select'
 
 const Filters = ({ children }: { children?: React.ReactNode }) => {
   const { theme } = useTheme()
-
   const [boxValue, setBoxValue] = useState({})
   const [rangeValue, setRangeValue] = useState({min: 0, max: 100, value: 0});
-
+  const mobileS = useMedia({maxWidth: 375});
   const [ searchFilter, setSearchFilter ] = useState<string>('')
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchFilter(e.target.value);
@@ -109,7 +109,6 @@ const Filters = ({ children }: { children?: React.ReactNode }) => {
             defaultExpanded
             sx={{
               backgroundColor: 'transparent',
-              borderBottom: `1px solid ${theme.colors.MGG_accent2}`,
               boxShadow: 'none',
             }}
           >
@@ -125,9 +124,11 @@ const Filters = ({ children }: { children?: React.ReactNode }) => {
         </FilterCard>
       </FilterContainer>
       <Main>
-        <Flex flexDirection='column'>
+        <Flex flexDirection='column' flexWrap='wrap'>
         <FilterMenu justify='flex-end'>
-          <Text fontSize='2em' bold>Sort by</Text>
+          {
+            !mobileS && ( <Text fontSize='2em' bold> Sort by </Text> )
+          }
           <SelectComponent />
           <IconButton style={{borderRadius: '50px'}}><RotateCw color='black'/></IconButton>
         </FilterMenu>
