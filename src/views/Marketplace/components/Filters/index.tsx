@@ -52,7 +52,7 @@ const Filters = ({ children }: { children?: React.ReactNode }) => {
               boxShadow: 'none',
             }}
           >
-            <AccordionSummary expandIcon={<ChevronDown size="2.5em" color={theme.colors.MGG_accent2} />}>
+            <AccordionSummary expandIcon={<ChevronDown size="1.75em" color={theme.colors.MGG_accent2} />}>
               <Text fontSize="1.5em" bold>
                 STATUS
               </Text>
@@ -69,7 +69,7 @@ const Filters = ({ children }: { children?: React.ReactNode }) => {
               boxShadow: 'none',
             }}
           >
-            <AccordionSummary expandIcon={<ChevronDown size="2.5em" color={theme.colors.MGG_accent2} />}>
+            <AccordionSummary expandIcon={<ChevronDown  size="1.75em" color={theme.colors.MGG_accent2} />}>
               <Text fontSize="1.5em" bold>
                 PRICE
               </Text>
@@ -94,7 +94,7 @@ const Filters = ({ children }: { children?: React.ReactNode }) => {
               boxShadow: 'none',
             }}
           >
-            <AccordionSummary expandIcon={<ChevronDown size="2.5em" color={theme.colors.MGG_accent2} />}>
+            <AccordionSummary expandIcon={<ChevronDown  size="1.75em" color={theme.colors.MGG_accent2} />}>
               <Text fontSize="1.5em" bold>
                 SEARCH
               </Text>
@@ -112,7 +112,7 @@ const Filters = ({ children }: { children?: React.ReactNode }) => {
               boxShadow: 'none',
             }}
           >
-            <AccordionSummary expandIcon={<ChevronDown size="2.5em" color={theme.colors.MGG_accent2} />}>
+            <AccordionSummary expandIcon={<ChevronDown  size="1.75em" color={theme.colors.MGG_accent2} />}>
               <Text fontSize="1.5em" bold>
                 BLOCKCHAINS
               </Text>

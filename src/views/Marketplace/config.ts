@@ -1,5 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 
+// Config for carousel component settings
+
 export interface BreakPointsConfig {
   width: number
   itemsToShow?: number

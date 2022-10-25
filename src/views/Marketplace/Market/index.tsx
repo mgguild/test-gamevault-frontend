@@ -1,8 +1,23 @@
 import React from 'react'
+import { Grid } from '@mui/material'
+import { NftData } from 'config/constants/Marketplace'
 import Page from 'components/layout/Page'
 import useTheme from 'hooks/useTheme'
 import { BgPage, Section } from '../styled'
 import Filters from '../components/Filters'
+import NftCard from '../components/NFT/card'
+
+
+// Temp details 
+
+
+const RenderNftCards = () => {
+  return NftData.map((nft) => (
+    <Grid key={nft.name} item>
+      <NftCard {...nft} />
+    </Grid>
+  ))
+}
 
 const MarketPage: React.FC = () => {
   const { theme } = useTheme()
@@ -10,7 +25,11 @@ const MarketPage: React.FC = () => {
     <Section padding="0" bgColor={theme.isDark ? '#140937' : theme.colors.MGG_container}>
       <BgPage>
         <div style={{ margin: '10rem 0', position: 'relative', zIndex: 2, minHeight: '100vh' }}>
-          <Filters />
+          <Filters>
+            <Grid container>
+            {RenderNftCards()}
+            </Grid>
+          </Filters>
         </div>
       </BgPage>
     </Section>
