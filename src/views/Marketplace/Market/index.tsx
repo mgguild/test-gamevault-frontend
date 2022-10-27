@@ -1,11 +1,12 @@
 import React from 'react'
 import { Grid } from '@mui/material'
 import { NftData } from 'config/constants/Marketplace'
-import Page from 'components/layout/Page'
+import Link from 'components/Link'
 import useTheme from 'hooks/useTheme'
 import { BgPage, Section } from '../styled'
 import Filters from '../components/Filters'
 import NftCard from '../components/NFT/card'
+
 
 
 // Temp details 
@@ -14,7 +15,9 @@ import NftCard from '../components/NFT/card'
 const RenderNftCards = () => {
   return NftData.map((nft) => (
     <Grid key={nft.name} item>
-      <NftCard {...nft} />
+      <Link href={`/marketplace/nft-market/${nft.id}`}>
+        <NftCard {...nft} />
+      </Link>
     </Grid>
   ))
 }

@@ -5,7 +5,7 @@ import useTheme from 'hooks/useTheme'
 import fetchNftImage from 'utils/fetchNftImage'
 import SvgIcon from 'components/SvgIcon'
 import { Flex, Text, Heading } from '@metagg/mgg-uikit'
-import { CardContainer } from './styled'
+import { CardContainer, FontResponsive } from './styled'
 
 
 
@@ -16,11 +16,13 @@ const NftCard:React.FC<NftConfig> = ({name, description, src, price, status, cat
   return (
     <CardContainer>
       <Flex alignItems='center' justifyContent='space-between'>
-          <Text fontSize='2em' bold>{name}</Text>
+        <FontResponsive>
+          <Text fontSize='2.5em' bold>{name}</Text>
+        </FontResponsive>
           <BsShieldFillCheck fontSize='2em' fill={theme.colors.primary} />
       </Flex>
-      <Flex flexDirection='column' style={{textAlign: 'left'}}>
-        <SvgIcon Img={img} width={300} />
+      <Flex flexDirection='column' style={{textAlign: 'left', margin: '1rem 0'}}>
+        <SvgIcon Img={img} width={250}/>
         <Text fontSize='1em'>{description}</Text>
       </Flex>
       <Flex alignItems='center' justifyContent='flex-end' >

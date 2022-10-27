@@ -18,6 +18,7 @@ export const NftCat: {[key:string]: string} = {
 }
 
 export interface NftConfig {
+  id: string;
   name: string;
   src: string;
   description: string;

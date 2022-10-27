@@ -32,6 +32,7 @@ export const Carousel1Data:CarouselDataConfig[] = [
 
 export const NftData:NftConfig[] = [
   {
+    id: '0001',
     name: 'Lorem Ipsum',
     src: 'Vicar',
     description: 'Lorem Ipsum',
