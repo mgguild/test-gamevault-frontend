@@ -83,7 +83,6 @@ const App: React.FC = () => {
               )}
             </Route>
             <Route
-             
               path="/marketplace/nft-market/:nftID"
               component={(props) => {
                 return isChainSupported('MARKETPLACE', chainId) ? (
