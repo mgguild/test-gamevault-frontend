@@ -4,12 +4,13 @@ import { RouteComponentProps } from 'react-router-dom'
 import { SocialIcon } from 'react-social-icons'
 import { ExternalLink } from 'react-feather'
 import { BsFillRecordFill, BsShieldFillCheck } from 'react-icons/bs'
-import { Flex, Heading, Text, Button } from '@metagg/mgg-uikit'
+import { Flex, Heading, Text, Button, useModal } from '@metagg/mgg-uikit'
 import { Grid } from '@mui/material'
 import { NftCat } from 'config/constants/Marketplace/types'
 import useTheme from 'hooks/useTheme'
 import SvgIcon from 'components/SvgIcon'
 import fetchNftImage from 'utils/fetchNftImage'
+import { BuyModal } from '../Modals'
 import Table from '../Table'
 import { BgPage, Section } from '../../styled'
 import { Wrapper, ImageContainer } from './styled'
@@ -57,7 +58,9 @@ const NftPage: React.FC<RouteComponentProps<{ nftID: string }>> = ({
       ]
   }, [])
 
-
+  const [onBuyNft] = useModal(
+    <BuyModal />
+  )
   return (
     <Section padding="0" bgColor={theme.isDark ? '#140937' : theme.colors.MGG_container}>
       <BgPage>
@@ -122,7 +125,7 @@ const NftPage: React.FC<RouteComponentProps<{ nftID: string }>> = ({
                     <ExternalLink color={theme.colors.MGG_accent2} />
                   </Flex>
                   <BtnGroup>
-                    <Button className='btn btn-buy'>
+                    <Button className='btn btn-buy' onClick={onBuyNft}>
                       BUY NOW
                     </Button>
                     <Button className='btn btn-place'>
