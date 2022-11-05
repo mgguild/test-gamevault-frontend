@@ -1,0 +1,43 @@
+import React, { useMemo, useState } from 'react'
+import { Text, Flex } from '@metagg/mgg-uikit'
+import { BsRecordFill } from 'react-icons/bs'
+import { ExternalLink } from 'react-feather'
+import { useTable } from 'react-table'
+import useTheme from 'hooks/useTheme'
+import dataHandlers from './dataHandlers'
+import StyledTable, { StyledTableBody, StyledTableHead, StyledTr, StyledTh, StyledTd } from './styled'
+
+
+const Table = ({columns, data}) => {
+  const { theme } = useTheme()
+  const table = useTable({ columns, data })
+  const { getTableProps, headerGroups, rows, prepareRow, getTableBodyProps } = table
+
+  return (
+    <StyledTable {...getTableProps()}>
+      <StyledTableHead>
+        {headerGroups.map((headerGroup) => (
+          <StyledTr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column) => (
+              <StyledTh {...column.getHeaderProps()}>{column.render('Header')}</StyledTh>
+            ))}
+          </StyledTr>
+        ))}
+      </StyledTableHead>
+      <StyledTableBody {...getTableBodyProps()}>
+        {rows.map((row) => {
+          prepareRow(row)
+          return (
+            <StyledTr {...row.getRowProps()}>
+              {row.cells.map((cell) => (
+                <StyledTd {...cell.getCellProps()}>{cell.render('Cell')}</StyledTd>
+              ))}
+            </StyledTr>
+          )
+        })}
+      </StyledTableBody>
+    </StyledTable>
+  )
+}
+
+export default Table

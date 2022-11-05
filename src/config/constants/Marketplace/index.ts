@@ -38,6 +38,13 @@ export const NftData:NftConfig[] = [
     description: 'Lorem Ipsum',
     status: 'status',
     price: '99.99',
-    category: 'Iggod'
+    category: 'Iggod',
+    socials: {
+      link: 'www.google.com',
+      twitter: 'www.twitter.com',
+      facebook: 'www.facebook.com',
+      telegram: 'www.telegram.com',
+      whapp: 'www.whaap.com'
+    }
   }
 ]

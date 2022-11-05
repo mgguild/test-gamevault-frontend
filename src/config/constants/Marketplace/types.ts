@@ -1,3 +1,5 @@
+import { Socials } from '../types';
+
 export interface CarouselDataConfig {
   title: string;
   description: string;
@@ -17,6 +19,7 @@ export const NftCat: {[key:string]: string} = {
   kitteh: '#ff2b2b'
 }
 
+
 export interface NftConfig {
   id: string;
   name: string;
@@ -24,5 +27,6 @@ export interface NftConfig {
   description: string;
   price: string;
   status: string; 
-  category: string
+  category: string;
+  socials?: Socials;
 }
