@@ -18,8 +18,8 @@ const ExclusiveSection: React.FC = () => {
     return (
       <NftImg src={image} size={size}>
         <TextWrap textAlign="center">
-          <Text fontSize="1.5em">{title}</Text>
-          <Text fontSize="0.9em">{description}</Text>
+          <Text fontSize="1.5em" color="#fff">{title}</Text>
+          <Text fontSize="0.9em" color="#fff">{description}</Text>
         </TextWrap>
       </NftImg>
     )
@@ -40,7 +40,7 @@ const ExclusiveSection: React.FC = () => {
     return (
       <Flex flexDirection="column" style={{ overflow: 'hidden' }}>
         <TextWrap textAlign="left" style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Text fontSize="2em">Lorem Ipsum Dolor</Text>
+          <Text fontSize="2em" >Lorem Ipsum Dolor</Text>
           <Button onClick={() => setShowAll(!showAll)} variant="secondary" style={{ border: 'none', color: theme.colors.MGG_accent2 }}>
             View all <ArrowRight />
           </Button>
@@ -133,7 +133,7 @@ const ExclusiveSection: React.FC = () => {
                   <Text fontSize="1.25em" color={theme.colors.MGG_accent2}>
                     Lorem Ipsum
                   </Text>
-                  <Text fontSize="0.7em">
+                  <Text fontSize="0.7em" color="#fff">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe est accusantium, magnam, pariatur
                     laudantium itaque.
                   </Text>
@@ -147,7 +147,7 @@ const ExclusiveSection: React.FC = () => {
                   <Text fontSize="1.25em" color={theme.colors.MGG_accent2}>
                     Lorem Ipsum
                   </Text>
-                  <Text fontSize="0.7em">
+                  <Text fontSize="0.7em" color="#fff">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe est accusantium, magnam, pariatur
                     laudantium itaque.
                   </Text>
@@ -161,7 +161,7 @@ const ExclusiveSection: React.FC = () => {
                   <Text fontSize="1.25em" color={theme.colors.MGG_accent2}>
                     Lorem Ipsum
                   </Text>
-                  <Text fontSize="0.7em">
+                  <Text fontSize="0.7em" color="#fff">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe est accusantium, magnam, pariatur
                     laudantium itaque.
                   </Text>

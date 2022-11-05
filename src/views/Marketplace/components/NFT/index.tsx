@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import { RouteComponentProps } from 'react-router-dom'
 import { SocialIcon } from 'react-social-icons'
@@ -21,7 +21,7 @@ const NftPage: React.FC<RouteComponentProps<{ nftID: string }>> = ({
   },
 }) => {
   const { theme } = useTheme()
-  const src = fetchNftImage.Vicar
+  const src = useMemo(() => fetchNftImage.Vicar, [])
 
   const data = [
     {
@@ -190,5 +190,8 @@ const BtnGroup = styled(Flex)`
    .btn-swap {
     background-color: #cc00fd;
    }
+   .btn:hover {
+    background-color: #fff!important;
+  }
 
 `

@@ -35,7 +35,7 @@ const Select = styled.select`
   text-align: center;
   appearance: none;
   border: none;
-  color: #fff;
+  color: ${({theme}) => theme.colors.text};
   font-size: 1.2em;
   &:focus {
     outline: none;
