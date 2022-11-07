@@ -25,7 +25,7 @@ export const Main = styled.div`
 `
 
 export const FilterCard = styled.div`
-  border: 2px solid ${({theme}) => theme.colors.MGG_accent2};
+  border: 1px solid ${({theme}) => theme.colors.MGG_accent2};
   border-radius: 5px;
   padding: 1rem;
   background-color: ${({theme}) => theme.isDark? '#0c012c' : theme.colors.MGG_mainBG};

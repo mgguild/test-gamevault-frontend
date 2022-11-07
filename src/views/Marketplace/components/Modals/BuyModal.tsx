@@ -1,13 +1,14 @@
 import { Modal, Heading, Flex, IconButton, Text, Button } from '@metagg/mgg-uikit'
 import React from 'react'
 import { X } from 'react-feather'
+import { Grid } from '@mui/material'
+import { BsRecordFill, BsShieldFillCheck } from 'react-icons/bs'
 import useTheme from 'hooks/useTheme'
 import { NftCat, NftConfig } from 'config/constants/Marketplace/types'
 import fetchNftImage from 'utils/fetchNftImage'
 import styled from 'styled-components'
 import './styles.css'
-import { Grid } from '@mui/material'
-import { BsRecordFill, BsShieldFillCheck } from 'react-icons/bs'
+
 
 interface Props {
   onDismiss?: () => void

@@ -14,6 +14,7 @@ import { BuyModal } from '../Modals'
 import Table from '../Table'
 import { BgPage, Section } from '../../styled'
 import { Wrapper, ImageContainer } from './styled'
+import PlaceOfferModal from '../Modals/PlaceOfferModal'
 
 const NftPage: React.FC<RouteComponentProps<{ nftID: string }>> = ({
   match: {
@@ -61,6 +62,11 @@ const NftPage: React.FC<RouteComponentProps<{ nftID: string }>> = ({
   const [onBuyNft] = useModal(
     <BuyModal />
   )
+
+  const [onPlaceOffer] = useModal(
+    <PlaceOfferModal />
+  )
+
   return (
     <Section padding="0" bgColor={theme.isDark ? '#140937' : theme.colors.MGG_container}>
       <BgPage>
@@ -128,7 +134,7 @@ const NftPage: React.FC<RouteComponentProps<{ nftID: string }>> = ({
                     <Button className='btn btn-buy' onClick={onBuyNft}>
                       BUY NOW
                     </Button>
-                    <Button className='btn btn-place'>
+                    <Button className='btn btn-place' onClick={onPlaceOffer}>
                       PLACE OFFER                    
                     </Button>
                     <Button className='btn btn-swap'>
