@@ -53,7 +53,7 @@ const BuyModal = ({ onDismiss }: Props) => {
             </Flex>
           </Grid>
         </Grid>
-        <hr color={theme.colors.MGG_gradient} />
+        <hr color='#776118' />
         <Flex justifyContent="space-between">
           <Text fontSize="2em">Total</Text>
           <Flex alignItems="center">
@@ -64,7 +64,7 @@ const BuyModal = ({ onDismiss }: Props) => {
         <Flex justifyContent="center" marginTop="3em" flexDirection='column' alignItems='center'>
           <Flex alignItems="center">
             <input type="checkbox" />
-            <Text>I approve MGG Terms & Conditions</Text>
+            <Text>&nbsp;I approve MGG Terms & Conditions</Text>
           </Flex>
           <Button marginTop='2em' className='btn-checkout'>CHECKOUT</Button>
         </Flex>
