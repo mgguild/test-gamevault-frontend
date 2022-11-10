@@ -41,7 +41,6 @@ const Guildpad: React.FC = () => {
         <AboutSection />
         <ApplySection />
       </Page>
-      {/* <FooterSection /> */}
     </>
   )
 }

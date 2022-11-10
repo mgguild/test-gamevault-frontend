@@ -6,6 +6,7 @@ import BigNumber from 'bignumber.js'
 import useEagerConnect from 'hooks/useEagerConnect'
 import { useFetchProfile, usePollBlockNumber, usePollCoreFarmData } from 'state/hooks'
 import { RedirectToFarms } from 'views/Farms/Redirects'
+import Footer from 'components/Footer'
 import GlobalStyle from './style/Global'
 import Menu from './components/Menu'
 import SuspenseWithChunkError from './components/SuspenseWithChunkError'
@@ -14,6 +15,7 @@ import PageLoader from './components/PageLoader'
 import EasterEgg from './components/EasterEgg'
 import NotSupported from './views/ComingSoon/notSupported'
 import { getSupportedChain, isChainSupported } from './utils/settings'
+
 // import Pools from './views/Pools'
 
 // Route-based code splitting
@@ -156,7 +158,7 @@ const App: React.FC = () => {
           </Switch>
         </SuspenseWithChunkError>
       </Menu>
-      {/* <EasterEgg iterations={2} /> */}
+      <Footer />
       <ToastListener />
     </HashRouter>
   )
