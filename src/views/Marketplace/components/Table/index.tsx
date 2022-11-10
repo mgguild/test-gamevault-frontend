@@ -8,14 +8,13 @@ import dataHandlers from './dataHandlers'
 import StyledTable, { StyledTableBody, StyledTableHead, StyledTr, StyledTh, StyledTd } from './styled'
 
 
-const Table = ({columns, data}) => {
+const Table = ({columns, data, withUnderline}: {columns: any; data: any; withUnderline?: boolean}) => {
   const { theme } = useTheme()
   const table = useTable({ columns, data })
   const { getTableProps, headerGroups, rows, prepareRow, getTableBodyProps } = table
-
   return (
     <StyledTable {...getTableProps()}>
-      <StyledTableHead>
+      <StyledTableHead withUnderline={withUnderline}>
         {headerGroups.map((headerGroup) => (
           <StyledTr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
@@ -41,3 +40,7 @@ const Table = ({columns, data}) => {
 }
 
 export default Table
+
+Table.defaultProps = {
+  withUnderline: false,
+}
