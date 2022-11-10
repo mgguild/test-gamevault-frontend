@@ -31,7 +31,7 @@ const PlaceOfferModal = ({ onDismiss }: Props) => {
           </Flex>
           <Flex flexDirection="column" style={{ width: '100%' }}>
             <Heading size="lg">Offer Details</Heading>
-            <Text color="textSubtle">
+            <Text color="textSubtle"  marginTop='0.5rem'>
               All transactions are placed in Lotrem, MGG automatically convert your Ipsum to Lorem. Please review the
               conversion summary below.
             </Text>

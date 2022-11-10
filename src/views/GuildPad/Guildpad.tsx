@@ -8,7 +8,6 @@ import {
   AboutSection,
   ActiveSection,
   ApplySection,
-  FooterSection,
   HomeSection,
   InactiveSection,
   MGGVestingSection,
@@ -42,7 +41,7 @@ const Guildpad: React.FC = () => {
         <AboutSection />
         <ApplySection />
       </Page>
-      <FooterSection />
+      {/* <FooterSection /> */}
     </>
   )
 }
