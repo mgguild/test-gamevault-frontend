@@ -87,11 +87,11 @@ const Footer: React.FC = () => {
     <Container>
       <StyledDiv>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <img src={MGGIcon} alt="mgg-icon" width="40px" style={{ margin: '0px 10px' }} />
+          <img src={MGGIcon} alt="mgg-icon" width="60px" style={{ margin: '0px 10px' }} />
           <Text>MetaGaming Guild</Text>
         </div>
-        <Text color={theme.colors.MGG_accent2} marginTop="1rem">
-          &quot; A community of tactical gamers &quot;
+        <Text fontSize='1.2em' color={theme.colors.MGG_accent2} marginTop="1rem">
+          &quot;A community of tactical gamers&quot;
         </Text>
         <HelperLinks margin="20px 0px" justifyContent="space-evenly">
           <CustomLink target="_blank" rel="noreferrer" href="#">
@@ -107,10 +107,10 @@ const Footer: React.FC = () => {
       </StyledDiv>
       <SocMeds>
         <Icons>
-          <SocMed icon={<Facebook fill="#ffff" />} link="https://www.facebook.com/MetaGamingGuild/" />
-          <SocMed icon={<Twitter fill="#ffff" />} link="https://twitter.com/MetaGamingGuild" />
-          <SocMed icon={<Send fill="#ffff" />} link="https://t.me/MetaGamingGuild" />
-          <SocMed icon={<SiDiscord fill="#ffff" />} link="https://discord.gg/5a7Ca7JFD2" />
+          <SocMed  icon={<Facebook fill={theme.colors.primary} />} link="https://www.facebook.com/MetaGamingGuild/" />
+          <SocMed icon={<Twitter fill={theme.colors.primary} />} link="https://twitter.com/MetaGamingGuild" />
+          <SocMed icon={<Send fill={theme.colors.primary} />} link="https://t.me/MetaGamingGuild" />
+          <SocMed icon={<SiDiscord fill={theme.colors.primary} />} link="https://discord.gg/5a7Ca7JFD2" />
         </Icons>
         <div style={{ textAlign: 'right' }}>
           <Text>&copy; MetaGaming Guild 2022</Text>
