@@ -27,6 +27,7 @@ const ComingSoon = lazy(() => import('./views/ComingSoon'))
 const Marketplace = lazy(() => import('./views/Marketplace'))
 const NftMarket = lazy(() => import('./views/Marketplace/Market'))
 const HistoryMarketplace = lazy(() => import('./views/Marketplace/History'))
+const UserProfile = lazy(() => import('./views/Marketplace/User'))
 const NftPage = lazy(() => import('./views/Marketplace/components/NFT'))
 const Guildpad = lazy(() => import('./views/GuildPad'))
 const NotFound = lazy(() => import('./views/NotFound'))
@@ -97,6 +98,7 @@ const App: React.FC = () => {
               }}
             />
             <Route path='/marketplace/history' component={HistoryMarketplace} exact/>
+            <Route path='/marketplace/user-profile' component={UserProfile} exact />
             <Route path="/gamefi" exact>
               {isChainSupported('GAMEFI', chainId) ? (
                 <Gamefi />

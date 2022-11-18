@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { Text, Flex, Heading } from '@metagg/mgg-uikit'
+import { Text, Flex } from '@metagg/mgg-uikit'
 import { BsRecordFill } from 'react-icons/bs'
 import { ExternalLink } from 'react-feather'
 import { useTable } from 'react-table'
@@ -37,7 +37,7 @@ const Table = ({columns, data, withUnderline}: {columns: any; data: any; withUnd
       </StyledTableBody>
     </StyledTable>
   ) : (
-    <Heading>No offers</Heading>
+    <Text>No offers</Text>
   )
 }
 
