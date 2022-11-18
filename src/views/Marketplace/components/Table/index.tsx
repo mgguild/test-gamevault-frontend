@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { Text, Flex } from '@metagg/mgg-uikit'
+import { Text, Flex, Heading } from '@metagg/mgg-uikit'
 import { BsRecordFill } from 'react-icons/bs'
 import { ExternalLink } from 'react-feather'
 import { useTable } from 'react-table'
@@ -12,7 +12,7 @@ const Table = ({columns, data, withUnderline}: {columns: any; data: any; withUnd
   const { theme } = useTheme()
   const table = useTable({ columns, data })
   const { getTableProps, headerGroups, rows, prepareRow, getTableBodyProps } = table
-  return (
+  return data.length !== 0 ? (
     <StyledTable {...getTableProps()}>
       <StyledTableHead withUnderline={withUnderline}>
         {headerGroups.map((headerGroup) => (
@@ -36,6 +36,8 @@ const Table = ({columns, data, withUnderline}: {columns: any; data: any; withUnd
         })}
       </StyledTableBody>
     </StyledTable>
+  ) : (
+    <Heading>No offers</Heading>
   )
 }
 

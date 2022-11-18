@@ -24,6 +24,22 @@ const HistorySection = () => {
       actions: 'CANCEL'
     }
   ]
+
+  const pickData = (choice) => {
+    switch(choice) {
+      case 0:
+        return data;
+      case 1:
+        return [];
+      case 2:
+        return [];
+      case 3:
+        return []
+      default:
+        return [];
+    }
+  }
+
   const columns = React.useMemo(() => {
     return [
       {
@@ -54,7 +70,7 @@ const HistorySection = () => {
         <div style={{ margin: '10rem 0', position: 'relative', zIndex: 2, minHeight: '50vh' }}>
           <Tab options={TabOptions} handlers={{active, setActive}} />
           <StyledDiv>
-            { data.length !== 0 ? <Table columns={columns} data={data} withUnderline /> : <Text>No Offers</Text>}
+            { data.length !== 0 ? <Table columns={columns} data={pickData(active)} withUnderline /> : <Text>No Offers</Text>}
           </StyledDiv>
         </div>
       </BgPage>
