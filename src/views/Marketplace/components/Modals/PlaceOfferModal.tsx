@@ -5,7 +5,6 @@ import { Grid } from '@mui/material'
 import React from 'react'
 import { X } from 'react-feather'
 import './styles.css'
-import Input from '../Input'
 
 interface Props {
   onDismiss?: () => void
@@ -43,7 +42,7 @@ const PlaceOfferModal = ({ onDismiss }: Props) => {
               <Flex>
                 <Text color='textSubtle'>Convert&nbsp;</Text>
                 <Flex alignItems="center">
-                  <Text color='textSubtle'>Max &nbsp;</Text>
+                  <Text color='textSubtle' fontSize='0.8em'>Max &nbsp;</Text>
                   <input type="checkbox" />
                 </Flex>
               </Flex>

@@ -54,13 +54,13 @@ const BuyModal = ({ onDismiss }: Props) => {
           </Grid>
         </Grid>
         <hr color='#776118' />
-        {/* <ItemsContainer justifyContent="space-between">
+        <ItemsContainer justifyContent="space-between">
           <Text fontSize="2em">Total</Text>
           <Flex alignItems="center">
             <BsRecordFill fontSize="2em" color={NftCat.iggod} />
             <Text fontSize="2em">12.34</Text>
           </Flex>
-        </ItemsContainer> */}
+        </ItemsContainer>
         <ItemsContainer justifyContent="center" marginTop="3em" flexDirection='column' alignItems='center'>
           <Flex alignItems="center">
             <input type="checkbox" />
