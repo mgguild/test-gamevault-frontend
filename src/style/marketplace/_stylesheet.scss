@@ -1,0 +1,38 @@
+@use '../_main' as main;
+
+.hr {
+  width: 100%;
+  margin: 2rem 0;
+}
+
+.page-body {
+  margin: 10rem 0;
+  position: relative;
+  z-index: 2;
+  min-height: 50vh;
+  padding: 0;
+}
+
+.filter-menu {
+  justify-content: center;
+}
+
+.user-details {
+  justify-content: center;
+}
+
+@media screen {
+  @media (min-width: main.$breakpoint-tablet) {
+    .page-body {
+      padding: 5rem;
+      border: none;
+    }
+    .filter-menu {
+      justify-content: space-between;
+    }
+    .user-details {
+      justify-content: flex-start;
+    }
+    
+  }
+}
