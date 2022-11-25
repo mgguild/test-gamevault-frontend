@@ -11,7 +11,6 @@ import NftCard from '../components/NFT/card'
 
 // Temp details 
 
-
 const RenderNftCards = () => {
   return NftData.map((nft) => (
     <Grid key={nft.name} item>

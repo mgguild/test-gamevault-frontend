@@ -20,7 +20,9 @@ SearchField.defaultProps = {
 const Group = styled.div`
 display: flex;
 padding: 0 15px;
+width: 100%;
 align-items: center;
+background-color: ${({theme}) => theme.isDark? '#0c012c' : theme.colors.MGG_mainBG};
 border: 1px solid ${({theme}) => theme.colors.MGG_accent2};
 .search-icon {
   color: ${({theme}) => theme.colors.text};
@@ -31,10 +33,10 @@ const SearchInput = styled.input`
 background-color: transparent;
 text-align: left;
 border: none;
-height: 5vh;
+height: 100%;
 width: 100%;
-font-size: 1.5em;
-padding: 0px;
+font-size: 1.2em;
+padding: 5px 2.5px;
 color: ${({theme}) => theme.colors.text};
 &:focus {
   outline: none;
