@@ -2,16 +2,20 @@ import React from 'react'
 import { Search } from 'react-feather';
 import styled from 'styled-components'
 
-const SearchField = ({handleChange}: {handleChange: (e:React.ChangeEvent<HTMLInputElement>) => void }) => {
+const SearchField = ({handleChange, placeHolder=''}: {handleChange: (e:React.ChangeEvent<HTMLInputElement>) => void; placeHolder?: string}) => {
   return (
     <Group>
-      <SearchInput onChange={handleChange} />
+      <SearchInput onChange={handleChange} placeholder={placeHolder}/>
       <Search className='search-icon' />
     </Group>
   )
 }
 
 export default SearchField;
+
+SearchField.defaultProps = {
+  placeHolder: ''
+}
 
 const Group = styled.div`
 display: flex;
