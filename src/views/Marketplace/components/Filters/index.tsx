@@ -12,6 +12,7 @@ import Checkbox from '../Checkbox'
 import Container, { FilterContainer, FilterMenu, FilterCard, FilterSection, Main } from './styled'
 import SearchField from '../Input/SearchField'
 import SelectComponent from '../Select'
+import { BlockChain, Status1, Status2 } from './config'
 
 const Filters = ({ children }: { children?: React.ReactNode }) => {
   const { theme } = useTheme()
@@ -59,7 +60,7 @@ const Filters = ({ children }: { children?: React.ReactNode }) => {
               </Text>
             </AccordionSummary>
             <AccordionDetails>
-              <Checkbox items={['On Sale', 'Verified']} handleCheck={handleCheck} boxValue={boxValue} />
+              <Checkbox items={Status1} handleCheck={handleCheck} boxValue={boxValue} />
             </AccordionDetails>
           </Accordion>
           <Accordion
@@ -136,7 +137,7 @@ const Filters = ({ children }: { children?: React.ReactNode }) => {
             </AccordionSummary>
             <AccordionDetails>
               <Checkbox
-                items={['Ethereum', 'BNB', 'Polygon', 'Avalanche', 'Moonriver', 'Moonbeam']}
+                items={Status2}
                 handleCheck={handleCheck}
                 boxValue={boxValue}
               />
@@ -155,8 +156,8 @@ const Filters = ({ children }: { children?: React.ReactNode }) => {
               </Text>
             </AccordionSummary>
             <AccordionDetails>
-              <Checkbox
-                items={['Ethereum', 'BNB', 'Polygon', 'Avalanche', 'Moonriver', 'Moonbeam']}
+            <Checkbox
+                items={BlockChain}
                 handleCheck={handleCheck}
                 boxValue={boxValue}
               />
