@@ -21,7 +21,7 @@ const DetailsList = [
   },
   {
     image: 'DecentralizedidoIcon',
-    title: 'Decentralized IDO',
+    title: 'Decentralized IGO/INO',
     description: 'Projects can raise capital based on a fair and decentralized manner. ',
   },
   {
