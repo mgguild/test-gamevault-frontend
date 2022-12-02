@@ -12,7 +12,9 @@ export const CardContainer = styled(Container)`
   padding: 1.5rem;
   min-width: 250px;
   background-color: ${({theme}) => theme.isDark? '#0c012c' : theme.colors.MGG_mainBG};
-  
+  & > ${Flex} {
+    margin: 1.5rem 0rem;
+  }
   ${({theme}) => theme.mediaQueries.sm} {
     padding: 2rem;
   }

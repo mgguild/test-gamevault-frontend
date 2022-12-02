@@ -40,7 +40,7 @@ const UserProfile: React.FC = () => {
 
   const RenderNftCards = () => {
     return NftData.map((nft) => (
-      <Grid key={nft.name} item xs={12} sm={6} md={5} lg='auto'>
+      <Grid key={nft.name} item xs={12} sm={6} md={5} lg={3}>
         <Link href={`/marketplace/nft-market/${nft.id}`}>
           <NftCard {...nft} />
         </Link>

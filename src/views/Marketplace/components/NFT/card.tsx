@@ -23,11 +23,12 @@ const NftCard:React.FC<NftConfig> = ({name, description, src, price, status, cat
       </Flex>
       <Flex flexDirection='column' style={{textAlign: 'left', margin: '1rem 0'}}>
         <SvgIcon Img={img} width={250}/>
+        <br />
         <Text fontSize='1em'>{description}</Text>
       </Flex>
       <Flex alignItems='center' justifyContent='flex-end' >
         <BsFillRecordFill fill={NftCat[`${category.toLowerCase()}`]}/>
-        <Text color={theme.colors.MGG_accent2} fontSize="1.5em">{price}</Text>
+        <Text color={theme.colors.MGG_accent2} fontSize="1.5em">&nbsp;{price}</Text>
       </Flex>
     </CardContainer>
   )
