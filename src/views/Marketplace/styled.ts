@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 
 import styled from 'styled-components'
+import { Flex } from '@metagg/mgg-uikit';
 import GridGradient from 'assets/background/gridwgradient.png'
 import GridGradientFlipped from 'assets/background/gridwgradientFlipped.png'
 
@@ -61,5 +62,16 @@ export const BgPage = styled.div`
 
   @media screen and (max-width: 500px) {
     padding: 0.5rem;
+  }
+`
+
+export const CarouselCardContainer = styled(Flex)`
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  ${({theme}) => theme.mediaQueries.sm} {
+    flex-direction: row;  
+    flex-wrap: wrap;
   }
 `
