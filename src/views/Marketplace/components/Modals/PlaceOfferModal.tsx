@@ -26,7 +26,7 @@ const PlaceOfferModal = ({ onDismiss }: Props) => {
         <ModalSection>
           <Flex flexDirection="column" style={{ width: '100%' }}>
             <Heading size="lg">Price</Heading>
-            <input className="input-price" />
+            <input className="input-price" style={{color: theme.colors.text}} />
           </Flex>
           <Flex flexDirection="column" style={{ width: '100%' }}>
             <Heading size="lg">Offer Details</Heading>
