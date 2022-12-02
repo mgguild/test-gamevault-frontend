@@ -54,7 +54,7 @@ const UserProfile: React.FC = () => {
           <Container>
             <UserContainer>
               <Grid container columnSpacing={{ md: 2 }} className="user-details">
-                <Grid item xs={5} sm={2} md={2} lg={1}>
+                <Grid item xs={5} sm={2} md={2} lg={2}>
                   <UserImg alt="user-icn" src={src} />
                 </Grid>
                 <Grid item xs={12} md={5}>
