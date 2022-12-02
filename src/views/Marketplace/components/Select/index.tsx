@@ -22,7 +22,7 @@ export default SelectComponent;
 const SelectDiv = styled.div`
 display: flex;
 align-items: center;
-// padding: 0 2.5px;
+padding: 0 2.5px;
 width: 100%;
 background-color: ${({theme}) => theme.isDark? '#0c012c' : theme.colors.MGG_mainBG};
 border: 1px solid ${({theme}) => theme.colors.MGG_accent2};

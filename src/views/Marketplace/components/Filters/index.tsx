@@ -113,13 +113,33 @@ const Filters = ({ children }: { children?: React.ReactNode }) => {
           >
             <AccordionSummary expandIcon={<ChevronDown size="1.75em" color={theme.colors.MGG_accent2} />}>
               <Text fontSize="1.5em" bold>
-                SEARCH
+                COLLECTION
               </Text>
             </AccordionSummary>
             <AccordionDetails>
               <div style={{ marginBottom: '1rem' }}>
-                <SearchField handleChange={handleSearch} />
+                <SearchField handleChange={handleSearch} placeHolder='Search'/>
               </div>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            defaultExpanded
+            sx={{
+              backgroundColor: 'transparent',
+              boxShadow: 'none',
+            }}
+          >
+            <AccordionSummary expandIcon={<ChevronDown size="1.75em" color={theme.colors.MGG_accent2} />}>
+              <Text fontSize="1.5em" bold>
+                STATUS
+              </Text>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Checkbox
+                items={['Ethereum', 'BNB', 'Polygon', 'Avalanche', 'Moonriver', 'Moonbeam']}
+                handleCheck={handleCheck}
+                boxValue={boxValue}
+              />
             </AccordionDetails>
           </Accordion>
           <Accordion
