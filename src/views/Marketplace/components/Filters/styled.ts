@@ -13,15 +13,21 @@ export default Container
 export const FilterContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1 2;
-  padding: 0.5rem;
+  flex: 1 3;
+  padding: 0.5rem 0;
   ${({theme}) => theme.mediaQueries.lg} {
     padding: 2rem;
   }
 `
 export const Main = styled.div`
   flex: 3 1;
-  padding: 2rem;
+  padding: 2rem 0;
+  ${({theme}) => theme.mediaQueries.lg} {
+    padding: 2rem;
+  }
+  @media screen and (min-width: 1500px) {
+    flex: 4 1;
+  }
 `
 
 export const FilterCard = styled.div`

@@ -13,7 +13,7 @@ import NftCard from '../components/NFT/card'
 
 const RenderNftCards = () => {
   return NftData.map((nft) => (
-    <Grid key={nft.name} item>
+    <Grid key={nft.name} item xs={12} sm={6} md={5} lg={5} xl={3}>
       <Link href={`/marketplace/nft-market/${nft.id}`}>
         <NftCard {...nft} />
       </Link>
