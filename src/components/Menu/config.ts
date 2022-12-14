@@ -29,7 +29,16 @@ const config: MenuEntry[] = [
   {
     label: 'Marketplace',
     icon: '',
-    href: '/marketplace',
+    items: [
+      {
+        label: 'Home',
+        href: '/marketplace',
+      },
+      {
+        label: 'NFT Market',
+        href: '/marketplace/nft-market',
+      },
+    ],
   },
   {
     label: 'Bridge',

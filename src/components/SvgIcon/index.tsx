@@ -1,3 +1,4 @@
+import { height } from '@mui/system'
 import React from 'react'
 import styled from 'styled-components'
 // import { SvgContainer } from "./svgicon-styles"
@@ -32,7 +33,7 @@ const SvgIcon: React.FC<Props> = (props) => {
   const { Icon, Img, width } = props
   return (
     <SvgContainer {...props}>
-      {Icon ? <Icon /> : <img src={Img} alt="tier-icon" width={width} style={{ height: width }} />}
+      {Icon ? <Icon /> : <img src={Img} alt="tier-icon" width={width} style={{ height: `${height}` }} />}
     </SvgContainer>
   )
 }
