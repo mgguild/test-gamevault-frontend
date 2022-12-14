@@ -21,7 +21,7 @@ const NftCard:React.FC<NftConfig> = ({name, description, src, price, status, cat
         </FontResponsive>
           <BsShieldFillCheck fontSize='2em' fill={theme.colors.primary} />
       </Flex>
-      <Flex flexDirection='column' style={{textAlign: 'left', margin: '1rem 0'}}>
+      <Flex flexDirection='column' style={{textAlign: 'left', margin: '0.5rem 0'}}>
         <SvgIcon Img={img} width={250}/>
         <br />
         <Text fontSize='1em'>{description}</Text>
