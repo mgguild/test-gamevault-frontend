@@ -4,15 +4,7 @@ import { Element } from 'react-scroll'
 import { useGuildpadData, useGuildpads } from 'state/hooks'
 import { GUILDPAD_STATUS } from 'config/constants/types'
 import Page from 'components/layout/Page'
-import {
-  AboutSection,
-  ActiveSection,
-  ApplySection,
-  FooterSection,
-  HomeSection,
-  InactiveSection,
-  MGGVestingSection,
-} from './sections'
+import { AboutSection, ActiveSection, ApplySection, HomeSection, InactiveSection, MGGVestingSection } from './sections'
 
 const Guildpad: React.FC = () => {
   const { data: Guildpads } = useGuildpads()
@@ -42,7 +34,6 @@ const Guildpad: React.FC = () => {
         <AboutSection />
         <ApplySection />
       </Page>
-      <FooterSection />
     </>
   )
 }

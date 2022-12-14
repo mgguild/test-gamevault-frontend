@@ -50,6 +50,7 @@ export const API_LASTPRICE = 'price'
 export const multiChainSupport = {
   LP_STAKING: ['1', '56'],
   POOL_STAKING: ['56', '97'],
+  MARKETPLACE: ['56'],
   LAUNCHPAD: ['56'],
   GAMEFI: ['56'],
 }

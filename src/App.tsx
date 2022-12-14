@@ -1,11 +1,13 @@
 import React, { lazy } from 'react'
 import { useWeb3React } from '@web3-react/core'
+import NetworkRoute from 'components/NetworkRoute'
 import { HashRouter, Redirect, Route, Switch } from 'react-router-dom'
 import { ResetCSS } from '@metagg/mgg-uikit'
 import BigNumber from 'bignumber.js'
 import useEagerConnect from 'hooks/useEagerConnect'
 import { useFetchProfile, usePollBlockNumber, usePollCoreFarmData } from 'state/hooks'
 import { RedirectToFarms } from 'views/Farms/Redirects'
+import Footer from 'components/Footer'
 import GlobalStyle from './style/Global'
 import Menu from './components/Menu'
 import SuspenseWithChunkError from './components/SuspenseWithChunkError'
@@ -14,6 +16,7 @@ import PageLoader from './components/PageLoader'
 import EasterEgg from './components/EasterEgg'
 import NotSupported from './views/ComingSoon/notSupported'
 import { getSupportedChain, isChainSupported } from './utils/settings'
+
 // import Pools from './views/Pools'
 
 // Route-based code splitting
@@ -22,6 +25,11 @@ const Farms = lazy(() => import('./views/Farms'))
 const Pools = lazy(() => import('./views/Pools'))
 const Gamefi = lazy(() => import('./views/Gamefi'))
 const ComingSoon = lazy(() => import('./views/ComingSoon'))
+const Marketplace = lazy(() => import('./views/Marketplace'))
+const NftMarket = lazy(() => import('./views/Marketplace/Market'))
+const HistoryMarketplace = lazy(() => import('./views/Marketplace/History'))
+const UserProfile = lazy(() => import('./views/Marketplace/User'))
+const NftPage = lazy(() => import('./views/Marketplace/components/NFT'))
 const Guildpad = lazy(() => import('./views/GuildPad'))
 const NotFound = lazy(() => import('./views/NotFound'))
 const Pad = lazy(() => import('./views/GuildPad/Pad'))
@@ -51,28 +59,65 @@ const App: React.FC = () => {
       <Menu>
         <SuspenseWithChunkError fallback={<PageLoader />}>
           <Switch>
-            <Route path="/farms">
-              {isChainSupported('LP_STAKING', chainId) ? (
-                <Farms />
-              ) : (
-                <NotSupported title="Farms" supportedChainId={getSupportedChain('LP_STAKING')} />
-              )}
-            </Route>
-            <Route path="/pools" exact>
-              {isChainSupported('POOL_STAKING', chainId) ? (
-                <Pools />
-              ) : (
-                <NotSupported title="Pools" supportedChainId={getSupportedChain('POOL_STAKING')} />
-              )}
-              {/* <ComingSoon title="Pools" /> */}
-            </Route>
-            <Route path="/gamefi" exact>
-              {isChainSupported('GAMEFI', chainId) ? (
-                <Gamefi />
-              ) : (
-                <NotSupported title="Gamefi Vaults" supportedChainId={getSupportedChain('GAMEFI')} />
-              )}
-            </Route>
+            <NetworkRoute
+              path="/farms"
+              Component={Farms}
+              chainSupportConfig={{ title: 'LP_STAKING', id: chainId }}
+              pageTitle="Farms"
+            />
+            <NetworkRoute
+              path="/pools"
+              Component={Pools}
+              chainSupportConfig={{ title: 'POOL_STAKING', id: chainId }}
+              pageTitle="Pools"
+              exact
+            />
+            <NetworkRoute
+              path="/marketplace"
+              Component={Marketplace}
+              chainSupportConfig={{ title: 'MARKETPLACE', id: chainId }}
+              pageTitle="Marketplace"
+              exact
+            />
+            <NetworkRoute
+              path="/marketplace/nft-market"
+              Component={NftMarket}
+              chainSupportConfig={{ title: 'MARKETPLACE', id: chainId }}
+              pageTitle="NFT Market"
+              exact
+            />
+            <Route
+              exact
+              path="/marketplace/nft-market/:nftID"
+              component={(props) => {
+                return isChainSupported('MARKETPLACE', chainId) ? (
+                  <NftPage {...props} />
+                ) : (
+                  <NotSupported title="Marketplace" supportedChainId={getSupportedChain('MARKETPLACE')} />
+                )
+              }}
+            />
+            <NetworkRoute
+              path="/marketplace/history"
+              Component={HistoryMarketplace}
+              chainSupportConfig={{ title: 'MARKETPLACE', id: chainId }}
+              pageTitle="Marketplace History"
+              exact
+            />
+            <NetworkRoute
+              path="/marketplace/user-profile"
+              Component={UserProfile}
+              chainSupportConfig={{ title: 'MARKETPLACE', id: chainId }}
+              pageTitle="Marketplace User Profile"
+              exact
+            />
+            <NetworkRoute
+              path="/gamefi"
+              Component={Gamefi}
+              chainSupportConfig={{ title: 'GAMEFI', id: chainId }}
+              pageTitle="Gamefi Vaults"
+              exact
+            />
             <Route
               path="/gamefi/:type/:farmID"
               component={isChainSupported('GAMEFI', chainId) ? GamefiPage : NotSupported}
@@ -88,23 +133,20 @@ const App: React.FC = () => {
               }}
             /> */}
             {/* <ComingSoon title="GameFi Vaults" /> */}
-
-            <Route path="/launchpad" exact>
-              {/* <ComingSoon title="Launchpad" /> */}
-              {isChainSupported('LAUNCHPAD', chainId) ? (
-                <Guildpad />
-              ) : (
-                <NotSupported title="Guildpad" supportedChainId={getSupportedChain('LAUNCHPAD')} />
-              )}
-            </Route>
-            <Route path="/" exact>
-              {/* <ComingSoon title="Launchpad" /> */}
-              {isChainSupported('LAUNCHPAD', chainId) ? (
-                <Guildpad />
-              ) : (
-                <NotSupported title="Guildpad" supportedChainId={getSupportedChain('LAUNCHPAD')} />
-              )}
-            </Route>
+            <NetworkRoute
+              path="/launchpad"
+              Component={Guildpad}
+              chainSupportConfig={{ title: 'LAUNCHPAD', id: chainId }}
+              pageTitle="Guildpad"
+              exact
+            />
+            <NetworkRoute
+              path="/"
+              Component={Guildpad}
+              chainSupportConfig={{ title: 'LAUNCHPAD', id: chainId }}
+              pageTitle="Guildpad"
+              exact
+            />
             <Route
               path="/launchpad/:guildpadTitle"
               component={(props) => {
@@ -116,9 +158,7 @@ const App: React.FC = () => {
                 )
               }}
             />
-            <Route path="/marketplace" exact>
-              <ComingSoon title="Marketplace" />
-            </Route>
+
             <Route path="/staking">
               <Redirect to="/farms" />
             </Route>
@@ -130,7 +170,7 @@ const App: React.FC = () => {
           </Switch>
         </SuspenseWithChunkError>
       </Menu>
-      <EasterEgg iterations={2} />
+      <Footer />
       <ToastListener />
     </HashRouter>
   )

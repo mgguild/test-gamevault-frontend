@@ -4,6 +4,7 @@ import { CopyIcon, Text } from '@metagg/mgg-uikit'
 
 interface Props {
   toCopy?: string | number
+  color?: string
 }
 
 const StyleButton = styled(Text).attrs({ role: 'button' })`
@@ -27,7 +28,7 @@ const Tooltip = styled.div<{ isTooltipDisplayed: boolean }>`
   width: 60px;
 `
 
-const CopyToClipboard: React.FC<Props> = ({ toCopy, children, ...props }) => {
+const CopyToClipboard: React.FC<Props> = ({ toCopy, color = 'primary', children, ...props }) => {
   const [isTooltipDisplayed, setIsTooltipDisplayed] = useState(false)
 
   return (
@@ -44,7 +45,7 @@ const CopyToClipboard: React.FC<Props> = ({ toCopy, children, ...props }) => {
       {...props}
     >
       {children}
-      <CopyIcon width="20px" color="primary" ml="4px" />
+      <CopyIcon width="20px" color={color} ml="4px" />
       <Tooltip isTooltipDisplayed={isTooltipDisplayed}>Copied</Tooltip>
     </StyleButton>
   )

@@ -11,7 +11,6 @@ import { Grid } from '@mui/material'
 import { Breadcrumbs, Flex, Text } from '@metagg/mgg-uikit'
 import { useGuildpadData, useGuildpads } from 'state/hooks'
 import PageSection from '../sections/Layout'
-import Footer from '../sections/Footer'
 import Card from './Cards'
 import { getGuildpadStatus } from '../../../utils/guildpadHelpers'
 
@@ -62,7 +61,6 @@ const Pad: React.FC<{ guildpadTitle?: string }> = ({ guildpadTitle }) => {
           </Grid>
         </PageSection>
       </Container>
-      <Footer />
     </>
   )
 }
