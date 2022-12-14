@@ -1,9 +1,9 @@
 import { Checkbox, FormControlLabel, FormGroup } from '@mui/material'
 import React from 'react'
 import useTheme from 'hooks/useTheme'
-import { styled } from '@mui/material/styles';
-import { BsShieldFillCheck } from 'react-icons/bs';
-import { Flex } from '@metagg/mgg-uikit';
+import { styled } from '@mui/material/styles'
+import { BsShieldFillCheck } from 'react-icons/bs'
+import { Flex } from '@metagg/mgg-uikit'
 
 const BpIcon = styled('span')(({ theme }) => ({
   borderRadius: 3,
@@ -29,7 +29,7 @@ const BpIcon = styled('span')(({ theme }) => ({
     boxShadow: 'none',
     background: '#00c4cc',
   },
-}));
+}))
 
 const BpCheckedIcon = styled(BpIcon)({
   backgroundColor: '#00c4cc',
@@ -37,7 +37,7 @@ const BpCheckedIcon = styled(BpIcon)({
   '&:before': {
     display: 'block',
     width: 24,
-  height: 24,
+    height: 24,
     backgroundImage:
       "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath" +
       " fill-rule='evenodd' clip-rule='evenodd' d='M12 5c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 " +
@@ -47,34 +47,41 @@ const BpCheckedIcon = styled(BpIcon)({
   'input:hover ~ &': {
     backgroundColor: '#00c4cc',
   },
-});
+})
 
-
-const CheckboxComponent = ({ items, handleCheck, boxValue }: { items: {name: string, isVerified?: boolean}[]; handleCheck: any; boxValue: Record<string, boolean> }) => {
+const CheckboxComponent = ({
+  items,
+  handleCheck,
+  boxValue,
+}: {
+  items: { name: string; isVerified?: boolean }[]
+  handleCheck: any
+  boxValue: Record<string, boolean>
+}) => {
   const { theme } = useTheme()
   return (
     <FormGroup>
       {items.map((item) => (
-        <Flex justifyContent='space-between' alignItems='center'>
-        <FormControlLabel
-          key={item.name}
-          sx={{ color: theme.colors.text }}
-          control={
-            <Checkbox
-              checked={boxValue[`${item.name}`] ?? false}
-              disableRipple
-              checkedIcon={<BpCheckedIcon />}
-              sx={{
-                '&:hover': { bgcolor: 'transparent' },
-                color: theme.colors.MGG_accent2,
-              }}
-              name={item.name}
-              onChange={handleCheck}
-            />
-          }
-          label={item.name}
-        />
-        { item.isVerified && <BsShieldFillCheck color={theme.colors.primary} />}
+        <Flex justifyContent="space-between" alignItems="center">
+          <FormControlLabel
+            key={item.name}
+            sx={{ color: theme.colors.text }}
+            control={
+              <Checkbox
+                checked={boxValue[`${item.name}`] ?? false}
+                disableRipple
+                checkedIcon={<BpCheckedIcon />}
+                sx={{
+                  '&:hover': { bgcolor: 'transparent' },
+                  color: theme.colors.MGG_accent2,
+                }}
+                name={item.name}
+                onChange={handleCheck}
+              />
+            }
+            label={item.name}
+          />
+          {item.isVerified && <BsShieldFillCheck color={theme.colors.primary} />}
         </Flex>
       ))}
     </FormGroup>

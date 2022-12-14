@@ -5,7 +5,10 @@ import { Heading, Flex, Button } from '@metagg/mgg-uikit'
 import Carousel from 'react-elastic-carousel'
 import { BreakPointsConfig } from '../../config'
 
-const AppCarousel: React.FC<{ children: React.ReactNode; breakpoints?: BreakPointsConfig[] }> = ({ children, breakpoints }) => {
+const AppCarousel: React.FC<{ children: React.ReactNode; breakpoints?: BreakPointsConfig[] }> = ({
+  children,
+  breakpoints,
+}) => {
   const CustomArrows = ({ type, onClick, isEdge }) => {
     const pointer = type !== 'PREV' ? <ArrowRight width="3rem" /> : <ArrowLeft />
     return (

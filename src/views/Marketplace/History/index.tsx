@@ -8,12 +8,10 @@ import Table from '../components/Table'
 import { BgPage, Section } from '../styled'
 import { TabOptions } from './config'
 
-
-
 const HistorySection = () => {
   const { theme } = useTheme()
 
-  const [ active, setActive ] = useState<number>(0)
+  const [active, setActive] = useState<number>(0)
 
   const data = [
     {
@@ -21,46 +19,67 @@ const HistorySection = () => {
       date: '9/12/2022 03:33PM',
       price: '1',
       status: 'ADDED',
-      actions: 'CANCEL'
-    }
+      actions: 'CANCEL',
+    },
   ]
 
   const pickData = (choice) => {
-    switch(choice) {
+    switch (choice) {
       case 0:
-        return data;
+        return data
       case 1:
-        return [];
+        return []
       case 2:
-        return [];
+        return []
       case 3:
         return []
       default:
-        return [];
+        return []
     }
   }
 
   const columns = React.useMemo(() => {
     return [
       {
-        Header:  <Text fontSize='2rem' color="#ebca03" bold>ITEMS</Text>,
-        accessor: 'items'
+        Header: (
+          <Text fontSize="2rem" color="#ebca03" bold>
+            ITEMS
+          </Text>
+        ),
+        accessor: 'items',
       },
       {
-        Header: <Text fontSize='2rem' color="#ebca03" bold>DATE</Text>,
-        accessor: 'date'
+        Header: (
+          <Text fontSize="2rem" color="#ebca03" bold>
+            DATE
+          </Text>
+        ),
+        accessor: 'date',
       },
       {
-        Header: <Text fontSize='2rem' color="#ebca03" bold>PRICE</Text>,
-        accessor: 'price'
-      },{
-        Header: <Text fontSize='2rem' color="#ebca03" bold>STATUS</Text>,
-        accessor: 'status'
+        Header: (
+          <Text fontSize="2rem" color="#ebca03" bold>
+            PRICE
+          </Text>
+        ),
+        accessor: 'price',
       },
       {
-        Header: <Text fontSize='2rem' color="#ebca03" bold>ACTIONS</Text>,
-        accessor: 'actions'
-      }
+        Header: (
+          <Text fontSize="2rem" color="#ebca03" bold>
+            STATUS
+          </Text>
+        ),
+        accessor: 'status',
+      },
+      {
+        Header: (
+          <Text fontSize="2rem" color="#ebca03" bold>
+            ACTIONS
+          </Text>
+        ),
+        accessor: 'actions',
+      },
     ]
   }, [])
 
@@ -68,9 +87,13 @@ const HistorySection = () => {
     <Section padding="0" bgColor={theme.isDark ? '#140937' : theme.colors.MGG_container}>
       <BgPage>
         <div style={{ margin: '10rem 0', position: 'relative', zIndex: 2, minHeight: '50vh' }}>
-          <Tab options={TabOptions} handlers={{active, setActive}} />
+          <Tab options={TabOptions} handlers={{ active, setActive }} />
           <StyledDiv>
-            { data.length !== 0 ? <Table columns={columns} data={pickData(active)} withUnderline /> : <Text>No Offers</Text>}
+            {data.length !== 0 ? (
+              <Table columns={columns} data={pickData(active)} withUnderline />
+            ) : (
+              <Text>No Offers</Text>
+            )}
           </StyledDiv>
         </div>
       </BgPage>
@@ -83,6 +106,6 @@ export default HistorySection
 const StyledDiv = styled.div`
   margin-top: 2rem;
   padding: 2rem;
-  border: 1px solid ${({theme}) => theme.colors.MGG_accent2};
-  background-color: ${({theme}) => theme.isDark ? '#0c012c' : theme.colors.background };
+  border: 1px solid ${({ theme }) => theme.colors.MGG_accent2};
+  background-color: ${({ theme }) => (theme.isDark ? '#0c012c' : theme.colors.background)};
 `

@@ -1,36 +1,36 @@
 /* eslint-disable import/prefer-default-export */
 
-import { CarouselDataConfig, NftConfig } from "./types";
+import { CarouselDataConfig, NftConfig } from './types'
 
-export const Carousel1Data:CarouselDataConfig[] = [
+export const Carousel1Data: CarouselDataConfig[] = [
   {
     title: 'Lorem Ipsum',
     description: 'Lorem ipsum',
-    image: 'PlaceHolder1'
+    image: 'PlaceHolder1',
   },
   {
     title: 'Lorem Ipsum',
     description: 'Lorem ipsum',
-    image: 'PlaceHolder1'
+    image: 'PlaceHolder1',
   },
   {
     title: 'Lorem Ipsum',
     description: 'Lorem ipsum',
-    image: 'PlaceHolder1'
+    image: 'PlaceHolder1',
   },
   {
     title: 'Lorem Ipsum',
     description: 'Lorem ipsum',
-    image: 'PlaceHolder1'
+    image: 'PlaceHolder1',
   },
   {
     title: 'Lorem Ipsum',
     description: 'Lorem ipsum',
-    image: 'PlaceHolder1'
+    image: 'PlaceHolder1',
   },
 ]
 
-export const NftData:NftConfig[] = [
+export const NftData: NftConfig[] = [
   {
     id: '0001',
     name: 'Lorem Ipsum',
@@ -44,7 +44,7 @@ export const NftData:NftConfig[] = [
       twitter: 'www.twitter.com',
       facebook: 'www.facebook.com',
       telegram: 'www.telegram.com',
-      whapp: 'www.whaap.com'
-    }
-  }
+      whapp: 'www.whaap.com',
+    },
+  },
 ]

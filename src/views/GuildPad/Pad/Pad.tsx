@@ -61,7 +61,6 @@ const Pad: React.FC<{ guildpadTitle?: string }> = ({ guildpadTitle }) => {
           </Grid>
         </PageSection>
       </Container>
-
     </>
   )
 }

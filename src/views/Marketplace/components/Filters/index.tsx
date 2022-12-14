@@ -119,7 +119,7 @@ const Filters = ({ children }: { children?: React.ReactNode }) => {
             </AccordionSummary>
             <AccordionDetails>
               <div style={{ marginBottom: '1rem' }}>
-                <SearchField handleChange={handleSearch} placeHolder='Search'/>
+                <SearchField handleChange={handleSearch} placeHolder="Search" />
               </div>
             </AccordionDetails>
           </Accordion>
@@ -136,11 +136,7 @@ const Filters = ({ children }: { children?: React.ReactNode }) => {
               </Text>
             </AccordionSummary>
             <AccordionDetails>
-              <Checkbox
-                items={Status2}
-                handleCheck={handleCheck}
-                boxValue={boxValue}
-              />
+              <Checkbox items={Status2} handleCheck={handleCheck} boxValue={boxValue} />
             </AccordionDetails>
           </Accordion>
           <Accordion
@@ -156,19 +152,15 @@ const Filters = ({ children }: { children?: React.ReactNode }) => {
               </Text>
             </AccordionSummary>
             <AccordionDetails>
-            <Checkbox
-                items={BlockChain}
-                handleCheck={handleCheck}
-                boxValue={boxValue}
-              />
+              <Checkbox items={BlockChain} handleCheck={handleCheck} boxValue={boxValue} />
             </AccordionDetails>
           </Accordion>
         </FilterCard>
       </FilterContainer>
       <Main>
         <Flex flexDirection="column" flexWrap="wrap">
-          <Grid container marginBottom='2rem'>
-            <Grid container item spacing={2} justifyContent='flex-end'>
+          <Grid container marginBottom="2rem">
+            <Grid container item spacing={2} justifyContent="flex-end">
               <Grid item alignItems="center">
                 {!mobileS && (
                   <Text fontSize="1.75em" bold>

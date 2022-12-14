@@ -1,6 +1,6 @@
-import useTheme from 'hooks/useTheme';
+import useTheme from 'hooks/useTheme'
 import React from 'react'
-import { ChevronDown } from 'react-feather';
+import { ChevronDown } from 'react-feather'
 import styled from 'styled-components'
 
 const SelectComponent = () => {
@@ -18,14 +18,14 @@ const SelectComponent = () => {
   )
 }
 
-export default SelectComponent;
+export default SelectComponent
 const SelectDiv = styled.div`
-display: flex;
-align-items: center;
-padding: 0 2.5px;
-width: 100%;
-background-color: ${({theme}) => theme.isDark? '#0c012c' : theme.colors.MGG_mainBG};
-border: 1px solid ${({theme}) => theme.colors.MGG_accent2};
+  display: flex;
+  align-items: center;
+  padding: 0 2.5px;
+  width: 100%;
+  background-color: ${({ theme }) => (theme.isDark ? '#0c012c' : theme.colors.MGG_mainBG)};
+  border: 1px solid ${({ theme }) => theme.colors.MGG_accent2};
 `
 const Select = styled.select`
   width: 100%;
@@ -34,15 +34,14 @@ const Select = styled.select`
   text-align: center;
   appearance: none;
   border: none;
-  color: ${({theme}) => theme.colors.text};
+  color: ${({ theme }) => theme.colors.text};
   font-size: 1.2em;
   &:focus {
     outline: none;
   }
-  
 `
 
 const SelectItem = styled.option`
-  color: ${({theme}) => theme.colors.text};
-  background-color:  ${({theme}) => theme.isDark? '#0c012c' : theme.colors.MGG_mainBG};
+  color: ${({ theme }) => theme.colors.text};
+  background-color: ${({ theme }) => (theme.isDark ? '#0c012c' : theme.colors.MGG_mainBG)};
 `

@@ -7,9 +7,7 @@ import { BgPage, Section } from '../styled'
 import Filters from '../components/Filters'
 import NftCard from '../components/NFT/card'
 
-
-
-// Temp details 
+// Temp details
 
 const RenderNftCards = () => {
   return NftData.map((nft) => (
@@ -28,9 +26,7 @@ const MarketPage: React.FC = () => {
       <BgPage>
         <div style={{ margin: '10rem 0', position: 'relative', zIndex: 2, minHeight: '100vh' }}>
           <Filters>
-            <Grid container>
-            {RenderNftCards()}
-            </Grid>
+            <Grid container>{RenderNftCards()}</Grid>
           </Filters>
         </div>
       </BgPage>

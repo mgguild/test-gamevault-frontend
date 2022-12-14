@@ -65,11 +65,11 @@ const UserProfile: React.FC = () => {
                 </Grid>
               </Grid>
               <Grid container className="filter-menu" marginTop="2rem">
-                <Grid xs={12} sm='auto' item alignItems="center" className='filter-item'>
+                <Grid xs={12} sm="auto" item alignItems="center" className="filter-item">
                   {/* <Text>Sort By:</Text> */}
                   <SelectComponent />
                 </Grid>
-                <Grid item xs={12} sm='auto' alignItems="center" className='filter-item'>
+                <Grid item xs={12} sm="auto" alignItems="center" className="filter-item">
                   <SearchField handleChange={handleSearch} placeHolder="Search" />
                 </Grid>
               </Grid>

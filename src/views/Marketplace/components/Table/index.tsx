@@ -7,8 +7,7 @@ import useTheme from 'hooks/useTheme'
 import dataHandlers from './dataHandlers'
 import StyledTable, { StyledTableBody, StyledTableHead, StyledTr, StyledTh, StyledTd } from './styled'
 
-
-const Table = ({columns, data, withUnderline}: {columns: any; data: any; withUnderline?: boolean}) => {
+const Table = ({ columns, data, withUnderline }: { columns: any; data: any; withUnderline?: boolean }) => {
   const { theme } = useTheme()
   const table = useTable({ columns, data })
   const { getTableProps, headerGroups, rows, prepareRow, getTableBodyProps } = table

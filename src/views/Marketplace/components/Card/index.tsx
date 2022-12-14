@@ -20,20 +20,26 @@ const Card: React.FC<Props> = ({ title, description, icn }) => {
   return (
     <Container>
       <Wrapper>
-      {placeholder}
-        <Flex flexDirection="column" alignItems="center" justifyContent='flex-start' style={{height: '100%'}} marginTop='1rem'>
+        {placeholder}
+        <Flex
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="flex-start"
+          style={{ height: '100%' }}
+          marginTop="1rem"
+        >
           <TextWrap textAlign="center">
             <Text fontSize="2em" bold color={theme.colors.MGG_accent2}>
               {title}
-            </Text> 
+            </Text>
           </TextWrap>
-          <TextWrap textAlign='center'>
-          <Text fontSize="1em">{description}</Text>
+          <TextWrap textAlign="center">
+            <Text fontSize="1em">{description}</Text>
           </TextWrap>
         </Flex>
-          <Button bg={theme.colors.MGG_accent2} margin="0.5rem 0px">
-            Lorem Ipsum
-          </Button>
+        <Button bg={theme.colors.MGG_accent2} margin="0.5rem 0px">
+          Lorem Ipsum
+        </Button>
       </Wrapper>
     </Container>
   )
@@ -46,7 +52,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  align-items: center;  
+  align-items: center;
 `
 
 const Container = styled.div`

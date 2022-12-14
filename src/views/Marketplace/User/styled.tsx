@@ -14,7 +14,7 @@ export const UserContainer = styled(StyledContainer)`
 export const CollectionsContainer = styled(StyledContainer)`
   flex: 1;
   padding: 2rem;
-  ${({theme}) => theme.mediaQueries.md} {
+  ${({ theme }) => theme.mediaQueries.md} {
     padding: 3rem;
   }
 `

@@ -1,13 +1,13 @@
-import React from "react";
-import * as icons from "react-feather";
+import React from 'react'
+import * as icons from 'react-feather'
 
-export type IconName = keyof typeof icons;
+export type IconName = keyof typeof icons
 
 export type IconProps = {
-  name: IconName;
+  name: IconName
 }
 
 export function Icon({ name, ...rest }: IconProps) {
-  const IconComponent = icons[name];
-  return <IconComponent {...rest} color="#fff" />;
+  const IconComponent = icons[name]
+  return <IconComponent {...rest} color="#fff" />
 }

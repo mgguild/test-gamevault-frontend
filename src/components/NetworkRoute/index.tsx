@@ -17,17 +17,12 @@ interface Props {
 const NetworkRoute: React.FC<Props> = ({ path, Component, chainSupportConfig, pageTitle, exact }) => {
   const { title, id } = chainSupportConfig
   return (
-    <Route
-      path={path}
-      exact={exact}
-    >
-      {
-        isChainSupported(title, id) ? (
-          <Component />
-        ): (
-          <NotSupported title={pageTitle} supportedChainId={getSupportedChain(title)}/>
-        )
-      }
+    <Route path={path} exact={exact}>
+      {isChainSupported(title, id) ? (
+        <Component />
+      ) : (
+        <NotSupported title={pageTitle} supportedChainId={getSupportedChain(title)} />
+      )}
     </Route>
   )
 }

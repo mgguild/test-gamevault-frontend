@@ -1,25 +1,32 @@
 /* eslint-disable import/prefer-default-export */
 
 import styled from 'styled-components'
-import { Flex } from '@metagg/mgg-uikit';
+import { Flex } from '@metagg/mgg-uikit'
 import GridGradient from 'assets/background/gridwgradient.png'
 import GridGradientFlipped from 'assets/background/gridwgradientFlipped.png'
 
-const padding = '24px';
+const padding = '24px'
 
-export const Section = styled.section<{ direction?: string; bgColor?: string; justify?: string; align?: string; padding?: string, height?: string}>`
-  min-height: ${props => `calc(${props.height ?? '90vh'} - 64px)`};
+export const Section = styled.section<{
+  direction?: string
+  bgColor?: string
+  justify?: string
+  align?: string
+  padding?: string
+  height?: string
+}>`
+  min-height: ${(props) => `calc(${props.height ?? '90vh'} - 64px)`};
   max-width: 100%;
   display: flex;
-  padding: ${props => props.padding ?? padding};
-  align-items: ${props => props.align};
-  justify-content: ${props => props.justify ?? 'center'};
+  padding: ${(props) => props.padding ?? padding};
+  align-items: ${(props) => props.align};
+  justify-content: ${(props) => props.justify ?? 'center'};
   flex-direction: ${(props) => props.direction ?? 'column'};
   background-color: ${(props) => props.bgColor};
 `
 
-export const TextWrap = styled.div<{textAlign?: string}>`
-  text-align: ${props => props.textAlign};
+export const TextWrap = styled.div<{ textAlign?: string }>`
+  text-align: ${(props) => props.textAlign};
   font-size: 12px;
   ${(props) => props.theme.mediaQueries.lg} {
     font-size: 16px;
@@ -31,7 +38,6 @@ export const BgSection = styled(Section)<{ src?: string }>`
   background-repeat: no-repeat;
   background-position: center;
   backround-size: contain;
-
 `
 
 export const BgPage = styled.div`
@@ -70,8 +76,8 @@ export const CarouselCardContainer = styled(Flex)`
   align-items: center;
   justify-content: space-between;
 
-  ${({theme}) => theme.mediaQueries.sm} {
-    flex-direction: row;  
+  ${({ theme }) => theme.mediaQueries.sm} {
+    flex-direction: row;
     flex-wrap: wrap;
   }
 `

@@ -1,22 +1,21 @@
 import styled from 'styled-components'
-import { Flex } from '@metagg/mgg-uikit';
-
+import { Flex } from '@metagg/mgg-uikit'
 
 const Container = styled.div`
-  border: 2px solid ${({theme}) => theme.colors.MGG_accent2};
+  border: 2px solid ${({ theme }) => theme.colors.MGG_accent2};
 `
 
-export default Container;
+export default Container
 
 export const CardContainer = styled(Container)`
   padding: 2rem;
   min-width: 350px;
-  
-  background-color: ${({theme}) => theme.isDark? '#0c012c' : theme.colors.MGG_mainBG};
+
+  background-color: ${({ theme }) => (theme.isDark ? '#0c012c' : theme.colors.MGG_mainBG)};
   & > ${Flex} {
     margin: 1.5rem 0rem;
   }
-  // ${({theme}) => theme.mediaQueries.lg} {
+  // ${({ theme }) => theme.mediaQueries.lg} {
   //   max-width: 400px;
   // }
 `
@@ -24,7 +23,7 @@ export const CardContainer = styled(Container)`
 export const FontResponsive = styled.div`
   font-size: 9px;
 
-  ${({theme}) => theme.mediaQueries.sm} {
+  ${({ theme }) => theme.mediaQueries.sm} {
     font-size: 12px;
   }
 `
@@ -38,8 +37,8 @@ export const Wrapper = styled.div`
 
 export const ImageContainer = styled.div`
   border-radius: 5px;
-  border: 1px solid ${({theme}) => theme.colors.MGG_accent2};
-  background-color: ${({theme}) => theme.isDark? '#0c012c' : theme.colors.MGG_mainBG};
+  border: 1px solid ${({ theme }) => theme.colors.MGG_accent2};
+  background-color: ${({ theme }) => (theme.isDark ? '#0c012c' : theme.colors.MGG_mainBG)};
   padding: 1rem;
   display: flex;
   flex-direction: column;

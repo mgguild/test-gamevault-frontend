@@ -28,7 +28,7 @@ const Tooltip = styled.div<{ isTooltipDisplayed: boolean }>`
   width: 60px;
 `
 
-const CopyToClipboard: React.FC<Props> = ({ toCopy, color='primary', children, ...props }) => {
+const CopyToClipboard: React.FC<Props> = ({ toCopy, color = 'primary', children, ...props }) => {
   const [isTooltipDisplayed, setIsTooltipDisplayed] = useState(false)
 
   return (
@@ -46,7 +46,7 @@ const CopyToClipboard: React.FC<Props> = ({ toCopy, color='primary', children, .
     >
       {children}
       <CopyIcon width="20px" color={color} ml="4px" />
-      <Tooltip isTooltipDisplayed={isTooltipDisplayed} >Copied</Tooltip>
+      <Tooltip isTooltipDisplayed={isTooltipDisplayed}>Copied</Tooltip>
     </StyleButton>
   )
 }

@@ -26,34 +26,36 @@ const PlaceOfferModal = ({ onDismiss }: Props) => {
         <ModalSection>
           <Flex flexDirection="column" style={{ width: '100%' }}>
             <Heading size="lg">Price</Heading>
-            <input className="input-price" style={{color: theme.colors.text}} />
+            <input className="input-price" style={{ color: theme.colors.text }} />
           </Flex>
           <Flex flexDirection="column" style={{ width: '100%' }}>
             <Heading size="lg">Offer Details</Heading>
-            <Text color="textSubtle"  marginTop='0.5rem'>
+            <Text color="textSubtle" marginTop="0.5rem">
               All transactions are placed in Lotrem, MGG automatically convert your Ipsum to Lorem. Please review the
               conversion summary below.
             </Text>
           </Flex>
           <Grid container justifyContent="space-between">
             <Grid item md={5}>
-              <Text color='textSubtle'>Ipsum Balance</Text>
-              <Text color='textSubtle'>Lorem Balance</Text>
+              <Text color="textSubtle">Ipsum Balance</Text>
+              <Text color="textSubtle">Lorem Balance</Text>
               <Flex>
-                <Text color='textSubtle'>Convert&nbsp;</Text>
+                <Text color="textSubtle">Convert&nbsp;</Text>
                 <Flex alignItems="center">
-                  <Text color='textSubtle' fontSize='0.8em'>Max &nbsp;</Text>
+                  <Text color="textSubtle" fontSize="0.8em">
+                    Max &nbsp;
+                  </Text>
                   <input type="checkbox" />
                 </Flex>
               </Flex>
             </Grid>
-            <Grid item md={5} sx={{textAlign: 'right'}}>
-              <Text >0.123 Ipsum</Text>
-              <Text >0.123 Lorem</Text>
-              <Text >0.123 Ipsum</Text>
+            <Grid item md={5} sx={{ textAlign: 'right' }}>
+              <Text>0.123 Ipsum</Text>
+              <Text>0.123 Lorem</Text>
+              <Text>0.123 Ipsum</Text>
             </Grid>
           </Grid>
-          <hr color='#776118' style={{width: '100%'}} />
+          <hr color="#776118" style={{ width: '100%' }} />
           <Flex justifyContent="center" marginTop="3em" flexDirection="column" alignItems="center">
             <Flex alignItems="center">
               <input type="checkbox" />
@@ -65,8 +67,10 @@ const PlaceOfferModal = ({ onDismiss }: Props) => {
           </Flex>
         </ModalSection>
         <div>
-          <Text color='textSubtle'>
-            MGG never holds or controls any of your cryptocurrencies. If you decide to cancel or change your offer, you will see your original token balance in Lorem. <span style={{color: theme.colors.MGG_accent2}}>Add Lorem to wallet</span>
+          <Text color="textSubtle">
+            MGG never holds or controls any of your cryptocurrencies. If you decide to cancel or change your offer, you
+            will see your original token balance in Lorem.{' '}
+            <span style={{ color: theme.colors.MGG_accent2 }}>Add Lorem to wallet</span>
           </Text>
         </div>
       </div>

@@ -32,13 +32,13 @@ const config: MenuEntry[] = [
     items: [
       {
         label: 'Home',
-        href: '/marketplace'
+        href: '/marketplace',
       },
       {
         label: 'NFT Market',
-        href: '/marketplace/nft-market'
-      }
-    ]
+        href: '/marketplace/nft-market',
+      },
+    ],
   },
   {
     label: 'Bridge',

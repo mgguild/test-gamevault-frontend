@@ -29,10 +29,10 @@ export const StyledTd = styled.td`
   width: 1%;
   padding: 1.5rem 0;
   font-size: 1em;
-  color: ${({theme}) => theme.colors.text};
+  color: ${({ theme }) => theme.colors.text};
 `
 export const StyledTh = styled.th`
-width: 1%;
-padding: 1rem 0;
-font-size: 1.5em;
+  width: 1%;
+  padding: 1rem 0;
+  font-size: 1.5em;
 `

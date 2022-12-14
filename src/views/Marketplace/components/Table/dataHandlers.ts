@@ -38,13 +38,13 @@ const dataHandlers = (data) => {
   const details = {}
   data.map((d) => {
     return Object.entries(d).map((entry) => {
-      switch(entry[0].toLowerCase()){
+      switch (entry[0].toLowerCase()) {
         case 'event':
-            details[entry[0]] =  entry[1] === 'transfer' ? 'true': 'false' 
-            return ''
-        default: 
-        details[entry[0]] =  entry[1] === 'transfer' ? 'true': 'false' 
-        return ''
+          details[entry[0]] = entry[1] === 'transfer' ? 'true' : 'false'
+          return ''
+        default:
+          details[entry[0]] = entry[1] === 'transfer' ? 'true' : 'false'
+          return ''
       }
     })
   })
