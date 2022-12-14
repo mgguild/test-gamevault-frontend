@@ -2,30 +2,38 @@ import { Flex, Text } from '@metagg/mgg-uikit'
 import useTheme from 'hooks/useTheme'
 import React from 'react'
 import styled from 'styled-components'
+import * as icons from 'react-feather'
+import IMG from 'assets/marketplace/1.png'
 import { TextWrap } from 'views/Marketplace/styled'
 import Button from '../Button'
+import { Icon, IconName } from '../Feathers'
 
-const Card: React.FC = () => {
+interface Props {
+  title: string
+  description: string
+  icn?: IconName
+}
+
+const Card: React.FC<Props> = ({ title, description, icn }) => {
   const { theme } = useTheme()
+  const placeholder = <Icon name={icn} />
   return (
     <Container>
       <Wrapper>
-        <Flex flexDirection='column' alignItems='center'>
-          Image
+      {placeholder}
+        <Flex flexDirection="column" alignItems="center" justifyContent='flex-start' style={{height: '100%'}} marginTop='1rem'>
           <TextWrap textAlign="center">
             <Text fontSize="2em" bold color={theme.colors.MGG_accent2}>
-              Create
-            </Text>
+              {title}
+            </Text> 
+          </TextWrap>
+          <TextWrap textAlign='center'>
+          <Text fontSize="1em">{description}</Text>
           </TextWrap>
         </Flex>
-        <TextWrap textAlign="center">
-          <Text fontSize="1em">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur cupiditate possimus sequi itaque,
-            repudiandae cum voluptas corrupti eveniet ex! Odio ipsum delectus blanditiis nisi impedit nihil consequatur,
-            maiores dolore. Nemo?
-          </Text>
-          <Button bg={theme.colors.MGG_accent2} margin='15px 0px'>Lorem Ipsum</Button>
-        </TextWrap>
+          <Button bg={theme.colors.MGG_accent2} margin="0.5rem 0px">
+            Lorem Ipsum
+          </Button>
       </Wrapper>
     </Container>
   )
@@ -34,24 +42,26 @@ const Card: React.FC = () => {
 export default Card
 
 const Wrapper = styled.div`
-  & > * {
-    margin: 10px 0px;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  align-items: center;  
 `
 
 const Container = styled.div`
   border: 1px inset ${(props) => props.theme.colors.MGG_accent2};
-  background-color: ${props => props.theme.isDark? '#0c012c' : props.theme.colors.MGG_container};
+  background-color: ${(props) => (props.theme.isDark ? '#0c012c' : props.theme.colors.MGG_container)};
   margin: 1rem 0;
   padding: 1.5rem;
-  min-height: 200px;
-  width: 280px;
+  height: 100%;
+  // width: 280px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 
-  ${props => props.theme.mediaQueries.lg} {
-    margin: 1rem;
-  }
+  // ${(props) => props.theme.mediaQueries.lg} {
+  //   margin: 1rem;
+  // }
 `
