@@ -9,16 +9,16 @@ const Container = styled.div`
 export default Container;
 
 export const CardContainer = styled(Container)`
-  padding: 1.5rem;
-  min-width: 300px;
+  padding: 2rem;
+  min-width: 350px;
   
   background-color: ${({theme}) => theme.isDark? '#0c012c' : theme.colors.MGG_mainBG};
   & > ${Flex} {
     margin: 1.5rem 0rem;
   }
-  ${({theme}) => theme.mediaQueries.lg} {
-    max-width: 400px;
-  }
+  // ${({theme}) => theme.mediaQueries.lg} {
+  //   max-width: 400px;
+  // }
 `
 
 export const FontResponsive = styled.div`
