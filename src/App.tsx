@@ -159,10 +159,6 @@ const App: React.FC = () => {
               }}
             />
 
-           <!-- <Route path="/marketplace" exact>
-              <ComingSoon title="Marketplace" />
-            </Route> -->
-
             <Route path="/staking">
               <Redirect to="/farms" />
             </Route>
