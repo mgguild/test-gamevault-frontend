@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js'
 import { partition } from 'lodash'
-import { ThemeContext } from 'styled-components'
+import styled, { ThemeContext } from 'styled-components'
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useLocation, useRouteMatch } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
-import { Grid } from '@mui/material'
+import { Grid, Modal, Box } from '@mui/material'
 import { Farm } from 'state/types'
 import { FarmCategory, PoolCategory, PoolConfig } from 'config/constants/types'
 import {
@@ -44,6 +44,7 @@ const Gamefi: React.FC = () => {
   const { pathname } = useLocation()
   const [sortBy, setSortBy] = useState('')
   const [isLiveVaults, setLiveVaults] = useState('')
+  const [open, setOpen] = useState(true)
 
   const handleIsLiveVaults = (value: string) => {
     setLiveVaults(value)

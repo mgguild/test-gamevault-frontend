@@ -121,6 +121,7 @@ export interface PoolConfig {
   isDepositDisabled?: boolean
   isWithdrawDisabled?: boolean
   UIProps?: UIProps
+  endDate?: string
   fixedAprConfigs?: {
     tiers: Tiers[]
     maxFine: number
