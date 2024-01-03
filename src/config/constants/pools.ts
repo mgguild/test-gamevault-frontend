@@ -40,6 +40,7 @@ const pools: PoolConfig[] = [
     sortOrder: 998,
     isFinished: false,
     UIProps: farmsUIProps.PBmggMgg,
+    endDate: 'March 31, 2024',
     fixedAprConfigs: {
       tiers: [
         {
