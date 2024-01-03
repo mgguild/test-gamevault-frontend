@@ -6,7 +6,7 @@ import { BASE_SWAP_URL } from 'config'
 import { useWeb3React } from '@web3-react/core'
 import { getImageUrlFromToken } from 'utils/assetFetch'
 import { Flex, Heading, Link, Text } from '@metagg/mgg-uikit'
-import { ThemeContext } from 'styled-components'
+import styled, { ThemeContext } from 'styled-components'
 import { useFetchPublicPoolsData, usePools } from 'state/hooks'
 import { getAddress } from 'utils/addressHelpers'
 import { getBalanceNumber } from 'utils/formatBalance'
@@ -254,6 +254,15 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
             style={{ backgroundColor: theme.colors.MGG_mainBG, maxWidth: '40rem', height: '31.7216875', zIndex: 3 }}
             pd="1rem"
           >
+            { currentPool.endDate ?
+              <>
+                <Text style={{color: 'red'}}>
+                   Please be aware that the staking your MGG Tokens in our Pool-Based Staking will end on {currentPool.endDate}.
+                </Text>
+              </>
+              :
+              <></>
+            }
             <Heading style={{ fontSize: '1.875rem' }}>
               {currentPool.stakingToken.symbol} - {currentPool.earningToken.symbol} Pool Based Farm
             </Heading>

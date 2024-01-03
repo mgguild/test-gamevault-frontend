@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js'
 import { partition } from 'lodash'
-import { ThemeContext } from 'styled-components'
+import styled, { ThemeContext } from 'styled-components'
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useLocation, useRouteMatch } from 'react-router-dom'
 import { useWeb3React } from '@web3-react/core'
-import { Grid } from '@mui/material'
+import { Grid, Modal, Box } from '@mui/material'
 import { Farm } from 'state/types'
 import { FarmCategory, PoolCategory, PoolConfig } from 'config/constants/types'
 import {
@@ -35,6 +35,34 @@ import PoolCard from './components/Cards/Pool'
 import Select from './components/Select'
 import { MAINNET_CHAIN_ID } from '../../config'
 
+const CenterFrame = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Container = styled.div`
+  background-color: #101010;
+  color: white;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem;
+  border-radius: 10px;
+  min-width: 15rem;
+  width: 35rem;
+  gap: 1.5rem;
+  margin: 1rem;
+  height: 10vh;
+`;
+
 const Gamefi: React.FC = () => {
   const theme = useContext(ThemeContext)
   const [query, setQuery] = useState('')
@@ -44,6 +72,7 @@ const Gamefi: React.FC = () => {
   const { pathname } = useLocation()
   const [sortBy, setSortBy] = useState('')
   const [isLiveVaults, setLiveVaults] = useState('')
+  const [open, setOpen] = useState(true)
 
   const handleIsLiveVaults = (value: string) => {
     setLiveVaults(value)
@@ -370,6 +399,33 @@ const Gamefi: React.FC = () => {
   }
   return (
     <>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        onBackdropClick={() => {setOpen(false); console.log('background click!')}}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        disableAutoFocus
+      >
+        <Box sx={{
+          position: 'relative',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          "user-select": 'none'
+        }}>
+          <CenterFrame>
+            <Container>
+              <Heading style={{color: 'red', fontStyle: 'italic'}}>
+               Please be aware that the staking your MGG Tokens in our Pool-Based Staking will end on March 31, 2024.
+              </Heading>
+              <FilterButton onClick={() => setOpen(false)}>
+                <Text>Ok</Text>
+              </FilterButton>
+            </Container>
+          </CenterFrame>
+        </Box>
+      </Modal>
       <VaultBanner />
       <Layout>
         <BodySection>
