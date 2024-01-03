@@ -35,7 +35,7 @@ const CenterFrame = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const Container = styled.div`
   background-color: #101010;
@@ -51,7 +51,7 @@ const Container = styled.div`
   gap: 1.5rem;
   margin: 1rem;
   height: 10vh;
-`;
+`
 
 const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tblColumns }) => {
   const [dayDuration, setDayDuration] = useState<number>(0)
@@ -285,30 +285,37 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
             style={{ backgroundColor: theme.colors.MGG_mainBG, maxWidth: '40rem', height: '31.7216875', zIndex: 3 }}
             pd="1rem"
           >
-            { currentPool.endDate ?
+            {currentPool.endDate ? (
               <>
-                <Text style={{color: 'red'}}>
-                   Please be aware that the staking of MGG Tokens in our Pool-Based Staking will end on {currentPool.endDate}.
+                <Text style={{ color: 'red' }}>
+                  Please be aware that the staking of MGG Tokens in our Pool-Based Staking will end on{' '}
+                  {currentPool.endDate}.
                 </Text>
                 <Modal
                   open={open}
                   onClose={() => setOpen(false)}
-                  onBackdropClick={() => {setOpen(false); console.log('background click!')}}
+                  onBackdropClick={() => {
+                    setOpen(false)
+                    console.log('background click!')
+                  }}
                   aria-labelledby="modal-modal-title"
                   aria-describedby="modal-modal-description"
                   disableAutoFocus
                 >
-                  <Box sx={{
-                    position: 'relative',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    "user-select": 'none'
-                  }}>
+                  <Box
+                    sx={{
+                      position: 'relative',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      'user-select': 'none',
+                    }}
+                  >
                     <CenterFrame>
                       <Container>
-                        <Heading style={{color: 'red', fontStyle: 'italic'}}>
-                        Please be aware that the staking of MGG Tokens in our Pool-Based Staking will end on March 31, 2024.
+                        <Heading style={{ color: 'red', fontStyle: 'italic' }}>
+                          Please be aware that the staking of MGG Tokens in our Pool-Based Staking will end on March 31,
+                          2024.
                         </Heading>
                         <FilterButton onClick={() => setOpen(false)}>
                           <Text>Ok</Text>
@@ -318,9 +325,9 @@ const RenderPool: React.FC<{ farmID: string; tblColumns: any }> = ({ farmID, tbl
                   </Box>
                 </Modal>
               </>
-              :
+            ) : (
               <></>
-            }
+            )}
             <Heading style={{ fontSize: '1.875rem' }}>
               {currentPool.stakingToken.symbol} - {currentPool.earningToken.symbol} Pool Based Farm
             </Heading>
